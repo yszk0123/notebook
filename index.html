@@ -6,6 +6,20 @@
   </head>
   <body>
     Counter
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyA1gaf9xQvqM7Vg9RUJgMN3hsCka5eu1t4",
+        authDomain: "counter-64673.firebaseapp.com",
+        databaseURL: "https://counter-64673.firebaseio.com",
+        projectId: "counter-64673",
+        storageBucket: "counter-64673.appspot.com",
+        messagingSenderId: "61000756567"
+      };
+      firebase.initializeApp(config);
+    </script>
     <script src="./src/index.ts"></script>
   </body>
 </html>
