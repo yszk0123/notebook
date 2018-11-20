@@ -1,0 +1,22 @@
+{
+  "name": "counter",
+  "version": "0.1.0",
+  "main": "index.js",
+  "homepage": "https://yszk0123-sandbox.github.io/counter",
+  "repository": "ssh://git@github.com/yszk0123-sandbox/counter.git",
+  "author": "Yuji Suzuki <y0suzuki0123@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development parcel index.html",
+    "build": "cross-env NODE_ENV=production parcel build index.html --public-url /counter",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "gh-pages": "^2.0.1",
+    "parcel-bundler": "^1.10.3",
+    "prettier": "^1.15.2",
+    "typescript": "^3.1.6"
+  }
+}
