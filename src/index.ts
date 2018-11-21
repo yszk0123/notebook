@@ -45,11 +45,11 @@ async function main() {
     userRef.set({
       accessToken,
       displayName,
-      uid
+      uid,
     });
   });
 }
 
 // main().catch(console.error);
 
-render();
+render().catch(console.error);

@@ -10,13 +10,19 @@ const enum ColorPalette {
   WHITE = '#FFFFFF',
 }
 
+export const enum FontSize {
+  SMALL = 'small',
+  DEFAULT = 'default',
+  LARGE = 'large',
+}
+
 export interface ThemeInterface {
   headerColorBg: ColorPalette;
   headerColorFg: ColorPalette;
-  fontSize: {
-    small: string;
-    default: string;
-    large: string;
+  fontSize: Record<FontSize, string>;
+  fontWeight: {
+    normal: string,
+    bold: string,
   };
   space: number;
 }
@@ -25,9 +31,13 @@ export const theme: ThemeInterface = {
   headerColorBg: ColorPalette.PRIMARY,
   headerColorFg: ColorPalette.WHITE,
   fontSize: {
-    small: '1.2rem',
-    default: '1.6rem',
-    large: '2rem',
+    [FontSize.SMALL]: '1.2rem',
+    [FontSize.DEFAULT]: '1.6rem',
+    [FontSize.LARGE]: '2rem',
   },
+  fontWeight: {
+    normal: 'normal',
+    bold: 'bold',
+  };
   space: 8,
 };

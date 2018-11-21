@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { HistoryContext } from './HistoryContext';
+import { NavLink } from './NavLink';
 import { styled } from './styled-components';
+import { getCurrentPath } from './utils/getCurrentPath';
 
 const StyledGlobalNavigation = styled.header`
   display: flex;
@@ -7,7 +10,6 @@ const StyledGlobalNavigation = styled.header`
   align-items: center;
   background: ${({ theme }) => theme.headerColorBg};
   color: ${({ theme }) => theme.headerColorFg};
-  font-size: ${({ theme }) => theme.fontSize.large};
   padding: ${({ theme }) => theme.space}px;
 `;
 
@@ -18,6 +20,7 @@ const Left = styled.div`
 
 const Icon = styled.div`
   margin: 0 ${({ theme }) => theme.space}px;
+  font-weight: ${({ theme }) => theme.fontWeight.normal};
 `;
 
 const Right = styled.div`
@@ -26,7 +29,7 @@ const Right = styled.div`
   min-width: 100px;
 `;
 
-const Item = styled.div`
+const Link = styled(NavLink)`
   & + & {
     margin-left: ${({ theme }) => theme.space}px;
   }
@@ -35,16 +38,24 @@ const Item = styled.div`
 interface Props {}
 
 export const GlobalNavigation: React.FunctionComponent<Props> = () => {
+  const history = useContext(HistoryContext);
+  if (!history) {
+    throw new Error('history must be provided');
+  }
+  const currentPath = getCurrentPath(history);
+
   return (
     <StyledGlobalNavigation>
       <Left>
-        <Item>
+        <Link path="/">
           <Icon>Icon</Icon>
-        </Item>
-        <Item>A</Item>
-        <Item>B</Item>
+        </Link>
+        <Link path="/">Home</Link>
+        <Link path="/foo">Foo</Link>
       </Left>
-      <Right>C</Right>
+      <Right>
+        <Link path="/logout">Logout</Link>
+      </Right>
     </StyledGlobalNavigation>
   );
 };
