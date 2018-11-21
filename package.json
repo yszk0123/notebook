@@ -13,6 +13,9 @@
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
+    "@types/react": "^16.7.6",
+    "@types/react-dom": "^16.0.9",
+    "@types/styled-components": "^4.1.0",
     "cross-env": "^5.2.0",
     "gh-pages": "^2.0.1",
     "parcel-bundler": "^1.10.3",
@@ -21,6 +24,9 @@
   },
   "dependencies": {
     "firebase": "^5.5.8",
-    "firebaseui": "^3.4.1"
+    "firebaseui": "^3.4.1",
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2",
+    "styled-components": "^4.1.1"
   }
 }

@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import 'firebaseui/dist/firebaseui.css';
 import { config } from './config';
 import { startLogin } from './login';
+import { render } from './render';
 
 class User {
   constructor(public displayName: string) {}
@@ -49,4 +50,6 @@ async function main() {
   });
 }
 
-main().catch(console.error);
+// main().catch(console.error);
+
+render();
