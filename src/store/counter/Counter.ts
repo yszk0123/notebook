@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { ActionCreators, createAction, EffectCreator } from '../../redux';
-import { AppState } from '../app/AppType';
-import { CounterState } from './CounterType';
+import { AppState } from '../app/app-type';
+import { CounterState } from './counter-type';
 
 /**
  * Action types

@@ -1,7 +1,7 @@
 import { combineReducers, Reducer } from 'redux';
 import { Dispatch } from '../../redux';
 import { CounterAction, counterReducer } from '../counter';
-import { AppState } from './AppType';
+import { AppState } from './app-type';
 
 export type AppAction = CounterAction;
 
