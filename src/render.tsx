@@ -15,7 +15,6 @@ import { theme } from './theme';
 export async function render() {
   const router = new UniversalRouter(routes);
   const history = createHistory();
-
   const store = createStore();
 
   history.listen(onLocationChange);
