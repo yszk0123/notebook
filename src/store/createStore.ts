@@ -39,7 +39,6 @@ if (
   window.store
 ) {
   (module as any).hot.accept(() => {
-    console.log('replaced!');
     window.store.replaceReducer(require('./app/App').appReducer);
   });
 }
