@@ -42,7 +42,7 @@ export const counterEffects = { incrementByTen };
  * Reducers
  */
 
-const initialState: CounterState = { count: 30 };
+const initialState: CounterState = { count: 0 };
 
 export const counterReducer: Reducer<CounterState, CounterAction> = (
   state = initialState,
