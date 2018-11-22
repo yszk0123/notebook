@@ -8,7 +8,7 @@ import useRedux from '../../store/useRedux';
 interface Props {}
 
 export const Counter: React.FunctionComponent<Props> = () => {
-  const [{ count }, dispatch] = useRedux(mapState);
+  const [{ count, loading }, dispatch] = useRedux(mapState);
 
   const increment = useCallback(() => dispatch(counterActions.increment()), [
     dispatch,
@@ -20,6 +20,7 @@ export const Counter: React.FunctionComponent<Props> = () => {
 
   return (
     <>
+      {loading ? <div>Loading...</div> : null}
       <Text>Count: {count}</Text>
       <button onClick={increment}>Increment</button>
       <button onClick={incrementByTen}>Increment by 10</button>
@@ -29,8 +30,10 @@ export const Counter: React.FunctionComponent<Props> = () => {
 
 function mapState(state: AppState) {
   const { count } = state.counter;
+  const { loading } = state.global;
 
   return {
     count,
+    loading,
   };
 }

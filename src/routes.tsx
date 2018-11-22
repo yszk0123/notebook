@@ -1,10 +1,14 @@
+import * as firebase from 'firebase/app';
 import React from 'react';
-import { Counter } from './pages/counter';
 import { Hello } from './pages/hello';
+import { Login } from './pages/login';
 import { NotFound } from './pages/not-found';
+import { AppDispatch } from './store/app/app-type';
 
 interface Context {
+  app: firebase.app.App;
   pathname: string;
+  dispatch: AppDispatch;
 }
 
 interface Page {
@@ -13,7 +17,7 @@ interface Page {
 
 interface Route {
   path: string;
-  action(context: Context): Page;
+  action(context: Context): Page | Promise<Page>;
 }
 
 export const routes: Route[] = [
@@ -29,7 +33,15 @@ export const routes: Route[] = [
     path: '/counter',
     action(context) {
       return {
-        content: <Counter />,
+        content: <div />,
+      };
+    },
+  },
+  {
+    path: '/login',
+    async action(context) {
+      return {
+        content: <Login />,
       };
     },
   },

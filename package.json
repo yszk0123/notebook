@@ -7,10 +7,11 @@
   "author": "Yuji Suzuki <y0suzuki0123@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=development parcel index.html",
+    "start": "cross-env NODE_ENV=development parcel index.html -p 3000",
     "build": "cross-env NODE_ENV=production parcel build index.html --public-url /counter",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "lint": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/history": "^4.7.2",

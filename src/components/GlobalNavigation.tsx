@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { HistoryContext } from '../HistoryContext';
+import { AppState } from '../store/app/app-type';
+import useRedux from '../store/useRedux';
 import { styled } from '../styled-components';
 import { getCurrentPath } from '../utils/getCurrentPath';
 import { NavLink } from './NavLink';
+import { Text } from './Text';
 
 const StyledGlobalNavigation = styled.header`
   display: flex;
@@ -42,6 +45,9 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
   if (!history) {
     throw new Error('history must be provided');
   }
+
+  const [{ loading, user }] = useRedux(mapState);
+
   const currentPath = getCurrentPath(history);
 
   return (
@@ -55,8 +61,28 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
         <Link path="/foo">Foo</Link>
       </Left>
       <Right>
-        <Link path="/logout">Logout</Link>
+        {loading ? (
+          <Link path="/login">Login</Link>
+        ) : (
+          <>
+            {user && (
+              <Text>
+                {user.displayName} ({user.visitCount})
+              </Text>
+            )}
+            <Link path="/logout">Logout</Link>
+          </>
+        )}
       </Right>
     </StyledGlobalNavigation>
   );
 };
+
+function mapState(state: AppState) {
+  const { loading, user } = state.global;
+
+  return {
+    loading,
+    user,
+  };
+}
