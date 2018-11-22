@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { HistoryContext } from './HistoryContext';
+import { HistoryContext } from '../HistoryContext';
+import { styled } from '../styled-components';
+import { getCurrentPath } from '../utils/getCurrentPath';
 import { NavLink } from './NavLink';
-import { styled } from './styled-components';
-import { getCurrentPath } from './utils/getCurrentPath';
 
 const StyledGlobalNavigation = styled.header`
   display: flex;
