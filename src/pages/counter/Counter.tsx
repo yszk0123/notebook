@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { Text } from '../../components/Text';
 import { AppState } from '../../store/app/app-type';
-import { counterActions, counterEffects } from '../../store/counter';
+import { counterEffects } from '../../store/counter';
+import { counterActions } from '../../store/counter/counter-type';
 import useRedux from '../../store/useRedux';
 
 interface Props {}

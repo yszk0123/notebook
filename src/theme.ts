@@ -21,8 +21,8 @@ export interface ThemeInterface {
   headerColorFg: ColorPalette;
   fontSize: Record<FontSize, string>;
   fontWeight: {
-    normal: string,
-    bold: string,
+    normal: string;
+    bold: string;
   };
   space: number;
 }
@@ -38,6 +38,6 @@ export const theme: ThemeInterface = {
   fontWeight: {
     normal: 'normal',
     bold: 'bold',
-  };
+  },
   space: 8,
 };

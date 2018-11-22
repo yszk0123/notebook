@@ -1,8 +1,7 @@
 import { useContext } from 'react';
 // @ts-ignore
 import { ReactReduxContext } from 'react-redux';
-import { AppDispatch } from './app';
-import { AppState } from './app/app-type';
+import { AppDispatch, AppState } from './app/app-type';
 
 export function useRedux<T>(
   mapState: (state: AppState) => T,
