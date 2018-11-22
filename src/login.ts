@@ -1,5 +1,5 @@
-import * as firebase from 'firebase/app';
-import * as firebaseui from 'firebaseui';
+import firebase from 'firebase/app';
+import firebaseui from 'firebaseui';
 
 export function startLogin(app: firebase.app.App) {
   const authUiConfig = {
@@ -8,7 +8,7 @@ export function startLogin(app: firebase.app.App) {
       // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID
+      firebase.auth.GithubAuthProvider.PROVIDER_ID,
       // firebase.auth.EmailAuthProvider.PROVIDER_ID,
       // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
       // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
@@ -16,7 +16,7 @@ export function startLogin(app: firebase.app.App) {
     tosUrl: '/terms',
     privacyPolicyUrl() {
       window.location.assign('/privacy');
-    }
+    },
   };
 
   const authUi = new firebaseui.auth.AuthUI(app.auth());

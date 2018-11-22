@@ -6,48 +6,60 @@ import { config } from './config';
 import { startLogin } from './login';
 import { render } from './render';
 
-class User {
-  constructor(public displayName: string) {}
+interface UserParam {
+  displayName: string;
+  visitCount: number;
 }
 
-function start(user: User) {
-  const div = document.createElement('div');
-  div.innerText = `Hello, ${user.displayName}!`;
-  document.body.appendChild(div);
+class User {
+  public displayName: string;
+  public visitCount: number;
+  constructor(param: UserParam) {
+    this.displayName = param.displayName;
+    this.visitCount = param.visitCount;
+  }
+}
+
+function login(app: firebase.app.App): Promise<User> {
+  return new Promise((resolve, reject) => {
+    startLogin(app);
+
+    firebase.auth().onAuthStateChanged(async user => {
+      if (!user) {
+        return reject(new Error('user not found'));
+      }
+
+      const db = firebase.firestore();
+      db.settings({ timestampsInSnapshots: true });
+
+      const usersRef = await db.collection('users');
+      const userRef = usersRef.doc(user.uid);
+      const doc = await userRef.get();
+      if (doc.exists) {
+        const data = doc.data();
+        if (!data) {
+          return;
+        }
+        const user = new User(data as any);
+        await userRef.update({ visitCount: user.visitCount + 1 });
+        return resolve(user);
+      }
+
+      const accessToken = await user.getIdToken();
+      const { displayName, uid } = user;
+      userRef.set({
+        accessToken,
+        displayName,
+        uid,
+        visitCount: 1,
+      });
+    });
+  });
 }
 
 async function main() {
   const app = firebase.initializeApp(config.firebase);
-
-  startLogin(app);
-  firebase.auth().onAuthStateChanged(async user => {
-    if (!user) {
-      return;
-    }
-
-    const db = firebase.firestore();
-    db.settings({ timestampsInSnapshots: true });
-
-    const usersRef = await db.collection('users');
-    const userRef = usersRef.doc(user.uid);
-    const doc = await userRef.get();
-    if (doc.exists) {
-      const data = doc.data();
-      if (!data) {
-        return;
-      }
-      start(new User(data.displayName));
-      return;
-    }
-
-    const accessToken = await user.getIdToken();
-    const { displayName, uid } = user;
-    userRef.set({
-      accessToken,
-      displayName,
-      uid,
-    });
-  });
+  const user = await login(app);
 }
 
 // main().catch(console.error);

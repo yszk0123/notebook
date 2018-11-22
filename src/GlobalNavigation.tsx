@@ -51,6 +51,7 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
           <Icon>Icon</Icon>
         </Link>
         <Link path="/">Home</Link>
+        <Link path="/counter">Counter</Link>
         <Link path="/foo">Foo</Link>
       </Left>
       <Right>
