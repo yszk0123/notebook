@@ -5,7 +5,7 @@ import { Action as ReduxAction, AnyAction } from 'redux';
 
 export * from 'redux';
 
-export type ActionCreators<
+export type GetAction<
   T extends { [key: string]: (...args: any[]) => any }
 > = ReturnType<T[keyof T]>;
 

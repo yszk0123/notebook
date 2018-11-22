@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { ActionCreators, createAction, EffectCreator } from '../../redux';
+import { createAction, EffectCreator, GetAction } from '../../redux';
 import { AppState } from '../app/app-type';
 import { CounterState } from './counter-type';
 
@@ -23,7 +23,7 @@ export const counterActions = {
   })),
 };
 
-export type CounterAction = ActionCreators<typeof counterActions>;
+export type CounterAction = GetAction<typeof counterActions>;
 
 /**
  * Effect creators
