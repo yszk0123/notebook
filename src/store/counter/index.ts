@@ -1,1 +1,2 @@
-export { counterEffects, counterReducer } from './Counter';
+export { counterEffects } from './CounterEffect';
+export { counterReducer } from './CounterReducer';
