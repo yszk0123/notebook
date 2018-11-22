@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 // @ts-ignore
 import { ReactReduxContext } from 'react-redux';
-import { AppDispatch } from './app/App';
+import { AppDispatch } from './app';
 import { AppState } from './app/AppType';
 
 export function useRedux<T>(

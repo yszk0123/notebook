@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore as createReduxStore, Store } from 'redux';
 import thunk from 'redux-thunk';
-import { AppAction, appReducer } from './app/App';
+import { AppAction, appReducer } from './app';
 import { AppState } from './app/AppType';
 
 declare global {
@@ -39,6 +39,6 @@ if (
   window.store
 ) {
   (module as any).hot.accept(() => {
-    window.store.replaceReducer(require('./app/App').appReducer);
+    window.store.replaceReducer(require('./app').appReducer);
   });
 }
