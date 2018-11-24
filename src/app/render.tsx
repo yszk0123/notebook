@@ -34,8 +34,22 @@ function init() {
   return app;
 }
 
+function resolveLocation(location: Location): string {
+  const qs = location.search
+    .slice(1)
+    .split('&')
+    .find(s => s.startsWith('redirect='));
+  if (!qs) {
+    return location.pathname;
+  }
+
+  return decodeURIComponent(qs.replace('redirect=', ''));
+}
+
 export async function render() {
-  const router = new UniversalRouter(appRoutes);
+  const router = new UniversalRouter(appRoutes, {
+    baseUrl: process.env.APP_BASE_URL,
+  });
   const history = createHistory();
   const store = createStore();
   const app = init();
@@ -52,9 +66,14 @@ export async function render() {
   }, console.error);
 
   async function onLocationChange(location: Location) {
+    const pathname = resolveLocation(location);
+    if (pathname !== location.pathname) {
+      history.replace(pathname);
+    }
+
     const context = {
       app,
-      pathname: location.pathname,
+      pathname,
       dispatch: store.dispatch,
     };
 

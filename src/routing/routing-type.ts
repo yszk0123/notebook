@@ -8,7 +8,8 @@ export interface Page {
 
 export interface Route {
   path: string;
-  action(context: AppContext): Page | Promise<Page>;
+  action?(context: AppContext): Page | Promise<Page>;
+  children?: Route[];
 }
 
 export const enum RoutingActionType {

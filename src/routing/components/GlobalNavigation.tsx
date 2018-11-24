@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { AppState } from '../../app/app-type';
 import useRedux from '../../app/useRedux';
 import { Text } from '../../components/Text';
+import { routingPaths } from '../../config/RoutingConfig';
 import { HistoryContext } from '../../HistoryContext';
 import { styled } from '../../styled-components';
 import { getCurrentPath } from '../utils/getCurrentPath';
@@ -53,16 +54,16 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
   return (
     <StyledGlobalNavigation>
       <Left>
-        <Link path="/">
+        <Link path={routingPaths.home}>
           <Icon>Icon</Icon>
         </Link>
-        <Link path="/">Home</Link>
-        <Link path="/counter">Counter</Link>
-        <Link path="/foo">Foo</Link>
+        <Link path={routingPaths.home}>Home</Link>
+        <Link path={routingPaths.counter}>Counter</Link>
+        <Link path={routingPaths.notFound}>Foo</Link>
       </Left>
       <Right>
         {loading ? (
-          <Link path="/login">Login</Link>
+          <Link path={routingPaths.login}>Login</Link>
         ) : (
           <>
             {user && (
@@ -70,7 +71,7 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
                 {user.displayName} ({user.visitCount})
               </Text>
             )}
-            <Link path="/logout">Logout</Link>
+            <Link path={routingPaths.logout}>Logout</Link>
           </>
         )}
       </Right>
