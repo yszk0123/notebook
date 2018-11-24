@@ -1,0 +1,20 @@
+{
+  "name": "Notebook",
+  "short_name": "NB",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Notebook",
+  "icons": [
+    {
+      "src": "/assets/48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -7,11 +7,11 @@
   "author": "Yuji Suzuki <y0suzuki0123@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=development parcel index.pug -p 3000",
+    "start": "cross-env NODE_ENV=development parcel ./src/index.pug -p 3000",
     "start:editor-example": "cross-env NODE_ENV=development parcel editor-example.html -p 3000",
     "prebuild": "rm -rf dist",
     "build": "run-p build:*",
-    "build:app": "cross-env NODE_ENV=production parcel build index.pug --public-url $APP_BASE_URL",
+    "build:app": "cross-env NODE_ENV=production parcel build ./src/index.pug --public-url $APP_BASE_URL",
     "build:404": "cross-env NODE_ENV=production parcel build 404.pug --public-url $APP_BASE_URL",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist",
