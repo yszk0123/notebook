@@ -4,6 +4,7 @@ import { Route } from '../../routing/routing-type';
 export const noteRoutes: Route[] = [
   {
     path: '/note',
+    title: 'Note',
     async action(context) {
       const { Note } = await import('./components/Note');
 
