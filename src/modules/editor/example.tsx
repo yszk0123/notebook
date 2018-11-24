@@ -11,7 +11,7 @@ export async function render() {
 
   ReactDOM.render(
     <>
-      <Editor onPersistData={noop} />
+      <Editor onPersistData={noop} content={null} />
       <ResetStyle />
     </>,
     mountPoint,
