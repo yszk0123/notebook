@@ -3,6 +3,7 @@ import { mapForNullable } from 'option-t/lib/Nullable/map';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { AppState } from '../../../app/app-type';
 import useRedux from '../../../app/useRedux';
+import { Button } from '../../../components/Button';
 import { Text } from '../../../components/Text';
 import { Editor } from '../../../modules/editor';
 import { EditorMethods } from '../../../modules/editor/components/Editor';
@@ -27,14 +28,6 @@ const StyledNote = styled.div`
 
 const StyledEditor = styled(Editor)<{ readonly: boolean }>`
   opacity: ${({ readonly }) => (readonly ? 0.5 : 1)};
-`;
-
-const SaveButton = styled.button`
-  background: ${({ theme }) => theme.buttonColorBg};
-  border-radius: 4px;
-  border: none;
-  color: ${({ theme }) => theme.buttonColorFg};
-  padding: ${({ theme }) => theme.space}px;
 `;
 
 const Footer = styled.div`
@@ -108,7 +101,7 @@ export const Note: React.FunctionComponent<Props> = () => {
         onChange={onChange}
       />
       <Footer>
-        <SaveButton onClick={onSave}>Save</SaveButton>
+        <Button onClick={onSave}>Save</Button>
         <StyledText size={FontSize.SMALL}>
           {saving ? 'saving...' : 'saved'}
         </StyledText>
