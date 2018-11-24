@@ -1,6 +1,6 @@
-import { createGlobalStyle } from '../../styled-components';
+import { createGlobalStyle } from '../styled-components';
 
-export const GlobalStyle = createGlobalStyle`
+export const ResetStyle = createGlobalStyle`
   html {
     font-size: 62.5%;
   }

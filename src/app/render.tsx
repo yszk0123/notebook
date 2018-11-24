@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Dispatch } from 'redux';
 import UniversalRouter from 'universal-router';
+import { ResetStyle } from '../components/ResetStyle';
 import { firebaseConfig } from '../config/firebaseConfig';
 import { FirebaseAppProvider } from '../FirebaseAppContext';
 import { HistoryProvider } from '../HistoryContext';
@@ -15,7 +16,6 @@ import { Page } from '../routing/routing-type';
 import { ThemeProvider } from '../styled-components';
 import { defaultTheme } from '../theme/theme';
 import { appRoutes } from './AppRoutes';
-import { GlobalStyle } from './components/GlobalStyle';
 import { Loading } from './components/Loading';
 import { createStore } from './createStore';
 
@@ -93,7 +93,7 @@ export async function render() {
               <>
                 <GlobalNavigation />
                 <Loading page={page} />
-                <GlobalStyle />
+                <ResetStyle />
               </>
             </FirebaseAppProvider>
           </Provider>
