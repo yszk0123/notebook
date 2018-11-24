@@ -19,6 +19,7 @@ export const enum FontSize {
 export interface ThemeInterface {
   headerColorBg: ColorPalette;
   headerColorFg: ColorPalette;
+  loadingColorFg: ColorPalette;
   fontSize: Record<FontSize, string>;
   fontWeight: {
     normal: string;
@@ -30,6 +31,7 @@ export interface ThemeInterface {
 export const theme: ThemeInterface = {
   headerColorBg: ColorPalette.PRIMARY,
   headerColorFg: ColorPalette.WHITE,
+  loadingColorFg: ColorPalette.SECONDARY,
   fontSize: {
     [FontSize.SMALL]: '1.2rem',
     [FontSize.DEFAULT]: '1.6rem',

@@ -8,6 +8,7 @@ import { Dispatch } from 'redux';
 import UniversalRouter from 'universal-router';
 import { GlobalNavigation } from './components/GlobalNavigation';
 import { GlobalStyle } from './components/GlobalStyle';
+import { Loading } from './components/Loading';
 import { config } from './config';
 import { FirebaseAppProvider } from './FirebaseAppContext';
 import { HistoryProvider } from './HistoryContext';
@@ -69,7 +70,7 @@ export async function render() {
             <FirebaseAppProvider value={app}>
               <>
                 <GlobalNavigation />
-                {content}
+                <Loading>{content}</Loading>
                 <GlobalStyle />
               </>
             </FirebaseAppProvider>
