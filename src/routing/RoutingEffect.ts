@@ -1,18 +1,17 @@
 import * as firebase from 'firebase/app';
+import { isNotNull, Nullable } from 'option-t/lib/Nullable';
 import { AppState } from '../app/app-type';
 import { EffectCreator } from '../redux';
+import { unwrapDocumentSnapshot } from '../utils/unwrapDocumentSnapshot';
 import { RoutingAction, routingActions } from './routing-type';
 
-type RoutingEffectCreator<Args extends any[] = []> = EffectCreator<
-  AppState,
-  RoutingAction,
-  Args
->;
+type RoutingEffectCreator<Args> = EffectCreator<AppState, RoutingAction, Args>;
 
 interface UserParam {
-  displayName?: string;
-  visitCount?: number;
-  uid?: string;
+  accessToken: string;
+  displayName: Nullable<string>;
+  visitCount: number;
+  uid: string;
 }
 
 class User {
@@ -30,29 +29,29 @@ async function loginUser(user: firebase.User): Promise<User | null> {
   const db = firebase.firestore();
   db.settings({ timestampsInSnapshots: true });
 
-  const usersRef = await db.collection('users');
+  const usersRef = db.collection('users');
   const userRef = user.uid ? usersRef.doc(user.uid) : usersRef.doc();
-  const doc = await userRef.get();
-  if (doc.exists) {
-    const data = doc.data();
-    if (!data) {
-      return null;
+
+  {
+    const doc = await userRef.get();
+    const userParam = unwrapDocumentSnapshot<UserParam>(doc);
+    if (isNotNull(userParam)) {
+      const user = new User(userParam);
+      await userRef.update({ visitCount: user.visitCount + 1 });
+      return user;
     }
-    const user = new User(data as any);
-    await userRef.update({ visitCount: user.visitCount + 1 });
-    return user;
   }
 
   const accessToken = await user.getIdToken();
   const { displayName, uid } = user;
-  const data = {
+  const userParam: UserParam = {
     accessToken,
     displayName,
     uid,
     visitCount: 1,
   };
-  userRef.set(data);
-  return new User(data as any);
+  await userRef.set(userParam);
+  return new User(userParam);
 }
 
 const login: RoutingEffectCreator<

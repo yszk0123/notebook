@@ -5,22 +5,26 @@ import { Action as ReduxAction, AnyAction } from 'redux';
 
 export * from 'redux';
 
+type AnyForExtend = any;
+
 export type GetAction<
-  T extends { [key: string]: (...args: any[]) => any }
+  T extends { [key: string]: (...args: AnyForExtend[]) => AnyForExtend }
 > = ReturnType<T[keyof T]>;
 
 export type Action<T extends string, Extra extends {} = {}> = ReduxAction<T> &
   { [K in keyof Extra]: Extra[K] };
 
-type ExtraFunction<Args extends any[], R> = (...args: Args) => R;
+type ExtraFunction<Args extends AnyForExtend[], R> = (...args: Args) => R;
 
-type ActionCreator<Args extends any[], Action> = (...args: Args) => Action;
+type ActionCreator<Args, Action> = Args extends AnyForExtend[]
+  ? (...args: Args) => Action
+  : () => Action;
 
 export function createAction<A extends string>(
   type: A,
-): ActionCreator<any[], Action<A>>;
+): ActionCreator<void, Action<A>>;
 
-export function createAction<A extends string, Args extends any[], R>(
+export function createAction<A extends string, Args extends AnyForExtend[], R>(
   type: A,
   fn: ExtraFunction<Args, R>,
 ): ActionCreator<Args, Action<A, R>>;
@@ -42,9 +46,9 @@ export type Dispatch<Action extends AnyAction> = ((...args: any[]) => unknown);
 export type EffectCreator<
   State,
   Action extends AnyAction,
-  Args extends any[] = []
-> = Args extends []
-  ? () => (dispatch: Dispatch<Action>, getState: () => State) => unknown
-  : (
+  Args = void
+> = Args extends AnyForExtend[]
+  ? (
       ...args: Args
-    ) => (dispatch: Dispatch<Action>, getState: () => State) => unknown;
+    ) => (dispatch: Dispatch<Action>, getState: () => State) => unknown
+  : () => (dispatch: Dispatch<Action>, getState: () => State) => unknown;

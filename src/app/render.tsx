@@ -15,23 +15,18 @@ import { GlobalNavigation } from '../routing/components/GlobalNavigation';
 import { Page } from '../routing/routing-type';
 import { ThemeProvider } from '../styled-components';
 import { defaultTheme } from '../theme/theme';
+import { restoreValueFromGlobalForDevelopment } from '../utils/restoreValueFromGlobalForDevelopment';
 import { appRoutes } from './AppRoutes';
 import { Loading } from './components/Loading';
 import { createStore } from './createStore';
 
-declare global {
-  interface Window {
-    app: any;
-  }
-}
-
 function init() {
-  if (process.env.NODE_ENV === 'development' && window.app) {
-    return window.app;
+  if (process.env.NODE_ENV === 'development') {
+    return restoreValueFromGlobalForDevelopment('app', () => {
+      return firebase.initializeApp(firebaseConfig);
+    });
   }
-  const app = firebase.initializeApp(firebaseConfig);
-  window.app = app;
-  return app;
+  return firebase.initializeApp(firebaseConfig);
 }
 
 function resolveLocation(location: Location): string {

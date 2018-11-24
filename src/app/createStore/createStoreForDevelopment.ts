@@ -1,15 +1,15 @@
-import { unwrapOrElseFromUndefinable } from 'option-t/lib/Undefinable/unwrapOrElse';
 import { applyMiddleware, createStore as createReduxStore, Store } from 'redux';
 // @ts-ignore
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
+import { restoreValueFromGlobalForDevelopment } from '../../utils/restoreValueFromGlobalForDevelopment';
 import { AppAction, AppState } from '../app-type';
 import { appReducer } from '../AppReducer';
 
 declare global {
   interface Window {
-    store: any;
     module: any;
+    store: any;
   }
 }
 
@@ -18,13 +18,9 @@ export function createStoreForDevelopment(): Store<AppState, AppAction> {
    * Workaround for HMR with parcel
    * @see https://github.com/parcel-bundler/parcel/issues/314#issuecomment-352276559
    */
-  const store = unwrapOrElseFromUndefinable(window.store, () => {
+  return restoreValueFromGlobalForDevelopment('store', () => {
     return createReduxStore(appReducer, applyMiddleware(thunk, logger));
   });
-
-  window.store = store;
-
-  return store;
 }
 
 /**
