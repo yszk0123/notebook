@@ -3,7 +3,7 @@ import { Route } from '../../routing/routing-type';
 
 export const helloRoutes: Route[] = [
   {
-    path: '',
+    path: '/hello',
     title: 'Hello',
     async action(context) {
       const { Hello } = await import('./components/Hello');

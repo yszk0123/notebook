@@ -1,9 +1,10 @@
-import { isNotUndefined } from 'option-t/lib/Undefinable';
+import { unwrapOrFromUndefinable } from 'option-t/lib/Undefinable/unwrapOr';
 import {
   ActionContext,
   Params,
   Route as UniversalRouterRoute,
 } from 'universal-router';
+import { appConfig } from '../config/AppConfig';
 import { Route } from '../routing/routing-type';
 import { unwrapUnsafeValue } from '../utils/unwrapUnsafeValue';
 import { AppContext } from './app-type';
@@ -13,9 +14,7 @@ type Context = ActionContext<AppContext, unknown> & AppContext;
 function onEnterRoute(context: Context) {
   const route = unwrapUnsafeValue<UniversalRouterRoute & Route>(context.route);
 
-  if (isNotUndefined(route.title)) {
-    document.title = route.title;
-  }
+  document.title = unwrapOrFromUndefinable(route.title, appConfig.title);
 }
 
 export function resolveRoute(context: Context, params: Params) {
