@@ -20,6 +20,7 @@ export const enum RoutingActionType {
 interface User {
   displayName: string;
   visitCount: number;
+  uid: string;
 }
 
 export const routingActions = {

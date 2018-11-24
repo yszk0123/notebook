@@ -59,7 +59,7 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
         </Link>
         <Link path={routingPaths.home}>Home</Link>
         <Link path={routingPaths.counter}>Counter</Link>
-        <Link path={routingPaths.notFound}>Foo</Link>
+        <Link path={routingPaths.note}>Note</Link>
       </Left>
       <Right>
         {loading ? (

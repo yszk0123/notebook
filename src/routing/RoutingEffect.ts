@@ -12,14 +12,17 @@ type RoutingEffectCreator<Args extends any[] = []> = EffectCreator<
 interface UserParam {
   displayName?: string;
   visitCount?: number;
+  uid?: string;
 }
 
 class User {
   public displayName: string;
   public visitCount: number;
+  public uid: string;
   constructor(param: UserParam) {
     this.displayName = param.displayName || '';
     this.visitCount = param.visitCount || 0;
+    this.uid = param.uid || '';
   }
 }
 
