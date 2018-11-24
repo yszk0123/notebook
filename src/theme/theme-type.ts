@@ -19,6 +19,8 @@ export const enum FontSize {
 export interface ThemeInterface {
   headerColorBg: ColorPalette;
   headerColorFg: ColorPalette;
+  buttonColorBg: ColorPalette;
+  buttonColorFg: ColorPalette;
   loadingColorFg: ColorPalette;
   fontSize: Record<FontSize, string>;
   fontWeight: {

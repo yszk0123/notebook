@@ -1,6 +1,6 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { AppState } from '../../../app/app-type';
 import useRedux from '../../../app/useRedux';
 import { Editor } from '../../../modules/editor';
@@ -26,6 +26,13 @@ const StyledEditor = styled(Editor)<{ readonly: boolean }>`
   opacity: ${({ readonly }) => (readonly ? 0.5 : 1)};
 `;
 
+const SaveButton = styled.button`
+  border-radius: 4px;
+  padding: ${({ theme }) => theme.space}px;
+  background: ${({ theme }) => theme.buttonColorBg};
+  color: ${({ theme }) => theme.buttonColorFg};
+`;
+
 interface Props {}
 
 export const Note: React.FunctionComponent<Props> = () => {
@@ -33,7 +40,7 @@ export const Note: React.FunctionComponent<Props> = () => {
   const editorRef = useRef<Nullable<EditorMethods>>(null);
   const noteId = '1';
 
-  const onChange = useDebouncedCallback(
+  const onSave = useCallback(
     () => {
       if (isNull(userId) || isNull(editorRef.current)) {
         return;
@@ -56,9 +63,14 @@ export const Note: React.FunctionComponent<Props> = () => {
         }),
       );
     },
-    CHANGE_DELAY,
     [dispatch, userId, noteId],
   );
+
+  const onChange = useDebouncedCallback(onSave, CHANGE_DELAY, [
+    dispatch,
+    userId,
+    noteId,
+  ]);
 
   useEffect(
     () => {
@@ -81,6 +93,7 @@ export const Note: React.FunctionComponent<Props> = () => {
         readonly={loading}
         onChange={onChange}
       />
+      <SaveButton onClick={onSave}>Save</SaveButton>
       <p>{saving ? 'saving' : ''}</p>
     </StyledNote>
   );
