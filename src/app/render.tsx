@@ -21,6 +21,7 @@ import { AppAction } from './app-type';
 import { appRoutes } from './AppRoutes';
 import { Loading } from './components/Loading';
 import { createStore } from './createStore';
+import { resolveRoute } from './RouteResolver';
 
 function init() {
   if (process.env.NODE_ENV === 'development') {
@@ -46,6 +47,7 @@ function resolveLocation(location: Location): string {
 export async function render() {
   const router = new UniversalRouter(appRoutes, {
     baseUrl: process.env.APP_BASE_URL,
+    resolveRoute,
   });
   const history = createHistory();
   const store = createStore();
