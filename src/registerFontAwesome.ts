@@ -7,14 +7,16 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
-config.showMissingIcons = false;
+export function registerFontAwesome() {
+  config.showMissingIcons = false;
 
-library.add(
-  faEdit,
-  faEditRegular,
-  faHome,
-  faSearch,
-  faUser,
-  faUserRegular,
-  faSpinner,
-);
+  library.add(
+    faEdit,
+    faEditRegular,
+    faHome,
+    faSearch,
+    faUser,
+    faUserRegular,
+    faSpinner,
+  );
+}

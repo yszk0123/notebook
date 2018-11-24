@@ -1,1 +1,1 @@
-export { Hello } from './Hello';
+export { helloRoutes } from './HelloRoutes';
