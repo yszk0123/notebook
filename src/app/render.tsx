@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Dispatch } from 'redux';
 import UniversalRouter from 'universal-router';
-import { config } from '../config';
+import { firebaseConfig } from '../config/firebaseConfig';
 import { FirebaseAppProvider } from '../FirebaseAppContext';
 import { HistoryProvider } from '../HistoryContext';
 import { routingEffects } from '../routing';
@@ -28,7 +28,7 @@ function init() {
   if (process.env.NODE_ENV === 'development' && window.app) {
     return window.app;
   }
-  const app = firebase.initializeApp(config.firebase);
+  const app = firebase.initializeApp(firebaseConfig);
   window.app = app;
   return app;
 }

@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 
-export const authUiConfig = {
+export const firebaseAuthUIConfig = {
   signInSuccessUrl: '/',
   signInOptions: [
     // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
