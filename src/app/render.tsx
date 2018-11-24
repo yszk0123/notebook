@@ -13,7 +13,7 @@ import { routingEffects } from '../routing';
 import { GlobalNavigation } from '../routing/components/GlobalNavigation';
 import { routes } from '../routing/routes';
 import { ThemeProvider } from '../styled-components';
-import { theme } from '../theme';
+import { defaultTheme } from '../theme/theme';
 import { GlobalStyle } from './components/GlobalStyle';
 import { Loading } from './components/Loading';
 import { createStore } from './createStore';
@@ -65,7 +65,7 @@ export async function render() {
 
     ReactDOM.render(
       <HistoryProvider value={history}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={defaultTheme}>
           <Provider store={store}>
             <FirebaseAppProvider value={app}>
               <>

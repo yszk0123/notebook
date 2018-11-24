@@ -1,7 +1,7 @@
 /**
  * @see https://material.io/design/color/the-color-system.html#tools-for-picking-colors
  */
-const enum ColorPalette {
+export const enum ColorPalette {
   PRIMARY = '#388E3C',
   PRIMARY_VARIANT = '#1B5E20',
   SECONDARY = '#039BE5',
@@ -27,19 +27,3 @@ export interface ThemeInterface {
   };
   space: number;
 }
-
-export const theme: ThemeInterface = {
-  headerColorBg: ColorPalette.PRIMARY,
-  headerColorFg: ColorPalette.WHITE,
-  loadingColorFg: ColorPalette.SECONDARY,
-  fontSize: {
-    [FontSize.SMALL]: '1.2rem',
-    [FontSize.DEFAULT]: '1.6rem',
-    [FontSize.LARGE]: '2rem',
-  },
-  fontWeight: {
-    normal: 'normal',
-    bold: 'bold',
-  },
-  space: 8,
-};
