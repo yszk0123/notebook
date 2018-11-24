@@ -11,6 +11,8 @@ import { NodeAsJSON } from './editor-type';
 
 const schema = new Schema({
   nodes: addListNodes(
+    // FIXME: Avoid any (#6)
+    // tslint:disable-next-line:no-any
     basicSchema.spec.nodes as any,
     'paragraph block*',
     'block',

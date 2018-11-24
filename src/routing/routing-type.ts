@@ -7,9 +7,9 @@ export interface Page {
 }
 
 export interface Route {
+  children?: Route[];
   path: string;
   action?(context: AppContext): Page | Promise<Page>;
-  children?: Route[];
 }
 
 export const enum RoutingActionType {

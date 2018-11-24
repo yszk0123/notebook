@@ -1,3 +1,4 @@
+// tslint:disable:no-var-requires
 import { Store } from 'redux';
 import { AppAction, AppState } from '../app-type';
 

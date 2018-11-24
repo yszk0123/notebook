@@ -5,6 +5,7 @@ import { Action as ReduxAction, AnyAction } from 'redux';
 
 export * from 'redux';
 
+// tslint:disable-next-line:no-any
 type AnyForExtend = any;
 
 export type GetAction<
@@ -16,9 +17,9 @@ export type Action<T extends string, Extra extends {} = {}> = ReduxAction<T> &
 
 type ExtraFunction<Args extends AnyForExtend[], R> = (...args: Args) => R;
 
-type ActionCreator<Args, Action> = Args extends AnyForExtend[]
-  ? (...args: Args) => Action
-  : () => Action;
+type ActionCreator<Args, TAction> = Args extends AnyForExtend[]
+  ? (...args: Args) => TAction
+  : () => TAction;
 
 export function createAction<A extends string>(
   type: A,
@@ -41,14 +42,23 @@ export function createAction(type, extraFunction?) {
   };
 }
 
-export type Dispatch<Action extends AnyAction> = ((...args: any[]) => unknown);
+export type Dispatch<TAction> = ((
+  // tslint:disable-next-line:no-any
+  action: TAction | ((...args: any[]) => unknown),
+) => unknown);
 
 export type EffectCreator<
   State,
-  Action extends AnyAction,
+  TAction extends AnyAction,
   Args = void
 > = Args extends AnyForExtend[]
   ? (
       ...args: Args
-    ) => (dispatch: Dispatch<Action>, getState: () => State) => unknown
-  : () => (dispatch: Dispatch<Action>, getState: () => State) => unknown;
+    ) => (
+      dispatch: Dispatch<TAction>,
+      getState: () => State,
+    ) => Promise<unknown>
+  : () => (
+      dispatch: Dispatch<TAction>,
+      getState: () => State,
+    ) => Promise<unknown>;

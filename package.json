@@ -15,7 +15,9 @@
     "build:404": "cross-env NODE_ENV=production parcel build 404.pug --public-url $APP_BASE_URL",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist",
-    "lint": "tsc --noEmit"
+    "lint": "run-p lint:*",
+    "lint:typecheck": "tsc --noEmit",
+    "lint:tslint": "tslint -p tsconfig.json"
   },
   "devDependencies": {
     "@types/history": "^4.7.2",
@@ -36,6 +38,11 @@
     "prettier": "^1.15.2",
     "pug": "^2.0.3",
     "redux-logger": "^3.0.6",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.16.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^3.6.0",
     "typescript": "^3.1.6"
   },
   "dependencies": {

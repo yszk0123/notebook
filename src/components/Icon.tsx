@@ -17,5 +17,6 @@ export const Icon: React.FunctionComponent<Props> = ({
   ...props
 }) => {
   const finalIcon = fill === false ? ['far', icon] : icon;
+  // tslint:disable-next-line:no-any
   return <FontAwesomeIcon {...props} icon={finalIcon as any} />;
 };

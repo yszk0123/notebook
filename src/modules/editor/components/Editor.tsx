@@ -79,7 +79,6 @@ export const Editor: React.FunctionComponent<Props> = ({
     },
     [content],
   );
-  console.log('CONTENT', content);
 
   return (
     <>

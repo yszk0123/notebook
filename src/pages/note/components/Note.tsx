@@ -19,20 +19,20 @@ export const Note: React.FunctionComponent<Props> = () => {
   const noteId = '1';
 
   const onPersistData = useCallback(
-    (content: NodeAsJSON) => {
+    (contentToSave: NodeAsJSON) => {
       if (!userId) {
         return;
       }
 
-      const note = {
+      const noteToSave = {
         id: noteId,
-        content,
+        content: contentToSave,
       };
 
       dispatch(
         noteEffects.save({
           userId,
-          note,
+          note: noteToSave,
         }),
       );
     },
@@ -50,7 +50,7 @@ export const Note: React.FunctionComponent<Props> = () => {
     [userId],
   );
 
-  const content = mapForNullable(note, note => note.content);
+  const content = mapForNullable(note, _ => _.content);
 
   return (
     <>

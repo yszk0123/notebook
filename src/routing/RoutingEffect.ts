@@ -36,22 +36,24 @@ async function loginUser(user: firebase.User): Promise<User | null> {
     const doc = await userRef.get();
     const userParam = unwrapDocumentSnapshot<UserParam>(doc);
     if (isNotNull(userParam)) {
-      const user = new User(userParam);
-      await userRef.update({ visitCount: user.visitCount + 1 });
-      return user;
+      const newUser = new User(userParam);
+      await userRef.update({ visitCount: newUser.visitCount + 1 });
+      return newUser;
     }
   }
 
-  const accessToken = await user.getIdToken();
-  const { displayName, uid } = user;
-  const userParam: UserParam = {
-    accessToken,
-    displayName,
-    uid,
-    visitCount: 1,
-  };
-  await userRef.set(userParam);
-  return new User(userParam);
+  {
+    const accessToken = await user.getIdToken();
+    const { displayName, uid } = user;
+    const userParam: UserParam = {
+      accessToken,
+      displayName,
+      uid,
+      visitCount: 1,
+    };
+    await userRef.set(userParam);
+    return new User(userParam);
+  }
 }
 
 const login: RoutingEffectCreator<

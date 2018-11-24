@@ -4,18 +4,20 @@ import createHistory from 'history/createBrowserHistory';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Dispatch } from 'redux';
 import UniversalRouter from 'universal-router';
 import { ResetStyle } from '../components/ResetStyle';
 import { firebaseConfig } from '../config/firebaseConfig';
 import { FirebaseAppProvider } from '../FirebaseAppContext';
 import { HistoryProvider } from '../HistoryContext';
+import { Dispatch } from '../redux';
 import { routingEffects } from '../routing';
 import { GlobalNavigation } from '../routing/components/GlobalNavigation';
 import { Page } from '../routing/routing-type';
 import { ThemeProvider } from '../styled-components';
 import { defaultTheme } from '../theme/theme';
 import { restoreValueFromGlobalForDevelopment } from '../utils/restoreValueFromGlobalForDevelopment';
+import { unwrapUnsafeValue } from '../utils/unwrapUnsafeValue';
+import { AppAction } from './app-type';
 import { appRoutes } from './AppRoutes';
 import { Loading } from './components/Loading';
 import { createStore } from './createStore';
@@ -48,17 +50,18 @@ export async function render() {
   const history = createHistory();
   const store = createStore();
   const app = init();
-  const dispatch = store.dispatch as Dispatch<any>;
+  const dispatch = unwrapUnsafeValue<Dispatch<AppAction>>(store.dispatch);
 
   history.listen(onLocationChange);
+  // tslint:disable-next-line:no-floating-promises
   onLocationChange(history.location);
 
   firebase.auth().onAuthStateChanged(async user => {
     if (!user) {
       return;
     }
-    await dispatch(routingEffects.login(user));
-  }, console.error);
+    dispatch(routingEffects.login(user));
+  });
 
   async function onLocationChange(location: Location) {
     const pathname = resolveLocation(location);

@@ -4,6 +4,7 @@ import 'firebase/firestore';
 import 'firebaseui/dist/firebaseui.css';
 import { render } from './app/render';
 import { registerFontAwesome } from './registerFontAwesome';
+import { printError } from './utils/printError';
 
 registerFontAwesome();
-render().catch(console.error);
+render().catch(printError);

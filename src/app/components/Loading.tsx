@@ -35,7 +35,7 @@ export const Loading: React.FunctionComponent<Props> = ({ page }) => {
       loadingContent
     ) : (
       <Container>
-        <Icon icon="spinner" spin pulse />
+        <Icon icon="spinner" spin={true} pulse={true} />
       </Container>
     );
   }
