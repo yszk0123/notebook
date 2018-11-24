@@ -36,7 +36,7 @@ export const Loading: React.FunctionComponent<Props> = ({ children }) => {
 };
 
 function mapState(state: AppState) {
-  const { loading } = state.global;
+  const { loading } = state.routing;
 
   return {
     loading,

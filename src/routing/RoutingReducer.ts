@@ -1,18 +1,18 @@
 import { Reducer } from 'redux';
-import { GlobalAction, GlobalActionType, GlobalState } from './routing-type';
+import { RoutingAction, RoutingActionType, RoutingState } from './routing-type';
 
-const initialState: GlobalState = { loading: true, user: null };
+const initialState: RoutingState = { loading: true, user: null };
 
-export const routingReducer: Reducer<GlobalState, GlobalAction> = (
+export const routingReducer: Reducer<RoutingState, RoutingAction> = (
   state = initialState,
   action,
 ) => {
   switch (action.type) {
-    case GlobalActionType.LOGIN: {
+    case RoutingActionType.LOGIN: {
       const { user } = action.payload;
       return { ...state, loading: false, user };
     }
-    case GlobalActionType.LOGIN_FAILURE:
+    case RoutingActionType.LOGIN_FAILURE:
       return { ...state, loading: true };
     default:
       return state;

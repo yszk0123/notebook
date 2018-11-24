@@ -1,11 +1,11 @@
 import * as firebase from 'firebase/app';
 import { AppState } from '../app/app-type';
 import { EffectCreator } from '../redux';
-import { GlobalAction, globalActions } from './routing-type';
+import { RoutingAction, routingActions } from './routing-type';
 
-type GlobalEffectCreator<Args extends any[] = []> = EffectCreator<
+type RoutingEffectCreator<Args extends any[] = []> = EffectCreator<
   AppState,
-  GlobalAction,
+  RoutingAction,
   Args
 >;
 
@@ -52,16 +52,16 @@ async function loginUser(user: firebase.User): Promise<User | null> {
   return new User(data as any);
 }
 
-const login: GlobalEffectCreator<
+const login: RoutingEffectCreator<
   [firebase.User]
 > = firebaseUser => async dispatch => {
   const user = await loginUser(firebaseUser);
   if (!user) {
-    dispatch(globalActions.loginFailure());
+    dispatch(routingActions.loginFailure());
     return;
   }
 
-  dispatch(globalActions.login(user));
+  dispatch(routingActions.login(user));
 };
 
 export const routingEffects = { login };

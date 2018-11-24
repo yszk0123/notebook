@@ -79,7 +79,7 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
 };
 
 function mapState(state: AppState) {
-  const { loading, user } = state.global;
+  const { loading, user } = state.routing;
 
   return {
     loading,

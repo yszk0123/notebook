@@ -1,14 +1,14 @@
 import { CounterAction, CounterState } from '../pages/counter/counter-type';
 import { Dispatch } from '../redux';
-import { GlobalAction, GlobalState } from '../routing/routing-type';
+import { RoutingAction, RoutingState } from '../routing/routing-type';
 
-export type AppAction = CounterAction | GlobalAction;
+export type AppAction = CounterAction | RoutingAction;
 
 export type AppDispatch = Dispatch<AppAction>;
 
 export interface AppState {
   counter: CounterState;
-  global: GlobalState;
+  routing: RoutingState;
 }
 
 export interface AppContext {

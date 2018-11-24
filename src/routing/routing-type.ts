@@ -10,7 +10,7 @@ export interface Route {
   action(context: AppContext): Page | Promise<Page>;
 }
 
-export const enum GlobalActionType {
+export const enum RoutingActionType {
   LOGIN = 'LOGIN',
   LOGIN_FAILURE = 'LOGIN_FAILURE',
 }
@@ -20,16 +20,16 @@ interface User {
   visitCount: number;
 }
 
-export const globalActions = {
-  login: createAction(GlobalActionType.LOGIN, (user: User) => ({
+export const routingActions = {
+  login: createAction(RoutingActionType.LOGIN, (user: User) => ({
     payload: { user },
   })),
-  loginFailure: createAction(GlobalActionType.LOGIN_FAILURE),
+  loginFailure: createAction(RoutingActionType.LOGIN_FAILURE),
 };
 
-export type GlobalAction = GetAction<typeof globalActions>;
+export type RoutingAction = GetAction<typeof routingActions>;
 
-export interface GlobalState {
+export interface RoutingState {
   loading: boolean;
   user: User | null;
 }

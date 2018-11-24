@@ -30,7 +30,7 @@ export const Counter: React.FunctionComponent<Props> = () => {
 
 function mapState(state: AppState) {
   const { count } = state.counter;
-  const { loading } = state.global;
+  const { loading } = state.routing;
 
   return {
     count,

@@ -7,5 +7,5 @@ export const appReducer: Reducer<AppState, AppAction> = combineReducers<
   AppState
 >({
   counter: counterReducer,
-  global: routingReducer,
+  routing: routingReducer,
 });
