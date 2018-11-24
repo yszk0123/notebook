@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import { AppState } from '../app/app-type';
 import { EffectCreator } from '../redux';
-import { GlobalAction, globalActions } from './global-type';
+import { GlobalAction, globalActions } from './routing-type';
 
 type GlobalEffectCreator<Args extends any[] = []> = EffectCreator<
   AppState,
@@ -64,4 +64,4 @@ const login: GlobalEffectCreator<
   dispatch(globalActions.login(user));
 };
 
-export const globalEffects = { login };
+export const routingEffects = { login };

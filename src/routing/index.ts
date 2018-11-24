@@ -1,2 +1,2 @@
-export { globalEffects } from './GlobalEffect';
-export { globalReducer } from './GlobalReducer';
+export { routingEffects } from './RoutingEffect';
+export { routingReducer } from './RoutingReducer';

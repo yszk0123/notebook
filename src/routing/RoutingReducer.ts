@@ -1,9 +1,9 @@
 import { Reducer } from 'redux';
-import { GlobalAction, GlobalActionType, GlobalState } from './global-type';
+import { GlobalAction, GlobalActionType, GlobalState } from './routing-type';
 
 const initialState: GlobalState = { loading: true, user: null };
 
-export const globalReducer: Reducer<GlobalState, GlobalAction> = (
+export const routingReducer: Reducer<GlobalState, GlobalAction> = (
   state = initialState,
   action,
 ) => {

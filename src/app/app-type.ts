@@ -1,6 +1,6 @@
 import { CounterAction, CounterState } from '../pages/counter/counter-type';
 import { Dispatch } from '../redux';
-import { GlobalAction, GlobalState } from '../routing/global-type';
+import { GlobalAction, GlobalState } from '../routing/routing-type';
 
 export type AppAction = CounterAction | GlobalAction;
 

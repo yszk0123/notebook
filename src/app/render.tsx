@@ -9,7 +9,7 @@ import UniversalRouter from 'universal-router';
 import { config } from '../config';
 import { FirebaseAppProvider } from '../FirebaseAppContext';
 import { HistoryProvider } from '../HistoryContext';
-import { globalEffects } from '../routing';
+import { routingEffects } from '../routing';
 import { GlobalNavigation } from '../routing/components/GlobalNavigation';
 import { routes } from '../routing/routes';
 import { ThemeProvider } from '../styled-components';
@@ -47,7 +47,7 @@ export async function render() {
     if (!user) {
       return;
     }
-    await dispatch(globalEffects.login(user));
+    await dispatch(routingEffects.login(user));
   }, console.error);
 
   async function onLocationChange(location: Location) {
