@@ -46,6 +46,7 @@
     "firebase": "^5.5.8",
     "firebaseui": "^3.4.1",
     "history": "^4.7.2",
+    "option-t": "^18.0.1",
     "prosemirror-example-setup": "^1.0.1",
     "prosemirror-model": "^1.6.3",
     "prosemirror-schema-basic": "^1.0.0",

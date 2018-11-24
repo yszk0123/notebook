@@ -4025,6 +4025,11 @@ opn@^5.1.0:
   dependencies:
     is-wsl "^1.1.0"
 
+option-t@^18.0.1:
+  version "18.0.1"
+  resolved "https://registry.yarnpkg.com/option-t/-/option-t-18.0.1.tgz#ccace2ddb2fbd92a33e40d038ce9e09689ac625c"
+  integrity sha512-s84ptu6QrXr06iTIi6+G/EZxd9GArRMc+RQz3ywIgG0u571fzTeHhoLX/MCHcKaMrygt21zvyQYjLqThSHjfwQ==
+
 optionator@^0.8.1:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/optionator/-/optionator-0.8.2.tgz#364c5e409d3f4d6301d6c0b4c05bba50180aeb64"
