@@ -67,6 +67,7 @@ export async function render() {
     const pathname = resolveLocation(location);
     if (pathname !== location.pathname) {
       history.replace(pathname);
+      return;
     }
 
     const context = {
