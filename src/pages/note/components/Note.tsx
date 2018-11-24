@@ -19,10 +19,10 @@ const StyledNote = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  font-size: ${({ theme }) => theme.fontSize.default};
 
   .ProseMirror {
     min-height: ${EDITOR_MIN_HEIGHT};
-    font-size: ${({ theme }) => theme.fontSize.default};
   }
 `;
 

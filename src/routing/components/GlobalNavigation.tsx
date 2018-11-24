@@ -30,7 +30,7 @@ const Icon = styled.div`
 const Right = styled.div`
   display: flex;
   justify-content: flex-end;
-  min-width: 100px;
+  min-width: 50vh;
 `;
 
 const Link = styled(NavLink)`

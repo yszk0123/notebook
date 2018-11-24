@@ -23,7 +23,7 @@ const StyledLoading = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: ${({ theme }) => 2 * theme.space}px;
+  padding-top: ${({ theme }) => 2 * theme.space}px;
 `;
 
 export const Loading: React.FunctionComponent<Props> = ({ page }) => {
