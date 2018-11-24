@@ -27,5 +27,5 @@ $ yarn start
 
 ```sh
 $ yarn deploy
-$ open https://yszk0123-sandbox.github.io/counter
+$ open https://yszk0123.github.io/notebook
 ```

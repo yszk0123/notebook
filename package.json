@@ -1,9 +1,9 @@
 {
-  "name": "counter",
+  "name": "notebook",
   "version": "0.1.0",
   "main": "index.js",
-  "homepage": "https://yszk0123-sandbox.github.io/counter",
-  "repository": "ssh://git@github.com/yszk0123-sandbox/counter.git",
+  "homepage": "https://yszk0123.github.io/notebook",
+  "repository": "ssh://git@github.com/yszk0123/notebook.git",
   "author": "Yuji Suzuki <y0suzuki0123@gmail.com>",
   "license": "MIT",
   "scripts": {
