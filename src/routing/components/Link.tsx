@@ -1,5 +1,5 @@
 import React, { useCallback, useContext } from 'react';
-import { HistoryContext } from '../HistoryContext';
+import { HistoryContext } from '../../HistoryContext';
 import { getCurrentPath } from '../utils/getCurrentPath';
 
 interface Props {

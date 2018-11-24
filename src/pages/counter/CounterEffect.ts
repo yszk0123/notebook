@@ -1,5 +1,5 @@
+import { AppState } from '../../app/app-type';
 import { EffectCreator } from '../../redux';
-import { AppState } from '../app/app-type';
 import { CounterAction, counterActions } from './counter-type';
 
 type CounterEffectCreator = EffectCreator<AppState, CounterAction>;

@@ -1,9 +1,9 @@
 import * as firebase from 'firebase/app';
 import React from 'react';
-import { Hello } from './pages/hello';
-import { Login } from './pages/login';
-import { NotFound } from './pages/not-found';
-import { AppDispatch } from './store/app/app-type';
+import { AppDispatch } from '../app/app-type';
+import { Hello } from '../pages/hello';
+import { Login } from '../pages/login';
+import { NotFound } from '../pages/not-found';
 
 interface Context {
   app: firebase.app.App;

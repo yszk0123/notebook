@@ -1,4 +1,4 @@
-import { createAction, GetAction } from '../../redux';
+import { createAction, GetAction } from '../redux';
 
 export const enum GlobalActionType {
   LOGIN = 'LOGIN',

@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/app';
-import { EffectCreator } from '../../redux';
 import { AppState } from '../app/app-type';
+import { EffectCreator } from '../redux';
 import { GlobalAction, globalActions } from './global-type';
 
 type GlobalEffectCreator<Args extends any[] = []> = EffectCreator<

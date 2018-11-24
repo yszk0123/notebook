@@ -1,8 +1,4 @@
-import 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebaseui/dist/firebaseui.css';
-import './registerFontAwesome';
-import { render } from './render';
+import { render } from './app/render';
+import './registerAll';
 
 render().catch(console.error);

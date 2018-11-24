@@ -6,17 +6,17 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Dispatch } from 'redux';
 import UniversalRouter from 'universal-router';
-import { GlobalNavigation } from './components/GlobalNavigation';
+import { config } from '../config';
+import { FirebaseAppProvider } from '../FirebaseAppContext';
+import { HistoryProvider } from '../HistoryContext';
+import { globalEffects } from '../routing';
+import { GlobalNavigation } from '../routing/components/GlobalNavigation';
+import { routes } from '../routing/routes';
+import { ThemeProvider } from '../styled-components';
+import { theme } from '../theme';
 import { GlobalStyle } from './components/GlobalStyle';
 import { Loading } from './components/Loading';
-import { config } from './config';
-import { FirebaseAppProvider } from './FirebaseAppContext';
-import { HistoryProvider } from './HistoryContext';
-import { routes } from './routes';
-import { createStore } from './store/createStore';
-import { globalEffects } from './store/global';
-import { ThemeProvider } from './styled-components';
-import { theme } from './theme';
+import { createStore } from './createStore';
 
 declare global {
   interface Window {

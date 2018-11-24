@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { HistoryContext } from '../HistoryContext';
-import { styled } from '../styled-components';
+import { Text } from '../../components/Text';
+import { HistoryContext } from '../../HistoryContext';
+import { styled } from '../../styled-components';
 import { getCurrentPath } from '../utils/getCurrentPath';
 import { Link } from './Link';
-import { Text } from './Text';
 
 const StyledNavLink = styled(Link)`
   text-decoration: none;

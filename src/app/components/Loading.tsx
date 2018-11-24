@@ -1,8 +1,8 @@
 import React from 'react';
-import { AppState } from '../store/app/app-type';
-import useRedux from '../store/useRedux';
-import { styled } from '../styled-components';
-import { Icon } from './Icon';
+import { Icon } from '../../components/Icon';
+import { styled } from '../../styled-components';
+import { AppState } from '../app-type';
+import useRedux from '../useRedux';
 
 interface Props {}
 

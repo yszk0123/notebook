@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore as createReduxStore, Store } from 'redux';
 import thunk from 'redux-thunk';
-import { appReducer } from './app';
-import { AppAction, AppState } from './app/app-type';
+import { AppAction, AppState } from './app-type';
+import { appReducer } from './AppReducer';
 
 declare global {
   interface Window {
@@ -39,6 +39,6 @@ if (
   window.store
 ) {
   (module as any).hot.accept(() => {
-    window.store.replaceReducer(require('./app').appReducer);
+    window.store.replaceReducer(require('./AppReducer').appReducer);
   });
 }

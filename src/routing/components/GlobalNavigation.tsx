@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import { HistoryContext } from '../HistoryContext';
-import { AppState } from '../store/app/app-type';
-import useRedux from '../store/useRedux';
-import { styled } from '../styled-components';
+import { AppState } from '../../app/app-type';
+import useRedux from '../../app/useRedux';
+import { Text } from '../../components/Text';
+import { HistoryContext } from '../../HistoryContext';
+import { styled } from '../../styled-components';
 import { getCurrentPath } from '../utils/getCurrentPath';
 import { NavLink } from './NavLink';
-import { Text } from './Text';
 
 const StyledGlobalNavigation = styled.header`
   display: flex;
