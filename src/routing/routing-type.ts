@@ -2,6 +2,7 @@ import { AppContext } from '../app/app-type';
 import { createAction, GetAction } from '../redux';
 
 export interface Page {
+  loading?: JSX.Element;
   content: JSX.Element;
 }
 

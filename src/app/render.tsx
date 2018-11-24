@@ -11,6 +11,7 @@ import { FirebaseAppProvider } from '../FirebaseAppContext';
 import { HistoryProvider } from '../HistoryContext';
 import { routingEffects } from '../routing';
 import { GlobalNavigation } from '../routing/components/GlobalNavigation';
+import { Page } from '../routing/routing-type';
 import { ThemeProvider } from '../styled-components';
 import { defaultTheme } from '../theme/theme';
 import { appRoutes } from './AppRoutes';
@@ -56,11 +57,13 @@ export async function render() {
       pathname: location.pathname,
       dispatch: store.dispatch,
     };
-    const { content } = await router.resolve(context);
-    renderWithContent(content);
+
+    const page = await router.resolve(context);
+
+    renderPage(page);
   }
 
-  function renderWithContent(content: JSX.Element) {
+  function renderPage(page: Page) {
     const mountPoint = document.getElementById('root');
 
     ReactDOM.render(
@@ -70,7 +73,7 @@ export async function render() {
             <FirebaseAppProvider value={app}>
               <>
                 <GlobalNavigation />
-                <Loading>{content}</Loading>
+                <Loading page={page} />
                 <GlobalStyle />
               </>
             </FirebaseAppProvider>
