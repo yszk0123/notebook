@@ -11,9 +11,9 @@ import { FirebaseAppProvider } from '../FirebaseAppContext';
 import { HistoryProvider } from '../HistoryContext';
 import { routingEffects } from '../routing';
 import { GlobalNavigation } from '../routing/components/GlobalNavigation';
-import { routes } from '../routing/routes';
 import { ThemeProvider } from '../styled-components';
 import { defaultTheme } from '../theme/theme';
+import { appRoutes } from './AppRoutes';
 import { GlobalStyle } from './components/GlobalStyle';
 import { Loading } from './components/Loading';
 import { createStore } from './createStore';
@@ -34,7 +34,7 @@ function init() {
 }
 
 export async function render() {
-  const router = new UniversalRouter(routes);
+  const router = new UniversalRouter(appRoutes);
   const history = createHistory();
   const store = createStore();
   const app = init();

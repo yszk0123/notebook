@@ -1,4 +1,14 @@
+import { AppContext } from '../app/app-type';
 import { createAction, GetAction } from '../redux';
+
+export interface Page {
+  content: JSX.Element;
+}
+
+export interface Route {
+  path: string;
+  action(context: AppContext): Page | Promise<Page>;
+}
 
 export const enum GlobalActionType {
   LOGIN = 'LOGIN',

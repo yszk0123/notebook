@@ -10,3 +10,9 @@ export interface AppState {
   counter: CounterState;
   global: GlobalState;
 }
+
+export interface AppContext {
+  app: firebase.app.App;
+  pathname: string;
+  dispatch: AppDispatch;
+}

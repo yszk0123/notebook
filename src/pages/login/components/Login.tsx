@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { useAuthUI } from '../../app/useAuthUI';
-import { Text } from '../../components/Text';
+import { useAuthUI } from '../../../app/useAuthUI';
+import { Text } from '../../../components/Text';
 
 interface Props {}
 
