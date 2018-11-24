@@ -14,8 +14,8 @@
     "build:app": "cross-env NODE_ENV=production parcel build ./src/index.pug --public-url $APP_BASE_URL",
     "build:404": "cross-env NODE_ENV=production parcel build 404.pug --public-url $APP_BASE_URL",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist",
-    "deploy:ci": "gh-pages -d dist --repo https://$GH_TOKEN@github.com/yszk0123/notebook.git",
+    "deploy": "gh-pages -m 'auto commit [ci skip]' -d dist",
+    "deploy:ci": "gh-pages -m 'auto commit [ci skip]' --repo https://$GH_TOKEN@github.com/yszk0123/notebook.git -d dist",
     "lint": "run-p lint:*",
     "lint:typecheck": "tsc --noEmit",
     "lint:tslint": "tslint -p tsconfig.json"
