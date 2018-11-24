@@ -6,8 +6,8 @@ import { Route } from '../routing/routing-type';
 import { NotFound } from './components/NotFound';
 
 export const appRoutes: Route[] = [
-  ...helloRoutes,
   ...counterRoutes,
+  ...helloRoutes,
   ...loginRoutes,
   {
     path: '(.*)',
