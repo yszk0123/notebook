@@ -1,12 +1,26 @@
-import { isNull } from 'option-t/lib/Nullable';
+import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AppState } from '../../../app/app-type';
 import useRedux from '../../../app/useRedux';
 import { Editor } from '../../../modules/editor';
-import { NodeAsJSON } from '../../../modules/editor/editor-type';
+import { EditorMethods } from '../../../modules/editor/components/Editor';
 import { styled } from '../../../styled-components';
+import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
 import { noteEffects } from '../NoteEffect';
+
+const CHANGE_DELAY = 5000;
+const EDITOR_MIN_HEIGHT = '6rem';
+
+const StyledNote = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .ProseMirror {
+    min-height: ${EDITOR_MIN_HEIGHT};
+  }
+`;
 
 const StyledEditor = styled(Editor)<{ readonly: boolean }>`
   opacity: ${({ readonly }) => (readonly ? 0.5 : 1)};
@@ -16,17 +30,23 @@ interface Props {}
 
 export const Note: React.FunctionComponent<Props> = () => {
   const [{ userId, saving, loading, note }, dispatch] = useRedux(mapState);
+  const editorRef = useRef<Nullable<EditorMethods>>(null);
   const noteId = '1';
 
-  const onPersistData = useCallback(
-    (contentToSave: NodeAsJSON) => {
-      if (!userId) {
+  const onChange = useDebouncedCallback(
+    () => {
+      if (isNull(userId) || isNull(editorRef.current)) {
+        return;
+      }
+
+      const contentToBeSaved = editorRef.current.getData();
+      if (isNull(contentToBeSaved)) {
         return;
       }
 
       const noteToSave = {
         id: noteId,
-        content: contentToSave,
+        content: contentToBeSaved,
       };
 
       dispatch(
@@ -36,6 +56,7 @@ export const Note: React.FunctionComponent<Props> = () => {
         }),
       );
     },
+    CHANGE_DELAY,
     [dispatch, userId, noteId],
   );
 
@@ -53,14 +74,15 @@ export const Note: React.FunctionComponent<Props> = () => {
   const content = mapForNullable(note, _ => _.content);
 
   return (
-    <>
+    <StyledNote>
       <StyledEditor
-        onPersistData={onPersistData}
+        ref={editorRef}
         content={content}
         readonly={loading}
+        onChange={onChange}
       />
       <p>{saving ? 'saving' : ''}</p>
-    </>
+    </StyledNote>
   );
 };
 

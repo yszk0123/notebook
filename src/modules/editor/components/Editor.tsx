@@ -1,6 +1,12 @@
 import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
 import { EditorView } from 'prosemirror-view';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeMethods,
+  useRef,
+  useState,
+} from 'react';
 import { styled } from '../../../styled-components';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { createEditorView, createStateFromJSON } from '../createEditorView';
@@ -27,64 +33,86 @@ const ProseMirrorWrapper = styled.div`
   }
 `;
 
+export interface EditorMethods {
+  getData(): Nullable<NodeAsJSON>;
+}
+
 interface Props {
   className?: string;
   content: Nullable<NodeAsJSON>;
-  onPersistData(data: NodeAsJSON): void;
+  onChange(): void;
 }
 
-export const Editor: React.FunctionComponent<Props> = ({
-  className,
-  content,
-  onPersistData,
-}) => {
-  const editorRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [view, setView] = useState<EditorView | null>(null);
+export const Editor = forwardRef<EditorMethods, Props>(
+  ({ className, content, onChange }, ref) => {
+    const editorRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [view, setView] = useState<EditorView | null>(null);
 
-  const onClick = useCallback(
-    () => {
-      if (!view) {
+    useImperativeMethods(
+      ref,
+      () => ({
+        getData(): Nullable<NodeAsJSON> {
+          if (isNull(view)) {
+            return null;
+          }
+          return unwrapUnsafeValue<NodeAsJSON>(view.state.doc.toJSON());
+        },
+      }),
+      [ref, view, content],
+    );
+
+    useEffect(
+      () => {
+        if (isNull(view)) {
+          return;
+        }
+
+        view.update({
+          ...view.props,
+          dispatchTransaction: tr => {
+            const state = view.state.apply(tr);
+            view.updateState(state);
+            if (tr.docChanged) {
+              onChange();
+            }
+          },
+        });
+      },
+      [view, onChange],
+    );
+
+    useEffect(() => {
+      if (isNull(editorRef.current) || isNull(contentRef.current)) {
         return;
       }
 
-      const data = unwrapUnsafeValue<NodeAsJSON>(view.state.doc.toJSON());
-      onPersistData(data);
-    },
-    [view],
-  );
+      const newView = createEditorView(editorRef.current, content);
+      setView(newView);
 
-  useEffect(() => {
-    if (isNull(editorRef.current) || isNull(contentRef.current)) {
-      return;
-    }
+      return () => {
+        if (isNotNull(view)) {
+          view.destroy();
+        }
+      };
+    }, []);
 
-    const newView = createEditorView(editorRef.current, content);
-    setView(newView);
+    useEffect(
+      () => {
+        if (isNull(view) || isNull(content)) {
+          return;
+        }
 
-    return () => {
-      if (isNotNull(view)) {
-        view.destroy();
-      }
-    };
-  }, []);
+        view.updateState(createStateFromJSON(content));
+      },
+      [content],
+    );
 
-  useEffect(
-    () => {
-      if (isNull(view) || isNull(content)) {
-        return;
-      }
-
-      view.updateState(createStateFromJSON(content));
-    },
-    [content],
-  );
-
-  return (
-    <>
-      <ProseMirrorWrapper className={className} ref={editorRef} />
-      <div ref={contentRef} style={{ display: 'none' }} />
-      <button onClick={onClick}>Save</button>
-    </>
-  );
-};
+    return (
+      <>
+        <ProseMirrorWrapper className={className} ref={editorRef} />
+        <div ref={contentRef} style={{ display: 'none' }} />
+      </>
+    );
+  },
+);

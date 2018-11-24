@@ -1,7 +1,10 @@
 import * as firebase from 'firebase/app';
 import { Note } from '../../../models/Note';
+import { sleep } from '../../../utils/sleep';
 import { noteActions } from '../note-type';
 import { NoteEffectCreator } from './NoteEffectType';
+
+const SAVE_DELAY = 750;
 
 interface SaveInput {
   userId: string;
@@ -21,6 +24,8 @@ export const save: NoteEffectCreator<[SaveInput]> = input => async dispatch => {
   db.settings({ timestampsInSnapshots: true });
 
   await doSave(input, db);
+
+  await sleep(SAVE_DELAY);
 
   dispatch(noteActions.saveSuccess());
 };
