@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route } from '../../routing/routing-type';
-import { Hello } from './components/Hello';
 
 export const helloRoutes: Route[] = [
   {
     path: '',
-    action(context) {
+    async action(context) {
+      const { Hello } = await import('./components/Hello');
+
       return {
         content: <Hello />,
       };
