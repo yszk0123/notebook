@@ -1,6 +1,6 @@
-import { NodeAsJSON } from '../modules/editor/editor-type';
+import { EditorContent } from '../modules/editor/editor-type';
 
 export interface Note {
   id: string;
-  content: NodeAsJSON;
+  content: EditorContent;
 }

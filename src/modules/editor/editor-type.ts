@@ -1,9 +1,9 @@
 import { Schema } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 
-export interface NodeAsJSON {
+export interface EditorContent {
   type: string;
-  content: NodeAsJSON[];
+  content: EditorContent[];
 }
 
 // tslint:disable-next-line:no-any

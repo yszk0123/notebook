@@ -4,14 +4,14 @@ import { unwrapOrFromNullable } from 'option-t/lib/Nullable/unwrapOr';
 import { exampleSetup } from 'prosemirror-example-setup';
 import { Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
-import { NodeAsJSON } from './editor-type';
+import { EditorContent } from './editor-type';
 
-export function createStateFromJSON(
+export function createStateFromContent(
   schema: Schema,
-  data: Nullable<NodeAsJSON>,
+  content: Nullable<EditorContent>,
 ) {
   const doc = schema.nodeFromJSON(
-    unwrapOrFromNullable(data, { type: 'doc', content: [] }),
+    unwrapOrFromNullable(content, { type: 'doc', content: [] }),
   );
 
   return EditorState.create({

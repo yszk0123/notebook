@@ -5,7 +5,7 @@ import { EditorView } from 'prosemirror-view';
 import React, { useEffect, useRef, useState } from 'react';
 import { styled } from '../../../styled-components';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
-import { NodeAsJSON } from '../editor-type';
+import { EditorContent } from '../editor-type';
 import { createEditorView } from '../EditorView';
 
 const ProseMirrorWrapper = styled.div`
@@ -29,7 +29,7 @@ const ProseMirrorWrapper = styled.div`
   }
 `;
 
-type OnChange = (getContent: () => Nullable<NodeAsJSON>) => void;
+type OnChange = (getContent: () => Nullable<EditorContent>) => void;
 
 interface Props {
   className?: string;
@@ -56,9 +56,9 @@ function useEditorViewUpdate(
             onChange(getContent);
           }
 
-          function getContent(): Nullable<NodeAsJSON> {
+          function getContent(): Nullable<EditorContent> {
             return mapForNullable(editorView, _ =>
-              unwrapUnsafeValue<NodeAsJSON>(_.state.doc.toJSON()),
+              unwrapUnsafeValue<EditorContent>(_.state.doc.toJSON()),
             );
           }
         },

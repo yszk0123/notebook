@@ -3,8 +3,8 @@ import { Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useState } from 'react';
 import { Editor } from './components/Editor';
-import { NodeAsJSON } from './editor-type';
-import { createStateFromJSON } from './EditorState';
+import { EditorContent } from './editor-type';
+import { createStateFromContent } from './EditorState';
 
 export interface Props {
   schema: Schema;
@@ -18,8 +18,8 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
   const [state, setState] = useState(initialState);
 
   const onChange = useCallback(
-    (getContent: () => Nullable<NodeAsJSON>) => {
-      setState(createStateFromJSON(schema, getContent()));
+    (getContent: () => Nullable<EditorContent>) => {
+      setState(createStateFromContent(schema, getContent()));
     },
     [schema],
   );

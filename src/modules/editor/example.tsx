@@ -5,14 +5,14 @@ import { ThemeProvider } from '../../styled-components';
 import { defaultTheme } from '../../theme/theme';
 import { printError } from '../../utils/printError';
 import { EditorContainer } from './EditorContainer';
-import { createStateFromJSON } from './EditorState';
+import { createStateFromContent } from './EditorState';
 import './registerProseMirror';
 import { createSchema } from './Schema';
 
 export async function render() {
   const mountPoint = document.getElementById('root');
   const schema = createSchema();
-  const initialState = createStateFromJSON(schema, null);
+  const initialState = createStateFromContent(schema, null);
 
   ReactDOM.render(
     <ThemeProvider theme={defaultTheme}>
