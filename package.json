@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@types/history": "^4.7.2",
+    "@types/prosemirror-commands": "^1.0.1",
     "@types/prosemirror-model": "^1.5.0",
     "@types/prosemirror-schema-basic": "^1.0.1",
     "@types/prosemirror-schema-list": "^1.0.1",
@@ -57,6 +58,7 @@
     "firebaseui": "^3.4.1",
     "history": "^4.7.2",
     "option-t": "^18.0.1",
+    "prosemirror-commands": "^1.0.7",
     "prosemirror-example-setup": "^1.0.1",
     "prosemirror-model": "^1.6.3",
     "prosemirror-schema-basic": "^1.0.0",
