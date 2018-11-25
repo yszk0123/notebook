@@ -1,17 +1,11 @@
-import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
-import { Schema } from 'prosemirror-model';
+import { isNull, Nullable } from 'option-t/lib/Nullable';
+import { mapForNullable } from 'option-t/lib/Nullable/map';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import React, {
-  forwardRef,
-  useEffect,
-  useImperativeMethods,
-  useRef,
-  useState,
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { styled } from '../../../styled-components';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { NodeAsJSON } from '../editor-type';
-import { createStateFromJSON } from '../EditorState';
 import { createEditorView } from '../EditorView';
 
 const ProseMirrorWrapper = styled.div`
@@ -35,82 +29,81 @@ const ProseMirrorWrapper = styled.div`
   }
 `;
 
-export interface EditorMethods {
-  getData(): Nullable<NodeAsJSON>;
-}
+type OnChange = (getContent: () => Nullable<NodeAsJSON>) => void;
 
 interface Props {
   className?: string;
-  schema: Schema;
-  content: Nullable<NodeAsJSON>;
-  onChange(): void;
+  state: EditorState;
+  onChange: OnChange;
 }
 
-export const Editor = forwardRef<EditorMethods, Props>(
-  ({ className, content, schema, onChange }, ref) => {
-    const editorRef = useRef<HTMLDivElement>(null);
-    const [editorView, setEditorView] = useState<EditorView | null>(null);
+function useEditorViewUpdate(
+  editorView: Nullable<EditorView>,
+  onChange: OnChange,
+) {
+  useEffect(
+    () => {
+      if (isNull(editorView)) {
+        return;
+      }
 
-    useImperativeMethods(
-      ref,
-      () => ({
-        getData(): Nullable<NodeAsJSON> {
-          if (isNull(editorView)) {
-            return null;
+      editorView.update({
+        ...editorView.props,
+        dispatchTransaction(tr) {
+          const newState = editorView.state.apply(tr);
+          editorView.updateState(newState);
+          if (tr.docChanged) {
+            onChange(getContent);
           }
-          return unwrapUnsafeValue<NodeAsJSON>(editorView.state.doc.toJSON());
+
+          function getContent(): Nullable<NodeAsJSON> {
+            return mapForNullable(editorView, _ =>
+              unwrapUnsafeValue<NodeAsJSON>(_.state.doc.toJSON()),
+            );
+          }
         },
-      }),
-      [ref, editorView, content],
-    );
+      });
+    },
+    [editorView, onChange],
+  );
+}
 
-    useEffect(
-      () => {
-        if (isNull(editorView)) {
-          return;
-        }
+export const Editor: React.FunctionComponent<Props> = ({
+  className,
+  state,
+  onChange,
+}) => {
+  const editorRef = useRef<HTMLDivElement>(null);
+  const [editorView, setEditorView] = useState<EditorView | null>(null);
 
-        editorView.update({
-          ...editorView.props,
-          dispatchTransaction: tr => {
-            const state = editorView.state.apply(tr);
-            editorView.updateState(state);
-            if (tr.docChanged) {
-              onChange();
-            }
-          },
-        });
-      },
-      [editorView, onChange],
-    );
-
-    useEffect(() => {
+  useEffect(
+    () => {
       if (isNull(editorRef.current)) {
         return;
       }
 
-      const state = createStateFromJSON(schema, content);
-      const newView = createEditorView(editorRef.current, state);
-      setEditorView(newView);
+      const newEditorView = createEditorView(editorRef.current, state);
+      setEditorView(newEditorView);
 
       return () => {
-        if (isNotNull(editorView)) {
-          editorView.destroy();
-        }
+        newEditorView.destroy();
       };
-    }, []);
+    },
+    [editorRef.current],
+  );
 
-    useEffect(
-      () => {
-        if (isNull(editorView) || isNull(content)) {
-          return;
-        }
+  useEffect(
+    () => {
+      if (isNull(editorView)) {
+        return;
+      }
 
-        editorView.updateState(createStateFromJSON(schema, content));
-      },
-      [content],
-    );
+      editorView.updateState(state);
+    },
+    [editorView, state],
+  );
 
-    return <ProseMirrorWrapper className={className} ref={editorRef} />;
-  },
-);
+  useEditorViewUpdate(editorView, onChange);
+
+  return <ProseMirrorWrapper className={className} ref={editorRef} />;
+};
