@@ -15,6 +15,7 @@ const StyledGlobalNavigation = styled.header`
   background: ${({ theme }) => theme.headerColorBg};
   color: ${({ theme }) => theme.headerColorFg};
   padding: ${({ theme }) => theme.space}px;
+  overflow-x: auto;
 `;
 
 const Left = styled.div`
