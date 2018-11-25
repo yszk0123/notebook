@@ -1,6 +1,7 @@
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import { styled } from '../../../styled-components';
+import { preventDefault } from '../../../utils/preventDefault';
 import { MenuItem } from '../editor-type';
 
 const StyledMenu = styled.div`
@@ -37,7 +38,8 @@ export const Menu: React.FunctionComponent<Props> = ({
       {menuItems.map(item => (
         <MenuItem
           key={item.shortTitle}
-          onClick={() => {
+          onMouseDown={preventDefault}
+          onClick={event => {
             item.command(editorView.state, editorView.dispatch, editorView);
           }}
         >
