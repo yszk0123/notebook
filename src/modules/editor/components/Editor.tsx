@@ -47,7 +47,6 @@ interface Props {
 export const Editor = forwardRef<EditorMethods, Props>(
   ({ className, content, onChange }, ref) => {
     const editorRef = useRef<HTMLDivElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null);
     const [view, setView] = useState<EditorView | null>(null);
 
     useImperativeMethods(
@@ -84,7 +83,7 @@ export const Editor = forwardRef<EditorMethods, Props>(
     );
 
     useEffect(() => {
-      if (isNull(editorRef.current) || isNull(contentRef.current)) {
+      if (isNull(editorRef.current)) {
         return;
       }
 
@@ -109,11 +108,6 @@ export const Editor = forwardRef<EditorMethods, Props>(
       [content],
     );
 
-    return (
-      <>
-        <ProseMirrorWrapper className={className} ref={editorRef} />
-        <div ref={contentRef} style={{ display: 'none' }} />
-      </>
-    );
+    return <ProseMirrorWrapper className={className} ref={editorRef} />;
   },
 );
