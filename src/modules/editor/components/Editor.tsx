@@ -1,5 +1,6 @@
 import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
+import { isNotUndefined } from 'option-t/lib/Undefinable';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React, { useEffect, useRef, useState } from 'react';
@@ -30,12 +31,6 @@ const ProseMirrorWrapper = styled.div`
 `;
 
 type OnChange = (getContent: () => Nullable<EditorContent>) => void;
-
-interface Props {
-  className?: string;
-  state: EditorState;
-  onChange: OnChange;
-}
 
 function useEditorViewUpdate(
   editorView: Nullable<EditorView>,
@@ -68,10 +63,18 @@ function useEditorViewUpdate(
   );
 }
 
+interface Props {
+  className?: string;
+  state: EditorState;
+  onChange: OnChange;
+  onReady?: (editorView: EditorView) => void;
+}
+
 export const Editor: React.FunctionComponent<Props> = ({
   className,
   state,
   onChange,
+  onReady,
 }) => {
   const editorRef = useRef<HTMLDivElement>(null);
   const [editorView, setEditorView] = useState<EditorView | null>(null);
@@ -98,6 +101,10 @@ export const Editor: React.FunctionComponent<Props> = ({
       if (isNotNull(editorView)) editorView.destroy();
       const newEditorView = createEditorView(editorRef.current, state);
       setEditorView(newEditorView);
+
+      if (isNotUndefined(onReady)) {
+        onReady(newEditorView);
+      }
 
       return () => {
         if (isNotNull(editorView)) {
