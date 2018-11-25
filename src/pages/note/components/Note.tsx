@@ -1,14 +1,17 @@
-import { isNull, Nullable } from 'option-t/lib/Nullable';
+import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
+import { EditorView } from 'prosemirror-view';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppState } from '../../../app/app-type';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Text } from '../../../components/Text';
 import {
+  createMenuItems,
   createSchema,
   createStateFromContent,
   Editor,
+  Menu,
 } from '../../../modules/editor';
 import { EditorContent } from '../../../modules/editor/editor-type';
 import { styled } from '../../../styled-components';
@@ -46,6 +49,7 @@ const StyledText = styled(Text)`
 `;
 
 const schema = createSchema();
+const menuItems = createMenuItems(schema);
 
 interface Props {}
 
@@ -54,6 +58,7 @@ export const Note: React.FunctionComponent<Props> = () => {
   const [editorContent, setEditorContent] = useState(
     mapForNullable(note, _ => _.content),
   );
+  const [editorView, setEditorView] = useState<Nullable<EditorView>>(null);
   const noteId = '1';
 
   function save(content: Nullable<EditorContent>) {
@@ -111,12 +116,18 @@ export const Note: React.FunctionComponent<Props> = () => {
         state={editorState}
         readonly={loading}
         onChange={onChange}
+        onReady={setEditorView}
       />
       <Footer>
         <Button onClick={onSave}>Save</Button>
         <StyledText size={FontSize.SMALL}>
           {saving ? 'saving...' : 'saved'}
         </StyledText>
+      </Footer>
+      <Footer>
+        {isNotNull(editorView) ? (
+          <Menu menuItems={menuItems} editorView={editorView} />
+        ) : null}
       </Footer>
     </StyledNote>
   );
