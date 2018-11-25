@@ -36,11 +36,13 @@ jobs:
           key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
 
       - run:
+          name: Lint
+          command: yarn lint
+
+      - run:
           name: Build
-          command: |
-            yarn build
+          command: yarn build
 
       - run:
           name: Deploy master branch to GitHub Pages
-          command: |
-            yarn deploy:ci
+          command: yarn deploy:ci
