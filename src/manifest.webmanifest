@@ -2,7 +2,7 @@
   "name": "Notebook",
   "short_name": "NB",
   "start_url": ".",
-  "display": "standalone",
+  "display": "minimal-ui",
   "background_color": "#fff",
   "description": "Notebook",
   "icons": [
