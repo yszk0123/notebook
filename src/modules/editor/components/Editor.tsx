@@ -1,4 +1,4 @@
-import { isNull, Nullable } from 'option-t/lib/Nullable';
+import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
@@ -76,25 +76,11 @@ export const Editor: React.FunctionComponent<Props> = ({
   const editorRef = useRef<HTMLDivElement>(null);
   const [editorView, setEditorView] = useState<EditorView | null>(null);
 
-  useEffect(
-    () => {
-      if (isNull(editorRef.current)) {
-        return;
-      }
-
-      const newEditorView = createEditorView(editorRef.current, state);
-      setEditorView(newEditorView);
-
-      return () => {
-        newEditorView.destroy();
-      };
-    },
-    [editorRef.current],
-  );
+  useEditorViewUpdate(editorView, onChange);
 
   useEffect(
     () => {
-      if (isNull(editorView)) {
+      if (isNull(editorView) || isNull(editorRef.current)) {
         return;
       }
 
@@ -103,7 +89,24 @@ export const Editor: React.FunctionComponent<Props> = ({
     [editorView, state],
   );
 
-  useEditorViewUpdate(editorView, onChange);
+  useEffect(
+    () => {
+      if (isNull(editorRef.current)) {
+        return;
+      }
+
+      if (isNotNull(editorView)) editorView.destroy();
+      const newEditorView = createEditorView(editorRef.current, state);
+      setEditorView(newEditorView);
+
+      return () => {
+        if (isNotNull(editorView)) {
+          editorView.destroy();
+        }
+      };
+    },
+    [editorRef.current],
+  );
 
   return <ProseMirrorWrapper className={className} ref={editorRef} />;
 };

@@ -1,28 +1,33 @@
 import { Nullable } from 'option-t/lib/Nullable';
 import { Schema } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Editor } from './components/Editor';
 import { EditorContent } from './editor-type';
 import { createStateFromContent } from './EditorState';
 
 export interface Props {
   schema: Schema;
-  initialState: EditorState;
+  initialEditorContent: Nullable<EditorContent>;
 }
 
 export const EditorContainer: React.FunctionComponent<Props> = ({
   schema,
-  initialState,
+  initialEditorContent = null,
 }) => {
-  const [state, setState] = useState(initialState);
+  const [editorContent, setEditorContent] = useState(initialEditorContent);
 
   const onChange = useCallback(
     (getContent: () => Nullable<EditorContent>) => {
-      setState(createStateFromContent(schema, getContent()));
+      const content = getContent();
+      setEditorContent(content);
     },
     [schema],
   );
 
-  return <Editor onChange={onChange} state={state} />;
+  const editorState = useMemo(
+    () => createStateFromContent(schema, initialEditorContent),
+    [initialEditorContent],
+  );
+
+  return <Editor onChange={onChange} state={editorState} />;
 };

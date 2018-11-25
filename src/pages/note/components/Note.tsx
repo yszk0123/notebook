@@ -1,12 +1,16 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppState } from '../../../app/app-type';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Text } from '../../../components/Text';
-import { Editor } from '../../../modules/editor';
-import { EditorMethods } from '../../../modules/editor/components/Editor';
+import {
+  createSchema,
+  createStateFromContent,
+  Editor,
+} from '../../../modules/editor';
+import { EditorContent } from '../../../modules/editor/editor-type';
 import { styled } from '../../../styled-components';
 import { FontSize } from '../../../theme/theme-type';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
@@ -41,44 +45,49 @@ const StyledText = styled(Text)`
   margin-left: ${({ theme }) => theme.space}px;
 `;
 
+const schema = createSchema();
+
 interface Props {}
 
 export const Note: React.FunctionComponent<Props> = () => {
   const [{ userId, saving, loading, note }, dispatch] = useRedux(mapState);
-  const editorRef = useRef<Nullable<EditorMethods>>(null);
+  const [editorContent, setEditorContent] = useState(
+    mapForNullable(note, _ => _.content),
+  );
   const noteId = '1';
+
+  function save(content: Nullable<EditorContent>) {
+    if (isNull(userId) || isNull(content)) {
+      return;
+    }
+
+    const input = {
+      note: {
+        content,
+        id: noteId,
+      },
+      userId,
+    };
+
+    dispatch(noteEffects.save(input));
+  }
 
   const onSave = useCallback(
     () => {
-      if (isNull(userId) || isNull(editorRef.current)) {
-        return;
-      }
-
-      const contentToBeSaved = editorRef.current.getData();
-      if (isNull(contentToBeSaved)) {
-        return;
-      }
-
-      const noteToSave = {
-        content: contentToBeSaved,
-        id: noteId,
-      };
-
-      dispatch(
-        noteEffects.save({
-          note: noteToSave,
-          userId,
-        }),
-      );
+      save(editorContent);
     },
-    [dispatch, userId, noteId],
+    [dispatch, userId, noteId, editorContent],
   );
 
-  const onChange = useDebouncedCallback(onSave, CHANGE_DELAY, [
-    dispatch,
-    userId,
-    noteId,
-  ]);
+  const onChange = useDebouncedCallback(
+    (getContent: () => Nullable<EditorContent>) => {
+      const content = getContent();
+      setEditorContent(content);
+      save(content);
+    },
+    CHANGE_DELAY,
+    [dispatch, userId, noteId],
+  );
 
   useEffect(
     () => {
@@ -91,13 +100,15 @@ export const Note: React.FunctionComponent<Props> = () => {
     [userId],
   );
 
-  const content = mapForNullable(note, _ => _.content);
+  const editorState = useMemo(
+    () => createStateFromContent(schema, mapForNullable(note, _ => _.content)),
+    [note],
+  );
 
   return (
     <StyledNote>
       <StyledEditor
-        ref={editorRef}
-        content={content}
+        state={editorState}
         readonly={loading}
         onChange={onChange}
       />
