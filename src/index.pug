@@ -10,6 +10,6 @@ html(lang="en")
     #root
     script(type="module").
       if (location.hostname !== 'localhost') {
-        navigator.serviceWorker.register('/service-worker.js');
+        navigator.serviceWorker.register('#[= process.env.APP_BASE_URL]/service-worker.js');
       }
     script(src="./index.ts")
