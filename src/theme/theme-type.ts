@@ -7,6 +7,7 @@ export const enum ColorPalette {
   SECONDARY = '#039BE5',
   SECONDARY_VARIANT = '#01579B',
   BLACK = '#000000',
+  GRAY = '#BBBBBB',
   WHITE = '#FFFFFF',
 }
 
@@ -17,6 +18,7 @@ export const enum FontSize {
 }
 
 export interface ThemeInterface {
+  borderColorBg: ColorPalette;
   headerColorBg: ColorPalette;
   headerColorFg: ColorPalette;
   buttonColorBg: ColorPalette;
@@ -28,4 +30,5 @@ export interface ThemeInterface {
     bold: string;
   };
   space: number;
+  thinkSpace: number;
 }
