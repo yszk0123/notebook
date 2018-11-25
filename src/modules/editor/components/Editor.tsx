@@ -9,8 +9,9 @@ import React, {
 } from 'react';
 import { styled } from '../../../styled-components';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
-import { createEditorView, createStateFromJSON } from '../createEditorView';
 import { NodeAsJSON } from '../editor-type';
+import { createStateFromJSON } from '../EditorState';
+import { createEditorView } from '../EditorView';
 
 const ProseMirrorWrapper = styled.div`
   & {
