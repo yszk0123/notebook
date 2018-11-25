@@ -11,8 +11,8 @@
     "jsx-no-lambda": false,
     "no-any": true,
     "no-empty-interface": false,
+    "object-literal-sort-keys": [true, "ignore-case"],
     "no-unused-variable": false,
-    "object-literal-sort-keys": false,
     "prettier": true,
     // This rule conflicts with organize imports feature of vscode
     "ordered-imports": false

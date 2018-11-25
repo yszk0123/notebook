@@ -10,6 +10,7 @@ import { EditorView } from 'prosemirror-view';
 import { NodeAsJSON } from './editor-type';
 
 const schema = new Schema({
+  marks: basicSchema.spec.marks,
   nodes: addListNodes(
     // FIXME: Avoid any (#6)
     // tslint:disable-next-line:no-any
@@ -17,7 +18,6 @@ const schema = new Schema({
     'paragraph block*',
     'block',
   ),
-  marks: basicSchema.spec.marks,
 });
 
 export function createStateFromJSON(data: NodeAsJSON) {

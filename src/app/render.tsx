@@ -74,8 +74,8 @@ export async function render() {
 
     const context = {
       app,
-      pathname,
       dispatch: store.dispatch,
+      pathname,
     };
 
     const page = await router.resolve(context);

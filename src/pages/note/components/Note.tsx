@@ -60,14 +60,14 @@ export const Note: React.FunctionComponent<Props> = () => {
       }
 
       const noteToSave = {
-        id: noteId,
         content: contentToBeSaved,
+        id: noteId,
       };
 
       dispatch(
         noteEffects.save({
-          userId,
           note: noteToSave,
+          userId,
         }),
       );
     },
@@ -116,9 +116,9 @@ function mapState(state: AppState) {
   const { loading, user } = state.routing;
 
   return {
-    saving,
     loading,
     note,
+    saving,
     userId: user ? user.uid : null,
   };
 }

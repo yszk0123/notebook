@@ -3,15 +3,13 @@ import { Note } from '../../models/Note';
 import { createAction, GetAction } from '../../redux';
 
 export const enum NoteActionType {
-  SAVE = 'SAVE',
-  SAVE_SUCCESS = 'SAVE_SUCCESS',
   LOAD = 'LOAD',
   LOAD_SUCCESS = 'LOAD_SUCCESS',
+  SAVE = 'SAVE',
+  SAVE_SUCCESS = 'SAVE_SUCCESS',
 }
 
 export const noteActions = {
-  save: createAction(NoteActionType.SAVE),
-  saveSuccess: createAction(NoteActionType.SAVE_SUCCESS),
   load: createAction(NoteActionType.LOAD),
   loadSuccess: createAction(
     NoteActionType.LOAD_SUCCESS,
@@ -19,12 +17,14 @@ export const noteActions = {
       payload: { note },
     }),
   ),
+  save: createAction(NoteActionType.SAVE),
+  saveSuccess: createAction(NoteActionType.SAVE_SUCCESS),
 };
 
 export type NoteAction = GetAction<typeof noteActions>;
 
 export interface NoteState {
-  saving: boolean;
   loading: boolean;
   note: Nullable<Note>;
+  saving: boolean;
 }

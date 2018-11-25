@@ -1,9 +1,6 @@
 import { ColorPalette, FontSize, ThemeInterface } from './theme-type';
 
 export const defaultTheme: ThemeInterface = {
-  headerColorBg: ColorPalette.PRIMARY,
-  headerColorFg: ColorPalette.WHITE,
-  loadingColorFg: ColorPalette.SECONDARY,
   buttonColorBg: ColorPalette.SECONDARY,
   buttonColorFg: ColorPalette.WHITE,
   fontSize: {
@@ -12,8 +9,11 @@ export const defaultTheme: ThemeInterface = {
     [FontSize.LARGE]: '2rem',
   },
   fontWeight: {
-    normal: 'normal',
     bold: 'bold',
+    normal: 'normal',
   },
+  headerColorBg: ColorPalette.PRIMARY,
+  headerColorFg: ColorPalette.WHITE,
+  loadingColorFg: ColorPalette.SECONDARY,
   space: 8,
 };

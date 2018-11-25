@@ -9,8 +9,8 @@ export const loginRoutes: Route[] = [
       const { Login } = await import('./components/Login');
 
       return {
-        loading: <Login />,
         content: <Login />,
+        loading: <Login />,
       };
     },
   },
