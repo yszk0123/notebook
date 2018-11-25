@@ -1,4 +1,5 @@
 import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
+import { Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import React, {
   forwardRef,
@@ -40,46 +41,47 @@ export interface EditorMethods {
 
 interface Props {
   className?: string;
+  schema: Schema;
   content: Nullable<NodeAsJSON>;
   onChange(): void;
 }
 
 export const Editor = forwardRef<EditorMethods, Props>(
-  ({ className, content, onChange }, ref) => {
+  ({ className, content, schema, onChange }, ref) => {
     const editorRef = useRef<HTMLDivElement>(null);
-    const [view, setView] = useState<EditorView | null>(null);
+    const [editorView, setEditorView] = useState<EditorView | null>(null);
 
     useImperativeMethods(
       ref,
       () => ({
         getData(): Nullable<NodeAsJSON> {
-          if (isNull(view)) {
+          if (isNull(editorView)) {
             return null;
           }
-          return unwrapUnsafeValue<NodeAsJSON>(view.state.doc.toJSON());
+          return unwrapUnsafeValue<NodeAsJSON>(editorView.state.doc.toJSON());
         },
       }),
-      [ref, view, content],
+      [ref, editorView, content],
     );
 
     useEffect(
       () => {
-        if (isNull(view)) {
+        if (isNull(editorView)) {
           return;
         }
 
-        view.update({
-          ...view.props,
+        editorView.update({
+          ...editorView.props,
           dispatchTransaction: tr => {
-            const state = view.state.apply(tr);
-            view.updateState(state);
+            const state = editorView.state.apply(tr);
+            editorView.updateState(state);
             if (tr.docChanged) {
               onChange();
             }
           },
         });
       },
-      [view, onChange],
+      [editorView, onChange],
     );
 
     useEffect(() => {
@@ -87,23 +89,24 @@ export const Editor = forwardRef<EditorMethods, Props>(
         return;
       }
 
-      const newView = createEditorView(editorRef.current, content);
-      setView(newView);
+      const state = createStateFromJSON(schema, content);
+      const newView = createEditorView(editorRef.current, state);
+      setEditorView(newView);
 
       return () => {
-        if (isNotNull(view)) {
-          view.destroy();
+        if (isNotNull(editorView)) {
+          editorView.destroy();
         }
       };
     }, []);
 
     useEffect(
       () => {
-        if (isNull(view) || isNull(content)) {
+        if (isNull(editorView) || isNull(content)) {
           return;
         }
 
-        view.updateState(createStateFromJSON(content));
+        editorView.updateState(createStateFromJSON(schema, content));
       },
       [content],
     );
