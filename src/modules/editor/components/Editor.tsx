@@ -1,9 +1,10 @@
-import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
+import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
-import { isNotUndefined } from 'option-t/lib/Undefinable';
+import { tapNullable } from 'option-t/lib/Nullable/tap';
+import { tapUndefinable } from 'option-t/lib/Undefinable/tap';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { styled } from '../../../styled-components';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { EditorContent } from '../editor-type';
@@ -76,44 +77,38 @@ export const Editor: React.FunctionComponent<Props> = ({
   onChange,
   onReady,
 }) => {
-  const editorRef = useRef<HTMLDivElement>(null);
-  const [editorView, setEditorView] = useState<EditorView | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const editorViewRef = useRef<Nullable<EditorView>>(null);
 
-  useEditorViewUpdate(editorView, onChange);
+  useEditorViewUpdate(editorViewRef.current, onChange);
 
   useEffect(
     () => {
-      if (isNull(editorView) || isNull(editorRef.current)) {
-        return;
-      }
-
-      editorView.updateState(state);
+      tapNullable(editorViewRef.current, _ => _.updateState(state));
     },
-    [editorView, state],
+    [editorViewRef.current, state],
   );
 
   useEffect(
     () => {
-      if (isNull(editorRef.current)) {
+      if (isNull(ref.current)) {
         return;
       }
 
-      if (isNotNull(editorView)) editorView.destroy();
-      const newEditorView = createEditorView(editorRef.current, state);
-      setEditorView(newEditorView);
+      tapNullable(editorViewRef.current, _ => _.destroy());
 
-      if (isNotUndefined(onReady)) {
-        onReady(newEditorView);
-      }
+      const oldEditorView = editorViewRef.current;
+      const newEditorView = createEditorView(ref.current, state);
+      editorViewRef.current = newEditorView;
+
+      tapUndefinable(onReady, _ => _(newEditorView));
 
       return () => {
-        if (isNotNull(editorView)) {
-          editorView.destroy();
-        }
+        tapNullable(oldEditorView, _ => _.destroy());
       };
     },
-    [editorRef.current],
+    [ref.current],
   );
 
-  return <ProseMirrorWrapper className={className} ref={editorRef} />;
+  return <ProseMirrorWrapper className={className} ref={ref} />;
 };

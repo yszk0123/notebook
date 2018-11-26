@@ -1,7 +1,7 @@
 import { Nullable } from 'option-t/lib/Nullable';
 import { Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { Editor } from './components/Editor';
 import { EditorContent } from './editor-type';
 import { createStateFromContent } from './EditorState';
@@ -17,12 +17,11 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
   onReady,
   schema,
 }) => {
-  const [editorContent, setEditorContent] = useState(initialEditorContent);
+  const editorContentRef = useRef(initialEditorContent);
 
   const onChange = useCallback(
     (getContent: () => Nullable<EditorContent>) => {
-      const content = getContent();
-      setEditorContent(content);
+      editorContentRef.current = getContent();
     },
     [schema],
   );
