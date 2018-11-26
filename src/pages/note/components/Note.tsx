@@ -1,7 +1,13 @@
 import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
 import { EditorView } from 'prosemirror-view';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { AppState } from '../../../app/app-type';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
@@ -62,9 +68,7 @@ interface Props {}
 
 export const Note: React.FunctionComponent<Props> = () => {
   const [{ userId, saving, loading, note }, dispatch] = useRedux(mapState);
-  const [editorContent, setEditorContent] = useState(
-    mapForNullable(note, _ => _.content),
-  );
+  const editorContentRef = useRef(mapForNullable(note, _ => _.content));
   const [editorView, setEditorView] = useState<Nullable<EditorView>>(null);
   const noteId = '1';
 
@@ -86,16 +90,16 @@ export const Note: React.FunctionComponent<Props> = () => {
 
   const onSave = useCallback(
     () => {
-      save(editorContent);
+      save(editorContentRef.current);
     },
-    [dispatch, userId, noteId, editorContent],
+    [dispatch, userId, noteId, editorContentRef.current],
   );
 
   const onChange = useDebouncedCallback(
     (getContent: () => Nullable<EditorContent>) => {
-      const content = getContent();
-      setEditorContent(content);
-      save(content);
+      const newContent = getContent();
+      editorContentRef.current = newContent;
+      save(newContent);
     },
     CHANGE_DELAY,
     [dispatch, userId, noteId],
