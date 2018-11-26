@@ -38,6 +38,13 @@ const StyledNote = styled.div`
     min-height: ${EDITOR_MIN_HEIGHT};
     font-size: ${({ theme }) => theme.fontSize.default};
   }
+
+  @media screen and (max-width: 480px) {
+    .ProseMirror-focused {
+      max-height: 40vh;
+      overflow-y: scroll;
+    }
+  }
 `;
 
 const StyledEditor = styled(Editor)<{ readonly: boolean }>`
