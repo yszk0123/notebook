@@ -25,7 +25,7 @@ class User {
   }
 }
 
-async function loginUser(user: firebase.User): Promise<User | null> {
+async function loginUser(user: firebase.User): Promise<Nullable<User>> {
   const db = firebase.firestore();
   db.settings({ timestampsInSnapshots: true });
 

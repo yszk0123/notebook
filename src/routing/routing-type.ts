@@ -1,3 +1,4 @@
+import { Nullable } from 'option-t/lib/Nullable';
 import { AppContext } from '../app/app-type';
 import { createAction, GetAction } from '../redux';
 
@@ -35,5 +36,5 @@ export type RoutingAction = GetAction<typeof routingActions>;
 
 export interface RoutingState {
   loading: boolean;
-  user: User | null;
+  user: Nullable<User>;
 }
