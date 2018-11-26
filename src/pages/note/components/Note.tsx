@@ -36,6 +36,13 @@ const StyledNote = styled.div`
 
 const StyledEditor = styled(Editor)<{ readonly: boolean }>`
   opacity: ${({ readonly }) => (readonly ? 0.5 : 1)};
+  margin-top: ${({ theme }) => theme.space}px;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: ${({ theme }) => theme.space}px;
 `;
 
 const Footer = styled.div`
@@ -112,6 +119,11 @@ export const Note: React.FunctionComponent<Props> = () => {
 
   return (
     <StyledNote>
+      <Header>
+        {isNotNull(editorView) ? (
+          <Menu menuItems={menuItems} editorView={editorView} />
+        ) : null}
+      </Header>
       <StyledEditor
         state={editorState}
         readonly={loading}
@@ -123,11 +135,6 @@ export const Note: React.FunctionComponent<Props> = () => {
         <StyledText size={FontSize.SMALL}>
           {saving ? 'saving...' : 'saved'}
         </StyledText>
-      </Footer>
-      <Footer>
-        {isNotNull(editorView) ? (
-          <Menu menuItems={menuItems} editorView={editorView} />
-        ) : null}
       </Footer>
     </StyledNote>
   );
