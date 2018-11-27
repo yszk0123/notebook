@@ -1,6 +1,7 @@
 import { ColorPalette, FontSize, ThemeInterface } from './theme-type';
 
 export const defaultTheme: ThemeInterface = {
+  activeOpacity: 1,
   borderColorBg: ColorPalette.GRAY,
   buttonColorBg: ColorPalette.SECONDARY,
   buttonColorFg: ColorPalette.WHITE,
@@ -15,7 +16,10 @@ export const defaultTheme: ThemeInterface = {
   },
   headerColorBg: ColorPalette.PRIMARY,
   headerColorFg: ColorPalette.WHITE,
+  inactiveOpacity: 0.4,
   loadingColorFg: ColorPalette.SECONDARY,
+  radius: 4,
   space: 8,
   thinkSpace: 4,
+  transition: '0.25s ease-in-out',
 };

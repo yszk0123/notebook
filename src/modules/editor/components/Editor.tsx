@@ -1,50 +1,52 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { mapForNullable } from 'option-t/lib/Nullable/map';
-import { tapNullable } from 'option-t/lib/Nullable/tap';
-import { tapUndefinable } from 'option-t/lib/Undefinable/tap';
+import { isNotUndefined } from 'option-t/lib/Undefinable';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { styled } from '../../../styled-components';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { EditorContent } from '../editor-type';
-import { createEditorView } from '../EditorView';
 
 const ProseMirrorWrapper = styled.div`
-  & {
-    .ProseMirror-menubar-wrapper {
-      border: 2px solid silver;
-    }
+  .ProseMirror {
+    padding: 4px 8px 4px 14px;
+    line-height: 1.2;
+  }
 
-    .ProseMirror {
-      padding: 4px 8px 4px 14px;
-      line-height: 1.2;
-    }
+  .ProseMirror p {
+    margin: 0;
+  }
 
-    .ProseMirror p {
-      margin: 0;
-    }
-
-    .ProseMirror-focused {
-      outline: none;
-    }
+  .ProseMirror-focused {
+    outline: none;
   }
 `;
 
 type OnChange = (getContent: () => Nullable<EditorContent>) => void;
 
-function useEditorViewUpdate(
-  editorView: Nullable<EditorView>,
-  onChange: OnChange,
-) {
-  useEffect(
-    () => {
-      if (isNull(editorView)) {
-        return;
-      }
+interface RenderProps {
+  editor: JSX.Element;
+  editorView: EditorView;
+}
 
-      editorView.update({
-        ...editorView.props,
+interface Props {
+  className?: string;
+  state: EditorState;
+  onChange: OnChange;
+  children?: (props: RenderProps) => JSX.Element;
+}
+
+export const Editor: React.FunctionComponent<Props> = ({
+  className,
+  children,
+  state,
+  onChange,
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [editorView] = useState(
+    () =>
+      new EditorView(undefined, {
+        state,
         dispatchTransaction(tr) {
           const newState = editorView.state.apply(tr);
           editorView.updateState(newState);
@@ -53,62 +55,39 @@ function useEditorViewUpdate(
           }
 
           function getContent(): Nullable<EditorContent> {
-            return mapForNullable(editorView, _ =>
-              unwrapUnsafeValue<EditorContent>(_.state.doc.toJSON()),
+            return unwrapUnsafeValue<EditorContent>(
+              editorView.state.doc.toJSON(),
             );
           }
         },
-      });
-    },
-    [editorView, onChange],
-  );
-}
-
-interface Props {
-  className?: string;
-  state: EditorState;
-  onChange: OnChange;
-  onReady?: (editorView: EditorView) => void;
-}
-
-export const Editor: React.FunctionComponent<Props> = ({
-  className,
-  state,
-  onChange,
-  onReady,
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const editorViewRef = useRef<Nullable<EditorView>>(null);
-
-  useEditorViewUpdate(editorViewRef.current, onChange);
-
-  useEffect(
-    () => {
-      tapNullable(editorViewRef.current, _ => _.updateState(state));
-    },
-    [editorViewRef.current, state],
+      }),
   );
 
   useEffect(
     () => {
-      if (isNull(ref.current)) {
-        return;
-      }
-
-      tapNullable(editorViewRef.current, _ => _.destroy());
-
-      const oldEditorView = editorViewRef.current;
-      const newEditorView = createEditorView(ref.current, state);
-      editorViewRef.current = newEditorView;
-
-      tapUndefinable(onReady, _ => _(newEditorView));
-
-      return () => {
-        tapNullable(oldEditorView, _ => _.destroy());
-      };
+      editorView.updateState(state);
     },
-    [ref.current],
+    [editorView, state],
   );
 
-  return <ProseMirrorWrapper className={className} ref={ref} />;
+  useEffect(() => {
+    if (isNull(ref.current)) {
+      return;
+    }
+    ref.current.appendChild(editorView.dom);
+    editorView.update({ ...editorView.props });
+
+    return () => {
+      editorView.destroy();
+    };
+  }, []);
+
+  const editor = <ProseMirrorWrapper className={className} ref={ref} />;
+
+  return isNotUndefined(children)
+    ? children({
+        editor,
+        editorView,
+      })
+    : editor;
 };

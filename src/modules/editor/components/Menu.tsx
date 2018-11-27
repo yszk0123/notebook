@@ -4,37 +4,39 @@ import { styled } from '../../../styled-components';
 import { preventDefault } from '../../../utils/preventDefault';
 import { MenuItem } from '../editor-type';
 
-const StyledMenu = styled.div`
-  width: 100%;
-  border-top: 1px solid ${({ theme }) => theme.borderColorBg};
-  display: flex;
-  flex-wrap: wrap;
-  padding: ${({ theme }) => theme.thinkSpace}px;
-  font-size: ${({ theme }) => theme.fontSize.large};
-`;
-
 const MenuItem = styled.div`
-  margin-top: ${({ theme }) => theme.space}px;
-  padding: ${({ theme }) => theme.space}px;
   background: ${({ theme }) => theme.buttonColorBg};
+  border-radius: ${({ theme }) => theme.radius}px;
   color: ${({ theme }) => theme.buttonColorFg};
+  cursor: pointer;
+  text-align: center;
+  min-width: 4rem;
+  opacity: ${({ theme }) => theme.inactiveOpacity};
+  padding: ${({ theme }) => theme.space}px;
+  transition: ${({ theme }) => theme.transition};
 
   & + & {
     margin-left: ${({ theme }) => theme.space}px;
   }
+
+  :hover {
+    opacity: ${({ theme }) => theme.activeOpacity};
+  }
 `;
 
 interface Props {
+  className?: string;
   editorView: EditorView;
   menuItems: MenuItem[];
 }
 
 export const Menu: React.FunctionComponent<Props> = ({
+  className,
   editorView,
   menuItems,
 }) => {
   return (
-    <StyledMenu>
+    <div className={className}>
       {menuItems.map(item => (
         <MenuItem
           key={item.shortTitle}
@@ -46,6 +48,6 @@ export const Menu: React.FunctionComponent<Props> = ({
           {item.shortTitle}
         </MenuItem>
       ))}
-    </StyledMenu>
+    </div>
   );
 };

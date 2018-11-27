@@ -16,6 +16,6 @@ export function createStateFromContent(
 
   return EditorState.create({
     doc,
-    plugins: exampleSetup({ schema }),
+    plugins: exampleSetup({ schema, menuBar: false }),
   });
 }

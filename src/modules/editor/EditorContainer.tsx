@@ -1,23 +1,42 @@
 import { Nullable } from 'option-t/lib/Nullable';
 import { Schema } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 import React, { useCallback, useMemo, useRef } from 'react';
+import { styled } from '../../styled-components';
 import { Editor } from './components/Editor';
-import { EditorContent } from './editor-type';
+import { Menu } from './components/Menu';
+import { EditorContent, MenuItem } from './editor-type';
 import { createStateFromContent } from './EditorState';
 
+const StyledMenu = styled(Menu)`
+  display: flex;
+  flex-wrap: wrap;
+  font-size: ${({ theme }) => theme.fontSize.large};
+  overflow-x: auto;
+  padding: ${({ theme }) => theme.thinkSpace}px;
+  width: 100%;
+`;
+
+const StyledEditor = styled.div`
+  border: 2px solid #ccc;
+
+  .ProseMirror {
+    font-size: ${({ theme }) => theme.fontSize.default};
+  }
+`;
+
 export interface Props {
-  initialEditorContent: Nullable<EditorContent>;
-  onReady?: (editorView: EditorView) => void;
   schema: Schema;
+  menuItems: MenuItem[];
 }
 
 export const EditorContainer: React.FunctionComponent<Props> = ({
-  initialEditorContent = null,
-  onReady,
   schema,
+  menuItems,
 }) => {
-  const editorContentRef = useRef(initialEditorContent);
+  const initialEditorContent = null;
+  const editorContentRef = useRef<Nullable<EditorContent>>(
+    initialEditorContent,
+  );
 
   const onChange = useCallback(
     (getContent: () => Nullable<EditorContent>) => {
@@ -31,5 +50,16 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
     [initialEditorContent],
   );
 
-  return <Editor onChange={onChange} onReady={onReady} state={editorState} />;
+  return (
+    <Editor onChange={onChange} state={editorState}>
+      {({ editor, editorView }) => {
+        return (
+          <>
+            <StyledEditor>{editor}</StyledEditor>
+            <StyledMenu menuItems={menuItems} editorView={editorView} />
+          </>
+        );
+      }}
+    </Editor>
+  );
 };

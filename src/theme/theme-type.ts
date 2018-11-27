@@ -18,17 +18,21 @@ export const enum FontSize {
 }
 
 export interface ThemeInterface {
+  activeOpacity: number;
   borderColorBg: ColorPalette;
-  headerColorBg: ColorPalette;
-  headerColorFg: ColorPalette;
   buttonColorBg: ColorPalette;
   buttonColorFg: ColorPalette;
-  loadingColorFg: ColorPalette;
   fontSize: Record<FontSize, string>;
   fontWeight: {
     normal: string;
     bold: string;
   };
+  headerColorBg: ColorPalette;
+  headerColorFg: ColorPalette;
+  inactiveOpacity: number;
+  loadingColorFg: ColorPalette;
+  radius: number;
   space: number;
   thinkSpace: number;
+  transition: string;
 }
