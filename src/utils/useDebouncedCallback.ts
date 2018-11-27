@@ -7,16 +7,19 @@ export function useDebouncedCallback<Args extends any[]>(
   // tslint:disable-next-line:no-any
   inputs: ReadonlyArray<any>,
 ) {
-  return useMemo(() => {
-    let timeoutId: NodeJS.Timeout;
+  return useMemo(
+    () => {
+      let timeoutId: NodeJS.Timeout;
 
-    return (...args: Args) => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      timeoutId = setTimeout(() => {
-        fn(...args);
-      }, delay);
-    };
-  }, inputs);
+      return (...args: Args) => {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+          fn(...args);
+        }, delay);
+      };
+    },
+    [...inputs, delay],
+  );
 }
