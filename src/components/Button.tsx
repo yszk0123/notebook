@@ -5,5 +5,7 @@ export const Button = styled.button`
   border-radius: 4px;
   border: none;
   color: ${({ theme }) => theme.buttonColorFg};
+  cursor: pointer;
+  outline: none;
   padding: ${({ theme }) => theme.space}px;
 `;

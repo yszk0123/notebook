@@ -4,6 +4,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React, { useEffect, useRef, useState } from 'react';
 import { styled } from '../../../styled-components';
+import { noop } from '../../../utils/noop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { EditorContent } from '../editor-type';
 
@@ -33,6 +34,8 @@ interface Props {
   className?: string;
   state: EditorState;
   onChange: OnChange;
+  onFocus?: (event: Event) => void;
+  onBlur?: (event: Event) => void;
   children?: (props: RenderProps) => JSX.Element;
 }
 
@@ -41,6 +44,8 @@ export const Editor: React.FunctionComponent<Props> = ({
   children,
   state,
   onChange,
+  onFocus = noop,
+  onBlur = noop,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [editorView] = useState(
@@ -76,9 +81,13 @@ export const Editor: React.FunctionComponent<Props> = ({
     }
     ref.current.appendChild(editorView.dom);
     editorView.update({ ...editorView.props });
+    editorView.dom.addEventListener('focus', onFocus);
+    editorView.dom.addEventListener('blur', onBlur);
 
     return () => {
       editorView.destroy();
+      editorView.dom.removeEventListener('focus', onFocus);
+      editorView.dom.removeEventListener('blur', onBlur);
     };
   }, []);
 

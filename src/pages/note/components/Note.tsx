@@ -1,6 +1,5 @@
-import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
+import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
-import { EditorView } from 'prosemirror-view';
 import React, {
   useCallback,
   useEffect,
@@ -17,19 +16,31 @@ import {
   createSchema,
   createStateFromContent,
   Editor,
-  Menu,
+  EditorMenu,
 } from '../../../modules/editor';
 import { EditorContent } from '../../../modules/editor/editor-type';
-import { styled } from '../../../styled-components';
+import { createGlobalStyle, styled } from '../../../styled-components';
 import { FontSize } from '../../../theme/theme-type';
+import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
 import { noteEffects } from '../NoteEffect';
 
-const CHANGE_DELAY = 5000;
+const CHANGE_DELAY = 4000;
 const EDITOR_MIN_HEIGHT = '6rem';
+const VIRTUAL_KEYBOARD_HEIGHT = 216; // Ugly hack...
+
+const GlobalStyleForNote = createGlobalStyle<{ focused: boolean }>`
+  @media screen and (max-width: 480px) {
+    #root {
+      height: calc(100vh - ${VIRTUAL_KEYBOARD_HEIGHT}px);
+      overflow-y: auto;
+    }
+  }
+`;
 
 const StyledNote = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 100%;
   font-size: ${({ theme }) => theme.fontSize.large};
@@ -38,30 +49,40 @@ const StyledNote = styled.div`
     min-height: ${EDITOR_MIN_HEIGHT};
     font-size: ${({ theme }) => theme.fontSize.default};
   }
+`;
 
-  @media screen and (max-width: 480px) {
-    .ProseMirror-focused {
-      max-height: 40vh;
-      overflow-y: scroll;
-    }
+const StyledButton = styled(Button)`
+  & + & {
+    margin-left: ${({ theme }) => theme.space}px;
   }
 `;
 
-const StyledEditor = styled(Editor)<{ readonly: boolean }>`
-  opacity: ${({ readonly }) => (readonly ? 0.5 : 1)};
+const StyledEditorMenu = styled(EditorMenu)`
+  bottom: 0;
+  display: flex;
+  font-size: ${({ theme }) => theme.fontSize.large};
+  overflow-x: auto;
+  padding: ${({ theme }) => theme.thinkSpace}px;
+  position: sticky;
+  width: 100%;
+`;
+
+const StyledEditor = styled.div`
   margin-top: ${({ theme }) => theme.space}px;
 `;
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: ${({ theme }) => theme.space}px;
-`;
+const MiniControl = styled.div`
+  position: absolute;
+  z-index: 100;
+  top: ${({ theme }) => theme.space}px;
+  right: ${({ theme }) => theme.space}px;
+  text-align: right;
+  opacity: ${({ theme }) => theme.inactiveOpacity};
+  transition: ${({ theme }) => theme.transition};
 
-const Footer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: ${({ theme }) => theme.space}px;
+  :hover {
+    opacity: ${({ theme }) => theme.activeOpacity};
+  }
 `;
 
 const StyledText = styled(Text)`
@@ -75,8 +96,8 @@ interface Props {}
 
 export const Note: React.FunctionComponent<Props> = () => {
   const [{ userId, saving, loading, note }, dispatch] = useRedux(mapState);
+  const [focused, setFocused] = useState(false);
   const editorContentRef = useRef(mapForNullable(note, _ => _.content));
-  const [editorView, setEditorView] = useState<Nullable<EditorView>>(null);
   const noteId = '1';
 
   function save(content: Nullable<EditorContent>) {
@@ -112,6 +133,14 @@ export const Note: React.FunctionComponent<Props> = () => {
     [dispatch, userId, noteId],
   );
 
+  const onFocus = useCallback(() => {
+    setFocused(true);
+  }, []);
+
+  const onBlur = useCallback(() => {
+    setFocused(false);
+  }, []);
+
   useEffect(
     () => {
       if (isNull(userId)) {
@@ -130,23 +159,34 @@ export const Note: React.FunctionComponent<Props> = () => {
 
   return (
     <StyledNote>
-      <Header>
-        {isNotNull(editorView) ? (
-          <Menu menuItems={menuItems} editorView={editorView} />
-        ) : null}
-      </Header>
-      <StyledEditor
+      <Editor
         state={editorState}
-        readonly={loading}
         onChange={onChange}
-        onReady={setEditorView}
-      />
-      <Footer>
-        <Button onClick={onSave}>Save</Button>
-        <StyledText size={FontSize.SMALL}>
-          {saving ? 'saving...' : 'saved'}
-        </StyledText>
-      </Footer>
+        onFocus={onFocus}
+        onBlur={onBlur}
+      >
+        {({ editor, editorView }) => {
+          const onDone = () => {
+            const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
+            element.blur();
+          };
+
+          return (
+            <>
+              <StyledEditor>{editor}</StyledEditor>
+              <MiniControl>
+                <StyledButton onClick={onDone}>Done</StyledButton>
+                <StyledButton onClick={onSave}>Save</StyledButton>
+                <StyledText size={FontSize.SMALL}>
+                  {saving ? 'saving...' : 'saved'}
+                </StyledText>
+              </MiniControl>
+              <StyledEditorMenu menuItems={menuItems} editorView={editorView} />
+              <GlobalStyleForNote focused={focused} />
+            </>
+          );
+        }}
+      </Editor>
     </StyledNote>
   );
 };

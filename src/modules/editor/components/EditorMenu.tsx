@@ -30,7 +30,7 @@ interface Props {
   menuItems: MenuItem[];
 }
 
-export const Menu: React.FunctionComponent<Props> = ({
+export const EditorMenu: React.FunctionComponent<Props> = ({
   className,
   editorView,
   menuItems,

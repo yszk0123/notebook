@@ -3,11 +3,11 @@ import { Schema } from 'prosemirror-model';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { styled } from '../../styled-components';
 import { Editor } from './components/Editor';
-import { Menu } from './components/Menu';
+import { EditorMenu } from './components/EditorMenu';
 import { EditorContent, MenuItem } from './editor-type';
 import { createStateFromContent } from './EditorState';
 
-const StyledMenu = styled(Menu)`
+const StyledMenu = styled(EditorMenu)`
   display: flex;
   flex-wrap: wrap;
   font-size: ${({ theme }) => theme.fontSize.large};

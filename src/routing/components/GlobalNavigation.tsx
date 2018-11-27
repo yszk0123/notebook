@@ -9,13 +9,16 @@ import { getCurrentPath } from '../utils/getCurrentPath';
 import { NavLink } from './NavLink';
 
 const StyledGlobalNavigation = styled.header`
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   background: ${({ theme }) => theme.headerColorBg};
   color: ${({ theme }) => theme.headerColorFg};
-  padding: ${({ theme }) => theme.space}px;
+  display: flex;
+  justify-content: space-between;
   overflow-x: auto;
+  padding: ${({ theme }) => theme.space}px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 `;
 
 const Left = styled.div`
