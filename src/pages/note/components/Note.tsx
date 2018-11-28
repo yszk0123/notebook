@@ -21,6 +21,7 @@ import {
 import { EditorContent } from '../../../modules/editor/editor-type';
 import { createGlobalStyle, styled } from '../../../styled-components';
 import { FontSize } from '../../../theme/theme-type';
+import { stickToTop } from '../../../utils/stickToTop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
 import { noteEffects } from '../NoteEffect';
@@ -32,8 +33,9 @@ const VIRTUAL_KEYBOARD_HEIGHT = 216; // Ugly hack...
 const GlobalStyleForNote = createGlobalStyle<{ focused: boolean }>`
   @media screen and (max-width: 480px) {
     #root {
-      height: calc(100vh - ${VIRTUAL_KEYBOARD_HEIGHT}px);
-      overflow-y: auto;
+      height: ${({ focused }) =>
+        focused ? `calc(100vh - ${VIRTUAL_KEYBOARD_HEIGHT}px)` : ''};
+      overflow-y: ${({ focused }) => (focused ? 'auto' : undefined)};
     }
   }
 `;
@@ -72,7 +74,7 @@ const StyledEditor = styled.div`
 `;
 
 const MiniControl = styled.div`
-  position: absolute;
+  position: sticky;
   z-index: 100;
   top: ${({ theme }) => theme.space}px;
   right: ${({ theme }) => theme.space}px;
@@ -135,6 +137,7 @@ export const Note: React.FunctionComponent<Props> = () => {
 
   const onFocus = useCallback(() => {
     setFocused(true);
+    stickToTop();
   }, []);
 
   const onBlur = useCallback(() => {
