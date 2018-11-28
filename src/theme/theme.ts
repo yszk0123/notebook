@@ -5,6 +5,9 @@ export const defaultTheme: ThemeInterface = {
   borderColorBg: ColorPalette.GRAY,
   buttonColorBg: ColorPalette.SECONDARY,
   buttonColorFg: ColorPalette.WHITE,
+  dropDownMenuColorBg: ColorPalette.SECONDARY,
+  dropDownMenuColorFg: ColorPalette.WHITE,
+  dropDownMenuShadow: ColorPalette.BLACK,
   fontSize: {
     [FontSize.SMALL]: '1.2rem',
     [FontSize.DEFAULT]: '1.6rem',

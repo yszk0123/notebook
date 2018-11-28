@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { AppState } from '../../app/app-type';
 import useRedux from '../../app/useRedux';
+import { DropDownMenu } from '../../components/DropDownMenu';
 import { Text } from '../../components/Text';
 import { routingPaths } from '../../config/RoutingConfig';
 import { HistoryContext } from '../../HistoryContext';
@@ -43,6 +44,27 @@ const Link = styled(NavLink)`
   }
 `;
 
+const StyledDropDownMenu = styled(DropDownMenu)`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 80px;
+  padding: ${({ theme }) => theme.space}px;
+  position: fixed;
+  right: ${({ theme }) => theme.space}px;
+  top: ${({ theme }) => theme.space}px;
+  z-index: 2000;
+`;
+
+const MenuItem = styled.div`
+  & + & {
+    margin-top: ${({ theme }) => theme.space}px;
+    padding-top: ${({ theme }) => theme.space}px;
+    border-top: 1px solid ${({ theme }) => theme.borderColorBg};
+    width: 100%;
+  }
+`;
+
 interface Props {}
 
 export const GlobalNavigation: React.FunctionComponent<Props> = () => {
@@ -52,6 +74,18 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
   }
 
   const [{ loading, user }] = useRedux(mapState);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const onRequestClose = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  const onToggleMenu = useCallback(
+    () => {
+      setIsMenuOpen(!isMenuOpen);
+    },
+    [isMenuOpen],
+  );
 
   const currentPath = getCurrentPath(history);
 
@@ -68,15 +102,21 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
       <Right>
         {loading ? (
           <Link path={routingPaths.login}>Login</Link>
+        ) : isMenuOpen ? (
+          <StyledDropDownMenu onRequestClose={onRequestClose}>
+            <MenuItem>
+              {user && (
+                <Text>
+                  {user.displayName} ({user.visitCount})
+                </Text>
+              )}
+            </MenuItem>
+            <MenuItem>
+              <Link path={routingPaths.logout}>Logout</Link>
+            </MenuItem>
+          </StyledDropDownMenu>
         ) : (
-          <>
-            {user && (
-              <Text>
-                {user.displayName} ({user.visitCount})
-              </Text>
-            )}
-            <Link path={routingPaths.logout}>Logout</Link>
-          </>
+          <div onClick={onToggleMenu}>🍔</div>
         )}
       </Right>
     </StyledGlobalNavigation>

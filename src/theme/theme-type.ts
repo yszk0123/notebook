@@ -22,6 +22,9 @@ export interface ThemeInterface {
   borderColorBg: ColorPalette;
   buttonColorBg: ColorPalette;
   buttonColorFg: ColorPalette;
+  dropDownMenuColorBg: ColorPalette;
+  dropDownMenuColorFg: ColorPalette;
+  dropDownMenuShadow: ColorPalette;
   fontSize: Record<FontSize, string>;
   fontWeight: {
     normal: string;
