@@ -61,12 +61,14 @@ const StyledButton = styled(Button)`
 
 const StyledEditorMenu = styled(EditorMenu)`
   bottom: 0;
+  right: 0;
   display: flex;
+  flex-direction: column-reverse;
   font-size: ${({ theme }) => theme.fontSize.large};
-  overflow-x: auto;
   padding: ${({ theme }) => theme.thinkSpace}px;
-  position: sticky;
-  width: 100%;
+  position: fixed;
+  overflow-y: auto;
+  height: calc(100% - ${({ theme }) => theme.headerHeight}px);
 `;
 
 const StyledEditor = styled.div`
@@ -74,13 +76,14 @@ const StyledEditor = styled.div`
 `;
 
 const MiniControl = styled.div`
-  position: sticky;
-  z-index: 100;
-  top: ${({ theme }) => theme.space}px;
-  right: ${({ theme }) => theme.space}px;
-  text-align: right;
+  margin-left: ${({ theme }) => theme.space}px;
   opacity: ${({ theme }) => theme.inactiveOpacity};
+  position: sticky;
+  left: 0;
+  text-align: left;
+  top: ${({ theme }) => theme.space + theme.headerHeight}px;
   transition: ${({ theme }) => theme.transition};
+  z-index: 100;
 
   :hover {
     opacity: ${({ theme }) => theme.activeOpacity};
@@ -176,7 +179,6 @@ export const Note: React.FunctionComponent<Props> = () => {
 
           return (
             <>
-              <StyledEditor>{editor}</StyledEditor>
               <MiniControl>
                 <StyledButton onClick={onDone}>Done</StyledButton>
                 <StyledButton onClick={onSave}>Save</StyledButton>
@@ -184,6 +186,7 @@ export const Note: React.FunctionComponent<Props> = () => {
                   {saving ? 'saving...' : 'saved'}
                 </StyledText>
               </MiniControl>
+              <StyledEditor>{editor}</StyledEditor>
               <StyledEditorMenu menuItems={menuItems} editorView={editorView} />
               <GlobalStyleForNote focused={focused} />
             </>

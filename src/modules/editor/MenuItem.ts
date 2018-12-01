@@ -12,34 +12,9 @@ export function createMenuItems(schema: Schema) {
       shortTitle: 'Plain',
     },
     {
-      command: toggleMark(schema.marks.strong),
-      longTitle: 'strong',
-      shortTitle: 'Bold',
-    },
-    {
-      command: toggleMark(schema.marks.strong),
-      longTitle: 'em',
-      shortTitle: 'italic',
-    },
-    {
       command: setBlockType(schema.marks.strong),
       longTitle: 'paragraph',
       shortTitle: 'Para',
-    },
-    {
-      command: setBlockType(schema.nodes.heading, { level: 1 }),
-      longTitle: 'heading',
-      shortTitle: 'H1',
-    },
-    {
-      command: setBlockType(schema.nodes.heading, { level: 2 }),
-      longTitle: 'heading',
-      shortTitle: 'H2',
-    },
-    {
-      command: setBlockType(schema.nodes.heading, { level: 3 }),
-      longTitle: 'heading',
-      shortTitle: 'H3',
     },
     {
       command: wrapIn(schema.nodes.blockquote),
@@ -57,9 +32,39 @@ export function createMenuItems(schema: Schema) {
       shortTitle: '1.',
     },
     {
+      command: wrapIn(schema.nodes.todo),
+      longTitle: 'todo list',
+      shortTitle: '☑',
+    },
+    {
       command: toggleCheckbox,
       longTitle: 'toggle checkbox',
-      shortTitle: 'T',
+      shortTitle: '✔',
+    },
+    {
+      command: setBlockType(schema.nodes.heading, { level: 1 }),
+      longTitle: 'heading',
+      shortTitle: 'H1',
+    },
+    {
+      command: setBlockType(schema.nodes.heading, { level: 2 }),
+      longTitle: 'heading',
+      shortTitle: 'H2',
+    },
+    {
+      command: setBlockType(schema.nodes.heading, { level: 3 }),
+      longTitle: 'heading',
+      shortTitle: 'H3',
+    },
+    {
+      command: toggleMark(schema.marks.strong),
+      longTitle: 'strong',
+      shortTitle: 'Bold',
+    },
+    {
+      command: toggleMark(schema.marks.strong),
+      longTitle: 'em',
+      shortTitle: 'italic',
     },
   ];
 

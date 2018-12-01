@@ -11,7 +11,6 @@ import { FirebaseAppProvider } from '../FirebaseAppContext';
 import { HistoryProvider } from '../HistoryContext';
 import { Dispatch } from '../redux';
 import { routingEffects } from '../routing';
-import { GlobalNavigation } from '../routing/components/GlobalNavigation';
 import { Page } from '../routing/routing-type';
 import { ThemeProvider } from '../styled-components';
 import { defaultTheme } from '../theme/theme';
@@ -92,7 +91,6 @@ export async function render() {
           <Provider store={store}>
             <FirebaseAppProvider value={app}>
               <>
-                <GlobalNavigation />
                 <Loading page={page} />
                 <ResetStyle />
               </>

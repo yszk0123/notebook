@@ -32,9 +32,12 @@ export interface ThemeInterface {
   };
   headerColorBg: ColorPalette;
   headerColorFg: ColorPalette;
+  headerHeight: number;
   inactiveOpacity: number;
   loadingColorFg: ColorPalette;
   radius: number;
+  roundButtonRadius: number;
+  roundButtonSize: number;
   space: number;
   thinkSpace: number;
   transition: string;

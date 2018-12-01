@@ -15,7 +15,8 @@ const StyledGlobalNavigation = styled.header`
   color: ${({ theme }) => theme.headerColorFg};
   display: flex;
   justify-content: space-between;
-  overflow-x: auto;
+  width: 100%;
+  height: ${({ theme }) => theme.headerHeight}px;
   padding: ${({ theme }) => theme.space}px;
   position: sticky;
   top: 0;
@@ -27,15 +28,13 @@ const Left = styled.div`
   margin: 0;
 `;
 
-const Icon = styled.div`
-  margin: 0 ${({ theme }) => theme.space}px;
-  font-weight: ${({ theme }) => theme.fontWeight.normal};
+const Bar = styled.div`
+  cursor: pointer;
 `;
 
 const Right = styled.div`
   display: flex;
   justify-content: flex-end;
-  min-width: 50vh;
 `;
 
 const Link = styled(NavLink)`
@@ -92,9 +91,6 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
   return (
     <StyledGlobalNavigation>
       <Left>
-        <Link path={routingPaths.home}>
-          <Icon>Icon</Icon>
-        </Link>
         <Link path={routingPaths.home}>Home</Link>
         <Link path={routingPaths.counter}>Counter</Link>
         <Link path={routingPaths.note}>Note</Link>
@@ -116,7 +112,7 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
             </MenuItem>
           </StyledDropDownMenu>
         ) : (
-          <div onClick={onToggleMenu}>🍔</div>
+          <Bar onClick={onToggleMenu}>🍔</Bar>
         )}
       </Right>
     </StyledGlobalNavigation>

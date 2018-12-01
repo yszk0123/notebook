@@ -5,18 +5,23 @@ import { preventDefault } from '../../../utils/preventDefault';
 import { MenuItem } from '../editor-type';
 
 const MenuItem = styled.div`
+  align-items: center;
   background: ${({ theme }) => theme.buttonColorBg};
-  border-radius: ${({ theme }) => theme.radius}px;
+  border-radius: ${({ theme }) => theme.roundButtonRadius}px;
   color: ${({ theme }) => theme.buttonColorFg};
   cursor: pointer;
-  text-align: center;
-  min-width: 4rem;
+  display: flex;
+  min-height: ${({ theme }) => theme.roundButtonSize}px;
+  height: ${({ theme }) => theme.roundButtonSize}px;
+  justify-content: center;
   opacity: ${({ theme }) => theme.inactiveOpacity};
   padding: ${({ theme }) => theme.space}px;
+  text-align: center;
   transition: ${({ theme }) => theme.transition};
+  width: ${({ theme }) => theme.roundButtonSize}px;
 
   & + & {
-    margin-left: ${({ theme }) => theme.space}px;
+    margin-bottom: ${({ theme }) => theme.space}px;
   }
 
   :hover {
