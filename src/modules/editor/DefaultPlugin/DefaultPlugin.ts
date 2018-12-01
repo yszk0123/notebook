@@ -5,14 +5,14 @@ import { history } from 'prosemirror-history';
 import { keymap } from 'prosemirror-keymap';
 import { Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import { buildTodoInputRules } from '../TodoPlugin';
+import { buildTodoPlugins } from '../TodoPlugin';
 import { buildInputRules } from './DefaultInputRule';
 import { buildKeymap } from './DefaultKeymap';
 
 export function buildPlugins(schema: Schema): Array<Plugin<Schema>> {
   return [
     buildInputRules(schema),
-    buildTodoInputRules(schema),
+    ...buildTodoPlugins(schema),
     keymap(buildKeymap(schema, {})),
     keymap(baseKeymap),
     history(),
