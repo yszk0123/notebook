@@ -64,9 +64,9 @@ export const Editor: React.FunctionComponent<Props> = ({
     editorView.dom.addEventListener('blur', onBlur);
 
     return () => {
-      editorView.destroy();
       editorView.dom.removeEventListener('focus', onFocus);
       editorView.dom.removeEventListener('blur', onBlur);
+      editorView.destroy();
     };
   }, []);
 
