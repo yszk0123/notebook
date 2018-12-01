@@ -5,7 +5,7 @@ import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { buildTodoInputRules } from './TodoInputRule';
 import { TodoNodeView } from './TodoNodeView';
 
-function isTodo(node: Node): boolean {
+export function isTodo(node: Node): boolean {
   return node.type.name === 'todo';
 }
 

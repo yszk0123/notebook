@@ -2,6 +2,7 @@ import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { Schema } from 'prosemirror-model';
 import { wrapInList } from 'prosemirror-schema-list';
 import { MenuItem } from './editor-type';
+import { toggleCheckbox } from './TodoPlugin/TodoCommand';
 
 export function createMenuItems(schema: Schema) {
   const items: MenuItem[] = [
@@ -54,6 +55,11 @@ export function createMenuItems(schema: Schema) {
       command: wrapInList(schema.nodes.ordered_list),
       longTitle: 'bullet list',
       shortTitle: '1.',
+    },
+    {
+      command: toggleCheckbox,
+      longTitle: 'toggle checkbox',
+      shortTitle: 'T',
     },
   ];
 
