@@ -3,7 +3,6 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { unwrapUnsafeValue } from '../../utils/unwrapUnsafeValue';
 import { EditorContent } from './editor-type';
-import { TodoNodeView } from './TodoPlugin';
 
 export type OnChange = (getContent: () => Nullable<EditorContent>) => void;
 
@@ -15,11 +14,6 @@ export function createEditorView(state: EditorState, onChange: OnChange) {
       if (tr.docChanged) {
         onChange(getContent);
       }
-    },
-    nodeViews: {
-      todo(node) {
-        return new TodoNodeView(node);
-      },
     },
     state,
   });

@@ -3,6 +3,7 @@ import { Node, Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { buildTodoInputRules } from './TodoInputRule';
+import { TodoNodeView } from './TodoNodeView';
 
 function isTodo(node: Node): boolean {
   return node.type.name === 'todo';
@@ -22,6 +23,11 @@ function isCheckbox(target: Nullable<EventTarget>): boolean {
 
 const clickPlugin = new Plugin({
   props: {
+    nodeViews: {
+      todo(node) {
+        return new TodoNodeView(node);
+      },
+    },
     handleClickOn(view, _pos, node, nodePos, event: MouseEvent) {
       if (!isTodo(node) || !isCheckbox(event.target)) {
         return false;
