@@ -1,12 +1,11 @@
-import { isNull, Nullable } from 'option-t/lib/Nullable';
+import { isNull } from 'option-t/lib/Nullable';
 import { isNotUndefined } from 'option-t/lib/Undefinable';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React, { useEffect, useRef, useState } from 'react';
 import { styled } from '../../../styled-components';
 import { noop } from '../../../utils/noop';
-import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
-import { EditorContent } from '../editor-type';
+import { createEditorView, OnChange } from '../EditorView';
 
 const ProseMirrorWrapper = styled.div`
   .ProseMirror {
@@ -22,28 +21,6 @@ const ProseMirrorWrapper = styled.div`
     outline: none;
   }
 `;
-
-type OnChange = (getContent: () => Nullable<EditorContent>) => void;
-
-function createEditorView(state: EditorState, onChange: OnChange) {
-  const editorView = new EditorView(undefined, {
-    state,
-    dispatchTransaction(tr) {
-      const newState = editorView.state.apply(tr);
-      editorView.updateState(newState);
-
-      if (tr.docChanged) {
-        onChange(getContent);
-      }
-    },
-  });
-
-  function getContent(): Nullable<EditorContent> {
-    return unwrapUnsafeValue<EditorContent>(editorView.state.doc.toJSON());
-  }
-
-  return editorView;
-}
 
 interface RenderProps {
   editor: JSX.Element;
