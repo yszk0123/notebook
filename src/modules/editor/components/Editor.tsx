@@ -25,6 +25,26 @@ const ProseMirrorWrapper = styled.div`
 
 type OnChange = (getContent: () => Nullable<EditorContent>) => void;
 
+function createEditorView(state: EditorState, onChange: OnChange) {
+  const editorView = new EditorView(undefined, {
+    state,
+    dispatchTransaction(tr) {
+      const newState = editorView.state.apply(tr);
+      editorView.updateState(newState);
+
+      if (tr.docChanged) {
+        onChange(getContent);
+      }
+    },
+  });
+
+  function getContent(): Nullable<EditorContent> {
+    return unwrapUnsafeValue<EditorContent>(editorView.state.doc.toJSON());
+  }
+
+  return editorView;
+}
+
 interface RenderProps {
   editor: JSX.Element;
   editorView: EditorView;
@@ -48,25 +68,7 @@ export const Editor: React.FunctionComponent<Props> = ({
   onBlur = noop,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [editorView] = useState(
-    () =>
-      new EditorView(undefined, {
-        state,
-        dispatchTransaction(tr) {
-          const newState = editorView.state.apply(tr);
-          editorView.updateState(newState);
-          if (tr.docChanged) {
-            onChange(getContent);
-          }
-
-          function getContent(): Nullable<EditorContent> {
-            return unwrapUnsafeValue<EditorContent>(
-              editorView.state.doc.toJSON(),
-            );
-          }
-        },
-      }),
-  );
+  const [editorView] = useState(() => createEditorView(state, onChange));
 
   useEffect(
     () => {
