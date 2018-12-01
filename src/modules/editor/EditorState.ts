@@ -10,10 +10,12 @@ import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorContent } from './editor-type';
 import { buildInputRules } from './InputRule';
 import { buildKeymap } from './Keymap';
+import { buildTodoInputRules } from './TodoPlugin';
 
 function buildPlugins(schema: Schema): Array<Plugin<Schema>> {
   return [
     buildInputRules(schema),
+    buildTodoInputRules(schema),
     keymap(buildKeymap(schema, {})),
     keymap(baseKeymap),
     history(),
@@ -23,7 +25,12 @@ function buildPlugins(schema: Schema): Array<Plugin<Schema>> {
 }
 
 function createEmptyDoc(schema: Schema): Node {
-  return schema.node('doc', {}, [schema.node('paragraph', {}, [])]);
+  return schema.node('doc', {}, [
+    schema.node('paragraph', {}, []),
+    schema.node('todo', { checked: false }, [
+      schema.node('paragraph', {}, [schema.text('a')]),
+    ]),
+  ]);
 }
 
 export function createStateFromContent(

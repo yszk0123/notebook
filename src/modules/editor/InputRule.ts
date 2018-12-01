@@ -14,7 +14,7 @@ import {
 } from 'prosemirror-inputrules';
 import { NodeType, Schema } from 'prosemirror-model';
 
-type Rule = (nodeType: NodeType) => InputRule;
+export type Rule = (nodeType: NodeType) => InputRule;
 
 const blockQuoteRule: Rule = nodeType => {
   return wrappingInputRule(/^\s*>\s$/, nodeType);

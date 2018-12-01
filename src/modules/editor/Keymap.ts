@@ -91,6 +91,11 @@ export function buildKeymap(
     bind('Shift-Tab', liftListItem(type));
     bind('Tab', sinkListItem(type));
   });
+  tapUndefinable<NodeType>(schema.nodes.todo, type => {
+    bind('Enter', splitListItem(type));
+    bind('Shift-Tab', liftListItem(type));
+    bind('Tab', sinkListItem(type));
+  });
   tapUndefinable<NodeType>(schema.nodes.paragraph, type => {
     bind('Shift-Ctrl-0', setBlockType(type));
   });
