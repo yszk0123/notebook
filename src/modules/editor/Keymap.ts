@@ -88,8 +88,8 @@ export function buildKeymap(
   });
   tapUndefinable<NodeType>(schema.nodes.list_item, type => {
     bind('Enter', splitListItem(type));
-    bind('Mod-[', liftListItem(type));
-    bind('Mod-]', sinkListItem(type));
+    bind('Shift-Tab', liftListItem(type));
+    bind('Tab', sinkListItem(type));
   });
   tapUndefinable<NodeType>(schema.nodes.paragraph, type => {
     bind('Shift-Ctrl-0', setBlockType(type));
