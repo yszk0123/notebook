@@ -1,6 +1,6 @@
 import { Nullable } from 'option-t/lib/Nullable';
 import { Schema } from 'prosemirror-model';
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { styled } from '../../styled-components';
 import { useDebouncedCallback } from '../../utils/useDebouncedCallback';
 import { Editor } from './components/Editor';
@@ -39,14 +39,15 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
   const editorContentRef = useRef<Nullable<EditorContent>>(
     initialEditorContent,
   );
+  const [markdown, setMarkdown] = useState('');
 
   const onChange = useDebouncedCallback(
     (getContent: () => Nullable<EditorContent>) => {
       editorContentRef.current = getContent();
       const state = createStateFromContent(schema, editorContentRef.current);
-      console.log('MD', customMarkdownSerializer.serialize(state.doc));
+      setMarkdown(customMarkdownSerializer.serialize(state.doc));
     },
-    1000,
+    300,
     [schema],
   );
 
@@ -62,6 +63,7 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
           <>
             <StyledEditor>{editor}</StyledEditor>
             <StyledMenu menuItems={menuItems} editorView={editorView} />
+            <pre>{markdown}</pre>
           </>
         );
       }}
