@@ -8,7 +8,7 @@ export interface EditorContent {
 }
 
 // tslint:disable-next-line:no-any
-type Command<S extends Schema = any> = (
+export type Command<S extends Schema = any> = (
   state: EditorState<S>,
   dispatch?: (tr: Transaction<S>) => void,
   editorView?: EditorView,

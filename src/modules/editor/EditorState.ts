@@ -1,10 +1,26 @@
 import { Nullable } from 'option-t/lib/Nullable';
 import { unwrapOrFromNullable } from 'option-t/lib/Nullable/unwrapOr';
-// @ts-ignore
-import { exampleSetup } from 'prosemirror-example-setup';
+import { baseKeymap } from 'prosemirror-commands';
+import { dropCursor } from 'prosemirror-dropcursor';
+import { gapCursor } from 'prosemirror-gapcursor';
+import { history } from 'prosemirror-history';
+import { keymap } from 'prosemirror-keymap';
 import { Schema } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorContent } from './editor-type';
+import { buildInputRules } from './InputRule';
+import { buildKeymap } from './Keymap';
+
+function buildPlugins(schema: Schema): Array<Plugin<Schema>> {
+  return [
+    buildInputRules(schema),
+    keymap(buildKeymap(schema, {})),
+    keymap(baseKeymap),
+    history(),
+    dropCursor(),
+    gapCursor(),
+  ];
+}
 
 export function createStateFromContent(
   schema: Schema,
@@ -16,6 +32,6 @@ export function createStateFromContent(
 
   return EditorState.create({
     doc,
-    plugins: exampleSetup({ schema, menuBar: false }),
+    plugins: buildPlugins(schema),
   });
 }
