@@ -6,12 +6,7 @@ import { buildPlugins } from './DefaultPlugin';
 import { EditorContent } from './editor-type';
 
 function createEmptyDoc(schema: Schema): Node {
-  return schema.node('doc', {}, [
-    schema.node('paragraph', {}, []),
-    schema.node('todo', { checked: false }, [
-      schema.node('paragraph', {}, [schema.text('a')]),
-    ]),
-  ]);
+  return schema.node('doc', {}, [schema.node('paragraph', {}, [])]);
 }
 
 export function createStateFromContent(
