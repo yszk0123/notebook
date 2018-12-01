@@ -2,9 +2,9 @@ import { isNotUndefined } from 'option-t/lib/Undefinable';
 import { mapForUndefinable } from 'option-t/lib/Undefinable/map';
 import { inputRules, wrappingInputRule } from 'prosemirror-inputrules';
 import { Schema } from 'prosemirror-model';
-import { Rule } from '../InputRule';
+import { InputRuleFactory } from '../editor-type';
 
-const todoRule: Rule = nodeType => {
+const todoRule: InputRuleFactory = nodeType => {
   return wrappingInputRule(/^\s*(\[\s?\])\s$/, nodeType);
 };
 

@@ -1,6 +1,9 @@
-import { Schema } from 'prosemirror-model';
+import { InputRule } from 'prosemirror-inputrules';
+import { NodeType, Schema } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
+export type InputRuleFactory = (nodeType: NodeType) => InputRule;
 
 export interface EditorContent {
   type: string;

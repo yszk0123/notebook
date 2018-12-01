@@ -4,10 +4,10 @@ import { ResetStyle } from '../../components/ResetStyle';
 import { ThemeProvider } from '../../styled-components';
 import { defaultTheme } from '../../theme/theme';
 import { printError } from '../../utils/printError';
+import { createSchema } from './DefaultPlugin';
 import { EditorContainer } from './EditorContainer';
 import { createMenuItems } from './MenuItem';
 import './registerProseMirror';
-import { createSchema } from './Schema';
 
 export async function render() {
   const mountPoint = document.getElementById('root');

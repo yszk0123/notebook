@@ -1,8 +1,8 @@
 import { Schema } from 'prosemirror-model';
 import { schema as basicSchema } from 'prosemirror-schema-basic';
 import { addListNodes } from 'prosemirror-schema-list';
-import { unwrapUnsafeValue } from '../../utils/unwrapUnsafeValue';
-import { todoSchema } from './TodoPlugin';
+import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
+import { todoSchema } from '../TodoPlugin';
 
 type OrderedMap = ReturnType<typeof addListNodes>;
 

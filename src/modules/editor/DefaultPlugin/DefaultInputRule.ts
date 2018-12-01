@@ -13,14 +13,13 @@ import {
   wrappingInputRule,
 } from 'prosemirror-inputrules';
 import { NodeType, Schema } from 'prosemirror-model';
+import { InputRuleFactory } from '../editor-type';
 
-export type Rule = (nodeType: NodeType) => InputRule;
-
-const blockQuoteRule: Rule = nodeType => {
+const blockQuoteRule: InputRuleFactory = nodeType => {
   return wrappingInputRule(/^\s*>\s$/, nodeType);
 };
 
-const orderedListRule: Rule = nodeType => {
+const orderedListRule: InputRuleFactory = nodeType => {
   return wrappingInputRule(
     /^(\d+)\.\s$/,
     nodeType,
@@ -29,11 +28,11 @@ const orderedListRule: Rule = nodeType => {
   );
 };
 
-const bulletListRule: Rule = nodeType => {
+const bulletListRule: InputRuleFactory = nodeType => {
   return wrappingInputRule(/^\s*([-+*])\s$/, nodeType);
 };
 
-const codeBlockRule: Rule = nodeType => {
+const codeBlockRule: InputRuleFactory = nodeType => {
   return textblockTypeInputRule(/^```$/, nodeType);
 };
 
