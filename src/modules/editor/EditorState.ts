@@ -5,7 +5,7 @@ import { dropCursor } from 'prosemirror-dropcursor';
 import { gapCursor } from 'prosemirror-gapcursor';
 import { history } from 'prosemirror-history';
 import { keymap } from 'prosemirror-keymap';
-import { Schema } from 'prosemirror-model';
+import { Node, Schema } from 'prosemirror-model';
 import { EditorState, Plugin } from 'prosemirror-state';
 import { EditorContent } from './editor-type';
 import { buildInputRules } from './InputRule';
@@ -22,13 +22,17 @@ function buildPlugins(schema: Schema): Array<Plugin<Schema>> {
   ];
 }
 
+function createEmptyDoc(schema: Schema): Node {
+  return schema.node('doc', {}, [schema.node('paragraph', {}, [])]);
+}
+
 export function createStateFromContent(
   schema: Schema,
   content: Nullable<EditorContent>,
 ) {
   const doc = mapOrElseForNullable(
     content,
-    () => schema.node('doc', {}, [schema.node('paragraph', {}, [])]),
+    () => createEmptyDoc(schema),
     schema.nodeFromJSON,
   );
 
