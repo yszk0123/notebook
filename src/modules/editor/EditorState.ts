@@ -1,5 +1,5 @@
 import { Nullable } from 'option-t/lib/Nullable';
-import { unwrapOrFromNullable } from 'option-t/lib/Nullable/unwrapOr';
+import { mapOrElseForNullable } from 'option-t/lib/Nullable/mapOrElse';
 import { baseKeymap } from 'prosemirror-commands';
 import { dropCursor } from 'prosemirror-dropcursor';
 import { gapCursor } from 'prosemirror-gapcursor';
@@ -26,8 +26,10 @@ export function createStateFromContent(
   schema: Schema,
   content: Nullable<EditorContent>,
 ) {
-  const doc = schema.nodeFromJSON(
-    unwrapOrFromNullable(content, { type: 'doc', content: [] }),
+  const doc = mapOrElseForNullable(
+    content,
+    () => schema.node('doc', {}, [schema.node('paragraph', {}, [])]),
+    schema.nodeFromJSON,
   );
 
   return EditorState.create({
