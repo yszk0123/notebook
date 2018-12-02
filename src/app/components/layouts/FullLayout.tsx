@@ -8,7 +8,7 @@ const VIRTUAL_KEYBOARD_HEIGHT = 216; // Ugly hack...
 const FullLayoutWrapper = styled.div<{ isVirtualKeyboardVisible?: boolean }>`
   position: fixed;
   width: 100%;
-  height: 100vh;
+  height: calc(var(--hack-vh, 1vh) * 100);
   margin: 0;
   padding: 0;
   left: 0;
@@ -17,8 +17,8 @@ const FullLayoutWrapper = styled.div<{ isVirtualKeyboardVisible?: boolean }>`
   @media screen and (max-width: 480px) {
     height: ${({ isVirtualKeyboardVisible }) =>
       isVirtualKeyboardVisible
-        ? `calc(100vh - ${VIRTUAL_KEYBOARD_HEIGHT}px)`
-        : '100vh'};
+        ? `calc(var(--hack-vh, 1vh) * 100 - ${VIRTUAL_KEYBOARD_HEIGHT}px)`
+        : 'calc(var(--hack-vh, 1vh) * 100)'};
   }
 `;
 
