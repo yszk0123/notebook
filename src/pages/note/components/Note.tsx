@@ -44,6 +44,9 @@ const StyledNote = styled.div`
   width: 100%;
   font-size: ${({ theme }) => theme.fontSize.large};
 
+  // FIXME: Margin for MiniControl
+  margin-bottom: 5rem;
+
   .ProseMirror {
     min-height: ${EDITOR_MIN_HEIGHT};
     font-size: ${({ theme }) => theme.fontSize.default};
@@ -61,7 +64,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   right: 0;
   display: flex;
   flex-direction: column-reverse;
-  font-size: ${({ theme }) => theme.fontSize.large};
+  font-size: ${({ theme }) => theme.fontSize.default};
   padding: ${({ theme }) => theme.thinkSpace}px;
   position: fixed;
   overflow-y: auto;
@@ -75,10 +78,10 @@ const StyledEditor = styled.div`
 const MiniControl = styled.div`
   margin-left: ${({ theme }) => theme.space}px;
   opacity: ${({ theme }) => theme.inactiveOpacity};
-  position: sticky;
+  position: fixed;
   left: 0;
   text-align: left;
-  top: ${({ theme }) => theme.space + theme.headerHeight}px;
+  bottom: ${({ theme }) => theme.space}px;
   transition: ${({ theme }) => theme.transition};
   z-index: 100;
 

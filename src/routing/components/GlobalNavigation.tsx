@@ -18,7 +18,7 @@ const StyledGlobalNavigation = styled.header`
   width: 100%;
   height: ${({ theme }) => theme.headerHeight}px;
   padding: ${({ theme }) => theme.space}px;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
 `;

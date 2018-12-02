@@ -1,4 +1,9 @@
-import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
+import {
+  selectParentNode,
+  setBlockType,
+  toggleMark,
+  wrapIn,
+} from 'prosemirror-commands';
 import { NodeType, Schema } from 'prosemirror-model';
 import { wrapInList } from 'prosemirror-schema-list';
 import { EditorState } from 'prosemirror-state';
@@ -104,6 +109,11 @@ export function createMenuItems(schema: Schema) {
       longTitle: 'heading',
       run: setBlockType(schema.nodes.heading, { level: 3 }),
       shortTitle: 'H3',
+    },
+    {
+      longTitle: 'select parent',
+      run: selectParentNode,
+      shortTitle: '□',
     },
     {
       longTitle: 'strong',
