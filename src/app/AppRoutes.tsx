@@ -4,7 +4,7 @@ import { helloRoutes } from '../pages/hello';
 import { loginRoutes } from '../pages/login';
 import { noteRoutes } from '../pages/note';
 import { Route } from '../routing/routing-type';
-import { NotFound } from './components/NotFound';
+import { NotFoundPage } from './components/NotFoundPage';
 
 export const appRoutes: Route[] = [
   ...counterRoutes,
@@ -14,7 +14,7 @@ export const appRoutes: Route[] = [
   {
     path: '(.*)',
     action(context) {
-      return { content: <NotFound /> };
+      return { content: <NotFoundPage /> };
     },
   },
 ];

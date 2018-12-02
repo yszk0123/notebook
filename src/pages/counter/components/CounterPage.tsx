@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { counterEffects } from '..';
 import { AppState } from '../../../app/app-type';
+import { FullLayout } from '../../../app/components/layouts/FullLayout';
 import useRedux from '../../../app/useRedux';
 import { Text } from '../../../components/Text';
 import { counterActions } from '../counter-type';
@@ -19,12 +20,12 @@ export const CounterPage: React.FunctionComponent<Props> = () => {
   );
 
   return (
-    <>
+    <FullLayout>
       {loading ? <div>Loading...</div> : null}
       <Text>Count: {count}</Text>
       <button onClick={increment}>Increment</button>
       <button onClick={incrementByTen}>Increment by 10</button>
-    </>
+    </FullLayout>
   );
 };
 

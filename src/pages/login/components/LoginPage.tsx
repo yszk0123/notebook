@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
+import { FullLayout } from '../../../app/components/layouts/FullLayout';
 import { useAuthUI } from '../../../app/useAuthUI';
 import { Text } from '../../../components/Text';
-import { FullLayout } from '../../../layouts/FullLayout';
 
 interface Props {}
 

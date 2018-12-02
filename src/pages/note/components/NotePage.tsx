@@ -3,11 +3,11 @@ import { mapForNullable } from 'option-t/lib/Nullable/map';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState } from '../../../app/app-type';
+import { FullLayout } from '../../../app/components/layouts/FullLayout';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
-import { FullLayout } from '../../../layouts/FullLayout';
 import {
   createMenuItems,
   createSchema,
@@ -32,18 +32,17 @@ const NotePageWrapper = styled.div`
   flex-direction: column;
   font-size: ${({ theme }) => theme.fontSize.large};
   height: 100%;
-  margin-top: ${({ theme }) => theme.space}px;
   position: absolute;
   width: 100%;
 
   .ProseMirror {
+    font-size: ${({ theme }) => theme.fontSize.default};
     height: 100%;
     min-height: ${EDITOR_MIN_HEIGHT};
-    font-size: ${({ theme }) => theme.fontSize.default};
     overflow-y: auto;
-
-    // FIXME: Margin for MiniControl
-    margin-bottom: 5rem;
+    padding-bottom: 30vh;
+    padding-top: ${({ theme }) => theme.space}px;
+    position: absolute;
   }
 `;
 
@@ -53,7 +52,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   display: flex;
   flex-direction: column-reverse;
   font-size: ${({ theme }) => theme.fontSize.default};
-  padding: ${({ theme }) => theme.thinkSpace}px;
+  padding: ${({ theme }) => 2 * theme.thinkSpace}px;
   position: absolute;
   overflow-y: auto;
   height: 100%;
@@ -64,12 +63,14 @@ const EditorWrapper = styled.div`
 `;
 
 const MiniControl = styled.div`
+  align-items: center;
+  bottom: ${({ theme }) => theme.space}px;
+  display: flex;
+  left: 0;
   margin-left: ${({ theme }) => theme.space}px;
   opacity: ${({ theme }) => theme.inactiveOpacity};
   position: absolute;
-  left: 0;
   text-align: left;
-  bottom: ${({ theme }) => theme.space}px;
   transition: ${({ theme }) => theme.transition};
   z-index: 100;
 
@@ -105,7 +106,7 @@ interface Props {}
 
 export const NotePage: React.FunctionComponent<Props> = () => {
   const [{ userId, saving, loading, note }, dispatch] = useRedux(mapState);
-  const [focused, setFocused] = useState(false);
+  const [isVirtualKeyboardVisible, setFocused] = useState(false);
   const editorContentRef = useRef(mapForNullable(note, _ => _.content));
   const noteId = '1';
 
@@ -198,7 +199,7 @@ export const NotePage: React.FunctionComponent<Props> = () => {
   }
 
   return (
-    <FullLayout focused={focused}>
+    <FullLayout isVirtualKeyboardVisible={isVirtualKeyboardVisible}>
       <NotePageWrapper>
         <Editor
           state={editorState}
