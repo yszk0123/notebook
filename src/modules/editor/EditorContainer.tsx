@@ -14,6 +14,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   display: flex;
   flex-wrap: wrap;
   font-size: ${({ theme }) => theme.fontSize.large};
+  -webkit-overflow-scrolling: touch;
   overflow-x: auto;
   padding: ${({ theme }) => theme.thinkSpace}px;
   width: 100%;

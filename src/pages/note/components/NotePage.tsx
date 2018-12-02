@@ -39,6 +39,7 @@ const NotePageWrapper = styled.div`
     font-size: ${({ theme }) => theme.fontSize.default};
     height: 100%;
     min-height: ${EDITOR_MIN_HEIGHT};
+    -webkit-overflow-scrolling: touch;
     overflow-y: auto;
     padding-bottom: 30vh;
     padding-top: ${({ theme }) => theme.space}px;
@@ -54,6 +55,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   font-size: ${({ theme }) => theme.fontSize.default};
   padding: ${({ theme }) => 2 * theme.thinkSpace}px;
   position: absolute;
+  -webkit-overflow-scrolling: touch;
   overflow-y: auto;
   height: 100%;
 `;
