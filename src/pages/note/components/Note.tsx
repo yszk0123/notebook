@@ -1,15 +1,11 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { EditorState } from 'prosemirror-state';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState } from '../../../app/app-type';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
+import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
 import {
   createMenuItems,
@@ -17,6 +13,7 @@ import {
   createStateFromContent,
   Editor,
   EditorMenu,
+  serializeEditorState,
 } from '../../../modules/editor';
 import { EditorContent } from '../../../modules/editor/editor-type';
 import { createGlobalStyle, styled } from '../../../styled-components';
@@ -94,6 +91,16 @@ const StyledText = styled(Text)`
   margin-left: ${({ theme }) => theme.space}px;
 `;
 
+const LoadingContainer = styled.div`
+  font-size: 96px;
+  display: flex;
+  color: ${({ theme }) => theme.loadingColorFg};
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 60vh;
+`;
+
 const schema = createSchema();
 const menuItems = createMenuItems(schema);
 
@@ -104,6 +111,10 @@ export const Note: React.FunctionComponent<Props> = () => {
   const [focused, setFocused] = useState(false);
   const editorContentRef = useRef(mapForNullable(note, _ => _.content));
   const noteId = '1';
+
+  const [editorState, setEditorState] = useState(() =>
+    createStateFromContent(schema, mapForNullable(note, _ => _.content)),
+  );
 
   function save(content: Nullable<EditorContent>) {
     if (isNull(userId) || isNull(content)) {
@@ -121,31 +132,17 @@ export const Note: React.FunctionComponent<Props> = () => {
     dispatch(noteEffects.save(input));
   }
 
-  const onSave = useCallback(
+  useEffect(
     () => {
-      save(editorContentRef.current);
+      if (isNull(note)) {
+        return;
+      }
+
+      const state = createStateFromContent(schema, note.content);
+      setEditorState(state);
     },
-    [dispatch, userId, noteId, editorContentRef.current],
+    [note],
   );
-
-  const onChange = useDebouncedCallback(
-    (getContent: () => Nullable<EditorContent>) => {
-      const newContent = getContent();
-      editorContentRef.current = newContent;
-      save(newContent);
-    },
-    CHANGE_DELAY,
-    [dispatch, userId, noteId],
-  );
-
-  const onFocus = useCallback(() => {
-    setFocused(true);
-    stickToTop();
-  }, []);
-
-  const onBlur = useCallback(() => {
-    setFocused(false);
-  }, []);
 
   useEffect(
     () => {
@@ -158,10 +155,50 @@ export const Note: React.FunctionComponent<Props> = () => {
     [userId],
   );
 
-  const editorState = useMemo(
-    () => createStateFromContent(schema, mapForNullable(note, _ => _.content)),
-    [note],
+  const onSave = useCallback(
+    () => {
+      save(editorContentRef.current);
+    },
+    [dispatch, userId, noteId, editorContentRef.current],
   );
+
+  const onChangeContent = useDebouncedCallback(
+    (state: EditorState) => {
+      const newContent = serializeEditorState(state);
+      editorContentRef.current = newContent;
+      save(newContent);
+    },
+    CHANGE_DELAY,
+    [dispatch, userId, noteId],
+  );
+
+  const onChange = useCallback(
+    (nextState: EditorState, _prevState: EditorState, docChanged: boolean) => {
+      if (docChanged) {
+        onChangeContent(nextState);
+      }
+
+      setEditorState(nextState);
+    },
+    [onChangeContent],
+  );
+
+  const onFocus = useCallback(() => {
+    setFocused(true);
+    stickToTop();
+  }, []);
+
+  const onBlur = useCallback(() => {
+    setFocused(false);
+  }, []);
+
+  if (loading) {
+    return (
+      <LoadingContainer>
+        <Icon icon="spinner" spin={true} pulse={true} />
+      </LoadingContainer>
+    );
+  }
 
   return (
     <StyledNote>
@@ -187,7 +224,11 @@ export const Note: React.FunctionComponent<Props> = () => {
                 </StyledText>
               </MiniControl>
               <StyledEditor>{editor}</StyledEditor>
-              <StyledEditorMenu menuItems={menuItems} editorView={editorView} />
+              <StyledEditorMenu
+                editorState={editorState}
+                menuItems={menuItems}
+                editorView={editorView}
+              />
               <GlobalStyleForNote focused={focused} />
             </>
           );

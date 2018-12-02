@@ -18,7 +18,9 @@ export type Command<S extends Schema = any> = (
 ) => boolean;
 
 export interface MenuItem {
-  command: Command;
-  shortTitle: string;
   longTitle: string;
+  run: Command;
+  shortTitle: string;
+  active(state: EditorState): boolean;
+  enable(state: EditorState): boolean;
 }

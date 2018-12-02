@@ -1,15 +1,16 @@
 import { Nullable } from 'option-t/lib/Nullable';
 import { Schema } from 'prosemirror-model';
-import React, { useMemo, useRef, useState } from 'react';
+import { EditorState } from 'prosemirror-state';
+import React, { useCallback, useRef, useState } from 'react';
 import { styled } from '../../styled-components';
 import { useDebouncedCallback } from '../../utils/useDebouncedCallback';
 import { Editor } from './components/Editor';
 import { EditorMenu } from './components/EditorMenu';
 import { EditorContent, MenuItem } from './editor-type';
-import { createStateFromContent } from './EditorState';
+import { createStateFromContent, serializeEditorState } from './EditorState';
 import { customMarkdownSerializer } from './MarkdownPlugin/MarkdownSerializer';
 
-const StyledMenu = styled(EditorMenu)`
+const StyledEditorMenu = styled(EditorMenu)`
   display: flex;
   flex-wrap: wrap;
   font-size: ${({ theme }) => theme.fontSize.large};
@@ -41,19 +42,27 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
   );
   const [markdown, setMarkdown] = useState('');
 
-  const onChange = useDebouncedCallback(
-    (getContent: () => Nullable<EditorContent>) => {
-      editorContentRef.current = getContent();
-      const state = createStateFromContent(schema, editorContentRef.current);
-      setMarkdown(customMarkdownSerializer.serialize(state.doc));
-    },
-    300,
-    [schema],
+  const [editorState, setEditorState] = useState(() =>
+    createStateFromContent(schema, initialEditorContent),
   );
 
-  const editorState = useMemo(
-    () => createStateFromContent(schema, initialEditorContent),
-    [initialEditorContent],
+  const onPersistState = useDebouncedCallback(
+    (nextState: EditorState) => {
+      editorContentRef.current = serializeEditorState(nextState);
+      setMarkdown(customMarkdownSerializer.serialize(nextState.doc));
+    },
+    300,
+    [],
+  );
+
+  const onChange = useCallback(
+    (nextState: EditorState, _prevState: EditorState, docChanged: boolean) => {
+      if (docChanged) {
+        onPersistState(nextState);
+      }
+      setEditorState(nextState);
+    },
+    [],
   );
 
   return (
@@ -62,7 +71,11 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
         return (
           <>
             <StyledEditor>{editor}</StyledEditor>
-            <StyledMenu menuItems={menuItems} editorView={editorView} />
+            <StyledEditorMenu
+              menuItems={menuItems}
+              editorState={editorState}
+              editorView={editorView}
+            />
             <pre>{markdown}</pre>
           </>
         );

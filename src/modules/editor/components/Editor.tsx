@@ -2,10 +2,10 @@ import { isNull } from 'option-t/lib/Nullable';
 import { isNotUndefined } from 'option-t/lib/Undefinable';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { styled } from '../../../styled-components';
 import { noop } from '../../../utils/noop';
-import { createEditorView, OnChange } from '../EditorView';
+import { createEditorView } from '../EditorView';
 
 const ProseMirrorWrapper = styled.div`
   .ProseMirror {
@@ -35,7 +35,11 @@ interface RenderProps {
 interface Props {
   className?: string;
   state: EditorState;
-  onChange: OnChange;
+  onChange: (
+    nextState: EditorState,
+    prevState: EditorState,
+    docChanged: boolean,
+  ) => void;
   onFocus?: (event: Event) => void;
   onBlur?: (event: Event) => void;
   children?: (props: RenderProps) => JSX.Element;
@@ -50,9 +54,9 @@ export const Editor: React.FunctionComponent<Props> = ({
   onBlur = noop,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [editorView] = useState(() => createEditorView(state, onChange));
+  const [editorView] = useState(() => createEditorView({ state, onChange }));
 
-  useEffect(
+  useLayoutEffect(
     () => {
       editorView.updateState(state);
     },

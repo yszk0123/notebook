@@ -1,72 +1,121 @@
 import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
-import { Schema } from 'prosemirror-model';
+import { NodeType, Schema } from 'prosemirror-model';
 import { wrapInList } from 'prosemirror-schema-list';
-import { MenuItem } from './editor-type';
+import { EditorState } from 'prosemirror-state';
+import { Command, MenuItem } from './editor-type';
 import { toggleCheckbox } from './TodoPlugin/TodoCommand';
+
+function alwaysTrue(): true {
+  return true;
+}
+
+export function setBlockTypeMenu<
+  Options extends { longTitle: string; shortTitle: string }
+>(nodeType: NodeType, { longTitle, shortTitle, ...attrs }: Options): MenuItem {
+  const command = setBlockType(nodeType, attrs);
+
+  return {
+    active(state: EditorState) {
+      const { $from, to, node } = state.selection;
+      if (node) return node.hasMarkup(nodeType);
+      return to <= $from.end() && $from.parent.hasMarkup(nodeType);
+    },
+    enable(state: EditorState) {
+      return command(state);
+    },
+    longTitle,
+    run: command,
+    shortTitle,
+  };
+}
+
+interface MenuItemParam {
+  longTitle: string;
+  run: Command;
+  shortTitle: string;
+  active?(state: EditorState): boolean;
+  enable?(state: EditorState): boolean;
+}
+
+function createItem({
+  longTitle,
+  run,
+  shortTitle,
+  active = alwaysTrue,
+  enable = alwaysTrue,
+}: MenuItemParam): MenuItem {
+  return {
+    active,
+    enable,
+    longTitle,
+    run,
+    shortTitle,
+  };
+}
 
 export function createMenuItems(schema: Schema) {
   const items: MenuItem[] = [
-    {
-      command: setBlockType(schema.nodes.text, { level: 1 }),
+    setBlockTypeMenu(schema.nodes.text, {
+      level: 1,
       longTitle: 'plain',
       shortTitle: 'Plain',
-    },
+    }),
     {
-      command: setBlockType(schema.marks.strong),
       longTitle: 'paragraph',
+      run: setBlockType(schema.marks.strong),
       shortTitle: 'Para',
     },
     {
-      command: wrapIn(schema.nodes.blockquote),
       longTitle: 'blockquote',
+      run: wrapIn(schema.nodes.blockquote),
       shortTitle: '>',
     },
     {
-      command: wrapInList(schema.nodes.bullet_list),
       longTitle: 'bullet list',
+      run: wrapInList(schema.nodes.bullet_list),
       shortTitle: '-',
     },
     {
-      command: wrapInList(schema.nodes.ordered_list),
       longTitle: 'bullet list',
+      run: wrapInList(schema.nodes.ordered_list),
       shortTitle: '1.',
     },
     {
-      command: wrapIn(schema.nodes.todo),
       longTitle: 'todo list',
+      run: wrapIn(schema.nodes.todo),
       shortTitle: '☑',
     },
     {
-      command: toggleCheckbox,
       longTitle: 'toggle checkbox',
+      run: toggleCheckbox,
       shortTitle: '✔',
     },
     {
-      command: setBlockType(schema.nodes.heading, { level: 1 }),
       longTitle: 'heading',
+      run: setBlockType(schema.nodes.heading, { level: 1 }),
       shortTitle: 'H1',
     },
     {
-      command: setBlockType(schema.nodes.heading, { level: 2 }),
       longTitle: 'heading',
+      run: setBlockType(schema.nodes.heading, { level: 2 }),
       shortTitle: 'H2',
     },
     {
-      command: setBlockType(schema.nodes.heading, { level: 3 }),
       longTitle: 'heading',
+      run: setBlockType(schema.nodes.heading, { level: 3 }),
       shortTitle: 'H3',
     },
     {
-      command: toggleMark(schema.marks.strong),
       longTitle: 'strong',
+      run: toggleMark(schema.marks.strong),
       shortTitle: 'Bold',
     },
     {
-      command: toggleMark(schema.marks.strong),
       longTitle: 'em',
+      run: toggleMark(schema.marks.strong),
       shortTitle: 'italic',
     },
-  ];
+  ].map(createItem);
 
   return items;
 }
