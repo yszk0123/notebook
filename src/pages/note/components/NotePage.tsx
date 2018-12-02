@@ -7,6 +7,7 @@ import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
+import { FullLayout } from '../../../layouts/FullLayout';
 import {
   createMenuItems,
   createSchema,
@@ -16,7 +17,7 @@ import {
   serializeEditorState,
 } from '../../../modules/editor';
 import { EditorContent } from '../../../modules/editor/editor-type';
-import { createGlobalStyle, styled } from '../../../styled-components';
+import { styled } from '../../../styled-components';
 import { FontSize } from '../../../theme/theme-type';
 import { stickToTop } from '../../../utils/stickToTop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
@@ -25,37 +26,24 @@ import { noteEffects } from '../NoteEffect';
 
 const CHANGE_DELAY = 4000;
 const EDITOR_MIN_HEIGHT = '6rem';
-const VIRTUAL_KEYBOARD_HEIGHT = 216; // Ugly hack...
 
-const GlobalStyleForNote = createGlobalStyle<{ focused: boolean }>`
-  @media screen and (max-width: 480px) {
-    #root {
-      height: ${({ focused }) =>
-        focused ? `calc(100vh - ${VIRTUAL_KEYBOARD_HEIGHT}px)` : ''};
-      overflow-y: ${({ focused }) => (focused ? 'auto' : undefined)};
-    }
-  }
-`;
-
-const StyledNote = styled.div`
+const NotePageWrapper = styled.div`
   display: flex;
-  position: relative;
   flex-direction: column;
-  width: 100%;
   font-size: ${({ theme }) => theme.fontSize.large};
-
-  // FIXME: Margin for MiniControl
-  margin-bottom: 5rem;
+  height: 100%;
+  margin-top: ${({ theme }) => theme.space}px;
+  position: absolute;
+  width: 100%;
 
   .ProseMirror {
+    height: 100%;
     min-height: ${EDITOR_MIN_HEIGHT};
     font-size: ${({ theme }) => theme.fontSize.default};
-  }
-`;
+    overflow-y: auto;
 
-const StyledButton = styled(Button)`
-  & + & {
-    margin-left: ${({ theme }) => theme.space}px;
+    // FIXME: Margin for MiniControl
+    margin-bottom: 5rem;
   }
 `;
 
@@ -66,19 +54,19 @@ const StyledEditorMenu = styled(EditorMenu)`
   flex-direction: column-reverse;
   font-size: ${({ theme }) => theme.fontSize.default};
   padding: ${({ theme }) => theme.thinkSpace}px;
-  position: fixed;
+  position: absolute;
   overflow-y: auto;
-  height: calc(100% - ${({ theme }) => theme.headerHeight}px);
+  height: 100%;
 `;
 
-const StyledEditor = styled.div`
+const EditorWrapper = styled.div`
   margin-top: ${({ theme }) => theme.space}px;
 `;
 
 const MiniControl = styled.div`
   margin-left: ${({ theme }) => theme.space}px;
   opacity: ${({ theme }) => theme.inactiveOpacity};
-  position: fixed;
+  position: absolute;
   left: 0;
   text-align: left;
   bottom: ${({ theme }) => theme.space}px;
@@ -90,11 +78,17 @@ const MiniControl = styled.div`
   }
 `;
 
+const StyledButton = styled(Button)`
+  & + & {
+    margin-left: ${({ theme }) => theme.space}px;
+  }
+`;
+
 const StyledText = styled(Text)`
   margin-left: ${({ theme }) => theme.space}px;
 `;
 
-const LoadingContainer = styled.div`
+const LoadingWrapper = styled.div`
   font-size: 96px;
   display: flex;
   color: ${({ theme }) => theme.loadingColorFg};
@@ -109,7 +103,7 @@ const menuItems = createMenuItems(schema);
 
 interface Props {}
 
-export const Note: React.FunctionComponent<Props> = () => {
+export const NotePage: React.FunctionComponent<Props> = () => {
   const [{ userId, saving, loading, note }, dispatch] = useRedux(mapState);
   const [focused, setFocused] = useState(false);
   const editorContentRef = useRef(mapForNullable(note, _ => _.content));
@@ -197,47 +191,48 @@ export const Note: React.FunctionComponent<Props> = () => {
 
   if (loading) {
     return (
-      <LoadingContainer>
+      <LoadingWrapper>
         <Icon icon="spinner" spin={true} pulse={true} />
-      </LoadingContainer>
+      </LoadingWrapper>
     );
   }
 
   return (
-    <StyledNote>
-      <Editor
-        state={editorState}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-      >
-        {({ editor, editorView }) => {
-          const onDone = () => {
-            const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
-            element.blur();
-          };
+    <FullLayout focused={focused}>
+      <NotePageWrapper>
+        <Editor
+          state={editorState}
+          onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        >
+          {({ editor, editorView }) => {
+            const onDone = () => {
+              const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
+              element.blur();
+            };
 
-          return (
-            <>
-              <MiniControl>
-                <StyledButton onClick={onDone}>Done</StyledButton>
-                <StyledButton onClick={onSave}>Save</StyledButton>
-                <StyledText size={FontSize.SMALL}>
-                  {saving ? 'saving...' : 'saved'}
-                </StyledText>
-              </MiniControl>
-              <StyledEditor>{editor}</StyledEditor>
-              <StyledEditorMenu
-                editorState={editorState}
-                menuItems={menuItems}
-                editorView={editorView}
-              />
-              <GlobalStyleForNote focused={focused} />
-            </>
-          );
-        }}
-      </Editor>
-    </StyledNote>
+            return (
+              <>
+                <EditorWrapper>{editor}</EditorWrapper>
+                <MiniControl>
+                  <StyledButton onClick={onDone}>Done</StyledButton>
+                  <StyledButton onClick={onSave}>Save</StyledButton>
+                  <StyledText size={FontSize.SMALL}>
+                    {saving ? 'saving...' : 'saved'}
+                  </StyledText>
+                </MiniControl>
+                <StyledEditorMenu
+                  editorState={editorState}
+                  menuItems={menuItems}
+                  editorView={editorView}
+                />
+              </>
+            );
+          }}
+        </Editor>
+      </NotePageWrapper>
+    </FullLayout>
   );
 };
 

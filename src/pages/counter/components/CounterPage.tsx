@@ -7,7 +7,7 @@ import { counterActions } from '../counter-type';
 
 interface Props {}
 
-export const Counter: React.FunctionComponent<Props> = () => {
+export const CounterPage: React.FunctionComponent<Props> = () => {
   const [{ count, loading }, dispatch] = useRedux(mapState);
 
   const increment = useCallback(() => dispatch(counterActions.increment()), [

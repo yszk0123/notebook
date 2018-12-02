@@ -6,11 +6,11 @@ export const loginRoutes: Route[] = [
     path: '/login',
     title: 'Login',
     async action(context) {
-      const { Login } = await import('./components/Login');
+      const { LoginPage } = await import('./components/LoginPage');
 
       return {
-        content: <Login />,
-        loading: <Login />,
+        content: <LoginPage />,
+        loading: <LoginPage />,
       };
     },
   },

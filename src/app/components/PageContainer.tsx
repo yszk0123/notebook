@@ -11,11 +11,11 @@ interface Props {
   page: Page;
 }
 
-const Wrapper = styled.div`
+const PageContainerWrapper = styled.div`
   overflow: hidden;
 `;
 
-const Container = styled.div`
+const CenterWrapper = styled.div`
   font-size: 96px;
   display: flex;
   color: ${({ theme }) => theme.loadingColorFg};
@@ -25,7 +25,7 @@ const Container = styled.div`
   min-height: 60vh;
 `;
 
-const StyledLoading = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
@@ -37,7 +37,7 @@ const Main = styled.main`
   top: 0;
 `;
 
-export const Loading: React.FunctionComponent<Props> = ({ page }) => {
+export const PageContainer: React.FunctionComponent<Props> = ({ page }) => {
   const [{ loading }, dispatch] = useRedux(mapState);
   const { content, loading: loadingContent } = page;
 
@@ -47,19 +47,19 @@ export const Loading: React.FunctionComponent<Props> = ({ page }) => {
     main = loadingContent ? (
       loadingContent
     ) : (
-      <Container>
+      <CenterWrapper>
         <Icon icon="spinner" spin={true} pulse={true} />
-      </Container>
+      </CenterWrapper>
     );
   }
 
-  main = <StyledLoading>{content}</StyledLoading>;
+  main = <ContentWrapper>{content}</ContentWrapper>;
 
   return (
-    <Wrapper>
+    <PageContainerWrapper>
       <GlobalNavigation />
       <Main>{main}</Main>
-    </Wrapper>
+    </PageContainerWrapper>
   );
 };
 

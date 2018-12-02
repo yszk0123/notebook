@@ -3,6 +3,6 @@ import { Text } from '../../../components/Text';
 
 interface Props {}
 
-export const Hello: React.FunctionComponent<Props> = () => {
+export const HelloPage: React.FunctionComponent<Props> = () => {
   return <Text>Hello</Text>;
 };

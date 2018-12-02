@@ -18,7 +18,7 @@ import { restoreValueFromGlobalForDevelopment } from '../utils/restoreValueFromG
 import { unwrapUnsafeValue } from '../utils/unwrapUnsafeValue';
 import { AppAction } from './app-type';
 import { appRoutes } from './AppRoutes';
-import { Loading } from './components/Loading';
+import { PageContainer } from './components/PageContainer';
 import { createStore } from './createStore';
 import { resolveRoute } from './RouteResolver';
 
@@ -91,7 +91,7 @@ export async function render() {
           <Provider store={store}>
             <FirebaseAppProvider value={app}>
               <>
-                <Loading page={page} />
+                <PageContainer page={page} />
                 <ResetStyle />
               </>
             </FirebaseAppProvider>

@@ -6,10 +6,10 @@ export const helloRoutes: Route[] = [
     path: '/hello',
     title: 'Hello',
     async action(context) {
-      const { Hello } = await import('./components/Hello');
+      const { HelloPage } = await import('./components/HelloPage');
 
       return {
-        content: <Hello />,
+        content: <HelloPage />,
       };
     },
   },

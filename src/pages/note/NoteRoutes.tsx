@@ -6,10 +6,10 @@ export const noteRoutes: Route[] = [
     path: '/note',
     title: 'Note',
     async action(context) {
-      const { Note } = await import('./components/Note');
+      const { NotePage } = await import('./components/NotePage');
 
       return {
-        content: <Note />,
+        content: <NotePage />,
       };
     },
   },
