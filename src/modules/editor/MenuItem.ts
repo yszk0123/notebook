@@ -21,8 +21,7 @@ export function setBlockTypeMenu<
 
   return {
     active(state: EditorState) {
-      const { $from, to, node } = state.selection;
-      if (node) return node.hasMarkup(nodeType);
+      const { $from, to } = state.selection;
       return to <= $from.end() && $from.parent.hasMarkup(nodeType);
     },
     enable(state: EditorState) {
