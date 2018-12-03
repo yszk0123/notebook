@@ -3,7 +3,7 @@ import { GlobalNavigation } from '../../../routing/components/GlobalNavigation';
 import { styled } from '../../../styled-components';
 import { Main } from '../Main';
 
-const VIRTUAL_KEYBOARD_HEIGHT = 216; // Ugly hack...
+const VIRTUAL_KEYBOARD_HEIGHT = 216 + 48; // Ugly hack...
 
 const FullLayoutWrapper = styled.div<{ isVirtualKeyboardVisible?: boolean }>`
   position: fixed;
