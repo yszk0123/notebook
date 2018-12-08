@@ -1,6 +1,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
+import { DiffKeys } from '../utils/util-type';
 
 interface Props {
   icon: IconProp;
@@ -20,3 +21,11 @@ export const Icon: React.FunctionComponent<Props> = ({
   // tslint:disable-next-line:no-any
   return <FontAwesomeIcon {...props} icon={finalIcon as any} />;
 };
+
+export function createIcon(
+  name: IconProp,
+): React.FunctionComponent<DiffKeys<Props, 'icon'>> {
+  return props => {
+    return <Icon icon={name} {...props} />;
+  };
+}
