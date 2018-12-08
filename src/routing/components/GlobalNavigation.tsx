@@ -24,6 +24,8 @@ const Header = styled(Layout)`
   background: ${({ theme }) => theme.headerColorBg};
   color: ${({ theme }) => theme.headerColorFg};
   padding: 0 ${({ theme }) => theme.space};
+  // FIXME: Avoid magic number
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
 `;
 
 const LeftLayout = styled.div`
