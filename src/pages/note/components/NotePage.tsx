@@ -55,7 +55,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   display: flex;
   flex-direction: column-reverse;
   font-size: ${({ theme }) => theme.fontSize.default};
-  padding: ${({ theme }) => 2 * theme.thinSpace};
+  padding: calc(2 * ${({ theme }) => theme.thinSpace});
   position: absolute;
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
@@ -63,7 +63,6 @@ const StyledEditorMenu = styled(EditorMenu)`
 `;
 
 const EditorWrapper = styled.div`
-  margin-top: ${({ theme }) => theme.space};
   height: 100%;
 `;
 
