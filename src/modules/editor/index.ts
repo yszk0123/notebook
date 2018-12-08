@@ -1,7 +1,8 @@
 import './registerProseMirror';
 
-export { Editor } from './components/Editor';
 export { EditorMenu } from './components/EditorMenu';
 export { createSchema } from './DefaultPlugin';
 export { createStateFromContent, serializeEditorState } from './EditorState';
+export { editorStyle } from './editorStyle';
 export { createMenuItems } from './MenuItem';
+export { useEditor } from './useEditor';

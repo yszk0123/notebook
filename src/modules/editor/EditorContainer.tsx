@@ -4,11 +4,14 @@ import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useRef, useState } from 'react';
 import { styled } from '../../styled-components';
 import { useDebouncedCallback } from '../../utils/useDebouncedCallback';
-import { Editor } from './components/Editor';
 import { EditorMenu } from './components/EditorMenu';
 import { EditorContent, MenuItem } from './editor-type';
 import { createStateFromContent, serializeEditorState } from './EditorState';
+import { editorStyle } from './editorStyle';
 import { customMarkdownSerializer } from './MarkdownPlugin/MarkdownSerializer';
+import { useEditor } from './useEditor';
+
+const EditorContainerWrapper = styled.div``;
 
 const StyledEditorMenu = styled(EditorMenu)`
   display: flex;
@@ -20,12 +23,14 @@ const StyledEditorMenu = styled(EditorMenu)`
   width: 100%;
 `;
 
-const StyledEditor = styled.div`
+const Editor = styled.div`
   border: 2px solid #ccc;
 
   .ProseMirror {
     font-size: ${({ theme }) => theme.fontSize.default};
   }
+
+  ${editorStyle}
 `;
 
 export interface Props {
@@ -41,6 +46,7 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
   const editorContentRef = useRef<Nullable<EditorContent>>(
     initialEditorContent,
   );
+  const editorRef = useRef<HTMLDivElement>(null);
   const [markdown, setMarkdown] = useState('');
 
   const [editorState, setEditorState] = useState(() =>
@@ -66,21 +72,21 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
     [],
   );
 
+  const editorView = useEditor({
+    editorRef,
+    editorState,
+    onChange,
+  });
+
   return (
-    <Editor onChange={onChange} state={editorState}>
-      {({ editor, editorView }) => {
-        return (
-          <>
-            <StyledEditor>{editor}</StyledEditor>
-            <StyledEditorMenu
-              menuItems={menuItems}
-              editorState={editorState}
-              editorView={editorView}
-            />
-            <pre>{markdown}</pre>
-          </>
-        );
-      }}
-    </Editor>
+    <EditorContainerWrapper>
+      <Editor ref={editorRef} />
+      <StyledEditorMenu
+        menuItems={menuItems}
+        editorState={editorState}
+        editorView={editorView}
+      />
+      <pre>{markdown}</pre>
+    </EditorContainerWrapper>
   );
 };

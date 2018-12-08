@@ -14,9 +14,10 @@ import {
   createMenuItems,
   createSchema,
   createStateFromContent,
-  Editor,
   EditorMenu,
+  editorStyle,
   serializeEditorState,
+  useEditor,
 } from '../../../modules/editor';
 import { EditorContent } from '../../../modules/editor/editor-type';
 import { styled } from '../../../styled-components';
@@ -43,6 +44,8 @@ const NotePageWrapper = styled.div`
     padding-bottom: 30%;
     padding-top: ${({ theme }) => theme.space}px;
   }
+
+  ${editorStyle}
 `;
 
 const StyledEditorMenu = styled(EditorMenu)`
@@ -109,6 +112,7 @@ export const NotePage: React.FunctionComponent<Props> = () => {
   const [{ userId, saving, loading, note }, dispatch] = useRedux(mapState);
   const [isVirtualKeyboardVisible, setFocused] = useState(false);
   const editorContentRef = useRef(mapForNullable(note, _ => _.content));
+  const editorRef = useRef<HTMLDivElement>(null);
   const noteId = '1';
 
   const [editorState, setEditorState] = useState(() =>
@@ -191,6 +195,22 @@ export const NotePage: React.FunctionComponent<Props> = () => {
     setFocused(false);
   }, []);
 
+  const editorView = useEditor({
+    editorRef,
+    editorState,
+    onBlur,
+    onChange,
+    onFocus,
+  });
+
+  const onDone = useCallback(
+    () => {
+      const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
+      element.blur();
+    },
+    [editorView],
+  );
+
   if (loading) {
     return (
       <LoadingWrapper>
@@ -203,39 +223,19 @@ export const NotePage: React.FunctionComponent<Props> = () => {
     <NotePageWrapper>
       <VerticalStack>
         <VerticalStackItem autoScale={true}>
-          <Editor
-            state={editorState}
-            onChange={onChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
-          >
-            {({ editor, editorView }) => {
-              const onDone = () => {
-                const element = unwrapUnsafeValue<HTMLDivElement>(
-                  editorView.dom,
-                );
-                element.blur();
-              };
-
-              return (
-                <>
-                  <EditorWrapper>{editor}</EditorWrapper>
-                  <MiniControl>
-                    <StyledButton onClick={onDone}>Done</StyledButton>
-                    <StyledButton onClick={onSave}>Save</StyledButton>
-                    <StyledText size={FontSize.SMALL}>
-                      {saving ? 'saving...' : 'saved'}
-                    </StyledText>
-                  </MiniControl>
-                  <StyledEditorMenu
-                    editorState={editorState}
-                    menuItems={menuItems}
-                    editorView={editorView}
-                  />
-                </>
-              );
-            }}
-          </Editor>
+          <EditorWrapper ref={editorRef} />
+          <MiniControl>
+            <StyledButton onClick={onDone}>Done</StyledButton>
+            <StyledButton onClick={onSave}>Save</StyledButton>
+            <StyledText size={FontSize.SMALL}>
+              {saving ? 'saving...' : 'saved'}
+            </StyledText>
+          </MiniControl>
+          <StyledEditorMenu
+            editorState={editorState}
+            menuItems={menuItems}
+            editorView={editorView}
+          />
         </VerticalStackItem>
         <VirtualKeyboardSpacer
           isVirtualKeyboardVisible={isVirtualKeyboardVisible}
