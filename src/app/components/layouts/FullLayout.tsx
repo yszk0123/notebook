@@ -1,5 +1,6 @@
 import React from 'react';
 import { GlobalNavigation } from '../../../routing/components/GlobalNavigation';
+import { GlobalNavigationSpacer } from '../../../routing/components/GlobalNavigationSpacer';
 import { styled } from '../../../styled-components';
 import { Main } from '../Main';
 
@@ -11,13 +12,14 @@ const FullLayoutWrapper = styled.div`
   padding: 0;
   left: 0;
   top: 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledMain = styled(Main)`
   position: relative;
   width: 100%;
-  height: calc(100% - ${({ theme }) => theme.headerHeight}px);
-  top: ${({ theme }) => theme.headerHeight}px;
+  height: 100%;
 `;
 
 interface Props {}
@@ -26,6 +28,7 @@ export const FullLayout: React.FunctionComponent<Props> = ({ children }) => {
   return (
     <FullLayoutWrapper>
       <GlobalNavigation />
+      <GlobalNavigationSpacer />
       <StyledMain>{children}</StyledMain>
     </FullLayoutWrapper>
   );
