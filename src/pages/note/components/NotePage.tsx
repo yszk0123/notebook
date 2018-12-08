@@ -3,7 +3,6 @@ import { mapForNullable } from 'option-t/lib/Nullable/map';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState } from '../../../app/app-type';
-import { FullLayout } from '../../../app/components/layouts/FullLayout';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
@@ -26,8 +25,9 @@ import { noteEffects } from '../NoteEffect';
 
 const CHANGE_DELAY = 4000;
 const EDITOR_MIN_HEIGHT = '6rem';
+const VIRTUAL_KEYBOARD_HEIGHT = 216 + 48; // Ugly hack...
 
-const NotePageWrapper = styled.div`
+const NotePageWrapper = styled.div<{ isVirtualKeyboardVisible?: boolean }>`
   display: flex;
   flex-direction: column;
   font-size: ${({ theme }) => theme.fontSize.large};
@@ -44,6 +44,13 @@ const NotePageWrapper = styled.div`
     padding-bottom: 30%;
     padding-top: ${({ theme }) => theme.space}px;
     position: absolute;
+  }
+
+  @media screen and (max-width: 480px) {
+    height: ${({ isVirtualKeyboardVisible }) =>
+      isVirtualKeyboardVisible
+        ? `calc(100% - ${VIRTUAL_KEYBOARD_HEIGHT}px)`
+        : '100%'};
   }
 `;
 
@@ -201,41 +208,39 @@ export const NotePage: React.FunctionComponent<Props> = () => {
   }
 
   return (
-    <FullLayout isVirtualKeyboardVisible={isVirtualKeyboardVisible}>
-      <NotePageWrapper>
-        <Editor
-          state={editorState}
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        >
-          {({ editor, editorView }) => {
-            const onDone = () => {
-              const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
-              element.blur();
-            };
+    <NotePageWrapper isVirtualKeyboardVisible={isVirtualKeyboardVisible}>
+      <Editor
+        state={editorState}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+      >
+        {({ editor, editorView }) => {
+          const onDone = () => {
+            const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
+            element.blur();
+          };
 
-            return (
-              <>
-                <EditorWrapper>{editor}</EditorWrapper>
-                <MiniControl>
-                  <StyledButton onClick={onDone}>Done</StyledButton>
-                  <StyledButton onClick={onSave}>Save</StyledButton>
-                  <StyledText size={FontSize.SMALL}>
-                    {saving ? 'saving...' : 'saved'}
-                  </StyledText>
-                </MiniControl>
-                <StyledEditorMenu
-                  editorState={editorState}
-                  menuItems={menuItems}
-                  editorView={editorView}
-                />
-              </>
-            );
-          }}
-        </Editor>
-      </NotePageWrapper>
-    </FullLayout>
+          return (
+            <>
+              <EditorWrapper>{editor}</EditorWrapper>
+              <MiniControl>
+                <StyledButton onClick={onDone}>Done</StyledButton>
+                <StyledButton onClick={onSave}>Save</StyledButton>
+                <StyledText size={FontSize.SMALL}>
+                  {saving ? 'saving...' : 'saved'}
+                </StyledText>
+              </MiniControl>
+              <StyledEditorMenu
+                editorState={editorState}
+                menuItems={menuItems}
+                editorView={editorView}
+              />
+            </>
+          );
+        }}
+      </Editor>
+    </NotePageWrapper>
   );
 };
 
