@@ -7,7 +7,7 @@ import { EditorContent } from './editor-type';
 export type OnChange = (getContent: () => Nullable<EditorContent>) => void;
 
 interface EditorViewParam {
-  state: EditorState;
+  editorState: EditorState;
   onChange: (
     nextState: EditorState,
     prevState: EditorState,
@@ -15,14 +15,17 @@ interface EditorViewParam {
   ) => void;
 }
 
-export function createEditorView({ state, onChange = noop }: EditorViewParam) {
+export function createEditorView({
+  editorState,
+  onChange = noop,
+}: EditorViewParam) {
   const editorView = new EditorView(undefined, {
     dispatchTransaction(tr) {
       const prevState = editorView.state;
       const nextState = prevState.apply(tr);
       onChange(nextState, prevState, tr.docChanged);
     },
-    state,
+    state: editorState,
   });
 
   return editorView;

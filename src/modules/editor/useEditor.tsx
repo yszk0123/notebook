@@ -17,26 +17,28 @@ interface Props {
 }
 
 export const useEditor = ({
-  editorState: state,
-  editorRef: ref,
+  editorState,
+  editorRef,
   onChange,
   onFocus = noop,
   onBlur = noop,
 }: Props) => {
-  const [editorView] = useState(() => createEditorView({ state, onChange }));
+  const [editorView] = useState(() =>
+    createEditorView({ editorState, onChange }),
+  );
 
   useLayoutEffect(
     () => {
-      editorView.updateState(state);
+      editorView.updateState(editorState);
     },
-    [editorView, state],
+    [editorView, editorState],
   );
 
   useEffect(() => {
-    if (isNull(ref.current)) {
+    if (isNull(editorRef.current)) {
       return;
     }
-    ref.current.appendChild(editorView.dom);
+    editorRef.current.appendChild(editorView.dom);
     editorView.update({ ...editorView.props });
     editorView.dom.addEventListener('focus', onFocus);
     editorView.dom.addEventListener('blur', onBlur);
