@@ -4,26 +4,22 @@ import { Page } from '../../routing/routing-type';
 import { styled } from '../../styled-components';
 import { AppState } from '../app-type';
 import useRedux from '../useRedux';
+import { CenterLayout } from './layouts/CenterLayout';
 import { FullLayout } from './layouts/FullLayout';
 
 interface Props {
   page: Page;
 }
 
-const CenterWrapper = styled.div`
+const DecoratedCenterLayout = styled(CenterLayout)`
   font-size: 96px;
-  display: flex;
   color: ${({ theme }) => theme.loadingColorFg};
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
 `;
 
 const defaultLoadingContent = (
-  <CenterWrapper>
+  <DecoratedCenterLayout>
     <Icon icon="spinner" spin={true} pulse={true} />
-  </CenterWrapper>
+  </DecoratedCenterLayout>
 );
 
 export const PageContainer: React.FunctionComponent<Props> = ({ page }) => {

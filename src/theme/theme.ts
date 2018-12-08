@@ -26,6 +26,6 @@ export const defaultTheme: ThemeInterface = {
   roundButtonRadius: 24,
   roundButtonSize: 48,
   space: 8,
-  thinkSpace: 4,
+  thinSpace: 4,
   transition: '0.25s ease-in-out',
 };

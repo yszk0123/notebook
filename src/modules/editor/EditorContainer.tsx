@@ -11,7 +11,7 @@ import { editorStyle } from './editorStyle';
 import { customMarkdownSerializer } from './MarkdownPlugin/MarkdownSerializer';
 import { useEditor } from './useEditor';
 
-const EditorContainerWrapper = styled.div``;
+const EditorContainerLayout = styled.div``;
 
 const StyledEditorMenu = styled(EditorMenu)`
   display: flex;
@@ -19,7 +19,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   font-size: ${({ theme }) => theme.fontSize.large};
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
-  padding: ${({ theme }) => theme.thinkSpace}px;
+  padding: ${({ theme }) => theme.thinSpace}px;
   width: 100%;
 `;
 
@@ -79,7 +79,7 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
   });
 
   return (
-    <EditorContainerWrapper>
+    <EditorContainerLayout>
       <Editor ref={editorRef} />
       <StyledEditorMenu
         menuItems={menuItems}
@@ -87,6 +87,6 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
         editorView={editorView}
       />
       <pre>{markdown}</pre>
-    </EditorContainerWrapper>
+    </EditorContainerLayout>
   );
 };

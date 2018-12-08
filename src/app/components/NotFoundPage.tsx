@@ -1,13 +1,15 @@
 import React from 'react';
 import { Text } from '../../components/Text';
-import { Center } from './layouts/Center';
+import { CenterLayout } from './layouts/CenterLayout';
+
+const Layout = CenterLayout;
 
 interface Props {}
 
 export const NotFoundPage: React.FunctionComponent<Props> = () => {
   return (
-    <Center>
+    <Layout>
       <Text>Not Found</Text>
-    </Center>
+    </Layout>
   );
 };

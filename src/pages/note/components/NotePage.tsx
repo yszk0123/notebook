@@ -3,8 +3,9 @@ import { mapForNullable } from 'option-t/lib/Nullable/map';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState } from '../../../app/app-type';
-import { VerticalStack } from '../../../app/components/layouts/VerticalStack';
-import { VerticalStackItem } from '../../../app/components/layouts/VerticalStackItem';
+import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
+import { VerticalStackItemLayout } from '../../../app/components/layouts/VerticalStackItemLayout';
+import { VerticalStackLayout } from '../../../app/components/layouts/VerticalStackLayout';
 import { VirtualKeyboardSpacer } from '../../../app/components/layouts/VirtualKeyboardSpacer';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
@@ -54,7 +55,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   display: flex;
   flex-direction: column-reverse;
   font-size: ${({ theme }) => theme.fontSize.default};
-  padding: ${({ theme }) => 2 * theme.thinkSpace}px;
+  padding: ${({ theme }) => 2 * theme.thinSpace}px;
   position: absolute;
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
@@ -93,14 +94,9 @@ const StyledText = styled(Text)`
   margin-left: ${({ theme }) => theme.space}px;
 `;
 
-const LoadingWrapper = styled.div`
+const LoadingLayout = styled(CenterLayout)`
   font-size: 96px;
-  display: flex;
   color: ${({ theme }) => theme.loadingColorFg};
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
 `;
 
 const schema = createSchema();
@@ -213,16 +209,16 @@ export const NotePage: React.FunctionComponent<Props> = () => {
 
   if (loading) {
     return (
-      <LoadingWrapper>
+      <LoadingLayout>
         <Icon icon="spinner" spin={true} pulse={true} />
-      </LoadingWrapper>
+      </LoadingLayout>
     );
   }
 
   return (
     <NotePageWrapper>
-      <VerticalStack>
-        <VerticalStackItem autoScale={true}>
+      <VerticalStackLayout>
+        <VerticalStackItemLayout autoScale={true}>
           <EditorWrapper ref={editorRef} />
           <MiniControl>
             <StyledButton onClick={onDone}>Done</StyledButton>
@@ -236,11 +232,11 @@ export const NotePage: React.FunctionComponent<Props> = () => {
             menuItems={menuItems}
             editorView={editorView}
           />
-        </VerticalStackItem>
+        </VerticalStackItemLayout>
         <VirtualKeyboardSpacer
           isVirtualKeyboardVisible={isVirtualKeyboardVisible}
         />
-      </VerticalStack>
+      </VerticalStackLayout>
     </NotePageWrapper>
   );
 };

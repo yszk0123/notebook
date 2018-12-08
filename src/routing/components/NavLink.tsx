@@ -5,13 +5,10 @@ import { styled } from '../../styled-components';
 import { getCurrentPath } from '../utils/getCurrentPath';
 import { Link } from './Link';
 
-const StyledNavLink = styled(Link)`
+const DecoratedLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.headerColorFg};
-
-  & + & {
-    margin-left: ${({ theme }) => theme.space}px;
-  }
+  padding: 0 ${({ theme }) => theme.thinSpace}px;
 `;
 
 interface Props {
@@ -31,8 +28,8 @@ export const NavLink: React.FunctionComponent<Props> = ({
   const currentPath = getCurrentPath(history);
 
   return (
-    <StyledNavLink className={className} path={path}>
+    <DecoratedLink className={className} path={path}>
       <Text bold={currentPath === path}>{children}</Text>
-    </StyledNavLink>
+    </DecoratedLink>
   );
 };

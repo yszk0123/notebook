@@ -39,6 +39,6 @@ export interface ThemeInterface {
   roundButtonRadius: number;
   roundButtonSize: number;
   space: number;
-  thinkSpace: number;
+  thinSpace: number;
   transition: string;
 }

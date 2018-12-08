@@ -4,7 +4,7 @@ interface Props {
   autoScale?: boolean;
 }
 
-export const VerticalStackItem = styled.div<Props>`
+export const VerticalStackItemLayout = styled.div<Props>`
   flex-grow: ${({ autoScale }) => (autoScale ? 1 : undefined)};
   height: 100%;
   overflow-y: hidden;

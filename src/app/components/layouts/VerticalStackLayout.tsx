@@ -1,6 +1,6 @@
 import { styled } from '../../../styled-components';
 
-export const VerticalStack = styled.div`
+export const VerticalStackLayout = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
