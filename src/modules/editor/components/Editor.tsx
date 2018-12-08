@@ -8,6 +8,9 @@ import { noop } from '../../../utils/noop';
 import { createEditorView } from '../EditorView';
 
 const ProseMirrorWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+
   .ProseMirror {
     padding: 4px 8px 4px 14px;
     line-height: 1.2;

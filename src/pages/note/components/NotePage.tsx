@@ -3,6 +3,9 @@ import { mapForNullable } from 'option-t/lib/Nullable/map';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AppState } from '../../../app/app-type';
+import { VerticalStack } from '../../../app/components/layouts/VerticalStack';
+import { VerticalStackItem } from '../../../app/components/layouts/VerticalStackItem';
+import { VirtualKeyboardSpacer } from '../../../app/components/layouts/VirtualKeyboardSpacer';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
@@ -24,33 +27,21 @@ import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
 import { noteEffects } from '../NoteEffect';
 
 const CHANGE_DELAY = 4000;
-const EDITOR_MIN_HEIGHT = '6rem';
-const VIRTUAL_KEYBOARD_HEIGHT = 216 + 48; // Ugly hack...
 
-const NotePageWrapper = styled.div<{ isVirtualKeyboardVisible?: boolean }>`
+const NotePageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-size: ${({ theme }) => theme.fontSize.large};
   height: 100%;
-  position: absolute;
   width: 100%;
 
   .ProseMirror {
     font-size: ${({ theme }) => theme.fontSize.default};
-    height: 100%;
-    min-height: ${EDITOR_MIN_HEIGHT};
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
+    height: 100%;
     padding-bottom: 30%;
     padding-top: ${({ theme }) => theme.space}px;
-    position: absolute;
-  }
-
-  @media screen and (max-width: 480px) {
-    height: ${({ isVirtualKeyboardVisible }) =>
-      isVirtualKeyboardVisible
-        ? `calc(100% - ${VIRTUAL_KEYBOARD_HEIGHT}px)`
-        : '100%'};
   }
 `;
 
@@ -69,6 +60,7 @@ const StyledEditorMenu = styled(EditorMenu)`
 
 const EditorWrapper = styled.div`
   margin-top: ${({ theme }) => theme.space}px;
+  height: 100%;
 `;
 
 const MiniControl = styled.div`
@@ -208,38 +200,47 @@ export const NotePage: React.FunctionComponent<Props> = () => {
   }
 
   return (
-    <NotePageWrapper isVirtualKeyboardVisible={isVirtualKeyboardVisible}>
-      <Editor
-        state={editorState}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-      >
-        {({ editor, editorView }) => {
-          const onDone = () => {
-            const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
-            element.blur();
-          };
+    <NotePageWrapper>
+      <VerticalStack>
+        <VerticalStackItem autoScale={true}>
+          <Editor
+            state={editorState}
+            onChange={onChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+          >
+            {({ editor, editorView }) => {
+              const onDone = () => {
+                const element = unwrapUnsafeValue<HTMLDivElement>(
+                  editorView.dom,
+                );
+                element.blur();
+              };
 
-          return (
-            <>
-              <EditorWrapper>{editor}</EditorWrapper>
-              <MiniControl>
-                <StyledButton onClick={onDone}>Done</StyledButton>
-                <StyledButton onClick={onSave}>Save</StyledButton>
-                <StyledText size={FontSize.SMALL}>
-                  {saving ? 'saving...' : 'saved'}
-                </StyledText>
-              </MiniControl>
-              <StyledEditorMenu
-                editorState={editorState}
-                menuItems={menuItems}
-                editorView={editorView}
-              />
-            </>
-          );
-        }}
-      </Editor>
+              return (
+                <>
+                  <EditorWrapper>{editor}</EditorWrapper>
+                  <MiniControl>
+                    <StyledButton onClick={onDone}>Done</StyledButton>
+                    <StyledButton onClick={onSave}>Save</StyledButton>
+                    <StyledText size={FontSize.SMALL}>
+                      {saving ? 'saving...' : 'saved'}
+                    </StyledText>
+                  </MiniControl>
+                  <StyledEditorMenu
+                    editorState={editorState}
+                    menuItems={menuItems}
+                    editorView={editorView}
+                  />
+                </>
+              );
+            }}
+          </Editor>
+        </VerticalStackItem>
+        <VirtualKeyboardSpacer
+          isVirtualKeyboardVisible={isVirtualKeyboardVisible}
+        />
+      </VerticalStack>
     </NotePageWrapper>
   );
 };
