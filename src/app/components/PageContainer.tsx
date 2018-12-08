@@ -16,7 +16,7 @@ const CenterWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 60vh;
+  height: 100%;
 `;
 
 const defaultLoadingContent = (

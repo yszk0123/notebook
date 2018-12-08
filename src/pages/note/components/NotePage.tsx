@@ -41,7 +41,7 @@ const NotePageWrapper = styled.div`
     min-height: ${EDITOR_MIN_HEIGHT};
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
-    padding-bottom: 30vh;
+    padding-bottom: 30%;
     padding-top: ${({ theme }) => theme.space}px;
     position: absolute;
   }
@@ -98,7 +98,7 @@ const LoadingWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 60vh;
+  height: 100%;
 `;
 
 const schema = createSchema();
