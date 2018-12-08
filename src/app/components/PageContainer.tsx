@@ -4,6 +4,7 @@ import { Page } from '../../routing/routing-type';
 import { styled } from '../../styled-components';
 import { AppState } from '../app-type';
 import useRedux from '../useRedux';
+import { FullLayout } from './layouts/FullLayout';
 
 interface Props {
   page: Page;
@@ -29,7 +30,9 @@ export const PageContainer: React.FunctionComponent<Props> = ({ page }) => {
   const [{ loading }, _dispatch] = useRedux(mapState);
   const { content, loading: loadingContent = defaultLoadingContent } = page;
 
-  return loading ? loadingContent : content;
+  const finalContent = loading ? loadingContent : content;
+
+  return <FullLayout>{finalContent}</FullLayout>;
 };
 
 function mapState(state: AppState) {
