@@ -8,22 +8,22 @@ import { MenuItem } from '../editor-type';
 const MenuItem = styled.div<{ active?: boolean; enable?: boolean }>`
   align-items: center;
   background: ${({ theme }) => theme.buttonColorBg};
-  border-radius: ${({ theme }) => theme.roundButtonRadius}px;
+  border-radius: ${({ theme }) => theme.roundButtonRadius};
   color: ${({ theme }) => theme.buttonColorFg};
   cursor: pointer;
   display: flex;
-  min-height: ${({ theme }) => theme.roundButtonSize}px;
-  height: ${({ theme }) => theme.roundButtonSize}px;
+  min-height: ${({ theme }) => theme.roundButtonSize};
+  height: ${({ theme }) => theme.roundButtonSize};
   justify-content: center;
   opacity: ${({ theme, active }) =>
     active ? theme.activeOpacity : theme.inactiveOpacity};
-  padding: ${({ theme }) => theme.space}px;
+  padding: ${({ theme }) => theme.space};
   text-align: center;
   transition: ${({ theme }) => theme.transition};
-  width: ${({ theme }) => theme.roundButtonSize}px;
+  width: ${({ theme }) => theme.roundButtonSize};
 
   & + & {
-    margin-bottom: ${({ theme }) => theme.space}px;
+    margin-bottom: ${({ theme }) => theme.space};
   }
 
   :hover {

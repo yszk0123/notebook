@@ -32,13 +32,13 @@ export interface ThemeInterface {
   };
   headerColorBg: ColorPalette;
   headerColorFg: ColorPalette;
-  headerHeight: number;
+  headerHeight: string;
   inactiveOpacity: number;
   loadingColorFg: ColorPalette;
-  radius: number;
-  roundButtonRadius: number;
-  roundButtonSize: number;
-  space: number;
-  thinSpace: number;
+  radius: string;
+  roundButtonRadius: string;
+  roundButtonSize: string;
+  space: string;
+  thinSpace: string;
   transition: string;
 }

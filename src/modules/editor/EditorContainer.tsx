@@ -19,7 +19,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   font-size: ${({ theme }) => theme.fontSize.large};
   -webkit-overflow-scrolling: touch;
   overflow-x: auto;
-  padding: ${({ theme }) => theme.thinSpace}px;
+  padding: ${({ theme }) => theme.thinSpace};
   width: 100%;
 `;
 

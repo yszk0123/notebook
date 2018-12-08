@@ -10,22 +10,22 @@ import { styled } from '../../../styled-components';
 import { counterActions } from '../counter-type';
 
 const Layout = styled(CenterLayout)`
-  margin-top: ${({ theme }) => theme.space}px;
+  margin-top: ${({ theme }) => theme.space};
 `;
 
 const CountLayout = styled(Text)`
   display: flex;
   justify-content: center;
-  margin: ${({ theme }) => theme.space}px;
+  margin: ${({ theme }) => theme.space};
 `;
 
 const ButtonGroupLayout = styled.div`
   display: flex;
   justify-content: center;
-  margin: ${({ theme }) => theme.space}px;
+  margin: ${({ theme }) => theme.space};
 
   & > ${Button} {
-    margin: 0 ${({ theme }) => theme.space}px;
+    margin: 0 ${({ theme }) => theme.space};
   }
 `;
 

@@ -12,7 +12,7 @@ import { NavLink } from './NavLink';
 const Layout = styled.header`
   align-items: center;
   display: flex;
-  height: ${({ theme }) => theme.headerHeight}px;
+  height: ${({ theme }) => theme.headerHeight};
   justify-content: space-between;
   position: fixed;
   top: 0;
@@ -23,7 +23,7 @@ const Layout = styled.header`
 const Header = styled(Layout)`
   background: ${({ theme }) => theme.headerColorBg};
   color: ${({ theme }) => theme.headerColorFg};
-  padding: ${({ theme }) => theme.space}px;
+  padding: 0 ${({ theme }) => theme.space};
 `;
 
 const LeftLayout = styled.div`
@@ -37,13 +37,11 @@ const RightLayout = styled.div`
 `;
 
 const Link = styled(NavLink)`
-  & + & {
-    margin-left: ${({ theme }) => theme.space}px;
-  }
+  padding: ${({ theme }) => theme.space};
 `;
 
 const Menu = styled(DropDownMenu)`
-  padding: ${({ theme }) => theme.space}px;
+  padding: ${({ theme }) => theme.space};
 `;
 
 const MenuLayout = styled.div`
@@ -51,15 +49,20 @@ const MenuLayout = styled.div`
   flex-direction: column;
   min-width: 80px;
   position: fixed;
-  right: ${({ theme }) => theme.space}px;
-  top: ${({ theme }) => theme.space}px;
+  right: ${({ theme }) => theme.space};
+  top: ${({ theme }) => theme.space};
   z-index: 2000;
 `;
 
 const MenuItemLayout = styled.div`
   & + & {
-    margin-top: ${({ theme }) => theme.space}px;
+    margin-top: ${({ theme }) => theme.space};
   }
+`;
+
+const MenuButton = styled.div`
+  cursor: pointer;
+  padding: ${({ theme }) => theme.space};
 `;
 
 interface Props {}
@@ -107,12 +110,14 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
                     )}
                   </MenuItemLayout>
                   <MenuItemLayout>
-                    <Link path={routingPaths.logout}>Logout</Link>
+                    <NavLink path={routingPaths.logout}>Logout</NavLink>
                   </MenuItemLayout>
                 </Menu>
               </MenuLayout>
             ) : null}
-            <MenuIcon onClick={onToggleMenu} />
+            <MenuButton onClick={onToggleMenu}>
+              <MenuIcon />
+            </MenuButton>
           </>
         )}
       </RightLayout>

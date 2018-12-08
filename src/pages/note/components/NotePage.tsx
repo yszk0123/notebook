@@ -43,7 +43,7 @@ const NotePageWrapper = styled.div`
     overflow-y: auto;
     height: 100%;
     padding-bottom: 30%;
-    padding-top: ${({ theme }) => theme.space}px;
+    padding-top: ${({ theme }) => theme.space};
   }
 
   ${editorStyle}
@@ -55,7 +55,7 @@ const StyledEditorMenu = styled(EditorMenu)`
   display: flex;
   flex-direction: column-reverse;
   font-size: ${({ theme }) => theme.fontSize.default};
-  padding: ${({ theme }) => 2 * theme.thinSpace}px;
+  padding: ${({ theme }) => 2 * theme.thinSpace};
   position: absolute;
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
@@ -63,16 +63,16 @@ const StyledEditorMenu = styled(EditorMenu)`
 `;
 
 const EditorWrapper = styled.div`
-  margin-top: ${({ theme }) => theme.space}px;
+  margin-top: ${({ theme }) => theme.space};
   height: 100%;
 `;
 
 const MiniControl = styled.div`
   align-items: center;
-  bottom: ${({ theme }) => theme.space}px;
+  bottom: ${({ theme }) => theme.space};
   display: flex;
   left: 0;
-  margin-left: ${({ theme }) => theme.space}px;
+  margin-left: ${({ theme }) => theme.space};
   opacity: ${({ theme }) => theme.inactiveOpacity};
   position: absolute;
   text-align: left;
@@ -86,12 +86,12 @@ const MiniControl = styled.div`
 
 const StyledButton = styled(Button)`
   & + & {
-    margin-left: ${({ theme }) => theme.space}px;
+    margin-left: ${({ theme }) => theme.space};
   }
 `;
 
 const StyledText = styled(Text)`
-  margin-left: ${({ theme }) => theme.space}px;
+  margin-left: ${({ theme }) => theme.space};
 `;
 
 const LoadingLayout = styled(CenterLayout)`

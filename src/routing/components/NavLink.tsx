@@ -8,7 +8,6 @@ import { Link } from './Link';
 const DecoratedLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.headerColorFg};
-  padding: 0 ${({ theme }) => theme.thinSpace}px;
 `;
 
 interface Props {

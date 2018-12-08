@@ -7,5 +7,5 @@ export const Button = styled.button`
   color: ${({ theme }) => theme.buttonColorFg};
   cursor: pointer;
   outline: none;
-  padding: ${({ theme }) => theme.space}px;
+  padding: ${({ theme }) => theme.space};
 `;
