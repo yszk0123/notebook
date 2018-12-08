@@ -20,6 +20,8 @@ const StyledMain = styled(Main)`
   position: relative;
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
+  flex-grow: 1;
 `;
 
 interface Props {}
