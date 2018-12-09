@@ -5,6 +5,7 @@ import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
+import { Text } from '../../../components/Text';
 import { Word } from '../../../models/Word';
 import { styled } from '../../../styled-components';
 import { useDebouncedEffect } from '../../../utils/useDebouncedEffect';
@@ -13,7 +14,7 @@ import { wordEffects } from '../WordEffect';
 import { getOutdatedWords, getWords } from '../WordSelectors';
 import { WordListItem } from './WordListItem';
 
-const CHANGE_DELAY = 4000;
+const CHANGE_DELAY = 1500;
 
 const WordPageWrapper = styled.div`
   display: flex;
@@ -157,6 +158,7 @@ export const WordPage: React.FunctionComponent<Props> = () => {
         })}
         <ListItemLayout>
           <Button onClick={onAddWord}>Add</Button>
+          <Text>{saving ? 'saving' : 'saved'}</Text>
         </ListItemLayout>
       </ListLayout>
     </WordPageWrapper>

@@ -4,7 +4,7 @@ import { sleep } from '../../../utils/sleep';
 import { wordActions } from '../word-type';
 import { WordEffectCreator } from './WordEffectType';
 
-const SAVE_DELAY = 750;
+const SAVE_DELAY = 500;
 
 interface SaveInput {
   userId: string;

@@ -18,11 +18,14 @@ export const wordReducer: Reducer<WordState, WordAction> = (
   action,
 ) => {
   switch (action.type) {
+    case WordActionType.REMOVE:
+      return { ...state, saving: true };
     case WordActionType.REMOVE_SUCCESS: {
       const { removedWordId } = action.payload;
 
       return updateState(state, {
         outdatedWordIds: (ids: WordId[]) => pull(ids, removedWordId),
+        saving: { $set: false },
         wordIds: (ids: WordId[]) => pull(ids, removedWordId),
         wordsById: { $unset: [removedWordId] },
       });
