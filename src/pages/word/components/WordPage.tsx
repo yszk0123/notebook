@@ -38,6 +38,7 @@ const ListLayout = styled.ul`
 const ListItemLayout = styled.li`
   display: flex;
   width: 100%;
+  align-items: center;
 
   & + & {
     margin-top: ${({ theme }) => theme.space};
@@ -47,6 +48,17 @@ const ListItemLayout = styled.li`
 const LoadingLayout = styled(CenterLayout)`
   font-size: 96px;
   color: ${({ theme }) => theme.loadingColorFg};
+`;
+
+const ControlLayout = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ControlItemLayout = styled.div`
+  & + & {
+    margin-left: ${({ theme }) => theme.space};
+  }
 `;
 
 interface Props {}
@@ -180,9 +192,17 @@ export const WordPage: React.FunctionComponent<Props> = () => {
           );
         })}
         <ListItemLayout>
-          <Button onClick={onAddWord}>Add</Button>
-          <Button onClick={onReload}>Reload</Button>
-          <Text>{saving ? 'saving' : 'saved'}</Text>
+          <ControlLayout>
+            <ControlItemLayout>
+              <Button onClick={onAddWord}>Add</Button>
+            </ControlItemLayout>
+            <ControlItemLayout>
+              <Button onClick={onReload}>Reload</Button>
+            </ControlItemLayout>
+            <ControlItemLayout>
+              <Text>{saving ? 'saving' : 'saved'}</Text>
+            </ControlItemLayout>
+          </ControlLayout>
         </ListItemLayout>
       </ListLayout>
     </WordPageWrapper>

@@ -7,6 +7,8 @@ import { noop } from '../../../utils/noop';
 const DateText = styled.div`
   cursor: pointer;
   padding: ${({ theme }) => theme.space};
+  display: flex;
+  align-items: center;
 `;
 
 interface Props {
@@ -14,7 +16,7 @@ interface Props {
   onChange: (date: number) => void;
 }
 
-export const Picker = React.memo<Props>(({ value: date, onChange }) => {
+export const Picker = React.memo<Props>(({ value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // FIXME: Avoid any
@@ -22,7 +24,10 @@ export const Picker = React.memo<Props>(({ value: date, onChange }) => {
   // tslint:disable-next-line:no-any
   const onSelectDate = useCallback((newDate: any) => {
     setIsOpen(false);
-    onChange(getTime(newDate));
+    const newValue = getTime(newDate);
+    if (newValue !== value) {
+      onChange(newValue);
+    }
   }, []);
 
   const onOpen = useCallback(() => {
@@ -36,14 +41,15 @@ export const Picker = React.memo<Props>(({ value: date, onChange }) => {
   return (
     <>
       <DateText onClick={onOpen}>
-        {date ? format(date, 'YYYY/MM/DD') : null}
+        {value ? format(value, 'YYYY/MM/DD') : null}
       </DateText>
       {isOpen ? (
         <DatePicker
           // FIXME: Avoid any
           // Type definition of react-datepicker is outdated
           // @ts-ignore
-          selected={new Date(date)}
+          selected={new Date(value)}
+          todayButton="Today"
           onSelect={onSelectDate}
           onChange={noop}
           onBlur={onBlur}
