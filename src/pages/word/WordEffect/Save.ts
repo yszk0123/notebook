@@ -12,10 +12,6 @@ interface SaveInput {
 }
 
 async function doSave(input: SaveInput, db: firebase.firestore.Firestore) {
-  if (!input.word.dirty) {
-    return;
-  }
-
   const userRef = db.collection('users').doc(input.userId);
   const wordRef = userRef.collection('words').doc(input.word.id);
   await wordRef.set(input.word);

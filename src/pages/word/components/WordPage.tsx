@@ -7,10 +7,10 @@ import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Word } from '../../../models/Word';
 import { styled } from '../../../styled-components';
-import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
+import { useDebouncedEffect } from '../../../utils/useDebouncedEffect';
 import { wordActions } from '../word-type';
 import { wordEffects } from '../WordEffect';
-import { selectWords as getWords } from '../WordSelectors';
+import { getOutdatedWords, getWords } from '../WordSelectors';
 import { WordListItem } from './WordListItem';
 
 const CHANGE_DELAY = 4000;
@@ -50,7 +50,10 @@ const LoadingLayout = styled(CenterLayout)`
 interface Props {}
 
 export const WordPage: React.FunctionComponent<Props> = () => {
-  const [{ userId, saving, loading, words }, dispatch] = useRedux(mapState);
+  const [
+    { userId, saving, loading, words, outdatedWords },
+    dispatch,
+  ] = useRedux(mapState);
   const [isVirtualKeyboardVisible, setFocused] = useState(false);
 
   useEffect(
@@ -76,18 +79,19 @@ export const WordPage: React.FunctionComponent<Props> = () => {
     dispatch(wordEffects.save(input));
   };
 
-  const autoSaveIfNeeded = useDebouncedCallback(
+  // FIXME: Move logic into WordEffects
+  useDebouncedEffect(
     () => {
-      if (isNull(userId)) return;
+      if (isNull(userId) || outdatedWords.length === 0) return;
 
       const input = {
         userId,
-        words,
+        words: outdatedWords,
       };
       dispatch(wordEffects.saveAll(input));
     },
     CHANGE_DELAY,
-    [dispatch, userId],
+    [dispatch, userId, outdatedWords],
   );
 
   const onChange = useCallback(
@@ -100,7 +104,6 @@ export const WordPage: React.FunctionComponent<Props> = () => {
         word,
       };
       dispatch(wordActions.updateContent(input));
-      autoSaveIfNeeded();
     },
     [dispatch, userId],
   );
@@ -145,11 +148,13 @@ export const WordPage: React.FunctionComponent<Props> = () => {
 
 function mapState(state: AppState) {
   const words = getWords(state);
+  const outdatedWords = getOutdatedWords(state);
   const { saving } = state.word;
   const { loading, user } = state.routing;
 
   return {
     loading,
+    outdatedWords,
     saving,
     userId: user ? user.uid : null,
     words,

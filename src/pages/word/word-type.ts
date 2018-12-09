@@ -37,9 +37,7 @@ export const wordActions = {
   ),
   saveAllSuccess: createAction(
     WordActionType.SAVE_ALL_SUCCESS,
-    (payload: { userId: string; words: Word[]; savedWords: Word[] }) => ({
-      payload,
-    }),
+    (payload: { userId: string; words: Word[] }) => ({ payload }),
   ),
   saveSuccess: createAction(
     WordActionType.SAVE_SUCCESS,
@@ -56,6 +54,7 @@ export type WordAction = GetAction<typeof wordActions>;
 export interface WordState {
   loading: boolean;
   saving: boolean;
+  outdatedWordIds: WordId[];
   wordIds: WordId[];
   wordsById: Record<WordId, Word>;
 }

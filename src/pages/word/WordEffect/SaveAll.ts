@@ -14,21 +14,17 @@ interface SaveAllInput {
 async function doSaveAll(
   input: SaveAllInput,
   db: firebase.firestore.Firestore,
-): Promise<Word[]> {
+) {
   const userRef = db.collection('users').doc(input.userId);
 
   // FIXME: Batch save
-  const savedWords = await Promise.all(
-    input.words
-      .filter(word => word.dirty)
-      .map(async word => {
-        const wordRef = userRef.collection('words').doc(word.id);
-        await wordRef.set(word);
-        return word;
-      }),
+  await Promise.all(
+    input.words.map(async word => {
+      const wordRef = userRef.collection('words').doc(word.id);
+      await wordRef.set(word);
+      return word;
+    }),
   );
-
-  return savedWords;
 }
 
 export const saveAll: WordEffectCreator<
@@ -39,13 +35,9 @@ export const saveAll: WordEffectCreator<
   const db = firebase.firestore();
   db.settings({ timestampsInSnapshots: true });
 
-  const savedWords = await doSaveAll(input, db);
+  await doSaveAll(input, db);
 
   await sleep(SAVE_DELAY);
 
-  const successInput = {
-    ...input,
-    savedWords,
-  };
-  dispatch(wordActions.saveAllSuccess(successInput));
+  dispatch(wordActions.saveAllSuccess(input));
 };

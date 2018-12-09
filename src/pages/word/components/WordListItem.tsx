@@ -50,13 +50,18 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     [],
   );
 
+  const onBlur = useCallback(
+    () => {
+      if (word.content !== content) {
+        onChange(content);
+      }
+    },
+    [onChange, word, content],
+  );
+
   return (
     <Layout>
-      <Input
-        value={content}
-        onChange={onChangeContent}
-        onBlur={() => onChange(content)}
-      />
+      <Input value={content} onChange={onChangeContent} onBlur={onBlur} />
       <DateText>{format(word.createdAt, 'YYYY/MM/DD HH:mm')}</DateText>
     </Layout>
   );

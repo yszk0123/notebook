@@ -1,13 +1,13 @@
-import { Spec } from 'immutability-helper';
-import { uniq } from 'lodash';
+import { difference, uniq } from 'lodash';
 import { Reducer } from 'redux';
-import { Word, WordId } from '../../models/Word';
+import { WordId } from '../../models/Word';
 import { createRecord } from '../../utils/createRecord';
 import { updateState } from '../../utils/updateState';
 import { WordAction, WordActionType, WordState } from './word-type';
 
 const initialState: WordState = {
   loading: true,
+  outdatedWordIds: [],
   saving: false,
   wordIds: [],
   wordsById: {},
@@ -23,25 +23,19 @@ export const wordReducer: Reducer<WordState, WordAction> = (
       return { ...state, saving: true };
     case WordActionType.SAVE_SUCCESS: {
       const { word } = action.payload;
+
       return updateState(state, {
+        outdatedWordIds: (ids: WordId[]) => ids.filter(id => id !== word.id),
         saving: { $set: false },
-        wordsById: {
-          [word.id]: { dirty: { $set: false } },
-        },
       });
     }
     case WordActionType.SAVE_ALL_SUCCESS: {
-      const { savedWords } = action.payload;
-
-      // FIXME: Refactor
-      const wordsByIdSpec = {} as Record<string, Spec<Word>>;
-      savedWords.forEach(word => {
-        wordsByIdSpec[word.id] = { dirty: { $set: false } };
-      });
+      const { words } = action.payload;
+      const updatedIds = words.map(word => word.id);
 
       return updateState(state, {
+        outdatedWordIds: (ids: WordId[]) => difference(ids, updatedIds),
         saving: { $set: false },
-        wordsById: wordsByIdSpec,
       });
     }
     case WordActionType.LOAD:
@@ -53,7 +47,7 @@ export const wordReducer: Reducer<WordState, WordAction> = (
 
       return updateState(state, {
         loading: { $set: false },
-        wordIds: (oldWordIds: WordId[]) => uniq([...oldWordIds, ...newWordIds]),
+        wordIds: (ids: WordId[]) => uniq([...ids, ...newWordIds]),
         wordsById: { $merge: newWordsById },
       });
     }
@@ -62,7 +56,7 @@ export const wordReducer: Reducer<WordState, WordAction> = (
 
       return updateState(state, {
         loading: { $set: false },
-        wordIds: (oldWordIds: WordId[]) => uniq([...oldWordIds, word.id]),
+        wordIds: (ids: WordId[]) => uniq([...ids, word.id]),
         wordsById: { [word.id]: { $set: word } },
       });
     }
@@ -70,10 +64,10 @@ export const wordReducer: Reducer<WordState, WordAction> = (
       const { word, content } = action.payload;
 
       return updateState(state, {
+        outdatedWordIds: (ids: WordId[]) => uniq([...ids, word.id]),
         wordsById: {
           [word.id]: {
             content: { $set: content },
-            dirty: { $set: true },
           },
         },
       });
