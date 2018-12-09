@@ -6,12 +6,14 @@ import { styled } from '../../../styled-components';
 
 const Layout = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 const Input = styled.input`
   padding: ${({ theme }) => theme.space};
   border: 2px solid ${({ theme }) => theme.borderColorBg};
   outline: none;
+  flex-grow: 1;
 
   &:focus {
     border-color: ${({ theme }) => theme.borderActiveColorBg};

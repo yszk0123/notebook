@@ -21,7 +21,7 @@ const WordPageWrapper = styled.div`
   font-size: ${({ theme }) => theme.fontSize.default};
   height: 100%;
   width: 100%;
-  margin: ${({ theme }) => theme.space};
+  padding: ${({ theme }) => theme.space};
 `;
 
 const ListLayout = styled.ul`
