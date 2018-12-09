@@ -9,6 +9,8 @@ export const enum WordActionType {
   LOAD_SUCCESS = 'word/LOAD_SUCCESS',
   SAVE = 'word/SAVE',
   SAVE_SUCCESS = 'word/SAVE_SUCCESS',
+  SAVE_ALL = 'word/SAVE_ALL',
+  SAVE_ALL_SUCCESS = 'word/SAVE_ALL_SUCCESS',
 }
 
 export const wordActions = {
@@ -29,7 +31,20 @@ export const wordActions = {
     WordActionType.SAVE,
     (payload: { userId: string; word: Word }) => ({ payload }),
   ),
-  saveSuccess: createAction(WordActionType.SAVE_SUCCESS),
+  saveAll: createAction(
+    WordActionType.SAVE_ALL,
+    (payload: { userId: string; words: Word[] }) => ({ payload }),
+  ),
+  saveAllSuccess: createAction(
+    WordActionType.SAVE_ALL_SUCCESS,
+    (payload: { userId: string; words: Word[]; savedWords: Word[] }) => ({
+      payload,
+    }),
+  ),
+  saveSuccess: createAction(
+    WordActionType.SAVE_SUCCESS,
+    (payload: { userId: string; word: Word }) => ({ payload }),
+  ),
   updateContent: createAction(
     WordActionType.UPDATE_CONTENT,
     (payload: { userId: string; word: Word; content: string }) => ({ payload }),

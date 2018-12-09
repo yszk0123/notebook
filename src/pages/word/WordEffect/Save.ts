@@ -12,6 +12,10 @@ interface SaveInput {
 }
 
 async function doSave(input: SaveInput, db: firebase.firestore.Firestore) {
+  if (!input.word.dirty) {
+    return;
+  }
+
   const userRef = db.collection('users').doc(input.userId);
   const wordRef = userRef.collection('words').doc(input.word.id);
   await wordRef.set(input.word);
@@ -27,5 +31,5 @@ export const save: WordEffectCreator<[SaveInput]> = input => async dispatch => {
 
   await sleep(SAVE_DELAY);
 
-  dispatch(wordActions.saveSuccess());
+  dispatch(wordActions.saveSuccess(input));
 };

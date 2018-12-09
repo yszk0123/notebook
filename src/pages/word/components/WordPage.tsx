@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { isNull } from 'option-t/lib/Nullable';
 import React, { useCallback, useEffect, useState } from 'react';
 import { AppState } from '../../../app/app-type';
@@ -6,13 +5,13 @@ import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
-import { Text } from '../../../components/Text';
 import { Word } from '../../../models/Word';
 import { styled } from '../../../styled-components';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
 import { wordActions } from '../word-type';
 import { wordEffects } from '../WordEffect';
 import { selectWords as getWords } from '../WordSelectors';
+import { WordListItem } from './WordListItem';
 
 const CHANGE_DELAY = 4000;
 
@@ -48,22 +47,6 @@ const LoadingLayout = styled(CenterLayout)`
   color: ${({ theme }) => theme.loadingColorFg};
 `;
 
-const Input = styled.input`
-  padding: ${({ theme }) => theme.space};
-  border: 2px solid ${({ theme }) => theme.borderColorBg};
-  outline: none;
-
-  &:focus {
-    border-color: ${({ theme }) => theme.borderActiveColorBg};
-  }
-`;
-
-const DateText = styled(Text)`
-  display: flex;
-  align-items: center;
-  padding: ${({ theme }) => theme.space};
-`;
-
 interface Props {}
 
 export const WordPage: React.FunctionComponent<Props> = () => {
@@ -93,19 +76,23 @@ export const WordPage: React.FunctionComponent<Props> = () => {
     dispatch(wordEffects.save(input));
   };
 
-  const onBlur = useDebouncedCallback(
-    (word: Word) => {
-      save(word);
+  const autoSaveIfNeeded = useDebouncedCallback(
+    () => {
+      if (isNull(userId)) return;
+
+      const input = {
+        userId,
+        words,
+      };
+      dispatch(wordEffects.saveAll(input));
     },
     CHANGE_DELAY,
-    [dispatch, userId, words],
+    [dispatch, userId],
   );
 
   const onChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>, word: Word) => {
+    (word: Word, content: string) => {
       if (isNull(userId)) return;
-
-      const content = event.currentTarget.value;
 
       const input = {
         content,
@@ -113,8 +100,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
         word,
       };
       dispatch(wordActions.updateContent(input));
+      autoSaveIfNeeded();
     },
-    [dispatch, userId, words],
+    [dispatch, userId],
   );
 
   const onAddWord = useCallback(
@@ -140,12 +128,10 @@ export const WordPage: React.FunctionComponent<Props> = () => {
         {words.map(word => {
           return (
             <ListItemLayout key={word.id}>
-              <Input
-                value={word.content}
-                onChange={event => onChange(event, word)}
-                onBlur={() => onBlur(word)}
+              <WordListItem
+                word={word}
+                onChange={content => onChange(word, content)}
               />
-              <DateText>{format(word.createdAt, 'YYYY/MM/DD HH:mm')}</DateText>
             </ListItemLayout>
           );
         })}

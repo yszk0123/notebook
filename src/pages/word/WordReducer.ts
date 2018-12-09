@@ -1,6 +1,7 @@
+import { Spec } from 'immutability-helper';
 import { uniq } from 'lodash';
 import { Reducer } from 'redux';
-import { WordId } from '../../models/Word';
+import { Word, WordId } from '../../models/Word';
 import { createRecord } from '../../utils/createRecord';
 import { updateState } from '../../utils/updateState';
 import { WordAction, WordActionType, WordState } from './word-type';
@@ -18,9 +19,31 @@ export const wordReducer: Reducer<WordState, WordAction> = (
 ) => {
   switch (action.type) {
     case WordActionType.SAVE:
+    case WordActionType.SAVE_ALL:
       return { ...state, saving: true };
-    case WordActionType.SAVE_SUCCESS:
-      return { ...state, saving: false };
+    case WordActionType.SAVE_SUCCESS: {
+      const { word } = action.payload;
+      return updateState(state, {
+        saving: { $set: false },
+        wordsById: {
+          [word.id]: { dirty: { $set: false } },
+        },
+      });
+    }
+    case WordActionType.SAVE_ALL_SUCCESS: {
+      const { savedWords } = action.payload;
+
+      // FIXME: Refactor
+      const wordsByIdSpec = {} as Record<string, Spec<Word>>;
+      savedWords.forEach(word => {
+        wordsByIdSpec[word.id] = { dirty: { $set: false } };
+      });
+
+      return updateState(state, {
+        saving: { $set: false },
+        wordsById: wordsByIdSpec,
+      });
+    }
     case WordActionType.LOAD:
       return { ...state, loading: true };
     case WordActionType.LOAD_SUCCESS: {
@@ -50,6 +73,7 @@ export const wordReducer: Reducer<WordState, WordAction> = (
         wordsById: {
           [word.id]: {
             content: { $set: content },
+            dirty: { $set: true },
           },
         },
       });
