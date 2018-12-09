@@ -1,5 +1,7 @@
 import { format } from 'date-fns';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Button } from '../../../components/Button';
+import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
 import { Word } from '../../../models/Word';
 import { styled } from '../../../styled-components';
@@ -29,11 +31,13 @@ const DateText = styled(Text)`
 interface Props {
   word: Word;
   onChange: (content: string) => void;
+  onRemove: (word: Word) => void;
 }
 
 export const WordListItem: React.FunctionComponent<Props> = ({
   word,
   onChange,
+  onRemove,
 }) => {
   const [content, setContent] = useState(word.content);
 
@@ -65,6 +69,9 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     <Layout>
       <Input value={content} onChange={onChangeContent} onBlur={onBlur} />
       <DateText>{format(word.createdAt, 'YYYY/MM/DD HH:mm')}</DateText>
+      <Button onClick={() => onRemove(word)}>
+        <Icon icon="trash" />
+      </Button>
     </Layout>
   );
 };

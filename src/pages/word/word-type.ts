@@ -4,6 +4,8 @@ import { createAction, GetAction } from '../../redux';
 export const enum WordActionType {
   ADD = 'word/ADD',
   ADD_SUCCESS = 'word/ADD_SUCCESS',
+  REMOVE = 'word/REMOVE',
+  REMOVE_SUCCESS = 'word/REMOVE_SUCCESS',
   UPDATE_CONTENT = 'word/UPDATE_CONTENT',
   LOAD = 'word/LOAD',
   LOAD_SUCCESS = 'word/LOAD_SUCCESS',
@@ -26,6 +28,14 @@ export const wordActions = {
   loadSuccess: createAction(
     WordActionType.LOAD_SUCCESS,
     (payload: { words: Word[] }) => ({ payload }),
+  ),
+  remove: createAction(
+    WordActionType.REMOVE,
+    (payload: { userId: string; word: Word }) => ({ payload }),
+  ),
+  removeSuccess: createAction(
+    WordActionType.REMOVE_SUCCESS,
+    (payload: { userId: string; removedWordId: WordId }) => ({ payload }),
   ),
   save: createAction(
     WordActionType.SAVE,

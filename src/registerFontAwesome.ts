@@ -6,6 +6,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faHome } from '@fortawesome/free-solid-svg-icons/faHome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons/faSpinner';
+import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 export function registerFontAwesome() {
@@ -18,6 +19,7 @@ export function registerFontAwesome() {
     faHome,
     faSearch,
     faSpinner,
+    faTrash,
     faUser,
     faUserRegular,
   );

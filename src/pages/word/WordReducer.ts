@@ -1,4 +1,4 @@
-import { difference, uniq } from 'lodash';
+import { difference, pull, uniq } from 'lodash';
 import { Reducer } from 'redux';
 import { WordId } from '../../models/Word';
 import { createRecord } from '../../utils/createRecord';
@@ -18,6 +18,15 @@ export const wordReducer: Reducer<WordState, WordAction> = (
   action,
 ) => {
   switch (action.type) {
+    case WordActionType.REMOVE_SUCCESS: {
+      const { removedWordId } = action.payload;
+
+      return updateState(state, {
+        outdatedWordIds: (ids: WordId[]) => pull(ids, removedWordId),
+        wordIds: (ids: WordId[]) => pull(ids, removedWordId),
+        wordsById: { $unset: [removedWordId] },
+      });
+    }
     case WordActionType.SAVE:
     case WordActionType.SAVE_ALL:
       return { ...state, saving: true };

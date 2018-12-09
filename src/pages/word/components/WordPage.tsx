@@ -67,17 +67,20 @@ export const WordPage: React.FunctionComponent<Props> = () => {
     [userId],
   );
 
-  const save = (word: Word) => {
-    if (isNull(userId) || isNull(word)) {
-      return;
-    }
+  const onSave = useCallback(
+    (word: Word) => {
+      if (isNull(userId) || isNull(word)) {
+        return;
+      }
 
-    const input = {
-      userId,
-      word,
-    };
-    dispatch(wordEffects.save(input));
-  };
+      const input = {
+        userId,
+        word,
+      };
+      dispatch(wordEffects.save(input));
+    },
+    [userId, dispatch],
+  );
 
   // FIXME: Move logic into WordEffects
   useDebouncedEffect(
@@ -117,6 +120,19 @@ export const WordPage: React.FunctionComponent<Props> = () => {
     [dispatch, userId],
   );
 
+  const onRemoveWord = useCallback(
+    (word: Word) => {
+      if (isNull(userId)) return;
+
+      const input = {
+        userId,
+        word,
+      };
+      dispatch(wordEffects.remove(input));
+    },
+    [dispatch, userId],
+  );
+
   if (loading) {
     return (
       <LoadingLayout>
@@ -134,6 +150,7 @@ export const WordPage: React.FunctionComponent<Props> = () => {
               <WordListItem
                 word={word}
                 onChange={content => onChange(word, content)}
+                onRemove={onRemoveWord}
               />
             </ListItemLayout>
           );
