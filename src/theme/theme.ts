@@ -2,6 +2,7 @@ import { ColorPalette, FontSize, ThemeInterface } from './theme-type';
 
 export const defaultTheme: ThemeInterface = {
   activeOpacity: 1,
+  borderActiveColorBg: ColorPalette.SECONDARY,
   borderColorBg: ColorPalette.GRAY,
   buttonColorBg: ColorPalette.SECONDARY,
   buttonColorFg: ColorPalette.WHITE,

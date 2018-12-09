@@ -19,6 +19,7 @@ export const enum FontSize {
 
 export interface ThemeInterface {
   activeOpacity: number;
+  borderActiveColorBg: ColorPalette;
   borderColorBg: ColorPalette;
   buttonColorBg: ColorPalette;
   buttonColorFg: ColorPalette;

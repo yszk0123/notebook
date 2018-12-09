@@ -9,4 +9,5 @@ export const routingPaths = {
   note: `${appConfig.baseUrl}/note`,
   notFound: `${appConfig.baseUrl}/not-found`,
   redirect: `${appConfig.baseUrl}/redirect`,
+  word: `${appConfig.baseUrl}/word`,
 };
