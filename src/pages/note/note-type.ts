@@ -3,10 +3,10 @@ import { Note } from '../../models/Note';
 import { createAction, GetAction } from '../../redux';
 
 export const enum NoteActionType {
-  LOAD = 'LOAD',
-  LOAD_SUCCESS = 'LOAD_SUCCESS',
-  SAVE = 'SAVE',
-  SAVE_SUCCESS = 'SAVE_SUCCESS',
+  LOAD = 'note/LOAD',
+  LOAD_SUCCESS = 'note/LOAD_SUCCESS',
+  SAVE = 'note/SAVE',
+  SAVE_SUCCESS = 'note/SAVE_SUCCESS',
 }
 
 export const noteActions = {

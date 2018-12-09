@@ -1,8 +1,8 @@
 import { createAction, GetAction } from '../../redux';
 
 export const enum CounterActionType {
-  INCREMENT = 'INCREMENT',
-  INCREMENT_BY = 'INCREMENT_BY',
+  INCREMENT = 'counter/INCREMENT',
+  INCREMENT_BY = 'counter/INCREMENT_BY',
 }
 
 export const counterActions = {
