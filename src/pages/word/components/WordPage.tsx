@@ -1,5 +1,6 @@
 import { isNull } from 'option-t/lib/Nullable';
 import React, { useCallback, useEffect, useState } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
 import { AppState } from '../../../app/app-type';
 import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
 import useRedux from '../../../app/useRedux';
@@ -59,9 +60,16 @@ export const WordPage: React.FunctionComponent<Props> = () => {
 
   useEffect(
     () => {
-      if (isNull(userId)) {
-        return;
-      }
+      if (isNull(userId)) return;
+
+      dispatch(wordEffects.load({ userId }));
+    },
+    [userId],
+  );
+
+  const onReload = useCallback(
+    () => {
+      if (isNull(userId)) return;
 
       dispatch(wordEffects.load({ userId }));
     },
@@ -98,7 +106,7 @@ export const WordPage: React.FunctionComponent<Props> = () => {
     [dispatch, userId, outdatedWords],
   );
 
-  const onChange = useCallback(
+  const onChangeContent = useCallback(
     (word: Word, content: string) => {
       if (isNull(userId)) return;
 
@@ -108,6 +116,20 @@ export const WordPage: React.FunctionComponent<Props> = () => {
         word,
       };
       dispatch(wordActions.updateContent(input));
+    },
+    [dispatch, userId],
+  );
+
+  const onChangeDate = useCallback(
+    (word: Word, createdAt: number) => {
+      if (isNull(userId)) return;
+
+      const input = {
+        createdAt,
+        userId,
+        word,
+      };
+      dispatch(wordActions.updateCreatedAt(input));
     },
     [dispatch, userId],
   );
@@ -150,7 +172,8 @@ export const WordPage: React.FunctionComponent<Props> = () => {
             <ListItemLayout key={word.id}>
               <WordListItem
                 word={word}
-                onChange={content => onChange(word, content)}
+                onChangeContent={content => onChangeContent(word, content)}
+                onChangeDate={date => onChangeDate(word, date)}
                 onRemove={onRemoveWord}
               />
             </ListItemLayout>
@@ -158,6 +181,7 @@ export const WordPage: React.FunctionComponent<Props> = () => {
         })}
         <ListItemLayout>
           <Button onClick={onAddWord}>Add</Button>
+          <Button onClick={onReload}>Reload</Button>
           <Text>{saving ? 'saving' : 'saved'}</Text>
         </ListItemLayout>
       </ListLayout>

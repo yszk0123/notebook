@@ -7,6 +7,7 @@ export const enum WordActionType {
   REMOVE = 'word/REMOVE',
   REMOVE_SUCCESS = 'word/REMOVE_SUCCESS',
   UPDATE_CONTENT = 'word/UPDATE_CONTENT',
+  UPDATE_CREATED_AT = 'word/UPDATE_CREATED_AT',
   LOAD = 'word/LOAD',
   LOAD_SUCCESS = 'word/LOAD_SUCCESS',
   SAVE = 'word/SAVE',
@@ -56,6 +57,12 @@ export const wordActions = {
   updateContent: createAction(
     WordActionType.UPDATE_CONTENT,
     (payload: { userId: string; word: Word; content: string }) => ({ payload }),
+  ),
+  updateCreatedAt: createAction(
+    WordActionType.UPDATE_CREATED_AT,
+    (payload: { userId: string; word: Word; createdAt: number }) => ({
+      payload,
+    }),
   ),
 };
 

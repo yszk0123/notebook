@@ -1,10 +1,9 @@
-import { format } from 'date-fns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
-import { Text } from '../../../components/Text';
 import { Word } from '../../../models/Word';
 import { styled } from '../../../styled-components';
+import { Picker } from './Picker';
 
 const Layout = styled.div`
   display: flex;
@@ -22,21 +21,17 @@ const Input = styled.input`
   }
 `;
 
-const DateText = styled(Text)`
-  display: flex;
-  align-items: center;
-  padding: ${({ theme }) => theme.space};
-`;
-
 interface Props {
   word: Word;
-  onChange: (content: string) => void;
+  onChangeContent: (content: string) => void;
+  onChangeDate: (date: number) => void;
   onRemove: (word: Word) => void;
 }
 
 export const WordListItem: React.FunctionComponent<Props> = ({
   word,
-  onChange,
+  onChangeContent,
+  onChangeDate,
   onRemove,
 }) => {
   const [content, setContent] = useState(word.content);
@@ -48,7 +43,7 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     [word.content],
   );
 
-  const onChangeContent = useCallback(
+  const handleChangeContent = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const newContent = event.currentTarget.value;
       setContent(newContent);
@@ -56,19 +51,23 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     [],
   );
 
-  const onBlur = useCallback(
+  const onBlurContent = useCallback(
     () => {
       if (word.content !== content) {
-        onChange(content);
+        onChangeContent(content);
       }
     },
-    [onChange, word, content],
+    [onChangeContent, word, content],
   );
 
   return (
     <Layout>
-      <Input value={content} onChange={onChangeContent} onBlur={onBlur} />
-      <DateText>{format(word.createdAt, 'YYYY/MM/DD HH:mm')}</DateText>
+      <Input
+        value={content}
+        onChange={handleChangeContent}
+        onBlur={onBlurContent}
+      />
+      <Picker value={word.createdAt} onChange={onChangeDate} />
       <Button onClick={() => onRemove(word)}>
         <Icon icon="trash" />
       </Button>

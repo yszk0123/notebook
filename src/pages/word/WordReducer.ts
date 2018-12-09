@@ -84,6 +84,18 @@ export const wordReducer: Reducer<WordState, WordAction> = (
         },
       });
     }
+    case WordActionType.UPDATE_CREATED_AT: {
+      const { word, createdAt } = action.payload;
+
+      return updateState(state, {
+        outdatedWordIds: (ids: WordId[]) => uniq([...ids, word.id]),
+        wordsById: {
+          [word.id]: {
+            createdAt: { $set: createdAt },
+          },
+        },
+      });
+    }
     default:
       return state;
   }

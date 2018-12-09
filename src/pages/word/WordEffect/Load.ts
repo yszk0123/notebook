@@ -5,6 +5,8 @@ import { unwrapDocumentSnapshot } from '../../../utils/unwrapDocumentSnapshot';
 import { wordActions } from '../word-type';
 import { WordEffectCreator } from './WordEffectType';
 
+const WORD_LIMIT = 20;
+
 interface LoadInput {
   userId: string;
 }
@@ -14,7 +16,10 @@ async function doLoad(
   db: firebase.firestore.Firestore,
 ): Promise<Word[]> {
   const userRef = db.collection('users').doc(input.userId);
-  const wordsRef = userRef.collection('words');
+  const wordsRef = userRef
+    .collection('words')
+    .orderBy('createdAt', 'desc')
+    .limit(WORD_LIMIT);
   const wordsSnapshot = await wordsRef.get();
   const words = wordsSnapshot.docs
     .map(doc => unwrapDocumentSnapshot<Word>(doc))
