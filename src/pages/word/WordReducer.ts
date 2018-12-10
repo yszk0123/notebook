@@ -59,10 +59,22 @@ export const wordReducer: Reducer<WordState, WordAction> = (
 
       return updateState(state, {
         loading: { $set: false },
-        wordIds: (ids: WordId[]) => uniq([...ids, ...newWordIds]),
-        wordsById: { $merge: newWordsById },
+        wordIds: { $set: newWordIds },
+        wordsById: { $set: newWordsById },
       });
     }
+    // FIXME: Implement
+    // case WordActionType.REFETCH_SUCCESS: {
+    //   const { words } = action.payload;
+    //   const newWordIds = words.map(word => word.id);
+    //   const newWordsById = createRecord(words, word => word.id);
+    //
+    //   return updateState(state, {
+    //     loading: { $set: false },
+    //     wordIds: (ids: WordId[]) => uniq([...ids, ...newWordIds]),
+    //     wordsById: { $merge: newWordsById },
+    //   });
+    // }
     case WordActionType.ADD_SUCCESS: {
       const { word } = action.payload;
 
