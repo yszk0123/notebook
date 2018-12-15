@@ -15,6 +15,7 @@ import {
   createMenuItems,
   createSchema,
   createStateFromContent,
+  customMarkdownSerializer,
   EditorMenu,
   editorStyle,
   serializeEditorState,
@@ -181,6 +182,15 @@ export const NotePage: React.FunctionComponent<Props> = () => {
     [onChangeContent],
   );
 
+  const onCopy = useCallback(
+    () => {
+      const text = customMarkdownSerializer.serialize(editorState.doc);
+      const input = { text };
+      dispatch(noteEffects.copyText(input));
+    },
+    [dispatch, editorState.doc],
+  );
+
   const onFocus = useCallback(() => {
     setFocused(true);
     stickToTop();
@@ -222,6 +232,7 @@ export const NotePage: React.FunctionComponent<Props> = () => {
           <MiniControl>
             <StyledButton onClick={onDone}>Done</StyledButton>
             <StyledButton onClick={onSave}>Save</StyledButton>
+            <StyledButton onClick={onCopy}>Copy</StyledButton>
             <StyledText size={FontSize.SMALL}>
               {saving ? 'saving...' : 'saved'}
             </StyledText>
