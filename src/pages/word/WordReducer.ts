@@ -80,7 +80,7 @@ export const wordReducer: Reducer<WordState, WordAction> = (
 
       return updateState(state, {
         loading: { $set: false },
-        wordIds: (ids: WordId[]) => uniq([...ids, word.id]),
+        wordIds: (ids: WordId[]) => uniq([word.id, ...ids]),
         wordsById: { [word.id]: { $set: word } },
       });
     }
