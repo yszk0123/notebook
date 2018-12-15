@@ -7,7 +7,7 @@ import { Link } from './Link';
 
 const DecoratedLink = styled(Link)`
   text-decoration: none;
-  color: ${({ theme }) => theme.headerColorFg};
+  color: currentColor;
 `;
 
 interface Props {
