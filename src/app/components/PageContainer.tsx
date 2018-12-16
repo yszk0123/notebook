@@ -11,15 +11,15 @@ interface Props {
   page: Page;
 }
 
-const DecoratedCenterLayout = styled(CenterLayout)`
+const Center = styled(CenterLayout)`
   font-size: 96px;
   color: ${({ theme }) => theme.loadingColorFg};
 `;
 
 const defaultLoadingContent = (
-  <DecoratedCenterLayout>
+  <Center>
     <Icon icon="spinner" spin={true} pulse={true} />
-  </DecoratedCenterLayout>
+  </Center>
 );
 
 export const PageContainer: React.FunctionComponent<Props> = ({ page }) => {
