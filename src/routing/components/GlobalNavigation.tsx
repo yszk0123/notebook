@@ -6,7 +6,7 @@ import { MenuIcon } from '../../components/icons/MenuIcon';
 import { Text } from '../../components/Text';
 import { routingPaths } from '../../config/RoutingConfig';
 import { HistoryContext } from '../../HistoryContext';
-import { styled } from '../../styled-components';
+import { css, styled } from '../../styled-components';
 import { NavLink } from './NavLink';
 
 const HeaderLayout = styled.header`
@@ -40,11 +40,31 @@ const RightLayout = styled.div`
 
 const Link = styled(NavLink)`
   padding: ${({ theme }) => theme.space};
+
+  &:hover {
+    background: ${({ theme }) => theme.headerHoverColorBg};
+    color: ${({ theme }) => theme.headerHoverColorFg};
+  }
 `;
 
-const Menu = styled(DropDownMenu)`
+const menuItem = css`
   padding: ${({ theme }) => theme.space};
 `;
+
+const MenuLink = styled(NavLink)`
+  ${menuItem}
+
+  &:hover {
+    background: ${({ theme }) => theme.dropDownMenuHoverColorBg};
+    color: ${({ theme }) => theme.dropDownMenuHoverColorFg};
+  }
+`;
+
+const MenuText = styled(Text)`
+  ${menuItem}
+`;
+
+const Menu = styled(DropDownMenu)``;
 
 const MenuLayout = styled.div`
   display: flex;
@@ -54,12 +74,6 @@ const MenuLayout = styled.div`
   right: ${({ theme }) => theme.space};
   top: ${({ theme }) => theme.space};
   z-index: 2000;
-`;
-
-const MenuItemLayout = styled.div`
-  & + & {
-    margin-top: ${({ theme }) => theme.space};
-  }
 `;
 
 const MenuButton = styled.div`
@@ -105,16 +119,12 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
             {isMenuOpen ? (
               <MenuLayout>
                 <Menu onRequestClose={onRequestClose}>
-                  <MenuItemLayout>
-                    {user && (
-                      <Text>
-                        {user.displayName} ({user.visitCount})
-                      </Text>
-                    )}
-                  </MenuItemLayout>
-                  <MenuItemLayout>
-                    <NavLink path={routingPaths.logout}>Logout</NavLink>
-                  </MenuItemLayout>
+                  {user && (
+                    <MenuText>
+                      {user.displayName} ({user.visitCount})
+                    </MenuText>
+                  )}
+                  <MenuLink path={routingPaths.logout}>Logout</MenuLink>
                 </Menu>
               </MenuLayout>
             ) : null}

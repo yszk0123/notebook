@@ -5,6 +5,7 @@ import { useDocumentEventHandler } from '../utils/useDocumentEventHandler';
 
 const Menu = styled.ul`
   list-style-type: none;
+  padding-left: 0;
   background: ${({ theme }) => theme.dropDownMenuColorBg};
   // FIXME: Avoid magic number
   box-shadow: 0 2px ${({ theme }) => theme.space}

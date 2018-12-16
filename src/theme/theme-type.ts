@@ -7,8 +7,10 @@ export const enum ColorPalette {
   SECONDARY = '#039BE5',
   SECONDARY_VARIANT = '#01579B',
   BLACK = '#000000',
+  LIGHT_BLACK = '#333333',
   GRAY = '#BBBBBB',
   WHITE = '#FFFFFF',
+  PALE_WHITE = '#DDDDDD',
 }
 
 export const enum FontSize {
@@ -25,6 +27,8 @@ export interface ThemeInterface {
   buttonColorFg: ColorPalette;
   dropDownMenuColorBg: ColorPalette;
   dropDownMenuColorFg: ColorPalette;
+  dropDownMenuHoverColorBg: ColorPalette;
+  dropDownMenuHoverColorFg: ColorPalette;
   dropDownMenuShadow: ColorPalette;
   fontSize: Record<FontSize, string>;
   fontWeight: {
@@ -34,6 +38,8 @@ export interface ThemeInterface {
   headerColorBg: ColorPalette;
   headerColorFg: ColorPalette;
   headerHeight: string;
+  headerHoverColorBg: ColorPalette;
+  headerHoverColorFg: ColorPalette;
   inactiveOpacity: number;
   loadingColorFg: ColorPalette;
   radius: string;

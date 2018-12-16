@@ -4,8 +4,11 @@ import { styled } from '../../styled-components';
 import { getCurrentPath } from '../utils/getCurrentPath';
 
 const Anchor = styled.a`
+  display: inline-block;
   text-decoration: none;
   color: currentColor;
+  width: 100%;
+  height: 100%;
 `;
 
 interface Props {
