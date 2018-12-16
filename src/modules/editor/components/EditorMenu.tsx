@@ -5,6 +5,19 @@ import { styled } from '../../../styled-components';
 import { preventDefault } from '../../../utils/preventDefault';
 import { MenuItem } from '../editor-type';
 
+const Wrapper = styled.div`
+  -webkit-overflow-scrolling: touch;
+  bottom: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  font-size: ${({ theme }) => theme.fontSize.default};
+  height: 100%;
+  overflow-y: auto;
+  padding: calc(2 * ${({ theme }) => theme.thinSpace});
+  position: absolute;
+  right: 0;
+`;
+
 const MenuItem = styled.div<{ active?: boolean; enable?: boolean }>`
   align-items: center;
   background: ${({ theme }) => theme.buttonColorBg};
@@ -59,20 +72,18 @@ const EditorMenuItem: React.FunctionComponent<ItemProps> = ({
 };
 
 interface Props {
-  className?: string;
   editorState: EditorState;
   editorView: EditorView;
   menuItems: MenuItem[];
 }
 
 export const EditorMenu: React.FunctionComponent<Props> = ({
-  className,
   editorView,
   editorState,
   menuItems,
 }) => {
   return (
-    <div className={className}>
+    <Wrapper>
       {menuItems.map(item => (
         <EditorMenuItem
           key={item.shortTitle}
@@ -81,6 +92,6 @@ export const EditorMenu: React.FunctionComponent<Props> = ({
           item={item}
         />
       ))}
-    </div>
+    </Wrapper>
   );
 };

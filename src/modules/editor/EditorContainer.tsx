@@ -13,16 +13,6 @@ import { useEditor } from './useEditor';
 
 const EditorContainerLayout = styled.div``;
 
-const StyledEditorMenu = styled(EditorMenu)`
-  display: flex;
-  flex-wrap: wrap;
-  font-size: ${({ theme }) => theme.fontSize.large};
-  -webkit-overflow-scrolling: touch;
-  overflow-x: auto;
-  padding: ${({ theme }) => theme.thinSpace};
-  width: 100%;
-`;
-
 const Editor = styled.div`
   border: 2px solid #ccc;
 
@@ -81,7 +71,7 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
   return (
     <EditorContainerLayout>
       <Editor ref={editorRef} />
-      <StyledEditorMenu
+      <EditorMenu
         menuItems={menuItems}
         editorState={editorState}
         editorView={editorView}

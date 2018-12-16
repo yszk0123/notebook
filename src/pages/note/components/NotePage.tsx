@@ -50,19 +50,6 @@ const NotePageWrapper = styled.div`
   ${editorStyle}
 `;
 
-const StyledEditorMenu = styled(EditorMenu)`
-  bottom: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column-reverse;
-  font-size: ${({ theme }) => theme.fontSize.default};
-  padding: calc(2 * ${({ theme }) => theme.thinSpace});
-  position: absolute;
-  -webkit-overflow-scrolling: touch;
-  overflow-y: auto;
-  height: 100%;
-`;
-
 const EditorWrapper = styled.div`
   height: 100%;
 `;
@@ -237,7 +224,7 @@ export const NotePage: React.FunctionComponent<Props> = () => {
               {saving ? 'saving...' : 'saved'}
             </StyledText>
           </MiniControl>
-          <StyledEditorMenu
+          <EditorMenu
             editorState={editorState}
             menuItems={menuItems}
             editorView={editorView}
