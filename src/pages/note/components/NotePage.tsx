@@ -50,7 +50,7 @@ const NotePageWrapper = styled.div`
   ${editorStyle}
 `;
 
-const EditorWrapper = styled.div`
+const EditorRoot = styled.div`
   height: 100%;
 `;
 
@@ -71,13 +71,13 @@ const MiniControl = styled.div`
   }
 `;
 
-const StyledButton = styled(Button)`
-  & + & {
+const ButtonGroupLayout = styled.div`
+  ${Button} + ${Button} {
     margin-left: ${({ theme }) => theme.space};
   }
 `;
 
-const StyledText = styled(Text)`
+const StatusLayout = styled.div`
   margin-left: ${({ theme }) => theme.space};
 `;
 
@@ -215,14 +215,18 @@ export const NotePage: React.FunctionComponent<Props> = () => {
     <NotePageWrapper>
       <VerticalStackLayout>
         <VerticalStackItemLayout autoScale={true}>
-          <EditorWrapper ref={editorRef} />
+          <EditorRoot ref={editorRef} />
           <MiniControl>
-            <StyledButton onClick={onDone}>Done</StyledButton>
-            <StyledButton onClick={onSave}>Save</StyledButton>
-            <StyledButton onClick={onCopy}>Copy</StyledButton>
-            <StyledText size={FontSize.SMALL}>
-              {saving ? 'saving...' : 'saved'}
-            </StyledText>
+            <ButtonGroupLayout>
+              <Button onClick={onDone}>Done</Button>
+              <Button onClick={onSave}>Save</Button>
+              <Button onClick={onCopy}>Copy</Button>
+            </ButtonGroupLayout>
+            <StatusLayout>
+              <Text size={FontSize.SMALL}>
+                {saving ? 'saving...' : 'saved'}
+              </Text>
+            </StatusLayout>
           </MiniControl>
           <EditorMenu
             editorState={editorState}

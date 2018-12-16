@@ -9,7 +9,7 @@ import { HistoryContext } from '../../HistoryContext';
 import { styled } from '../../styled-components';
 import { NavLink } from './NavLink';
 
-const Layout = styled.header`
+const HeaderLayout = styled.header`
   align-items: center;
   display: flex;
   height: ${({ theme }) => theme.headerHeight};
@@ -20,7 +20,7 @@ const Layout = styled.header`
   z-index: 1000;
 `;
 
-const Header = styled(Layout)`
+const Header = styled(HeaderLayout)`
   background: ${({ theme }) => theme.headerColorBg};
   color: ${({ theme }) => theme.headerColorFg};
   padding: 0 ${({ theme }) => theme.space};

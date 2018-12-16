@@ -1,6 +1,12 @@
 import React, { useCallback, useContext } from 'react';
 import { HistoryContext } from '../../HistoryContext';
+import { styled } from '../../styled-components';
 import { getCurrentPath } from '../utils/getCurrentPath';
+
+const Anchor = styled.a`
+  text-decoration: none;
+  color: currentColor;
+`;
 
 interface Props {
   className?: string;
@@ -32,8 +38,8 @@ export const Link: React.FunctionComponent<Props> = ({
   );
 
   return (
-    <a className={className} href={path} onClick={onClick}>
+    <Anchor className={className} href={path} onClick={onClick}>
       {children}
-    </a>
+    </Anchor>
   );
 };
