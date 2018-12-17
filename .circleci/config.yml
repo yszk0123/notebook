@@ -5,7 +5,7 @@ jobs:
     working_directory: ~/notebook
 
     docker:
-      - image: node:10.13.0
+      - image: node:10.14.2
         environment:
           TZ: "/usr/share/zoneinfo/Asia/Tokyo"
           LANG: ja_JP.UTF-8
