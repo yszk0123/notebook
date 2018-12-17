@@ -1034,10 +1034,10 @@
     "@types/react" "*"
     csstype "^2.2.0"
 
-"@types/universal-router@6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@types/universal-router/-/universal-router-6.0.1.tgz#753e64e8b4e77b186c2b21f787448e395a46cbf4"
-  integrity sha512-UMQCGLXn5dMeTI7A9ozHqgVwAMmRgkphF3DDxnY2X7/yCWAXRXBusmsLdiP4KvrZ0GeT/Gf+3Fsh1rgzdNJ2iw==
+"@types/universal-router@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@types/universal-router/-/universal-router-7.0.0.tgz#88683721cb8274d564270f98f0f47a7200d7fb41"
+  integrity sha512-dOu4ouUaov2zLDS+xMUVmnl+kLgp87Tmexl9ztmuw3iBqBoDVgqHLftSOmwHDJYs6WR/lH9VvDY6NM9TuW3rnw==
   dependencies:
     path-to-regexp "^2.2.0"
 
