@@ -24,9 +24,9 @@ export const wordReducer: Reducer<WordState, WordAction> = (
       const { removedWordId } = action.payload;
 
       return updateState(state, {
-        outdatedWordIds: (ids: WordId[]) => pull(ids, removedWordId),
+        outdatedWordIds: (ids: Array<WordId>) => pull(ids, removedWordId),
         saving: { $set: false },
-        wordIds: (ids: WordId[]) => pull(ids, removedWordId),
+        wordIds: (ids: Array<WordId>) => pull(ids, removedWordId),
         wordsById: { $unset: [removedWordId] },
       });
     }
@@ -37,7 +37,8 @@ export const wordReducer: Reducer<WordState, WordAction> = (
       const { word } = action.payload;
 
       return updateState(state, {
-        outdatedWordIds: (ids: WordId[]) => ids.filter(id => id !== word.id),
+        outdatedWordIds: (ids: Array<WordId>) =>
+          ids.filter(id => id !== word.id),
         saving: { $set: false },
       });
     }
@@ -46,7 +47,7 @@ export const wordReducer: Reducer<WordState, WordAction> = (
       const updatedIds = words.map(word => word.id);
 
       return updateState(state, {
-        outdatedWordIds: (ids: WordId[]) => difference(ids, updatedIds),
+        outdatedWordIds: (ids: Array<WordId>) => difference(ids, updatedIds),
         saving: { $set: false },
       });
     }
@@ -80,7 +81,7 @@ export const wordReducer: Reducer<WordState, WordAction> = (
 
       return updateState(state, {
         loading: { $set: false },
-        wordIds: (ids: WordId[]) => uniq([word.id, ...ids]),
+        wordIds: (ids: Array<WordId>) => uniq([word.id, ...ids]),
         wordsById: { [word.id]: { $set: word } },
       });
     }
@@ -88,7 +89,7 @@ export const wordReducer: Reducer<WordState, WordAction> = (
       const { word, content } = action.payload;
 
       return updateState(state, {
-        outdatedWordIds: (ids: WordId[]) => uniq([...ids, word.id]),
+        outdatedWordIds: (ids: Array<WordId>) => uniq([...ids, word.id]),
         wordsById: {
           [word.id]: {
             content: { $set: content },
@@ -100,7 +101,7 @@ export const wordReducer: Reducer<WordState, WordAction> = (
       const { word, createdAt } = action.payload;
 
       return updateState(state, {
-        outdatedWordIds: (ids: WordId[]) => uniq([...ids, word.id]),
+        outdatedWordIds: (ids: Array<WordId>) => uniq([...ids, word.id]),
         wordsById: {
           [word.id]: {
             createdAt: { $set: createdAt },

@@ -45,6 +45,6 @@ const clickPlugin = new Plugin({
   },
 });
 
-export function buildTodoPlugins(schema: Schema): Plugin[] {
+export function buildTodoPlugins(schema: Schema): Array<Plugin> {
   return [buildTodoInputRules(schema), clickPlugin];
 }

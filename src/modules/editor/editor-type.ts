@@ -7,7 +7,7 @@ export type InputRuleFactory = (nodeType: NodeType) => InputRule;
 
 export interface EditorContent {
   type: string;
-  content: EditorContent[];
+  content: Array<EditorContent>;
 }
 
 // tslint:disable-next-line:no-any

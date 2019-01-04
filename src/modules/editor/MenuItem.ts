@@ -58,7 +58,7 @@ function createItem({
 }
 
 export function createMenuItems(schema: Schema) {
-  const items: MenuItem[] = [
+  const items: Array<MenuItem> = [
     setBlockTypeMenu(schema.nodes.text, {
       level: 1,
       longTitle: 'plain',

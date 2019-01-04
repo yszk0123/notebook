@@ -56,14 +56,16 @@ const EditorMenuItem: React.FunctionComponent<ItemProps> = ({
   editorState,
   editorView,
 }) => {
+  const onClick: React.MouseEventHandler = event => {
+    event.preventDefault();
+    item.run(editorState, editorView.dispatch, editorView);
+  };
+
   return (
     <MenuItem
       key={item.shortTitle}
       active={item.active(editorState)}
-      onClick={event => {
-        event.preventDefault();
-        item.run(editorState, editorView.dispatch, editorView);
-      }}
+      onClick={onClick}
       onMouseDown={preventDefault}
     >
       {item.shortTitle}
@@ -74,7 +76,7 @@ const EditorMenuItem: React.FunctionComponent<ItemProps> = ({
 interface Props {
   editorState: EditorState;
   editorView: EditorView;
-  menuItems: MenuItem[];
+  menuItems: Array<MenuItem>;
 }
 
 export const EditorMenu: React.FunctionComponent<Props> = ({

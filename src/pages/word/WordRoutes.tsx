@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from '../../routing/routing-type';
 
-export const wordRoutes: Route[] = [
+export const wordRoutes: Array<Route> = [
   {
     path: '/word',
     title: 'Word',

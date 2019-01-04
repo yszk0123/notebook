@@ -7,7 +7,7 @@ import { wordRoutes } from '../pages/word';
 import { Route } from '../routing/routing-type';
 import { NotFoundPage } from './components/NotFoundPage';
 
-export const appRoutes: Route[] = [
+export const appRoutes: Array<Route> = [
   ...counterRoutes,
   ...helloRoutes,
   ...loginRoutes,

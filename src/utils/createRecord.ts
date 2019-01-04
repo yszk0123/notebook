@@ -1,5 +1,5 @@
 export function createRecord<Key extends string | number | symbol, T>(
-  items: T[],
+  items: Array<T>,
   getKey: (item: T) => Key,
 ): Record<Key, T> {
   const result: Record<Key, T> = {} as Record<Key, T>;

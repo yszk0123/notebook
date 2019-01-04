@@ -48,7 +48,9 @@ export function buildKeymap(
   bind('Mod-z', undo);
   bind('Shift-Mod-z', redo);
   bind('Backspace', undoInputRule);
-  if (!mac) bind('Mod-y', redo);
+  if (!mac) {
+    bind('Mod-y', redo);
+  }
 
   bind('Alt-ArrowUp', joinUp);
   bind('Alt-ArrowDown', joinDown);
@@ -84,7 +86,9 @@ export function buildKeymap(
     });
     bind('Mod-Enter', cmd);
     bind('Shift-Enter', cmd);
-    if (mac) bind('Ctrl-Enter', cmd);
+    if (mac) {
+      bind('Ctrl-Enter', cmd);
+    }
   });
   tapUndefinable<NodeType>(schema.nodes.list_item, type => {
     bind('Enter', splitListItem(type));

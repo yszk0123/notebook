@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from '../../routing/routing-type';
 
-export const noteRoutes: Route[] = [
+export const noteRoutes: Array<Route> = [
   {
     path: '/note',
     title: 'Note',

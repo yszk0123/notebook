@@ -72,7 +72,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
 
   useEffect(
     () => {
-      if (isNull(userId)) return;
+      if (isNull(userId)) {
+        return;
+      }
 
       dispatch(wordEffects.load({ userId }));
     },
@@ -81,7 +83,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
 
   const onReload = useCallback(
     () => {
-      if (isNull(userId)) return;
+      if (isNull(userId)) {
+        return;
+      }
 
       dispatch(wordEffects.load({ userId }));
     },
@@ -106,7 +110,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
   // FIXME: Move logic into WordEffects
   useDebouncedEffect(
     () => {
-      if (isNull(userId) || outdatedWords.length === 0) return;
+      if (isNull(userId) || outdatedWords.length === 0) {
+        return;
+      }
 
       const input = {
         userId,
@@ -120,7 +126,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
 
   const onChangeContent = useCallback(
     (word: Word, content: string) => {
-      if (isNull(userId)) return;
+      if (isNull(userId)) {
+        return;
+      }
 
       const input = {
         content,
@@ -134,7 +142,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
 
   const onChangeDate = useCallback(
     (word: Word, createdAt: number) => {
-      if (isNull(userId)) return;
+      if (isNull(userId)) {
+        return;
+      }
 
       const input = {
         createdAt,
@@ -148,7 +158,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
 
   const onAddWord = useCallback(
     () => {
-      if (isNull(userId)) return;
+      if (isNull(userId)) {
+        return;
+      }
 
       dispatch(wordEffects.add({ userId, content: '' }));
     },
@@ -157,7 +169,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
 
   const onRemoveWord = useCallback(
     (word: Word) => {
-      if (isNull(userId)) return;
+      if (isNull(userId)) {
+        return;
+      }
 
       const input = {
         userId,
@@ -180,12 +194,19 @@ export const WordPage: React.FunctionComponent<Props> = () => {
     <WordPageWrapper>
       <ListLayout>
         {words.map(word => {
+          const handleChangeContent = (content: string) => {
+            return onChangeContent(word, content);
+          };
+          const handleChangeDate = (date: number) => {
+            return onChangeDate(word, date);
+          };
+
           return (
             <ListItemLayout key={word.id}>
               <WordListItem
                 word={word}
-                onChangeContent={content => onChangeContent(word, content)}
-                onChangeDate={date => onChangeDate(word, date)}
+                onChangeContent={handleChangeContent}
+                onChangeDate={handleChangeDate}
                 onRemove={onRemoveWord}
               />
             </ListItemLayout>

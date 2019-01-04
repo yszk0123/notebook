@@ -28,7 +28,7 @@ export const wordActions = {
   load: createAction(WordActionType.LOAD),
   loadSuccess: createAction(
     WordActionType.LOAD_SUCCESS,
-    (payload: { words: Word[] }) => ({ payload }),
+    (payload: { words: Array<Word> }) => ({ payload }),
   ),
   remove: createAction(
     WordActionType.REMOVE,
@@ -44,11 +44,11 @@ export const wordActions = {
   ),
   saveAll: createAction(
     WordActionType.SAVE_ALL,
-    (payload: { userId: string; words: Word[] }) => ({ payload }),
+    (payload: { userId: string; words: Array<Word> }) => ({ payload }),
   ),
   saveAllSuccess: createAction(
     WordActionType.SAVE_ALL_SUCCESS,
-    (payload: { userId: string; words: Word[] }) => ({ payload }),
+    (payload: { userId: string; words: Array<Word> }) => ({ payload }),
   ),
   saveSuccess: createAction(
     WordActionType.SAVE_SUCCESS,
@@ -71,7 +71,7 @@ export type WordAction = GetAction<typeof wordActions>;
 export interface WordState {
   loading: boolean;
   saving: boolean;
-  outdatedWordIds: WordId[];
-  wordIds: WordId[];
+  outdatedWordIds: Array<WordId>;
+  wordIds: Array<WordId>;
   wordsById: Record<WordId, Word>;
 }

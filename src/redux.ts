@@ -9,15 +9,15 @@ export * from 'redux';
 type AnyForExtend = any;
 
 export type GetAction<
-  T extends { [key: string]: (...args: AnyForExtend[]) => AnyForExtend }
+  T extends { [key: string]: (...args: Array<AnyForExtend>) => AnyForExtend }
 > = ReturnType<T[keyof T]>;
 
 export type Action<T extends string, Extra extends {} = {}> = ReduxAction<T> &
   { [K in keyof Extra]: Extra[K] };
 
-type ExtraFunction<Args extends AnyForExtend[], R> = (...args: Args) => R;
+type ExtraFunction<Args extends Array<AnyForExtend>, R> = (...args: Args) => R;
 
-type ActionCreator<Args, TAction> = Args extends AnyForExtend[]
+type ActionCreator<Args, TAction> = Args extends Array<AnyForExtend>
   ? (...args: Args) => TAction
   : () => TAction;
 
@@ -25,10 +25,11 @@ export function createAction<A extends string>(
   type: A,
 ): ActionCreator<void, Action<A>>;
 
-export function createAction<A extends string, Args extends AnyForExtend[], R>(
-  type: A,
-  fn: ExtraFunction<Args, R>,
-): ActionCreator<Args, Action<A, R>>;
+export function createAction<
+  A extends string,
+  Args extends Array<AnyForExtend>,
+  R
+>(type: A, fn: ExtraFunction<Args, R>): ActionCreator<Args, Action<A, R>>;
 
 // @ts-ignore
 export function createAction(type, extraFunction?) {
@@ -44,14 +45,14 @@ export function createAction(type, extraFunction?) {
 
 export type Dispatch<TAction> = ((
   // tslint:disable-next-line:no-any
-  action: TAction | ((...args: any[]) => unknown),
+  action: TAction | ((...args: Array<any>) => unknown),
 ) => unknown);
 
 export type EffectCreator<
   State,
   TAction extends AnyAction,
   Args = void
-> = Args extends AnyForExtend[]
+> = Args extends Array<AnyForExtend>
   ? (
       ...args: Args
     ) => (

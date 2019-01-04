@@ -8,7 +8,7 @@ const SAVE_DELAY = 750;
 
 interface SaveAllInput {
   userId: string;
-  words: Word[];
+  words: Array<Word>;
 }
 
 async function doSaveAll(

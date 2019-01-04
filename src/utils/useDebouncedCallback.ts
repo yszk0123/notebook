@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 // tslint:disable-next-line:no-any
-export function useDebouncedCallback<Args extends any[]>(
+export function useDebouncedCallback<Args extends Array<any>>(
   fn: (...args: Args) => void,
   delay: number,
   // tslint:disable-next-line:no-any

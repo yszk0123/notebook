@@ -8,7 +8,7 @@ export interface Page {
 }
 
 export interface Route {
-  children?: Route[];
+  children?: Array<Route>;
   path: string;
   title?: string;
   action?(context: AppContext): Page | Promise<Page>;

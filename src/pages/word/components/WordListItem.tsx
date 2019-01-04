@@ -60,6 +60,13 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     [onChangeContent, word, content],
   );
 
+  const onClickButton = useCallback(
+    () => {
+      onRemove(word);
+    },
+    [word],
+  );
+
   return (
     <Layout>
       <Input
@@ -68,7 +75,7 @@ export const WordListItem: React.FunctionComponent<Props> = ({
         onBlur={onBlurContent}
       />
       <Picker value={word.createdAt} onChange={onChangeDate} />
-      <Button onClick={() => onRemove(word)}>
+      <Button onClick={onClickButton}>
         <Icon icon="trash" />
       </Button>
     </Layout>
