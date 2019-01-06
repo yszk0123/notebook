@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { CenterLayout } from '../../app/components/layouts/CenterLayout';
+import { FullLayout } from '../../app/components/layouts/FullLayout';
 import { Icon } from '../../components/Icon';
-import { Page, RoutingGlobalState } from '../../routing/routing-type';
 import { styled } from '../../styled-components';
-import { CenterLayout } from './layouts/CenterLayout';
-import { FullLayout } from './layouts/FullLayout';
+import { Page, RoutingGlobalState } from '../routing-type';
 
 interface Props {
   page: Page;
@@ -22,10 +22,7 @@ const defaultLoadingContent = (
   </Center>
 );
 
-const PageContainerInner: React.FunctionComponent<Props> = ({
-  page,
-  loading,
-}) => {
+const PageLoading: React.FunctionComponent<Props> = ({ page, loading }) => {
   const { content, loading: loadingContent = defaultLoadingContent } = page;
 
   const finalContent = loading ? loadingContent : content;
@@ -43,4 +40,4 @@ function mapState(state: State) {
   };
 }
 
-export const PageContainer = connect(mapState)(PageContainerInner);
+export const PageLoadingContainer = connect(mapState)(PageLoading);

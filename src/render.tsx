@@ -5,7 +5,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import UniversalRouter from 'universal-router';
-import { PageContainer } from './app/components/PageContainer';
 import { resolveRoute } from './AppRouteResolver';
 import { appRoutes } from './AppRoutes';
 import { createStore } from './AppStoreFactory';
@@ -14,6 +13,7 @@ import { firebaseConfig } from './config/firebaseConfig';
 import { FirebaseAppProvider } from './FirebaseAppContext';
 import { HistoryProvider } from './HistoryContext';
 import { routingEffects } from './routing';
+import { PageLoadingContainer } from './routing/components/PageLoadingContainer';
 import { Page, RoutingContext } from './routing/routing-type';
 import { ThemeProvider } from './styled-components';
 import { defaultTheme } from './theme/DefaultTheme';
@@ -92,7 +92,7 @@ export async function render() {
           <Provider store={store}>
             <FirebaseAppProvider value={app}>
               <>
-                <PageContainer page={page} />
+                <PageLoadingContainer page={page} />
                 <ResetStyle />
               </>
             </FirebaseAppProvider>
