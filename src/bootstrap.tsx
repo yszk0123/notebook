@@ -21,7 +21,7 @@ import { appRoutes } from './RootRoutes';
 import { createStore } from './Store';
 import { restoreValueFromGlobalForDevelopment } from './utils/restoreValueFromGlobalForDevelopment';
 
-function init() {
+function createFirebaseApp(): firebase.app.App {
   if (process.env.NODE_ENV === 'development') {
     return restoreValueFromGlobalForDevelopment('app', () => {
       return firebase.initializeApp(firebaseConfig);
@@ -42,8 +42,8 @@ function resolveLocation(location: Location): string {
   return decodeURIComponent(qs.replace('redirect=', ''));
 }
 
-export async function render() {
-  const app = init();
+export async function bootstrap(): Promise<void> {
+  const app = createFirebaseApp();
   const firestore = firebase.firestore();
   firestore.settings({ timestampsInSnapshots: true });
 
@@ -66,7 +66,7 @@ export async function render() {
     dispatch(routingEffects.login(user));
   });
 
-  async function onLocationChange(location: Location) {
+  async function onLocationChange(location: Location): Promise<void> {
     const pathname = resolveLocation(location);
     if (pathname !== location.pathname) {
       history.replace(pathname);
@@ -85,7 +85,7 @@ export async function render() {
     renderPage(page);
   }
 
-  function renderPage(page: Page) {
+  function renderPage(page: Page): void {
     const mountPoint = document.getElementById('root');
 
     ReactDOM.render(
