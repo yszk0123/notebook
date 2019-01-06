@@ -1,12 +1,13 @@
+import { Nullable } from 'option-t/lib/Nullable';
 import React, { useCallback, useContext, useState } from 'react';
-import useRedux from '../../app/useRedux';
+import { connect } from 'react-redux';
 import { DropDownMenu } from '../../components/DropDownMenu';
 import { MenuIcon } from '../../components/icons/MenuIcon';
 import { Text } from '../../components/Text';
 import { routingPaths } from '../../config/RoutingConfig';
 import { HistoryContext } from '../../HistoryContext';
 import { css, styled } from '../../styled-components';
-import { RoutingGlobalState } from '../routing-type';
+import { RoutingGlobalState, RoutingUser } from '../routing-type';
 import { NavLink } from './NavLink';
 
 const HeaderLayout = styled.header`
@@ -81,15 +82,20 @@ const MenuButton = styled.div`
   padding: ${({ theme }) => theme.space};
 `;
 
-interface Props {}
+interface Props {
+  loading: boolean;
+  user: Nullable<RoutingUser>;
+}
 
-export const GlobalNavigation: React.FunctionComponent<Props> = () => {
+const GlobalNavigationInner: React.FunctionComponent<Props> = ({
+  loading,
+  user,
+}) => {
   const history = useContext(HistoryContext);
   if (!history) {
     throw new Error('history must be provided');
   }
 
-  const [{ loading, user }] = useRedux(mapState);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const onRequestClose = useCallback(() => {
@@ -148,3 +154,5 @@ function mapState(state: State) {
     user,
   };
 }
+
+export const GlobalNavigation = connect(mapState)(GlobalNavigationInner);

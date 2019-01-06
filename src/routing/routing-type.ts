@@ -26,14 +26,14 @@ export const enum RoutingActionType {
   LOGIN_FAILURE = 'LOGIN_FAILURE',
 }
 
-interface User {
+export interface RoutingUser {
   displayName: string;
   visitCount: number;
   uid: string;
 }
 
 export const routingActions = {
-  login: createAction(RoutingActionType.LOGIN, (user: User) => ({
+  login: createAction(RoutingActionType.LOGIN, (user: RoutingUser) => ({
     payload: { user },
   })),
   loginFailure: createAction(RoutingActionType.LOGIN_FAILURE),
@@ -43,7 +43,7 @@ export type RoutingAction = GetAction<typeof routingActions>;
 
 export interface RoutingState {
   loading: boolean;
-  user: Nullable<User>;
+  user: Nullable<RoutingUser>;
 }
 
 export interface RoutingGlobalState {

@@ -1,8 +1,9 @@
-import { isNull } from 'option-t/lib/Nullable';
+import { isNull, Nullable } from 'option-t/lib/Nullable';
 import React, { useCallback, useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
-import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
@@ -61,13 +62,23 @@ const ControlItemLayout = styled.div`
   }
 `;
 
-interface Props {}
+interface Props {
+  loading: boolean;
+  outdatedWords: Array<Word>;
+  saving: boolean;
+  userId: Nullable<string>;
+  words: Array<Word>;
+  dispatch: Dispatch<any>;
+}
 
-export const WordPage: React.FunctionComponent<Props> = () => {
-  const [
-    { userId, saving, loading, words, outdatedWords },
-    dispatch,
-  ] = useRedux(mapState);
+const WordPageInner: React.FunctionComponent<Props> = ({
+  userId,
+  saving,
+  loading,
+  words,
+  outdatedWords,
+  dispatch,
+}) => {
   const [isVirtualKeyboardVisible, setFocused] = useState(false);
 
   useEffect(
@@ -246,3 +257,5 @@ function mapState(state: State) {
     words,
   };
 }
+
+export const WordPage = connect(mapState)(WordPageInner);
