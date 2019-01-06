@@ -3,7 +3,7 @@ import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import { styled } from '../../../styled-components';
 import { preventDefault } from '../../../utils/preventDefault';
-import { MenuItem } from '../editor-type';
+import { MenuItem } from '../EditorType';
 
 const Wrapper = styled.div`
   -webkit-overflow-scrolling: touch;

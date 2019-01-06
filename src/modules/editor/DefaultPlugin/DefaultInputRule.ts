@@ -13,7 +13,7 @@ import {
   wrappingInputRule,
 } from 'prosemirror-inputrules';
 import { NodeType, Schema } from 'prosemirror-model';
-import { InputRuleFactory } from '../editor-type';
+import { InputRuleFactory } from '../EditorType';
 
 const blockQuoteRule: InputRuleFactory = nodeType => {
   return wrappingInputRule(/^\s*>\s$/, nodeType);

@@ -1,7 +1,7 @@
 import { isNull } from 'option-t/lib/Nullable';
 import { isNotUndefined } from 'option-t/lib/Undefinable';
 import { Node } from 'prosemirror-model';
-import { Command } from '../editor-type';
+import { Command } from '../EditorType';
 import { findParentNode } from '../utils/findParentNode';
 
 const findTodo = findParentNode((node: Node) => node.type.name === 'todo');

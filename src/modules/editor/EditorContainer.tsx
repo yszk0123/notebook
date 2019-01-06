@@ -5,9 +5,9 @@ import React, { useCallback, useRef, useState } from 'react';
 import { styled } from '../../styled-components';
 import { useDebouncedCallback } from '../../utils/useDebouncedCallback';
 import { EditorMenu } from './components/EditorMenu';
-import { EditorContent, MenuItem } from './editor-type';
 import { createStateFromContent, serializeEditorState } from './EditorState';
 import { editorStyle } from './editorStyle';
+import { EditorContent, MenuItem } from './EditorType';
 import { customMarkdownSerializer } from './MarkdownPlugin/MarkdownSerializer';
 import { useEditor } from './useEditor';
 

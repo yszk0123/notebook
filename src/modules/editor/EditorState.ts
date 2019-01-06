@@ -4,7 +4,7 @@ import { Node, Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { unwrapUnsafeValue } from '../../utils/unwrapUnsafeValue';
 import { buildPlugins } from './DefaultPlugin';
-import { EditorContent } from './editor-type';
+import { EditorContent } from './EditorType';
 
 function createEmptyDoc(schema: Schema): Node {
   return schema.node('doc', {}, [schema.node('paragraph', {}, [])]);

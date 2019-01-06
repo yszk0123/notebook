@@ -25,7 +25,7 @@ import {
   splitListItem,
   wrapInList,
 } from 'prosemirror-schema-list';
-import { Command } from '../editor-type';
+import { Command } from '../EditorType';
 
 const mac = isUndefined(navigator) ? /Mac/.test(navigator.platform) : false;
 

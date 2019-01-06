@@ -7,7 +7,7 @@ import {
 import { NodeType, Schema } from 'prosemirror-model';
 import { wrapInList } from 'prosemirror-schema-list';
 import { EditorState } from 'prosemirror-state';
-import { Command, MenuItem } from './editor-type';
+import { Command, MenuItem } from './EditorType';
 import { toggleCheckbox } from './TodoPlugin/TodoCommand';
 
 function alwaysTrue(): true {

@@ -2,7 +2,7 @@ import { Nullable } from 'option-t/lib/Nullable';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { noop } from '../../utils/noop';
-import { EditorContent } from './editor-type';
+import { EditorContent } from './EditorType';
 
 export type OnChange = (getContent: () => Nullable<EditorContent>) => void;
 
