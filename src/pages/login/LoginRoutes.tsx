@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAuthUI } from '../../app/adapters/firebase/UseAuthUIWithFirebase';
 import { Route } from '../../routing/routing-type';
 
 export const loginRoutes: Array<Route> = [
@@ -9,8 +10,8 @@ export const loginRoutes: Array<Route> = [
       const { LoginPage } = await import('./components/LoginPage');
 
       return {
-        content: <LoginPage />,
-        loading: <LoginPage />,
+        content: <LoginPage useAuthUI={useAuthUI} />,
+        loading: <LoginPage useAuthUI={useAuthUI} />,
       };
     },
   },

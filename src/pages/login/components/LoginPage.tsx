@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
-import { useAuthUI } from '../../../app/useAuthUI';
+import { UseAuthUI } from '../../../app/UseAuthUI';
 import { Text } from '../../../components/Text';
 
-interface Props {}
+interface Props {
+  useAuthUI: UseAuthUI;
+}
 
-export const LoginPage: React.FunctionComponent<Props> = () => {
+export const LoginPage: React.FunctionComponent<Props> = ({ useAuthUI }) => {
   const ref = useRef<HTMLDivElement>(null);
   useAuthUI(ref);
 

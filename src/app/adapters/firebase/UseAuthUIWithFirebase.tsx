@@ -1,9 +1,10 @@
 import firebaseui from 'firebaseui';
-import React, { useContext, useEffect } from 'react';
-import { firebaseAuthUIConfig } from '../config/firebaseAuthUIConfig';
-import { FirebaseAppContext } from '../FirebaseAppContext';
+import { useContext, useEffect } from 'react';
+import { firebaseAuthUIConfig } from '../../../config/firebaseAuthUIConfig';
+import { FirebaseAppContext } from '../../../FirebaseAppContext';
+import { UseAuthUI } from '../../UseAuthUI';
 
-export function useAuthUI(ref: React.RefObject<HTMLElement>) {
+export const useAuthUI: UseAuthUI = ref => {
   const app = useContext(FirebaseAppContext);
   if (!app) {
     throw new Error('app must be initialized');
@@ -17,4 +18,4 @@ export function useAuthUI(ref: React.RefObject<HTMLElement>) {
     authUi.start(ref.current, firebaseAuthUIConfig);
     return () => authUi.delete();
   }, []);
-}
+};
