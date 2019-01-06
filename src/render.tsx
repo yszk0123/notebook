@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import UniversalRouter from 'universal-router';
-import { AppAction, AppDispatch, AppRoutingContext } from './app/app-type';
+import { AppRoutingContext } from './app/app-type';
 import { PageContainer } from './app/components/PageContainer';
 import { resolveRoute } from './AppRouteResolver';
 import { appRoutes } from './AppRoutes';
@@ -14,13 +14,11 @@ import { ResetStyle } from './components/ResetStyle';
 import { firebaseConfig } from './config/firebaseConfig';
 import { FirebaseAppProvider } from './FirebaseAppContext';
 import { HistoryProvider } from './HistoryContext';
-import { Dispatch } from './redux';
 import { routingEffects } from './routing';
 import { Page } from './routing/routing-type';
 import { ThemeProvider } from './styled-components';
 import { defaultTheme } from './theme/DefaultTheme';
 import { restoreValueFromGlobalForDevelopment } from './utils/restoreValueFromGlobalForDevelopment';
-import { unwrapUnsafeValue } from './utils/unwrapUnsafeValue';
 
 function init() {
   if (process.env.NODE_ENV === 'development') {
@@ -54,7 +52,7 @@ export async function render() {
   });
   const history = createHistory();
   const store = createStore();
-  const dispatch = unwrapUnsafeValue<Dispatch<AppAction>>(store.dispatch);
+  const dispatch = store.dispatch;
 
   history.listen(onLocationChange);
   // tslint:disable-next-line:no-floating-promises
@@ -76,8 +74,7 @@ export async function render() {
 
     const routingContext: AppRoutingContext = {
       app,
-      // FIXME: Avoid `as`
-      dispatch: store.dispatch as AppDispatch,
+      dispatch: store.dispatch,
       firestore,
       pathname,
     };
