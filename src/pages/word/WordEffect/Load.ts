@@ -5,7 +5,7 @@ import { createWord, Word } from '../entities/Word';
 import { wordActions } from '../word-type';
 import { WordEffectCreator } from './WordEffectType';
 
-const WORD_LIMIT = 20;
+const WORD_LIMIT = 15;
 
 interface LoadInput {
   userId: string;
