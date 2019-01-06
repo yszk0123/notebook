@@ -8,14 +8,14 @@ import UniversalRouter from 'universal-router';
 import { FirebaseAppProvider } from './app/FirebaseAppContext';
 import { HistoryProvider } from './app/HistoryContext';
 import { resolveRoute } from './app/RouteResolver';
+import { routingEffects } from './app/routing';
+import { PageLoadingContainer } from './app/routing/components/PageLoadingContainer';
+import { Page, RoutingContext } from './app/routing/routing-type';
 import { ThemeProvider } from './app/styled-components';
-import { createStore } from './AppStoreFactory';
 import { ResetStyle } from './components/ResetStyle';
 import { firebaseConfig } from './config/firebaseConfig';
 import { appRoutes } from './RootRoutes';
-import { routingEffects } from './routing';
-import { PageLoadingContainer } from './routing/components/PageLoadingContainer';
-import { Page, RoutingContext } from './routing/routing-type';
+import { createStore } from './Store';
 import { defaultTheme } from './theme/DefaultTheme';
 import { restoreValueFromGlobalForDevelopment } from './utils/restoreValueFromGlobalForDevelopment';
 

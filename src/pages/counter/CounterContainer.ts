@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { RoutingGlobalState } from '../../routing/routing-type';
+import { RoutingGlobalState } from '../../app/routing/routing-type';
 import { CounterPage } from './components/CounterPage';
 import { counterActions, CounterGlobalState } from './counter-type';
 import { counterEffects } from './CounterEffect';

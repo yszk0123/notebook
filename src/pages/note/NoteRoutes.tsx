@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from '../../routing/routing-type';
+import { Route } from '../../app/routing/routing-type';
 import { createLoadNote } from './useCases/LoadNote';
 import { createSaveNote } from './useCases/SaveNote';
 

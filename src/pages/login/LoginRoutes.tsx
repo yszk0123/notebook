@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuthUI } from '../../app/adapters/firebase/UseAuthUIWithFirebase';
-import { Route } from '../../routing/routing-type';
+import { Route } from '../../app/routing/routing-type';
 
 export const loginRoutes: Array<Route> = [
   {

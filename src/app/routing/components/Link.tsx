@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
-import { HistoryContext } from '../../app/HistoryContext';
-import { styled } from '../../app/styled-components';
+import { HistoryContext } from '../../HistoryContext';
+import { styled } from '../../styled-components';
 import { getCurrentPath } from '../utils/getCurrentPath';
 
 const Anchor = styled.a`
