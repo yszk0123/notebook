@@ -6,10 +6,10 @@ export const counterRoutes: Array<Route> = [
     path: '/counter',
     title: 'Counter',
     async action(context) {
-      const { CounterPage } = await import('./components/CounterPage');
+      const { CounterContainer } = await import('./CounterContainer');
 
       return {
-        content: <CounterPage />,
+        content: <CounterContainer />,
       };
     },
   },

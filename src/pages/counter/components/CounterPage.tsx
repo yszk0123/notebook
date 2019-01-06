@@ -1,13 +1,9 @@
-import React, { useCallback } from 'react';
-import { counterEffects } from '..';
-import { AppState } from '../../../app/app-type';
+import React from 'react';
 import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
 import { VerticalStackLayout } from '../../../app/components/layouts/VerticalStackLayout';
-import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Text } from '../../../components/Text';
 import { styled } from '../../../styled-components';
-import { counterActions } from '../counter-type';
 
 const Layout = styled(CenterLayout)`
   margin-top: ${({ theme }) => theme.space};
@@ -29,19 +25,19 @@ const ButtonGroupLayout = styled.div`
   }
 `;
 
-interface Props {}
+interface Props {
+  count: number;
+  loading: boolean;
+  increment(): void;
+  incrementByTen(): void;
+}
 
-export const CounterPage: React.FunctionComponent<Props> = () => {
-  const [{ count, loading }, dispatch] = useRedux(mapState);
-
-  const increment = useCallback(() => dispatch(counterActions.increment()), [
-    dispatch,
-  ]);
-  const incrementByTen = useCallback(
-    () => dispatch(counterEffects.incrementByTen()),
-    [dispatch],
-  );
-
+export const CounterPage: React.FunctionComponent<Props> = ({
+  count,
+  loading,
+  increment,
+  incrementByTen,
+}) => {
   if (loading) {
     return <Text>Loading...</Text>;
   }
@@ -58,13 +54,3 @@ export const CounterPage: React.FunctionComponent<Props> = () => {
     </Layout>
   );
 };
-
-function mapState(state: AppState) {
-  const { count } = state.counter;
-  const { loading } = state.routing;
-
-  return {
-    count,
-    loading,
-  };
-}
