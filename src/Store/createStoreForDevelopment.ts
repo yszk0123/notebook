@@ -33,6 +33,6 @@ export const createStoreForDevelopment: StoreFactory = () => {
 if ((module as any).hot && window.store) {
   // tslint:disable-next-line:no-any
   (module as any).hot.accept(() => {
-    window.store.replaceReducer(require('../AppReducer').appReducer);
+    window.store.replaceReducer(require('../RootReducer').appReducer);
   });
 }
