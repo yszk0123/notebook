@@ -16,12 +16,12 @@ import {
   createSchema,
   createStateFromContent,
   customMarkdownSerializer,
+  EditorContent,
   EditorMenu,
   editorStyle,
   serializeEditorState,
   useEditor,
 } from '../../../modules/editor';
-import { EditorContent } from '../../../modules/editor/editor-type';
 import { styled } from '../../../styled-components';
 import { FontSize } from '../../../theme/Theme';
 import { stickToTop } from '../../../utils/stickToTop';

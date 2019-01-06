@@ -1,4 +1,4 @@
-import { EditorContent } from '../modules/editor/editor-type';
+import { EditorContent } from '../modules/editor';
 
 export interface Note {
   id: string;

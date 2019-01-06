@@ -2,6 +2,7 @@ import './registerProseMirror';
 
 export { EditorMenu } from './components/EditorMenu';
 export { createSchema } from './DefaultPlugin';
+export { EditorContent } from './editor-type';
 export { createStateFromContent, serializeEditorState } from './EditorState';
 export { editorStyle } from './editorStyle';
 export { customMarkdownSerializer } from './MarkdownPlugin/MarkdownSerializer';
