@@ -3,9 +3,9 @@ import { Reducer } from 'redux';
 import { WordId } from '../../models/Word';
 import { createRecord } from '../../utils/createRecord';
 import { updateState } from '../../utils/updateState';
-import { WordAction, WordActionType, WordState } from './word-type';
+import { WordAction, WordActionType, WordLocalState } from './word-type';
 
-const initialState: WordState = {
+const initialState: WordLocalState = {
   loading: true,
   outdatedWordIds: [],
   saving: false,
@@ -13,7 +13,7 @@ const initialState: WordState = {
   wordsById: {},
 };
 
-export const wordReducer: Reducer<WordState, WordAction> = (
+export const wordReducer: Reducer<WordLocalState, WordAction> = (
   state = initialState,
   action,
 ) => {

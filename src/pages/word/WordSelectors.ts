@@ -1,14 +1,16 @@
 import { createSelector } from 'reselect';
-import { AppState } from '../../app/app-type';
+import { WordGlobalState } from './word-type';
+
+interface State extends WordGlobalState {}
 
 export const getWords = createSelector(
-  (state: AppState) => state.word.wordIds,
-  (state: AppState) => state.word.wordsById,
+  (state: State) => state.word.wordIds,
+  (state: State) => state.word.wordsById,
   (wordIds, wordsbyId) => wordIds.map(id => wordsbyId[id]),
 );
 
 export const getOutdatedWords = createSelector(
-  (state: AppState) => state.word.outdatedWordIds,
-  (state: AppState) => state.word.wordsById,
+  (state: State) => state.word.outdatedWordIds,
+  (state: State) => state.word.wordsById,
   (wordIds, wordsbyId) => wordIds.map(id => wordsbyId[id]),
 );

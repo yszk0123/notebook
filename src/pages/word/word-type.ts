@@ -68,10 +68,14 @@ export const wordActions = {
 
 export type WordAction = GetAction<typeof wordActions>;
 
-export interface WordState {
+export interface WordLocalState {
   loading: boolean;
   saving: boolean;
   outdatedWordIds: Array<WordId>;
   wordIds: Array<WordId>;
   wordsById: Record<WordId, Word>;
+}
+
+export interface WordGlobalState {
+  word: WordLocalState;
 }

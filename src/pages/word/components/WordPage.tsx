@@ -1,16 +1,16 @@
 import { isNull } from 'option-t/lib/Nullable';
 import React, { useCallback, useEffect, useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { AppState } from '../../../app/app-type';
 import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
 import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
 import { Word } from '../../../models/Word';
+import { RoutingGlobalState } from '../../../routing/routing-type';
 import { styled } from '../../../styled-components';
 import { useDebouncedEffect } from '../../../utils/useDebouncedEffect';
-import { wordActions } from '../word-type';
+import { wordActions, WordGlobalState } from '../word-type';
 import { wordEffects } from '../WordEffect';
 import { getOutdatedWords, getWords } from '../WordSelectors';
 import { WordListItem } from './WordListItem';
@@ -230,7 +230,9 @@ export const WordPage: React.FunctionComponent<Props> = () => {
   );
 };
 
-function mapState(state: AppState) {
+interface State extends WordGlobalState, RoutingGlobalState {}
+
+function mapState(state: State) {
   const words = getWords(state);
   const outdatedWords = getOutdatedWords(state);
   const { saving } = state.word;
