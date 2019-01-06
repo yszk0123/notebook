@@ -1,5 +1,5 @@
 import { combineReducers, Reducer } from 'redux';
-import { AppState } from './app/app-type';
+import { AppState } from './AppState';
 import { counterReducer } from './pages/counter';
 import { noteReducer } from './pages/note';
 import { wordReducer } from './pages/word';
