@@ -5,11 +5,11 @@ export const noteRoutes: Array<Route> = [
   {
     path: '/note',
     title: 'Note',
-    async action(context) {
-      const { NotePage } = await import('./components/NotePage');
+    async action(_context) {
+      const { NoteContainer } = await import('./NoteContainer');
 
       return {
-        content: <NotePage />,
+        content: <NoteContainer />,
       };
     },
   },

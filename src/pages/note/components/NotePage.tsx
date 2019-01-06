@@ -2,21 +2,19 @@ import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { AppState } from '../../../app/app-type';
 import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
 import { VerticalStackItemLayout } from '../../../app/components/layouts/VerticalStackItemLayout';
 import { VerticalStackLayout } from '../../../app/components/layouts/VerticalStackLayout';
 import { VirtualKeyboardSpacer } from '../../../app/components/layouts/VirtualKeyboardSpacer';
-import useRedux from '../../../app/useRedux';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
+import { Note } from '../../../models/Note';
 import {
   createMenuItems,
   createSchema,
   createStateFromContent,
   customMarkdownSerializer,
-  EditorContent,
   EditorMenu,
   editorStyle,
   serializeEditorState,
@@ -27,7 +25,7 @@ import { FontSize } from '../../../theme/Theme';
 import { stickToTop } from '../../../utils/stickToTop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
-import { noteEffects } from '../NoteEffect';
+import { CopyText, Load, Save } from '../tmp';
 
 const CHANGE_DELAY = 4000;
 
@@ -89,10 +87,25 @@ const LoadingLayout = styled(CenterLayout)`
 const schema = createSchema();
 const menuItems = createMenuItems(schema);
 
-interface Props {}
+interface Props {
+  userId: Nullable<string>;
+  saving: boolean;
+  loading: boolean;
+  note: Nullable<Note>;
+  save: Save;
+  load: Load;
+  copyText: CopyText;
+}
 
-export const NotePage: React.FunctionComponent<Props> = () => {
-  const [{ userId, saving, loading, note }, dispatch] = useRedux(mapState);
+export const NotePage: React.FunctionComponent<Props> = ({
+  userId,
+  saving,
+  loading,
+  note,
+  save,
+  load,
+  copyText,
+}) => {
   const [isVirtualKeyboardVisible, setFocused] = useState(false);
   const editorContentRef = useRef(mapForNullable(note, _ => _.content));
   const editorRef = useRef<HTMLDivElement>(null);
@@ -101,22 +114,6 @@ export const NotePage: React.FunctionComponent<Props> = () => {
   const [editorState, setEditorState] = useState(() =>
     createStateFromContent(schema, mapForNullable(note, _ => _.content)),
   );
-
-  function save(content: Nullable<EditorContent>) {
-    if (isNull(userId) || isNull(content)) {
-      return;
-    }
-
-    const input = {
-      note: {
-        content,
-        id: noteId,
-      },
-      userId,
-    };
-
-    dispatch(noteEffects.save(input));
-  }
 
   useEffect(
     () => {
@@ -132,30 +129,26 @@ export const NotePage: React.FunctionComponent<Props> = () => {
 
   useEffect(
     () => {
-      if (isNull(userId)) {
-        return;
-      }
-
-      dispatch(noteEffects.load({ userId, noteId }));
+      load({ userId, noteId });
     },
     [userId],
   );
 
   const onSave = useCallback(
     () => {
-      save(editorContentRef.current);
+      save({ userId, noteId, content: editorContentRef.current });
     },
-    [dispatch, userId, noteId, editorContentRef.current],
+    [userId, noteId, editorContentRef.current],
   );
 
   const onChangeContent = useDebouncedCallback(
     (state: EditorState) => {
       const newContent = serializeEditorState(state);
       editorContentRef.current = newContent;
-      save(newContent);
+      save({ userId, noteId, content: newContent });
     },
     CHANGE_DELAY,
-    [dispatch, userId, noteId],
+    [userId, noteId],
   );
 
   const onChange = useCallback(
@@ -172,10 +165,9 @@ export const NotePage: React.FunctionComponent<Props> = () => {
   const onCopy = useCallback(
     () => {
       const text = customMarkdownSerializer.serialize(editorState.doc);
-      const input = { text };
-      dispatch(noteEffects.copyText(input));
+      copyText({ text });
     },
-    [dispatch, editorState.doc],
+    [editorState.doc],
   );
 
   const onFocus = useCallback(() => {
@@ -241,15 +233,3 @@ export const NotePage: React.FunctionComponent<Props> = () => {
     </NotePageWrapper>
   );
 };
-
-function mapState(state: AppState) {
-  const { saving, note } = state.note;
-  const { loading, user } = state.routing;
-
-  return {
-    loading,
-    note,
-    saving,
-    userId: user ? user.uid : null,
-  };
-}
