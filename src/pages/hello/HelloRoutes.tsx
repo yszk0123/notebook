@@ -6,10 +6,10 @@ export const helloRoutes: Array<Route> = [
     path: '/hello',
     title: 'Hello',
     async action(context) {
-      const { HelloPage } = await import('./components/HelloPage');
+      const { HelloContainer } = await import('./HelloContainer');
 
       return {
-        content: <HelloPage />,
+        content: <HelloContainer />,
       };
     },
   },
