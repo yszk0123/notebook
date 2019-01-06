@@ -1,4 +1,4 @@
 import { Store } from 'redux';
-import { AppAction, AppState } from '../app/app-type';
+import { AppState } from '../app/app-type';
 
-export type AppStoreFactory = () => Store<AppState, AppAction>;
+export type AppStoreFactory = () => Store<AppState, any>;

@@ -1,9 +1,13 @@
 import { Reducer } from 'redux';
-import { CounterAction, CounterActionType, CounterState } from './counter-type';
+import {
+  CounterAction,
+  CounterActionType,
+  CounterLocalState,
+} from './counter-type';
 
-const initialState: CounterState = { count: 0 };
+const initialState: CounterLocalState = { count: 0 };
 
-export const counterReducer: Reducer<CounterState, CounterAction> = (
+export const counterReducer: Reducer<CounterLocalState, CounterAction> = (
   state = initialState,
   action,
 ) => {

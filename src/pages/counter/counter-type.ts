@@ -14,6 +14,10 @@ export const counterActions = {
 
 export type CounterAction = GetAction<typeof counterActions>;
 
-export interface CounterState {
+export interface CounterLocalState {
   count: number;
+}
+
+export interface CounterGlobalState {
+  counter: CounterLocalState;
 }
