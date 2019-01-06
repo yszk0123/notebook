@@ -1,9 +1,13 @@
 import { Reducer } from 'redux';
-import { NoteAction, NoteActionType, NoteState } from './note-type';
+import { NoteAction, NoteActionType, NoteLocalState } from './note-type';
 
-const initialState: NoteState = { saving: false, loading: true, note: null };
+const initialState: NoteLocalState = {
+  loading: true,
+  note: null,
+  saving: false,
+};
 
-export const noteReducer: Reducer<NoteState, NoteAction> = (
+export const noteReducer: Reducer<NoteLocalState, NoteAction> = (
   state = initialState,
   action,
 ) => {

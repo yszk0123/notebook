@@ -30,12 +30,12 @@ export const noteActions = {
 
 export type NoteAction = GetAction<typeof noteActions>;
 
-export interface NoteState {
+export interface NoteLocalState {
   loading: boolean;
   note: Nullable<Note>;
   saving: boolean;
 }
 
 export interface NoteGlobalState {
-  note: NoteState;
+  note: NoteLocalState;
 }
