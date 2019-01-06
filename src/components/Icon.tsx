@@ -1,7 +1,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import { DiffKeys } from '../utils/util-type';
+import { DiffKeys } from '../utils/Diff';
 
 interface Props {
   icon: IconProp;
