@@ -1,7 +1,7 @@
 // tslint:disable:no-var-requires
-import { AppStoreFactory } from './AppStoreType';
+import { StoreFactory } from './StoreType';
 
-export let createStore: AppStoreFactory =
+export let createStore: StoreFactory =
   process.env.NODE_ENV === 'development'
     ? require('./createStoreForDevelopment').createStoreForDevelopment
     : require('./createStoreForProduction').createStoreForProduction;

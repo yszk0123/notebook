@@ -4,9 +4,9 @@ import {
   Params,
   Route as UniversalRouterRoute,
 } from 'universal-router';
-import { appConfig } from './config/AppConfig';
-import { Route, RoutingContext } from './routing/routing-type';
-import { unwrapUnsafeValue } from './utils/unwrapUnsafeValue';
+import { appConfig } from '../config/AppConfig';
+import { Route, RoutingContext } from '../routing/routing-type';
+import { unwrapUnsafeValue } from '../utils/unwrapUnsafeValue';
 
 interface Context
   extends ActionContext<RoutingContext, unknown>,

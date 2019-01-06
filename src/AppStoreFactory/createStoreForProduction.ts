@@ -1,8 +1,8 @@
 import { applyMiddleware, createStore as createReduxStore } from 'redux';
 import thunk from 'redux-thunk';
-import { appReducer } from '../AppReducer';
-import { AppStoreFactory } from './AppStoreType';
+import { rootReducer } from '../RootReducer';
+import { StoreFactory } from './StoreType';
 
-export const createStoreForProduction: AppStoreFactory = () => {
-  return createReduxStore(appReducer, applyMiddleware(thunk));
+export const createStoreForProduction: StoreFactory = () => {
+  return createReduxStore(rootReducer, applyMiddleware(thunk));
 };

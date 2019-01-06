@@ -3,7 +3,7 @@ import { NoteGlobalState } from './pages/note/note-type';
 import { WordGlobalState } from './pages/word/word-type';
 import { RoutingGlobalState } from './routing/routing-type';
 
-export interface AppState
+export interface RootState
   extends NoteGlobalState,
     RoutingGlobalState,
     WordGlobalState,
