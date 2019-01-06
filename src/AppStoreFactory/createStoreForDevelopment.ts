@@ -1,10 +1,10 @@
-import { applyMiddleware, createStore as createReduxStore, Store } from 'redux';
+import { applyMiddleware, createStore as createReduxStore } from 'redux';
 // @ts-ignore
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import { appReducer } from '../../AppReducer';
-import { restoreValueFromGlobalForDevelopment } from '../../utils/restoreValueFromGlobalForDevelopment';
-import { AppAction, AppState } from '../app-type';
+import { appReducer } from '../AppReducer';
+import { restoreValueFromGlobalForDevelopment } from '../utils/restoreValueFromGlobalForDevelopment';
+import { AppStoreFactory } from './AppStoreType';
 
 declare global {
   interface Window {
@@ -15,7 +15,7 @@ declare global {
   }
 }
 
-export function createStoreForDevelopment(): Store<AppState, AppAction> {
+export const createStoreForDevelopment: AppStoreFactory = () => {
   /**
    * Workaround for HMR with parcel
    * @see https://github.com/parcel-bundler/parcel/issues/314#issuecomment-352276559
@@ -23,7 +23,7 @@ export function createStoreForDevelopment(): Store<AppState, AppAction> {
   return restoreValueFromGlobalForDevelopment('store', () => {
     return createReduxStore(appReducer, applyMiddleware(thunk, logger));
   });
-}
+};
 
 /**
  * HMR

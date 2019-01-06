@@ -1,5 +1,5 @@
 import { Nullable } from 'option-t/lib/Nullable';
-import { AppContext } from '../app/app-type';
+import { AppRoutingContext } from '../app/app-type';
 import { createAction, GetAction } from '../redux';
 
 export interface Page {
@@ -11,7 +11,7 @@ export interface Route {
   children?: Array<Route>;
   path: string;
   title?: string;
-  action?(context: AppContext): Page | Promise<Page>;
+  action?(context: AppRoutingContext): Page | Promise<Page>;
 }
 
 export const enum RoutingActionType {

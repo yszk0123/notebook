@@ -25,7 +25,9 @@ import { FontSize } from '../../../theme/Theme';
 import { stickToTop } from '../../../utils/stickToTop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
-import { CopyText, Load, Save } from '../tmp';
+import { CopyTextEffect } from '../effects/CopyTextEffect';
+import { LoadNoteEffect } from '../effects/LoadNoteEffect';
+import { SaveNoteEffect } from '../effects/SaveNoteEffect';
 
 const CHANGE_DELAY = 4000;
 
@@ -92,9 +94,9 @@ interface Props {
   saving: boolean;
   loading: boolean;
   note: Nullable<Note>;
-  save: Save;
-  load: Load;
-  copyText: CopyText;
+  copyText: CopyTextEffect;
+  saveNote: SaveNoteEffect;
+  loadNote: LoadNoteEffect;
 }
 
 export const NotePage: React.FunctionComponent<Props> = ({
@@ -102,8 +104,8 @@ export const NotePage: React.FunctionComponent<Props> = ({
   saving,
   loading,
   note,
-  save,
-  load,
+  saveNote,
+  loadNote,
   copyText,
 }) => {
   const [isVirtualKeyboardVisible, setFocused] = useState(false);
@@ -129,14 +131,14 @@ export const NotePage: React.FunctionComponent<Props> = ({
 
   useEffect(
     () => {
-      load({ userId, noteId });
+      loadNote({ userId, noteId });
     },
     [userId],
   );
 
   const onSave = useCallback(
     () => {
-      save({ userId, noteId, content: editorContentRef.current });
+      saveNote({ userId, noteId, content: editorContentRef.current });
     },
     [userId, noteId, editorContentRef.current],
   );
@@ -145,7 +147,7 @@ export const NotePage: React.FunctionComponent<Props> = ({
     (state: EditorState) => {
       const newContent = serializeEditorState(state);
       editorContentRef.current = newContent;
-      save({ userId, noteId, content: newContent });
+      saveNote({ userId, noteId, content: newContent });
     },
     CHANGE_DELAY,
     [userId, noteId],

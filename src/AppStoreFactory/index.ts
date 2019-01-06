@@ -1,8 +1,7 @@
 // tslint:disable:no-var-requires
-import { Store } from 'redux';
-import { AppAction, AppState } from '../app-type';
+import { AppStoreFactory } from './AppStoreType';
 
-export let createStore: () => Store<AppState, AppAction> =
+export let createStore: AppStoreFactory =
   process.env.NODE_ENV === 'development'
     ? require('./createStoreForDevelopment').createStoreForDevelopment
     : require('./createStoreForProduction').createStoreForProduction;

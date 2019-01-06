@@ -35,3 +35,7 @@ export interface NoteState {
   note: Nullable<Note>;
   saving: boolean;
 }
+
+export interface NoteGlobalState {
+  note: NoteState;
+}

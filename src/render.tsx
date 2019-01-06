@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import UniversalRouter from 'universal-router';
-import { AppAction } from './app/app-type';
+import { AppAction, AppDispatch, AppRoutingContext } from './app/app-type';
 import { PageContainer } from './app/components/PageContainer';
 import { resolveRoute } from './AppRouteResolver';
 import { appRoutes } from './AppRoutes';
@@ -44,13 +44,16 @@ function resolveLocation(location: Location): string {
 }
 
 export async function render() {
+  const app = init();
+  const firestore = firebase.firestore();
+  firestore.settings({ timestampsInSnapshots: true });
+
   const router = new UniversalRouter(appRoutes, {
     baseUrl: process.env.APP_BASE_URL,
     resolveRoute,
   });
   const history = createHistory();
   const store = createStore();
-  const app = init();
   const dispatch = unwrapUnsafeValue<Dispatch<AppAction>>(store.dispatch);
 
   history.listen(onLocationChange);
@@ -71,13 +74,15 @@ export async function render() {
       return;
     }
 
-    const context = {
+    const routingContext: AppRoutingContext = {
       app,
-      dispatch: store.dispatch,
+      // FIXME: Avoid `as`
+      dispatch: store.dispatch as AppDispatch,
+      firestore,
       pathname,
     };
 
-    const page = await router.resolve(context);
+    const page = await router.resolve(routingContext);
 
     renderPage(page);
   }

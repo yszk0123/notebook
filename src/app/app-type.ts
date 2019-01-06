@@ -15,8 +15,9 @@ export interface AppState {
   word: WordState;
 }
 
-export interface AppContext {
+export interface AppRoutingContext {
   app: firebase.app.App;
+  firestore: firebase.firestore.Firestore;
   pathname: string;
   dispatch: AppDispatch;
 }

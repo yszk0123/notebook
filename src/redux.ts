@@ -48,18 +48,42 @@ export type Dispatch<TAction> = ((
   action: TAction | ((...args: Array<any>) => unknown),
 ) => unknown);
 
-export type EffectCreator<
+/**
+ * Alias for async action creator
+ */
+export type Effect<
   State,
   TAction extends AnyAction,
-  Args = void
+  Args = void,
+  Context = unknown
 > = Args extends Array<AnyForExtend>
   ? (
       ...args: Args
     ) => (
       dispatch: Dispatch<TAction>,
       getState: () => State,
-    ) => Promise<unknown>
-  : () => (
+      context: Context,
+    ) => any
+  : Args extends void
+  ? () => (
       dispatch: Dispatch<TAction>,
       getState: () => State,
-    ) => Promise<unknown>;
+      context: Context,
+    ) => any
+  : (
+      arg: Args,
+    ) => (
+      dispatch: Dispatch<TAction>,
+      getState: () => State,
+      context: Context,
+    ) => any;
+
+/**
+ * FIXME: Remove this after replacing with Effect
+ * @deprecatedd
+ */
+export type EffectCreator<S, T extends AnyAction, A = void> = Effect<S, T, A>;
+
+export type EffectFactory<TEffect, Context> = Context extends void
+  ? () => TEffect
+  : (context: Context) => TEffect;

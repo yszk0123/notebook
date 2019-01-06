@@ -1,10 +1,17 @@
-import { isNull } from 'option-t/lib/Nullable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AppState } from '../../app/app-type';
 import { NotePage } from './components/NotePage';
-import { noteEffects } from './NoteEffect';
-import { Load, Save } from './tmp';
+import { CopyTextEffect, createCopyTextEffect } from './effects/CopyTextEffect';
+import { createLoadNoteEffect, LoadNoteEffect } from './effects/LoadNoteEffect';
+import { createSaveNoteEffect, SaveNoteEffect } from './effects/SaveNoteEffect';
+import { LoadNoteUseCase } from './useCases/LoadNoteUseCase';
+import { SaveNoteUseCase } from './useCases/SaveNoteUseCase';
+
+interface OwnProps {
+  loadNote: LoadNoteUseCase;
+  saveNote: SaveNoteUseCase;
+}
 
 function mapState(state: AppState) {
   const { saving, note } = state.note;
@@ -18,37 +25,25 @@ function mapState(state: AppState) {
   };
 }
 
-const mapDispatch = (dispatch: any) => {
-  const save: Save = ({ userId, noteId, content }) => {
-    if (isNull(userId) || isNull(content)) {
-      return;
-    }
+interface DispatchTo {
+  copyText: CopyTextEffect;
+  loadNote: LoadNoteEffect;
+  saveNote: SaveNoteEffect;
+}
 
-    const input = {
-      note: {
-        content,
-        id: noteId,
-      },
-      userId,
-    };
-
-    dispatch(noteEffects.save(input));
-  };
-
-  const load: Load = ({ userId, noteId }) => {
-    if (isNull(userId)) {
-      return;
-    }
-
-    dispatch(noteEffects.load({ userId, noteId }));
-  };
-
-  return {
-    copyText: bindActionCreators(noteEffects.copyText, dispatch),
-    load,
-    save,
-  };
-};
+function mapDispatch(
+  dispatch: any,
+  { loadNote, saveNote }: OwnProps,
+): DispatchTo {
+  return bindActionCreators(
+    {
+      copyText: createCopyTextEffect(),
+      loadNote: createLoadNoteEffect({ loadNote }),
+      saveNote: createSaveNoteEffect({ saveNote }),
+    },
+    dispatch,
+  );
+}
 
 export const NoteContainer = connect(
   mapState,
