@@ -78,12 +78,6 @@ export type Effect<
       context: Context,
     ) => any;
 
-/**
- * FIXME: Remove this after replacing with Effect
- * @deprecatedd
- */
-export type EffectCreator<S, T extends AnyAction, A = void> = Effect<S, T, A>;
-
 export type EffectFactory<TEffect, Context> = Context extends void
   ? () => TEffect
   : (context: Context) => TEffect;
