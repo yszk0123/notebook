@@ -4,14 +4,13 @@ import {
   Params,
   Route as UniversalRouterRoute,
 } from 'universal-router';
-import { AppRoutingContext } from './app/app-type';
 import { appConfig } from './config/AppConfig';
-import { Route } from './routing/routing-type';
+import { Route, RoutingContext } from './routing/routing-type';
 import { unwrapUnsafeValue } from './utils/unwrapUnsafeValue';
 
 interface Context
-  extends ActionContext<AppRoutingContext, unknown>,
-    AppRoutingContext {}
+  extends ActionContext<RoutingContext, unknown>,
+    RoutingContext {}
 
 function onEnterRoute(context: Context) {
   const route = unwrapUnsafeValue<UniversalRouterRoute & Route>(context.route);

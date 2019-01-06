@@ -1,5 +1,5 @@
 import { Nullable } from 'option-t/lib/Nullable';
-import { AppRoutingContext } from '../app/app-type';
+import { Dispatch } from 'redux';
 import { createAction, GetAction } from '../redux';
 
 export interface Page {
@@ -7,11 +7,18 @@ export interface Page {
   content: JSX.Element;
 }
 
+export interface RoutingContext {
+  app: firebase.app.App;
+  firestore: firebase.firestore.Firestore;
+  pathname: string;
+  dispatch: Dispatch;
+}
+
 export interface Route {
   children?: Array<Route>;
   path: string;
   title?: string;
-  action?(context: AppRoutingContext): Page | Promise<Page>;
+  action?(context: RoutingContext): Page | Promise<Page>;
 }
 
 export const enum RoutingActionType {

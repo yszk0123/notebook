@@ -5,7 +5,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import UniversalRouter from 'universal-router';
-import { AppRoutingContext } from './app/app-type';
 import { PageContainer } from './app/components/PageContainer';
 import { resolveRoute } from './AppRouteResolver';
 import { appRoutes } from './AppRoutes';
@@ -15,7 +14,7 @@ import { firebaseConfig } from './config/firebaseConfig';
 import { FirebaseAppProvider } from './FirebaseAppContext';
 import { HistoryProvider } from './HistoryContext';
 import { routingEffects } from './routing';
-import { Page } from './routing/routing-type';
+import { Page, RoutingContext } from './routing/routing-type';
 import { ThemeProvider } from './styled-components';
 import { defaultTheme } from './theme/DefaultTheme';
 import { restoreValueFromGlobalForDevelopment } from './utils/restoreValueFromGlobalForDevelopment';
@@ -72,7 +71,7 @@ export async function render() {
       return;
     }
 
-    const routingContext: AppRoutingContext = {
+    const routingContext: RoutingContext = {
       app,
       dispatch: store.dispatch,
       firestore,

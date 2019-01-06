@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import { CounterGlobalState } from '../pages/counter/counter-type';
 import { NoteGlobalState } from '../pages/note/note-type';
 import { WordGlobalState } from '../pages/word/word-type';
@@ -9,10 +8,3 @@ export interface AppState
     RoutingGlobalState,
     WordGlobalState,
     CounterGlobalState {}
-
-export interface AppRoutingContext {
-  app: firebase.app.App;
-  firestore: firebase.firestore.Firestore;
-  pathname: string;
-  dispatch: Dispatch;
-}

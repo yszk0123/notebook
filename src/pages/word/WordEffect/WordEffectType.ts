@@ -1,5 +1,4 @@
-import { AppState } from '../../../app/app-type';
 import { Effect } from '../../../redux';
-import { WordAction } from '../word-type';
+import { WordAction, WordGlobalState } from '../word-type';
 
-export type WordEffectCreator<Args> = Effect<AppState, WordAction, Args>;
+export type WordEffectCreator<Args> = Effect<WordGlobalState, WordAction, Args>;

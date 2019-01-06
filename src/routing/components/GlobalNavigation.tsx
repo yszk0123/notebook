@@ -1,5 +1,4 @@
 import React, { useCallback, useContext, useState } from 'react';
-import { AppState } from '../../app/app-type';
 import useRedux from '../../app/useRedux';
 import { DropDownMenu } from '../../components/DropDownMenu';
 import { MenuIcon } from '../../components/icons/MenuIcon';
@@ -7,6 +6,7 @@ import { Text } from '../../components/Text';
 import { routingPaths } from '../../config/RoutingConfig';
 import { HistoryContext } from '../../HistoryContext';
 import { css, styled } from '../../styled-components';
+import { RoutingGlobalState } from '../routing-type';
 import { NavLink } from './NavLink';
 
 const HeaderLayout = styled.header`
@@ -138,7 +138,9 @@ export const GlobalNavigation: React.FunctionComponent<Props> = () => {
   );
 };
 
-function mapState(state: AppState) {
+interface State extends RoutingGlobalState {}
+
+function mapState(state: State) {
   const { loading, user } = state.routing;
 
   return {

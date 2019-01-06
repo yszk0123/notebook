@@ -1,11 +1,18 @@
 import * as firebase from 'firebase/app';
 import { isNotNull, Nullable } from 'option-t/lib/Nullable';
-import { AppState } from '../app/app-type';
 import { Effect } from '../redux';
 import { unwrapDocumentSnapshot } from '../utils/unwrapDocumentSnapshot';
-import { RoutingAction, routingActions } from './routing-type';
+import {
+  RoutingAction,
+  routingActions,
+  RoutingGlobalState,
+} from './routing-type';
 
-type RoutingEffectCreator<Args> = Effect<AppState, RoutingAction, Args>;
+type RoutingEffectCreator<Args> = Effect<
+  RoutingGlobalState,
+  RoutingAction,
+  Args
+>;
 
 interface UserParam {
   accessToken: string;

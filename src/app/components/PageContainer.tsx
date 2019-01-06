@@ -1,8 +1,7 @@
 import React from 'react';
 import { Icon } from '../../components/Icon';
-import { Page } from '../../routing/routing-type';
+import { Page, RoutingGlobalState } from '../../routing/routing-type';
 import { styled } from '../../styled-components';
-import { AppState } from '../app-type';
 import useRedux from '../useRedux';
 import { CenterLayout } from './layouts/CenterLayout';
 import { FullLayout } from './layouts/FullLayout';
@@ -31,7 +30,9 @@ export const PageContainer: React.FunctionComponent<Props> = ({ page }) => {
   return <FullLayout>{finalContent}</FullLayout>;
 };
 
-function mapState(state: AppState) {
+interface State extends RoutingGlobalState {}
+
+function mapState(state: State) {
   const { loading } = state.routing;
 
   return {
