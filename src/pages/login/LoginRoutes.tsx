@@ -6,12 +6,12 @@ export const loginRoutes: Array<Route> = [
   {
     path: '/login',
     title: 'Login',
-    async action(context) {
-      const { LoginPage } = await import('./components/LoginPage');
+    async action(_context) {
+      const { LoginContainer } = await import('./LoginContainer');
 
       return {
-        content: <LoginPage useAuthUI={useAuthUI} />,
-        loading: <LoginPage useAuthUI={useAuthUI} />,
+        content: <LoginContainer useAuthUI={useAuthUI} />,
+        loading: <LoginContainer useAuthUI={useAuthUI} />,
       };
     },
   },
