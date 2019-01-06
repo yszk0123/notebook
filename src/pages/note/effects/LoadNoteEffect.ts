@@ -1,5 +1,5 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { Effect, EffectFactory } from '../../../redux';
+import { Effect } from '../../../redux';
 import { NoteAction, noteActions, NoteGlobalState } from '../note-type';
 import { LoadNote } from '../useCases/LoadNote';
 
@@ -15,14 +15,10 @@ interface LoadNoteEffectContext {
 export interface LoadNoteEffect
   extends Effect<NoteGlobalState, NoteAction, LoadNoteEffectInput> {}
 
-export interface LoadNoteEffectFactory
-  extends EffectFactory<LoadNoteEffect, LoadNoteEffectContext> {}
-
-export const createLoadNoteEffect: LoadNoteEffectFactory = ({ loadNote }) => {
-  const loadNoteEffect: LoadNoteEffect = ({
-    userId,
-    noteId,
-  }) => async dispatch => {
+export function createLoadNoteEffect({
+  loadNote,
+}: LoadNoteEffectContext): LoadNoteEffect {
+  return ({ userId, noteId }) => async dispatch => {
     if (isNull(userId)) {
       return;
     }
@@ -33,5 +29,4 @@ export const createLoadNoteEffect: LoadNoteEffectFactory = ({ loadNote }) => {
 
     dispatch(noteActions.loadSuccess(note));
   };
-  return loadNoteEffect;
-};
+}

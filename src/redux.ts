@@ -77,7 +77,3 @@ export type Effect<
       getState: () => State,
       context: Context,
     ) => any;
-
-export type EffectFactory<TEffect, Context> = Context extends void
-  ? () => TEffect
-  : (context: Context) => TEffect;

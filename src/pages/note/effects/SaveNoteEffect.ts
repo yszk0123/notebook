@@ -1,6 +1,6 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { EditorContent } from '../../../modules/editor';
-import { Effect, EffectFactory } from '../../../redux';
+import { Effect } from '../../../redux';
 import { sleep } from '../../../utils/sleep';
 import { NoteAction, noteActions, NoteGlobalState } from '../note-type';
 import { SaveNote } from '../useCases/SaveNote';
@@ -20,15 +20,10 @@ interface SaveNoteEffectContext {
 export interface SaveNoteEffect
   extends Effect<NoteGlobalState, NoteAction, SaveNoteEffectInput> {}
 
-export interface SaveNoteEffectFactory
-  extends EffectFactory<SaveNoteEffect, SaveNoteEffectContext> {}
-
-export const createSaveNoteEffect: SaveNoteEffectFactory = ({ saveNote }) => {
-  const saveNoteEffect: SaveNoteEffect = ({
-    userId,
-    noteId,
-    content,
-  }) => async dispatch => {
+export function createSaveNoteEffect({
+  saveNote,
+}: SaveNoteEffectContext): SaveNoteEffect {
+  return ({ userId, noteId, content }) => async dispatch => {
     if (isNull(userId) || isNull(content)) {
       return;
     }
@@ -48,5 +43,4 @@ export const createSaveNoteEffect: SaveNoteEffectFactory = ({ saveNote }) => {
 
     dispatch(noteActions.saveSuccess());
   };
-  return saveNoteEffect;
-};
+}
