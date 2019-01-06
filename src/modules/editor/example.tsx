@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ResetStyle } from '../../components/ResetStyle';
 import { ThemeProvider } from '../../styled-components';
-import { defaultTheme } from '../../theme/theme';
+import { defaultTheme } from '../../theme/DefaultTheme';
 import { printError } from '../../utils/printError';
 import { createSchema } from './DefaultPlugin';
 import { EditorContainer } from './EditorContainer';

@@ -13,7 +13,7 @@ import { Dispatch } from '../redux';
 import { routingEffects } from '../routing';
 import { Page } from '../routing/routing-type';
 import { ThemeProvider } from '../styled-components';
-import { defaultTheme } from '../theme/theme';
+import { defaultTheme } from '../theme/DefaultTheme';
 import { restoreValueFromGlobalForDevelopment } from '../utils/restoreValueFromGlobalForDevelopment';
 import { unwrapUnsafeValue } from '../utils/unwrapUnsafeValue';
 import { AppAction } from './app-type';
