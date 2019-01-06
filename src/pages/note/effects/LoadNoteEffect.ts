@@ -1,7 +1,7 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { Effect, EffectFactory } from '../../../redux';
 import { NoteAction, noteActions, NoteGlobalState } from '../note-type';
-import { LoadNoteUseCase } from '../useCases/LoadNoteUseCase';
+import { LoadNote } from '../useCases/LoadNote';
 
 export interface LoadNoteEffectInput {
   userId: Nullable<string>;
@@ -9,7 +9,7 @@ export interface LoadNoteEffectInput {
 }
 
 interface LoadNoteEffectContext {
-  loadNote: LoadNoteUseCase;
+  loadNote: LoadNote;
 }
 
 export interface LoadNoteEffect

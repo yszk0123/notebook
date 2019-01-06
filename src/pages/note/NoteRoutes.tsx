@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from '../../routing/routing-type';
-import { createLoadNote, LoadNoteUseCase } from './useCases/LoadNoteUseCase';
-import { createSaveNote, SaveNoteUseCase } from './useCases/SaveNoteUseCase';
+import { createLoadNote } from './useCases/LoadNote';
+import { createSaveNote } from './useCases/SaveNote';
 
 export const noteRoutes: Array<Route> = [
   {
@@ -9,8 +9,8 @@ export const noteRoutes: Array<Route> = [
     title: 'Note',
     async action({ firestore }) {
       const { NoteContainer } = await import('./NoteContainer');
-      const loadNote: LoadNoteUseCase = createLoadNote({ firestore });
-      const saveNote: SaveNoteUseCase = createSaveNote({ firestore });
+      const loadNote = createLoadNote({ firestore });
+      const saveNote = createSaveNote({ firestore });
 
       return {
         content: <NoteContainer loadNote={loadNote} saveNote={saveNote} />,

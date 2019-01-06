@@ -6,15 +6,13 @@ interface SaveNoteInput {
   note: Note;
 }
 
-export interface SaveNoteUseCase extends UseCase<SaveNoteInput, void> {}
+export interface SaveNote extends UseCase<SaveNoteInput, void> {}
 
 interface SaveNoteContext {
   firestore: firebase.firestore.Firestore;
 }
 
-export function createSaveNote({
-  firestore,
-}: SaveNoteContext): SaveNoteUseCase {
+export function createSaveNote({ firestore }: SaveNoteContext): SaveNote {
   return async (input: SaveNoteInput) => {
     const userRef = firestore.collection('users').doc(input.userId);
     const noteRef = userRef.collection('notes').doc(input.note.id);

@@ -13,12 +13,9 @@ interface LoadNoteContext {
   firestore: firebase.firestore.Firestore;
 }
 
-export interface LoadNoteUseCase
-  extends UseCase<[LoadNoteInput], Nullable<Note>> {}
+export interface LoadNote extends UseCase<[LoadNoteInput], Nullable<Note>> {}
 
-export function createLoadNote({
-  firestore,
-}: LoadNoteContext): LoadNoteUseCase {
+export function createLoadNote({ firestore }: LoadNoteContext): LoadNote {
   return async input => {
     const userRef = firestore.collection('users').doc(input.userId);
     const noteRef = userRef.collection('notes').doc(input.noteId);

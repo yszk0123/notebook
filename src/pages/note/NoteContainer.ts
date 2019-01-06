@@ -5,12 +5,12 @@ import { NotePage } from './components/NotePage';
 import { CopyTextEffect, createCopyTextEffect } from './effects/CopyTextEffect';
 import { createLoadNoteEffect, LoadNoteEffect } from './effects/LoadNoteEffect';
 import { createSaveNoteEffect, SaveNoteEffect } from './effects/SaveNoteEffect';
-import { LoadNoteUseCase } from './useCases/LoadNoteUseCase';
-import { SaveNoteUseCase } from './useCases/SaveNoteUseCase';
+import { LoadNote } from './useCases/LoadNote';
+import { SaveNote } from './useCases/SaveNote';
 
 interface OwnProps {
-  loadNote: LoadNoteUseCase;
-  saveNote: SaveNoteUseCase;
+  loadNote: LoadNote;
+  saveNote: SaveNote;
 }
 
 function mapState(state: AppState) {

@@ -3,7 +3,7 @@ import { EditorContent } from '../../../modules/editor';
 import { Effect, EffectFactory } from '../../../redux';
 import { sleep } from '../../../utils/sleep';
 import { NoteAction, noteActions, NoteGlobalState } from '../note-type';
-import { SaveNoteUseCase } from '../useCases/SaveNoteUseCase';
+import { SaveNote } from '../useCases/SaveNote';
 
 const SAVE_DELAY = 750;
 
@@ -14,7 +14,7 @@ interface SaveNoteEffectInput {
 }
 
 interface SaveNoteEffectContext {
-  saveNote: SaveNoteUseCase;
+  saveNote: SaveNote;
 }
 
 export interface SaveNoteEffect

@@ -5,10 +5,3 @@ export type UseCase<Input, Output> = Input extends Array<any>
   : (input: Input) => Promise<Output>;
 
 export type UseCaseContext = any;
-
-export interface UseCaseFactory<
-  U extends UseCase<any, any>,
-  C extends UseCaseContext
-> {
-  (context: C): U;
-}
