@@ -1,9 +1,9 @@
 import React from 'react';
 import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
 import { VerticalStackLayout } from '../../../app/components/layouts/VerticalStackLayout';
+import { styled } from '../../../app/styled-components';
 import { Button } from '../../../components/Button';
 import { Text } from '../../../components/Text';
-import { styled } from '../../../styled-components';
 
 const Layout = styled(CenterLayout)`
   margin-top: ${({ theme }) => theme.space};

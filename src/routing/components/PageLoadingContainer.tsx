@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { CenterLayout } from '../../app/components/layouts/CenterLayout';
 import { FullLayout } from '../../app/components/layouts/FullLayout';
+import { styled } from '../../app/styled-components';
 import { Icon } from '../../components/Icon';
-import { styled } from '../../styled-components';
 import { Page, RoutingGlobalState } from '../routing-type';
 
 interface Props {

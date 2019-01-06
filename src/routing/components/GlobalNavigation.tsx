@@ -1,12 +1,12 @@
 import { Nullable } from 'option-t/lib/Nullable';
 import React, { useCallback, useContext, useState } from 'react';
 import { connect } from 'react-redux';
+import { HistoryContext } from '../../app/HistoryContext';
+import { css, styled } from '../../app/styled-components';
 import { DropDownMenu } from '../../components/DropDownMenu';
 import { MenuIcon } from '../../components/icons/MenuIcon';
 import { Text } from '../../components/Text';
 import { routingPaths } from '../../config/RoutingConfig';
-import { HistoryContext } from '../../HistoryContext';
-import { css, styled } from '../../styled-components';
 import { RoutingGlobalState, RoutingUser } from '../routing-type';
 import { NavLink } from './NavLink';
 

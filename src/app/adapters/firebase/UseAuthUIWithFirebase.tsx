@@ -1,7 +1,7 @@
 import firebaseui from 'firebaseui';
 import { useContext, useEffect } from 'react';
 import { firebaseAuthUIConfig } from '../../../config/firebaseAuthUIConfig';
-import { FirebaseAppContext } from '../../../FirebaseAppContext';
+import { FirebaseAppContext } from '../../FirebaseAppContext';
 import { UseAuthUI } from '../../UseAuthUI';
 
 export const useAuthUI: UseAuthUI = ref => {

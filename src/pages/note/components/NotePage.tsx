@@ -6,6 +6,7 @@ import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
 import { VerticalStackItemLayout } from '../../../app/components/layouts/VerticalStackItemLayout';
 import { VerticalStackLayout } from '../../../app/components/layouts/VerticalStackLayout';
 import { VirtualKeyboardSpacer } from '../../../app/components/layouts/VirtualKeyboardSpacer';
+import { styled } from '../../../app/styled-components';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
@@ -20,7 +21,6 @@ import {
   serializeEditorState,
   useEditor,
 } from '../../../modules/editor';
-import { styled } from '../../../styled-components';
 import { FontSize } from '../../../theme/Theme';
 import { stickToTop } from '../../../utils/stickToTop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';

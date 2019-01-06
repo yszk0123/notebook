@@ -1,4 +1,4 @@
-import { Effect } from '../../../redux';
+import { Effect } from '../../../app/redux';
 import { copyToClipboard } from '../../../utils/copyToClipboard';
 import { NoteAction, noteActions, NoteGlobalState } from '../note-type';
 

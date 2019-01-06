@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
+import { HistoryContext } from '../../app/HistoryContext';
 import { Text } from '../../components/Text';
-import { HistoryContext } from '../../HistoryContext';
 import { getCurrentPath } from '../utils/getCurrentPath';
 import { Link } from './Link';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { GlobalNavigation } from '../../../routing/components/GlobalNavigation';
 import { GlobalNavigationSpacer } from '../../../routing/components/GlobalNavigationSpacer';
-import { styled } from '../../../styled-components';
+import { styled } from '../../styled-components';
 
 const FullLayoutWrapper = styled.div`
   display: flex;

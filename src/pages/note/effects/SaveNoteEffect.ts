@@ -1,6 +1,6 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
+import { Effect } from '../../../app/redux';
 import { EditorContent } from '../../../modules/editor';
-import { Effect } from '../../../redux';
 import { sleep } from '../../../utils/sleep';
 import { NoteAction, noteActions, NoteGlobalState } from '../note-type';
 import { SaveNote } from '../useCases/SaveNote';

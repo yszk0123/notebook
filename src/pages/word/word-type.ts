@@ -1,5 +1,5 @@
+import { createAction, GetAction } from '../../app/redux';
 import { Word, WordId } from '../../models/Word';
-import { createAction, GetAction } from '../../redux';
 
 export const enum WordActionType {
   ADD = 'word/ADD',

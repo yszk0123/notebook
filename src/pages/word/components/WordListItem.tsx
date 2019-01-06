@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { styled } from '../../../app/styled-components';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Word } from '../../../models/Word';
-import { styled } from '../../../styled-components';
 import { Picker } from './Picker';
 
 const Layout = styled.div`

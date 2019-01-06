@@ -1,5 +1,5 @@
 import * as styledComponents from 'styled-components';
-import { ThemeInterface } from './theme/Theme';
+import { ThemeInterface } from '../theme/Theme';
 
 const {
   default: styled,

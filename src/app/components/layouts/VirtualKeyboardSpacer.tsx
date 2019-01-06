@@ -1,4 +1,4 @@
-import { styled } from '../../../styled-components';
+import { styled } from '../../styled-components';
 
 const VIRTUAL_KEYBOARD_HEIGHT = 216 + 48; // Ugly hack...
 

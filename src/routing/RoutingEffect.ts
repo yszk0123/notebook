@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/app';
 import { isNotNull, Nullable } from 'option-t/lib/Nullable';
-import { Effect } from '../redux';
+import { Effect } from '../app/redux';
 import { unwrapDocumentSnapshot } from '../utils/unwrapDocumentSnapshot';
 import {
   RoutingAction,

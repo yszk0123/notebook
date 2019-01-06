@@ -1,4 +1,4 @@
-import { Effect } from '../../redux';
+import { Effect } from '../../app/redux';
 import {
   CounterAction,
   counterActions,

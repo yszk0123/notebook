@@ -1,7 +1,7 @@
 import { format, getTime } from 'date-fns';
 import React, { useCallback, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { styled } from '../../../styled-components';
+import { styled } from '../../../app/styled-components';
 import { noop } from '../../../utils/noop';
 
 const DateText = styled.div`

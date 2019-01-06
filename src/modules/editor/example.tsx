@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ThemeProvider } from '../../app/styled-components';
 import { ResetStyle } from '../../components/ResetStyle';
-import { ThemeProvider } from '../../styled-components';
 import { defaultTheme } from '../../theme/DefaultTheme';
 import { printError } from '../../utils/printError';
 import { createSchema } from './DefaultPlugin';
