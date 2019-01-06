@@ -5,22 +5,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import UniversalRouter from 'universal-router';
-import { ResetStyle } from '../components/ResetStyle';
-import { firebaseConfig } from '../config/firebaseConfig';
-import { FirebaseAppProvider } from '../FirebaseAppContext';
-import { HistoryProvider } from '../HistoryContext';
-import { Dispatch } from '../redux';
-import { routingEffects } from '../routing';
-import { Page } from '../routing/routing-type';
-import { ThemeProvider } from '../styled-components';
-import { defaultTheme } from '../theme/DefaultTheme';
-import { restoreValueFromGlobalForDevelopment } from '../utils/restoreValueFromGlobalForDevelopment';
-import { unwrapUnsafeValue } from '../utils/unwrapUnsafeValue';
-import { AppAction } from './app-type';
+import { AppAction } from './app/app-type';
+import { PageContainer } from './app/components/PageContainer';
+import { resolveRoute } from './AppRouteResolver';
 import { appRoutes } from './AppRoutes';
-import { PageContainer } from './components/PageContainer';
-import { createStore } from './createStore';
-import { resolveRoute } from './RouteResolver';
+import { createStore } from './AppStoreFactory';
+import { ResetStyle } from './components/ResetStyle';
+import { firebaseConfig } from './config/firebaseConfig';
+import { FirebaseAppProvider } from './FirebaseAppContext';
+import { HistoryProvider } from './HistoryContext';
+import { Dispatch } from './redux';
+import { routingEffects } from './routing';
+import { Page } from './routing/routing-type';
+import { ThemeProvider } from './styled-components';
+import { defaultTheme } from './theme/DefaultTheme';
+import { restoreValueFromGlobalForDevelopment } from './utils/restoreValueFromGlobalForDevelopment';
+import { unwrapUnsafeValue } from './utils/unwrapUnsafeValue';
 
 function init() {
   if (process.env.NODE_ENV === 'development') {

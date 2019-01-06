@@ -2,9 +2,9 @@ import { applyMiddleware, createStore as createReduxStore, Store } from 'redux';
 // @ts-ignore
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
+import { appReducer } from '../../AppReducer';
 import { restoreValueFromGlobalForDevelopment } from '../../utils/restoreValueFromGlobalForDevelopment';
 import { AppAction, AppState } from '../app-type';
-import { appReducer } from '../AppReducer';
 
 declare global {
   interface Window {
