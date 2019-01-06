@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import { createWord } from '../../../models/Word';
+import { createWord } from '../entities/Word';
 import { wordActions } from '../word-type';
 import { WordEffectCreator } from './WordEffectType';
 

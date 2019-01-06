@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from '../../../app/styled-components';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
-import { Word } from '../../../models/Word';
+import { Word } from '../entities/Word';
 import { Picker } from './Picker';
 
 const Layout = styled.div`

@@ -1,8 +1,8 @@
 import { difference, pull, uniq } from 'lodash';
 import { Reducer } from 'redux';
-import { WordId } from '../../models/Word';
 import { createRecord } from '../../utils/createRecord';
 import { updateState } from '../../utils/updateState';
+import { WordId } from './entities/Word';
 import { WordAction, WordActionType, WordLocalState } from './word-type';
 
 const initialState: WordLocalState = {

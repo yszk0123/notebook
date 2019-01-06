@@ -7,10 +7,10 @@ import { VerticalStackItemLayout } from '../../../app/components/layouts/Vertica
 import { VerticalStackLayout } from '../../../app/components/layouts/VerticalStackLayout';
 import { VirtualKeyboardSpacer } from '../../../app/components/layouts/VirtualKeyboardSpacer';
 import { styled } from '../../../app/styled-components';
+import { FontSize } from '../../../app/theme/Theme';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
-import { Note } from '../../../models/Note';
 import {
   createMenuItems,
   createSchema,
@@ -21,13 +21,13 @@ import {
   serializeEditorState,
   useEditor,
 } from '../../../modules/editor';
-import { FontSize } from '../../../theme/Theme';
 import { stickToTop } from '../../../utils/stickToTop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
 import { CopyTextEffect } from '../effects/CopyTextEffect';
 import { LoadNoteEffect } from '../effects/LoadNoteEffect';
 import { SaveNoteEffect } from '../effects/SaveNoteEffect';
+import { Note } from '../entities/Note';
 
 const CHANGE_DELAY = 4000;
 

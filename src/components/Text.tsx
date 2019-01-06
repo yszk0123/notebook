@@ -1,5 +1,5 @@
 import { styled } from '../app/styled-components';
-import { FontSize } from '../theme/Theme';
+import { FontSize } from '../app/theme/Theme';
 
 interface Props {
   bold?: boolean;

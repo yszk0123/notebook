@@ -1,8 +1,8 @@
 import * as firebase from 'firebase/app';
 import { Nullable } from 'option-t/lib/Nullable';
 import { UseCase } from '../../../app/type';
-import { Note } from '../../../models/Note';
 import { unwrapDocumentSnapshot } from '../../../utils/unwrapDocumentSnapshot';
+import { Note } from '../entities/Note';
 
 interface LoadNoteInput {
   userId: string;

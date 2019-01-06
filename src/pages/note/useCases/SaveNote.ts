@@ -1,5 +1,5 @@
 import { UseCase } from '../../../app/type';
-import { Note } from '../../../models/Note';
+import { Note } from '../entities/Note';
 
 interface SaveNoteInput {
   userId: string;

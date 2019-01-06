@@ -1,6 +1,6 @@
 import { Nullable } from 'option-t/lib/Nullable';
 import { createAction, GetAction } from '../../app/redux';
-import { Note } from '../../models/Note';
+import { Note } from './entities/Note';
 
 export const enum NoteActionType {
   COPY_TEXT = 'note/COPY_TEXT',
