@@ -1,4 +1,4 @@
-import { ColorPalette, FontSize, ThemeInterface } from './theme-type';
+import { ColorPalette, FontSize, ThemeInterface } from './Theme';
 
 export const defaultTheme: ThemeInterface = {
   activeOpacity: 1,

@@ -23,7 +23,7 @@ import {
 } from '../../../modules/editor';
 import { EditorContent } from '../../../modules/editor/editor-type';
 import { styled } from '../../../styled-components';
-import { FontSize } from '../../../theme/theme-type';
+import { FontSize } from '../../../theme/Theme';
 import { stickToTop } from '../../../utils/stickToTop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
