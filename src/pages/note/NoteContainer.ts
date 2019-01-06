@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { AppState } from '../../app/app-type';
+import { RoutingGlobalState } from '../../routing/routing-type';
 import { NotePage } from './components/NotePage';
 import { CopyTextEffect, createCopyTextEffect } from './effects/CopyTextEffect';
 import { createLoadNoteEffect, LoadNoteEffect } from './effects/LoadNoteEffect';
 import { createSaveNoteEffect, SaveNoteEffect } from './effects/SaveNoteEffect';
+import { NoteGlobalState } from './note-type';
 import { LoadNote } from './useCases/LoadNote';
 import { SaveNote } from './useCases/SaveNote';
 
@@ -13,7 +14,9 @@ interface OwnProps {
   saveNote: SaveNote;
 }
 
-function mapState(state: AppState) {
+interface State extends NoteGlobalState, RoutingGlobalState {}
+
+function mapState(state: State) {
   const { saving, note } = state.note;
   const { loading, user } = state.routing;
 

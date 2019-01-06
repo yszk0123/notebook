@@ -38,3 +38,7 @@ export interface RoutingState {
   loading: boolean;
   user: Nullable<User>;
 }
+
+export interface RoutingGlobalState {
+  routing: RoutingState;
+}
