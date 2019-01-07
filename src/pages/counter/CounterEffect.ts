@@ -1,13 +1,10 @@
 import { Effect } from '../../app/redux';
-import {
-  CounterAction,
-  counterActions,
-  CounterGlobalState,
-} from './counter-type';
+import { CounterAction, counterActions } from './CounterActions';
+import { CounterGlobalState } from './CounterState';
 
-type CounterEffectCreator = Effect<CounterGlobalState, CounterAction>;
+interface CounterEffect extends Effect<CounterGlobalState, CounterAction> {}
 
-const incrementByTen: CounterEffectCreator = () => async dispatch => {
+const incrementByTen: CounterEffect = () => async dispatch => {
   dispatch(counterActions.incrementBy(9));
   dispatch(counterActions.increment());
 };

@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
 import { RoutingGlobalState } from '../../app/routing/routing-type';
 import { CounterPage } from './components/CounterPage';
-import { counterActions, CounterGlobalState } from './counter-type';
+import { counterActions } from './CounterActions';
 import { counterEffects } from './CounterEffect';
+import { CounterGlobalState } from './CounterState';
 
 interface State extends CounterGlobalState, RoutingGlobalState {}
 
 function mapState(state: State) {
   const { count } = state.counter;
   const { loading } = state.routing;
+
   return {
     count,
     loading,

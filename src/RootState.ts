@@ -1,5 +1,5 @@
 import { RoutingGlobalState } from './app/routing/routing-type';
-import { CounterGlobalState } from './pages/counter/counter-type';
+import { CounterGlobalState } from './pages/counter';
 import { NoteGlobalState } from './pages/note';
 import { WordGlobalState } from './pages/word/word-type';
 
