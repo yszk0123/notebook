@@ -1,6 +1,7 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { Effect } from '../../../app/redux';
-import { NoteAction, noteActions, NoteGlobalState } from '../note-type';
+import { NoteGlobalState } from '../note-type';
+import { NoteAction, noteActions } from '../NoteActions';
 import { LoadNote } from '../useCases/LoadNote';
 
 export interface LoadNoteEffectInput {

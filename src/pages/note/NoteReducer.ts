@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
-import { NoteAction, NoteActionType, NoteLocalState } from './note-type';
+import { NoteLocalState } from './note-type';
+import { NoteAction, NoteActionType } from './NoteActions';
 
 const initialState: NoteLocalState = {
   loading: true,
