@@ -43,6 +43,18 @@ export function createAction(type, extraFunction?) {
   };
 }
 
+export function createActionWithPayload<Type extends string, Payload>(
+  type: Type,
+): ActionCreator<[Payload], Action<Type, { payload: Payload }>> {
+  function actionCreator(payload: Payload): Action<Type, { payload: Payload }> {
+    return {
+      payload,
+      type,
+    };
+  }
+  return actionCreator;
+}
+
 export type Dispatch<TAction> = ((
   // tslint:disable-next-line:no-any
   action: TAction | ((...args: Array<any>) => unknown),

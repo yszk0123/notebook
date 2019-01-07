@@ -1,4 +1,8 @@
-import { createAction, GetAction } from '../../app/redux';
+import {
+  createAction,
+  createActionWithPayload,
+  GetAction,
+} from '../../app/redux';
 import { Word, WordId } from './entities/Word';
 
 export const enum WordActionType {
@@ -16,54 +20,131 @@ export const enum WordActionType {
   SAVE_ALL_SUCCESS = 'word/SAVE_ALL_SUCCESS',
 }
 
+interface AddPayload {
+  userId: string;
+  content: string;
+}
+interface Add {
+  type: WordActionType.ADD;
+  payload: AddPayload;
+}
+function add(payload: AddPayload): Add {
+  return {
+    payload,
+    type: WordActionType.ADD,
+  };
+}
+
+interface AddSuccessPayload {
+  userId: string;
+  word: Word;
+}
+interface AddSuccess {
+  type: WordActionType.ADD_SUCCESS;
+  payload: AddSuccessPayload;
+}
+function addSuccess(payload: AddSuccessPayload): AddSuccess {
+  return {
+    payload,
+    type: WordActionType.ADD_SUCCESS,
+  };
+}
+
+const load = createAction(WordActionType.LOAD);
+
+interface LoadSuccessPayload {
+  words: Array<Word>;
+}
+const loadSuccess = createActionWithPayload<
+  WordActionType.LOAD_SUCCESS,
+  LoadSuccessPayload
+>(WordActionType.LOAD_SUCCESS);
+
+interface RemovePayload {
+  userId: string;
+  word: Word;
+}
+const remove = createActionWithPayload<WordActionType.REMOVE, RemovePayload>(
+  WordActionType.REMOVE,
+);
+
+interface RemoveSuccessPayload {
+  userId: string;
+  removedWordId: WordId;
+}
+const removeSuccess = createActionWithPayload<
+  WordActionType.REMOVE_SUCCESS,
+  RemoveSuccessPayload
+>(WordActionType.REMOVE_SUCCESS);
+
+interface SaveSuccessPayload {
+  userId: string;
+  word: Word;
+}
+const saveSuccess = createActionWithPayload<
+  WordActionType.SAVE_SUCCESS,
+  SaveSuccessPayload
+>(WordActionType.SAVE_SUCCESS);
+
+interface SavePayload {
+  userId: string;
+  word: Word;
+}
+const save = createActionWithPayload<WordActionType.SAVE, SavePayload>(
+  WordActionType.SAVE,
+);
+
+interface SaveAllPayload {
+  userId: string;
+  words: Array<Word>;
+}
+const saveAll = createActionWithPayload<
+  WordActionType.SAVE_ALL,
+  SaveAllPayload
+>(WordActionType.SAVE_ALL);
+
+interface SaveAllSuccessPayload {
+  userId: string;
+  words: Array<Word>;
+}
+const saveAllSuccess = createActionWithPayload<
+  WordActionType.SAVE_ALL_SUCCESS,
+  SaveAllSuccessPayload
+>(WordActionType.SAVE_ALL_SUCCESS);
+
+interface UpdateContentPayload {
+  userId: string;
+  word: Word;
+  content: string;
+}
+const updateContent = createActionWithPayload<
+  WordActionType.UPDATE_CONTENT,
+  UpdateContentPayload
+>(WordActionType.UPDATE_CONTENT);
+
+interface UpdateCreatedAtPayload {
+  userId: string;
+  word: Word;
+  createdAt: number;
+}
+const updateCreatedAt = createActionWithPayload<
+  WordActionType.UPDATE_CREATED_AT,
+  UpdateCreatedAtPayload
+>(WordActionType.UPDATE_CREATED_AT);
+
 export const wordActions = {
-  add: createAction(
-    WordActionType.ADD,
-    (payload: { userId: string; content: string }) => ({ payload }),
-  ),
-  addSuccess: createAction(
-    WordActionType.ADD_SUCCESS,
-    (payload: { userId: string; word: Word }) => ({ payload }),
-  ),
-  load: createAction(WordActionType.LOAD),
-  loadSuccess: createAction(
-    WordActionType.LOAD_SUCCESS,
-    (payload: { words: Array<Word> }) => ({ payload }),
-  ),
-  remove: createAction(
-    WordActionType.REMOVE,
-    (payload: { userId: string; word: Word }) => ({ payload }),
-  ),
-  removeSuccess: createAction(
-    WordActionType.REMOVE_SUCCESS,
-    (payload: { userId: string; removedWordId: WordId }) => ({ payload }),
-  ),
-  save: createAction(
-    WordActionType.SAVE,
-    (payload: { userId: string; word: Word }) => ({ payload }),
-  ),
-  saveAll: createAction(
-    WordActionType.SAVE_ALL,
-    (payload: { userId: string; words: Array<Word> }) => ({ payload }),
-  ),
-  saveAllSuccess: createAction(
-    WordActionType.SAVE_ALL_SUCCESS,
-    (payload: { userId: string; words: Array<Word> }) => ({ payload }),
-  ),
-  saveSuccess: createAction(
-    WordActionType.SAVE_SUCCESS,
-    (payload: { userId: string; word: Word }) => ({ payload }),
-  ),
-  updateContent: createAction(
-    WordActionType.UPDATE_CONTENT,
-    (payload: { userId: string; word: Word; content: string }) => ({ payload }),
-  ),
-  updateCreatedAt: createAction(
-    WordActionType.UPDATE_CREATED_AT,
-    (payload: { userId: string; word: Word; createdAt: number }) => ({
-      payload,
-    }),
-  ),
+  add,
+  addSuccess,
+  load,
+  loadSuccess,
+  remove,
+  removeSuccess,
+  save,
+  saveAll,
+  saveAllSuccess,
+  saveSuccess,
+  updateContent,
+  updateCreatedAt,
 };
 
 export type WordAction = GetAction<typeof wordActions>;
