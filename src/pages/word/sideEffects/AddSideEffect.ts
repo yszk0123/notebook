@@ -16,7 +16,9 @@ async function doAdd(input: AddInput, db: firebase.firestore.Firestore) {
   return word;
 }
 
-export const add: WordSideEffect<[AddInput]> = input => async dispatch => {
+export const addSideEffect: WordSideEffect<
+  AddInput
+> = input => async dispatch => {
   dispatch(wordActions.add(input));
 
   const db = firebase.firestore();

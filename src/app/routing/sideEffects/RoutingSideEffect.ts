@@ -1,9 +1,9 @@
 import * as firebase from 'firebase/app';
 import { isNotNull, Nullable } from 'option-t/lib/Nullable';
-import { unwrapDocumentSnapshot } from '../../utils/unwrapDocumentSnapshot';
-import { SideEffect } from '../redux';
-import { RoutingAction, routingActions } from './RoutingActions';
-import { RoutingGlobalState } from './RoutingState';
+import { unwrapDocumentSnapshot } from '../../../utils/unwrapDocumentSnapshot';
+import { SideEffect } from '../../redux';
+import { RoutingAction, routingActions } from '../RoutingActions';
+import { RoutingGlobalState } from '../RoutingState';
 
 type RoutingSideEffect<Args> = SideEffect<
   RoutingGlobalState,

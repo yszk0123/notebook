@@ -28,7 +28,9 @@ async function doLoad(
   return words;
 }
 
-export const load: WordSideEffect<[LoadInput]> = input => async dispatch => {
+export const loadSideEffect: WordSideEffect<
+  LoadInput
+> = input => async dispatch => {
   dispatch(wordActions.load());
 
   const db = firebase.firestore();

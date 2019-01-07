@@ -27,8 +27,8 @@ async function doSaveAll(
   );
 }
 
-export const saveAll: WordSideEffect<
-  [SaveAllInput]
+export const saveAllSideEffect: WordSideEffect<
+  SaveAllInput
 > = input => async dispatch => {
   dispatch(wordActions.saveAll(input));
 

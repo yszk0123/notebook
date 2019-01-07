@@ -1,33 +1,33 @@
 import * as firebase from 'firebase/app';
+import { sleep } from '../../../utils/sleep';
 import { Word } from '../entities/Word';
 import { wordActions } from '../WordActions';
 import { WordSideEffect } from './WordSideEffectType';
 
-interface RemoveInput {
+const SAVE_DELAY = 500;
+
+interface SaveInput {
   userId: string;
   word: Word;
 }
 
-async function doRemove(input: RemoveInput, db: firebase.firestore.Firestore) {
+async function doSave(input: SaveInput, db: firebase.firestore.Firestore) {
   const userRef = db.collection('users').doc(input.userId);
   const wordRef = userRef.collection('words').doc(input.word.id);
-  await wordRef.delete();
+  await wordRef.set(input.word);
 }
 
-export const remove: WordSideEffect<
-  [RemoveInput]
+export const saveSideEffect: WordSideEffect<
+  SaveInput
 > = input => async dispatch => {
-  dispatch(wordActions.remove(input));
+  dispatch(wordActions.save(input));
 
   const db = firebase.firestore();
   db.settings({ timestampsInSnapshots: true });
 
-  await doRemove(input, db);
+  await doSave(input, db);
 
-  dispatch(
-    wordActions.removeSuccess({
-      removedWordId: input.word.id,
-      userId: input.userId,
-    }),
-  );
+  await sleep(SAVE_DELAY);
+
+  dispatch(wordActions.saveSuccess(input));
 };

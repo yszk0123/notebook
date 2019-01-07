@@ -11,9 +11,13 @@ import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
 import { useDebouncedEffect } from '../../../utils/useDebouncedEffect';
 import { Word } from '../entities/Word';
+import { addSideEffect } from '../sideEffects/AddSideEffect';
+import { loadSideEffect } from '../sideEffects/LoadSideEffect';
+import { removeSideEffect } from '../sideEffects/RemoveSideEffect';
+import { saveAllSideEffect } from '../sideEffects/SaveAllSideEffect';
+import { saveSideEffect } from '../sideEffects/SaveSideEffect';
 import { wordActions } from '../WordActions';
 import { getOutdatedWords, getWords } from '../WordSelectors';
-import { wordSideEffects } from '../WordSideEffect';
 import { WordGlobalState } from '../WordState';
 import { WordListItem } from './WordListItem';
 
@@ -88,7 +92,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      dispatch(wordSideEffects.load({ userId }));
+      dispatch(loadSideEffect({ userId }));
     },
     [userId],
   );
@@ -99,7 +103,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      dispatch(wordSideEffects.load({ userId }));
+      dispatch(loadSideEffect({ userId }));
     },
     [userId],
   );
@@ -114,7 +118,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         word,
       };
-      dispatch(wordSideEffects.save(input));
+      dispatch(saveSideEffect(input));
     },
     [userId, dispatch],
   );
@@ -130,7 +134,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         words: outdatedWords,
       };
-      dispatch(wordSideEffects.saveAll(input));
+      dispatch(saveAllSideEffect(input));
     },
     CHANGE_DELAY,
     [dispatch, userId, outdatedWords],
@@ -174,7 +178,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      dispatch(wordSideEffects.add({ userId, content: '' }));
+      dispatch(addSideEffect({ userId, content: '' }));
     },
     [dispatch, userId],
   );
@@ -189,7 +193,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         word,
       };
-      dispatch(wordSideEffects.remove(input));
+      dispatch(removeSideEffect(input));
     },
     [dispatch, userId],
   );
