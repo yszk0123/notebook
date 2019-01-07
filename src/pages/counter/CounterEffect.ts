@@ -5,7 +5,7 @@ import { CounterGlobalState } from './CounterState';
 interface CounterEffect extends Effect<CounterGlobalState, CounterAction> {}
 
 const incrementByTen: CounterEffect = () => async dispatch => {
-  dispatch(counterActions.incrementBy(9));
+  dispatch(counterActions.incrementBy({ n: 9 }));
   dispatch(counterActions.increment());
 };
 
