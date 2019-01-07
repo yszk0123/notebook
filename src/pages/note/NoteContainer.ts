@@ -5,7 +5,7 @@ import { NotePage } from './components/NotePage';
 import { CopyTextEffect, createCopyTextEffect } from './effects/CopyTextEffect';
 import { createLoadNoteEffect, LoadNoteEffect } from './effects/LoadNoteEffect';
 import { createSaveNoteEffect, SaveNoteEffect } from './effects/SaveNoteEffect';
-import { NoteGlobalState } from './note-type';
+import { NoteGlobalState } from './NoteState';
 import { LoadNote } from './useCases/LoadNote';
 import { SaveNote } from './useCases/SaveNote';
 

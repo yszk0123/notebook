@@ -1,7 +1,7 @@
 import { Effect } from '../../../app/redux';
 import { copyToClipboard } from '../../../utils/copyToClipboard';
-import { NoteGlobalState } from '../note-type';
 import { NoteAction, noteActions } from '../NoteActions';
+import { NoteGlobalState } from '../NoteState';
 
 interface CopyTextInput {
   text: string;

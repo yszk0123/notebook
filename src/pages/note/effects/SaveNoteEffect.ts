@@ -2,8 +2,8 @@ import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { Effect } from '../../../app/redux';
 import { EditorContent } from '../../../modules/editor';
 import { sleep } from '../../../utils/sleep';
-import { NoteGlobalState } from '../note-type';
 import { NoteAction, noteActions } from '../NoteActions';
+import { NoteGlobalState } from '../NoteState';
 import { SaveNote } from '../useCases/SaveNote';
 
 const SAVE_DELAY = 750;
