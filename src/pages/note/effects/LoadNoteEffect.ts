@@ -28,6 +28,6 @@ export function createLoadNoteEffect({
 
     const note = await loadNote({ userId, noteId });
 
-    dispatch(noteActions.loadSuccess(note));
+    dispatch(noteActions.loadSuccess({ note }));
   };
 }

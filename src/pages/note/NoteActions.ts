@@ -30,16 +30,10 @@ const load = createAction(NoteActionType.LOAD);
 interface LoadSuccessPayload {
   note: Nullable<Note>;
 }
-interface LoadSuccess {
-  type: NoteActionType.LOAD_SUCCESS;
-  payload: LoadSuccessPayload;
-}
-function loadSuccess(note: Nullable<Note>): LoadSuccess {
-  return {
-    payload: { note },
-    type: NoteActionType.LOAD_SUCCESS,
-  };
-}
+const loadSuccess = createActionWithPayload<
+  LoadSuccessPayload,
+  NoteActionType.LOAD_SUCCESS
+>(NoteActionType.LOAD_SUCCESS);
 
 const save = createAction(NoteActionType.SAVE);
 
