@@ -63,7 +63,7 @@ export type Dispatch<TAction> = ((
 /**
  * Alias for async action creator
  */
-export type Effect<
+export type SideEffect<
   State,
   TAction extends AnyAction,
   Args = void,

@@ -1,11 +1,15 @@
 import * as firebase from 'firebase/app';
 import { isNotNull, Nullable } from 'option-t/lib/Nullable';
 import { unwrapDocumentSnapshot } from '../../utils/unwrapDocumentSnapshot';
-import { Effect } from '../redux';
+import { SideEffect } from '../redux';
 import { RoutingAction, routingActions } from './RoutingActions';
 import { RoutingGlobalState } from './RoutingState';
 
-type RoutingSideEffect<Args> = Effect<RoutingGlobalState, RoutingAction, Args>;
+type RoutingSideEffect<Args> = SideEffect<
+  RoutingGlobalState,
+  RoutingAction,
+  Args
+>;
 
 interface UserParam {
   accessToken: string;

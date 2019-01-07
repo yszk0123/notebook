@@ -1,5 +1,5 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { Effect } from '../../../app/redux';
+import { SideEffect } from '../../../app/redux';
 import { EditorContent } from '../../../modules/editor';
 import { sleep } from '../../../utils/sleep';
 import { NoteAction, noteActions } from '../NoteActions';
@@ -19,7 +19,7 @@ interface SaveNoteSideEffectContext {
 }
 
 export interface SaveNoteSideEffect
-  extends Effect<NoteGlobalState, NoteAction, SaveNoteSideEffectInput> {}
+  extends SideEffect<NoteGlobalState, NoteAction, SaveNoteSideEffectInput> {}
 
 export function createSaveNoteSideEffect({
   saveNote,

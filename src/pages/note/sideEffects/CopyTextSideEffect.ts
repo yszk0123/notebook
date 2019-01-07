@@ -1,4 +1,4 @@
-import { Effect } from '../../../app/redux';
+import { SideEffect } from '../../../app/redux';
 import { copyToClipboard } from '../../../utils/copyToClipboard';
 import { NoteAction, noteActions } from '../NoteActions';
 import { NoteGlobalState } from '../NoteState';
@@ -8,7 +8,7 @@ interface CopyTextInput {
 }
 
 export interface CopyTextSideEffect
-  extends Effect<NoteGlobalState, NoteAction, CopyTextInput> {}
+  extends SideEffect<NoteGlobalState, NoteAction, CopyTextInput> {}
 
 export function createCopyTextSideEffect(): CopyTextSideEffect {
   return input => async dispatch => {

@@ -1,5 +1,5 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { Effect } from '../../../app/redux';
+import { SideEffect } from '../../../app/redux';
 import { NoteAction, noteActions } from '../NoteActions';
 import { NoteGlobalState } from '../NoteState';
 import { LoadNote } from '../useCases/LoadNote';
@@ -14,7 +14,7 @@ interface LoadNoteSideEffectContext {
 }
 
 export interface LoadNoteEffect
-  extends Effect<NoteGlobalState, NoteAction, LoadNoteSideEffectInput> {}
+  extends SideEffect<NoteGlobalState, NoteAction, LoadNoteSideEffectInput> {}
 
 export function createLoadNoteEffect({
   loadNote,
