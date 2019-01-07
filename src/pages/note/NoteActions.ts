@@ -1,5 +1,9 @@
 import { Nullable } from 'option-t/lib/Nullable';
-import { createAction } from '../../app/redux';
+import {
+  createAction,
+  createActionWithPayload,
+  GetAction,
+} from '../../app/redux';
 import { Note } from './entities/Note';
 
 export const enum NoteActionType {
@@ -14,25 +18,13 @@ export const enum NoteActionType {
 interface CopyTextPayload {
   text: string;
 }
-interface CopyText {
-  type: NoteActionType.COPY_TEXT;
-  payload: CopyTextPayload;
-}
-function copyText(payload: CopyTextPayload): CopyText {
-  return {
-    payload,
-    type: NoteActionType.COPY_TEXT,
-  };
-}
+const copyText = createActionWithPayload<
+  NoteActionType.COPY_TEXT,
+  CopyTextPayload
+>(NoteActionType.COPY_TEXT);
 
-interface CopyTextSuccess {
-  type: NoteActionType.COPY_TEXT_SUCCESS;
-}
 const copyTextSuccess = createAction(NoteActionType.COPY_TEXT_SUCCESS);
 
-interface Load {
-  type: NoteActionType.LOAD;
-}
 const load = createAction(NoteActionType.LOAD);
 
 interface LoadSuccessPayload {
@@ -49,14 +41,8 @@ function loadSuccess(note: Nullable<Note>): LoadSuccess {
   };
 }
 
-interface Save {
-  type: NoteActionType.SAVE;
-}
 const save = createAction(NoteActionType.SAVE);
 
-interface SaveSuccess {
-  type: NoteActionType.SAVE_SUCCESS;
-}
 const saveSuccess = createAction(NoteActionType.SAVE_SUCCESS);
 
 export const noteActions = {
@@ -68,10 +54,4 @@ export const noteActions = {
   saveSuccess,
 };
 
-export type NoteAction =
-  | CopyText
-  | CopyTextSuccess
-  | Load
-  | LoadSuccess
-  | Save
-  | SaveSuccess;
+export type NoteAction = GetAction<typeof noteActions>;
