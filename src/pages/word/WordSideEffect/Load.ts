@@ -3,7 +3,7 @@ import { isNotNull } from 'option-t/lib/Nullable';
 import { unwrapDocumentSnapshot } from '../../../utils/unwrapDocumentSnapshot';
 import { createWord, Word } from '../entities/Word';
 import { wordActions } from '../WordActions';
-import { WordEffect } from './WordEffectType';
+import { WordSideEffect } from './WordSideEffectType';
 
 const WORD_LIMIT = 15;
 
@@ -28,7 +28,7 @@ async function doLoad(
   return words;
 }
 
-export const load: WordEffect<[LoadInput]> = input => async dispatch => {
+export const load: WordSideEffect<[LoadInput]> = input => async dispatch => {
   dispatch(wordActions.load());
 
   const db = firebase.firestore();

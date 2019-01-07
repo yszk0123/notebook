@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import { Word } from '../entities/Word';
 import { wordActions } from '../WordActions';
-import { WordEffect } from './WordEffectType';
+import { WordSideEffect } from './WordSideEffectType';
 
 interface RemoveInput {
   userId: string;
@@ -14,7 +14,9 @@ async function doRemove(input: RemoveInput, db: firebase.firestore.Firestore) {
   await wordRef.delete();
 }
 
-export const remove: WordEffect<[RemoveInput]> = input => async dispatch => {
+export const remove: WordSideEffect<
+  [RemoveInput]
+> = input => async dispatch => {
   dispatch(wordActions.remove(input));
 
   const db = firebase.firestore();

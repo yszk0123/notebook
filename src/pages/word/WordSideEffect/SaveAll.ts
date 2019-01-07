@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app';
 import { sleep } from '../../../utils/sleep';
 import { Word } from '../entities/Word';
 import { wordActions } from '../WordActions';
-import { WordEffect } from './WordEffectType';
+import { WordSideEffect } from './WordSideEffectType';
 
 const SAVE_DELAY = 750;
 
@@ -27,7 +27,9 @@ async function doSaveAll(
   );
 }
 
-export const saveAll: WordEffect<[SaveAllInput]> = input => async dispatch => {
+export const saveAll: WordSideEffect<
+  [SaveAllInput]
+> = input => async dispatch => {
   dispatch(wordActions.saveAll(input));
 
   const db = firebase.firestore();

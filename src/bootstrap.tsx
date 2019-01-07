@@ -12,7 +12,7 @@ import {
   PageLoadingContainer,
   resolveRoute,
   RoutingContext,
-  routingEffects,
+  routingSideEffects,
 } from './app/routing';
 import { ThemeProvider } from './app/styled-components';
 import { defaultTheme } from './app/theme/DefaultTheme';
@@ -64,7 +64,7 @@ export async function bootstrap(): Promise<void> {
     if (!user) {
       return;
     }
-    dispatch(routingEffects.login(user));
+    dispatch(routingSideEffects.login(user));
   });
 
   async function onLocationChange(location: Location): Promise<void> {

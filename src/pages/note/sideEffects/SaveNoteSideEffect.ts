@@ -8,22 +8,22 @@ import { SaveNote } from '../useCases/SaveNote';
 
 const SAVE_DELAY = 750;
 
-interface SaveNoteEffectInput {
+interface SaveNoteSideEffectInput {
   userId: Nullable<string>;
   noteId: string;
   content: Nullable<EditorContent>;
 }
 
-interface SaveNoteEffectContext {
+interface SaveNoteSideEffectContext {
   saveNote: SaveNote;
 }
 
-export interface SaveNoteEffect
-  extends Effect<NoteGlobalState, NoteAction, SaveNoteEffectInput> {}
+export interface SaveNoteSideEffect
+  extends Effect<NoteGlobalState, NoteAction, SaveNoteSideEffectInput> {}
 
-export function createSaveNoteEffect({
+export function createSaveNoteSideEffect({
   saveNote,
-}: SaveNoteEffectContext): SaveNoteEffect {
+}: SaveNoteSideEffectContext): SaveNoteSideEffect {
   return ({ userId, noteId, content }) => async dispatch => {
     if (isNull(userId) || isNull(content)) {
       return;

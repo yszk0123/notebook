@@ -24,10 +24,10 @@ import {
 import { stickToTop } from '../../../utils/stickToTop';
 import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
 import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
-import { CopyTextEffect } from '../effects/CopyTextEffect';
-import { LoadNoteEffect } from '../effects/LoadNoteEffect';
-import { SaveNoteEffect } from '../effects/SaveNoteEffect';
 import { Note } from '../entities/Note';
+import { CopyTextSideEffect } from '../sideEffects/CopyTextSideEffect';
+import { LoadNoteEffect } from '../sideEffects/LoadNoteSideEffect';
+import { SaveNoteSideEffect } from '../sideEffects/SaveNoteSideEffect';
 
 const CHANGE_DELAY = 4000;
 
@@ -94,8 +94,8 @@ interface Props {
   saving: boolean;
   loading: boolean;
   note: Nullable<Note>;
-  copyText: CopyTextEffect;
-  saveNote: SaveNoteEffect;
+  copyText: CopyTextSideEffect;
+  saveNote: SaveNoteSideEffect;
   loadNote: LoadNoteEffect;
 }
 

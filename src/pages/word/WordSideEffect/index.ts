@@ -4,4 +4,4 @@ import { remove } from './Remove';
 import { save } from './Save';
 import { saveAll } from './SaveAll';
 
-export const wordEffects = { add, save, load, saveAll, remove };
+export const wordSideEffects = { add, save, load, saveAll, remove };

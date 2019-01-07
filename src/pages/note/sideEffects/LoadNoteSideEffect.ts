@@ -4,21 +4,21 @@ import { NoteAction, noteActions } from '../NoteActions';
 import { NoteGlobalState } from '../NoteState';
 import { LoadNote } from '../useCases/LoadNote';
 
-export interface LoadNoteEffectInput {
+export interface LoadNoteSideEffectInput {
   userId: Nullable<string>;
   noteId: string;
 }
 
-interface LoadNoteEffectContext {
+interface LoadNoteSideEffectContext {
   loadNote: LoadNote;
 }
 
 export interface LoadNoteEffect
-  extends Effect<NoteGlobalState, NoteAction, LoadNoteEffectInput> {}
+  extends Effect<NoteGlobalState, NoteAction, LoadNoteSideEffectInput> {}
 
 export function createLoadNoteEffect({
   loadNote,
-}: LoadNoteEffectContext): LoadNoteEffect {
+}: LoadNoteSideEffectContext): LoadNoteEffect {
   return ({ userId, noteId }) => async dispatch => {
     if (isNull(userId)) {
       return;

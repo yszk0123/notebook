@@ -12,8 +12,8 @@ import { Text } from '../../../components/Text';
 import { useDebouncedEffect } from '../../../utils/useDebouncedEffect';
 import { Word } from '../entities/Word';
 import { wordActions } from '../WordActions';
-import { wordEffects } from '../WordEffect';
 import { getOutdatedWords, getWords } from '../WordSelectors';
+import { wordSideEffects } from '../WordSideEffect';
 import { WordGlobalState } from '../WordState';
 import { WordListItem } from './WordListItem';
 
@@ -88,7 +88,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      dispatch(wordEffects.load({ userId }));
+      dispatch(wordSideEffects.load({ userId }));
     },
     [userId],
   );
@@ -99,7 +99,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      dispatch(wordEffects.load({ userId }));
+      dispatch(wordSideEffects.load({ userId }));
     },
     [userId],
   );
@@ -114,12 +114,12 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         word,
       };
-      dispatch(wordEffects.save(input));
+      dispatch(wordSideEffects.save(input));
     },
     [userId, dispatch],
   );
 
-  // FIXME: Move logic into WordEffects
+  // FIXME: Move logic into WordSideEffects
   useDebouncedEffect(
     () => {
       if (isNull(userId) || outdatedWords.length === 0) {
@@ -130,7 +130,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         words: outdatedWords,
       };
-      dispatch(wordEffects.saveAll(input));
+      dispatch(wordSideEffects.saveAll(input));
     },
     CHANGE_DELAY,
     [dispatch, userId, outdatedWords],
@@ -174,7 +174,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      dispatch(wordEffects.add({ userId, content: '' }));
+      dispatch(wordSideEffects.add({ userId, content: '' }));
     },
     [dispatch, userId],
   );
@@ -189,7 +189,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         word,
       };
-      dispatch(wordEffects.remove(input));
+      dispatch(wordSideEffects.remove(input));
     },
     [dispatch, userId],
   );

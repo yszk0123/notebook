@@ -2,10 +2,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RoutingGlobalState } from '../../app/routing';
 import { NotePage } from './components/NotePage';
-import { CopyTextEffect, createCopyTextEffect } from './effects/CopyTextEffect';
-import { createLoadNoteEffect, LoadNoteEffect } from './effects/LoadNoteEffect';
-import { createSaveNoteEffect, SaveNoteEffect } from './effects/SaveNoteEffect';
 import { NoteGlobalState } from './NoteState';
+import {
+  CopyTextSideEffect,
+  createCopyTextSideEffect,
+} from './sideEffects/CopyTextSideEffect';
+import {
+  createLoadNoteEffect,
+  LoadNoteEffect,
+} from './sideEffects/LoadNoteSideEffect';
+import {
+  createSaveNoteSideEffect,
+  SaveNoteSideEffect,
+} from './sideEffects/SaveNoteSideEffect';
 import { LoadNote } from './useCases/LoadNote';
 import { SaveNote } from './useCases/SaveNote';
 
@@ -29,9 +38,9 @@ function mapState(state: State) {
 }
 
 interface DispatchTo {
-  copyText: CopyTextEffect;
+  copyText: CopyTextSideEffect;
   loadNote: LoadNoteEffect;
-  saveNote: SaveNoteEffect;
+  saveNote: SaveNoteSideEffect;
 }
 
 function mapDispatch(
@@ -40,9 +49,9 @@ function mapDispatch(
 ): DispatchTo {
   return bindActionCreators(
     {
-      copyText: createCopyTextEffect(),
+      copyText: createCopyTextSideEffect(),
       loadNote: createLoadNoteEffect({ loadNote }),
-      saveNote: createSaveNoteEffect({ saveNote }),
+      saveNote: createSaveNoteSideEffect({ saveNote }),
     },
     dispatch,
   );

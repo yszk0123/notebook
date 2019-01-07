@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import { createWord } from '../entities/Word';
 import { wordActions } from '../WordActions';
-import { WordEffect } from './WordEffectType';
+import { WordSideEffect } from './WordSideEffectType';
 
 interface AddInput {
   userId: string;
@@ -16,7 +16,7 @@ async function doAdd(input: AddInput, db: firebase.firestore.Firestore) {
   return word;
 }
 
-export const add: WordEffect<[AddInput]> = input => async dispatch => {
+export const add: WordSideEffect<[AddInput]> = input => async dispatch => {
   dispatch(wordActions.add(input));
 
   const db = firebase.firestore();

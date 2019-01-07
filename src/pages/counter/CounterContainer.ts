@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { RoutingGlobalState } from '../../app/routing';
 import { CounterPage } from './components/CounterPage';
 import { counterActions } from './CounterActions';
-import { counterEffects } from './CounterEffect';
+import { counterSideEffects } from './CounterSideEffect';
 import { CounterGlobalState } from './CounterState';
 
 interface State extends CounterGlobalState, RoutingGlobalState {}
@@ -19,7 +19,7 @@ function mapState(state: State) {
 
 const mapDispatch = {
   increment: counterActions.increment,
-  incrementByTen: counterEffects.incrementByTen,
+  incrementByTen: counterSideEffects.incrementByTen,
 };
 
 export const CounterContainer = connect(

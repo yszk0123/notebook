@@ -7,10 +7,10 @@ interface CopyTextInput {
   text: string;
 }
 
-export interface CopyTextEffect
+export interface CopyTextSideEffect
   extends Effect<NoteGlobalState, NoteAction, CopyTextInput> {}
 
-export function createCopyTextEffect(): CopyTextEffect {
+export function createCopyTextSideEffect(): CopyTextSideEffect {
   return input => async dispatch => {
     dispatch(noteActions.copyText(input));
 
