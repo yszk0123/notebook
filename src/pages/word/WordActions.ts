@@ -56,15 +56,15 @@ interface LoadSuccessPayload {
   words: Array<Word>;
 }
 const loadSuccess = createActionWithPayload<
-  WordActionType.LOAD_SUCCESS,
-  LoadSuccessPayload
+  LoadSuccessPayload,
+  WordActionType.LOAD_SUCCESS
 >(WordActionType.LOAD_SUCCESS);
 
 interface RemovePayload {
   userId: string;
   word: Word;
 }
-const remove = createActionWithPayload<WordActionType.REMOVE, RemovePayload>(
+const remove = createActionWithPayload<RemovePayload, WordActionType.REMOVE>(
   WordActionType.REMOVE,
 );
 
@@ -73,8 +73,8 @@ interface RemoveSuccessPayload {
   removedWordId: WordId;
 }
 const removeSuccess = createActionWithPayload<
-  WordActionType.REMOVE_SUCCESS,
-  RemoveSuccessPayload
+  RemoveSuccessPayload,
+  WordActionType.REMOVE_SUCCESS
 >(WordActionType.REMOVE_SUCCESS);
 
 interface SaveSuccessPayload {
@@ -82,15 +82,15 @@ interface SaveSuccessPayload {
   word: Word;
 }
 const saveSuccess = createActionWithPayload<
-  WordActionType.SAVE_SUCCESS,
-  SaveSuccessPayload
+  SaveSuccessPayload,
+  WordActionType.SAVE_SUCCESS
 >(WordActionType.SAVE_SUCCESS);
 
 interface SavePayload {
   userId: string;
   word: Word;
 }
-const save = createActionWithPayload<WordActionType.SAVE, SavePayload>(
+const save = createActionWithPayload<SavePayload, WordActionType.SAVE>(
   WordActionType.SAVE,
 );
 
@@ -99,8 +99,8 @@ interface SaveAllPayload {
   words: Array<Word>;
 }
 const saveAll = createActionWithPayload<
-  WordActionType.SAVE_ALL,
-  SaveAllPayload
+  SaveAllPayload,
+  WordActionType.SAVE_ALL
 >(WordActionType.SAVE_ALL);
 
 interface SaveAllSuccessPayload {
@@ -108,8 +108,8 @@ interface SaveAllSuccessPayload {
   words: Array<Word>;
 }
 const saveAllSuccess = createActionWithPayload<
-  WordActionType.SAVE_ALL_SUCCESS,
-  SaveAllSuccessPayload
+  SaveAllSuccessPayload,
+  WordActionType.SAVE_ALL_SUCCESS
 >(WordActionType.SAVE_ALL_SUCCESS);
 
 interface UpdateContentPayload {
@@ -118,8 +118,8 @@ interface UpdateContentPayload {
   content: string;
 }
 const updateContent = createActionWithPayload<
-  WordActionType.UPDATE_CONTENT,
-  UpdateContentPayload
+  UpdateContentPayload,
+  WordActionType.UPDATE_CONTENT
 >(WordActionType.UPDATE_CONTENT);
 
 interface UpdateCreatedAtPayload {
@@ -128,8 +128,8 @@ interface UpdateCreatedAtPayload {
   createdAt: number;
 }
 const updateCreatedAt = createActionWithPayload<
-  WordActionType.UPDATE_CREATED_AT,
-  UpdateCreatedAtPayload
+  UpdateCreatedAtPayload,
+  WordActionType.UPDATE_CREATED_AT
 >(WordActionType.UPDATE_CREATED_AT);
 
 export const wordActions = {

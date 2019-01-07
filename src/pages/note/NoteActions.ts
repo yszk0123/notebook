@@ -19,8 +19,8 @@ interface CopyTextPayload {
   text: string;
 }
 const copyText = createActionWithPayload<
-  NoteActionType.COPY_TEXT,
-  CopyTextPayload
+  CopyTextPayload,
+  NoteActionType.COPY_TEXT
 >(NoteActionType.COPY_TEXT);
 
 const copyTextSuccess = createAction(NoteActionType.COPY_TEXT_SUCCESS);

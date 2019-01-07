@@ -43,7 +43,7 @@ export function createAction(type, extraFunction?) {
   };
 }
 
-export function createActionWithPayload<Type extends string, Payload>(
+export function createActionWithPayload<Payload, Type extends string>(
   type: Type,
 ): ActionCreator<[Payload], Action<Type, { payload: Payload }>> {
   function actionCreator(payload: Payload): Action<Type, { payload: Payload }> {
