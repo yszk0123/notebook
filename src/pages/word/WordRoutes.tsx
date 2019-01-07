@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from '../../app/routing/routing-type';
+import { Route } from '../../app/routing';
 
 export const wordRoutes: Array<Route> = [
   {

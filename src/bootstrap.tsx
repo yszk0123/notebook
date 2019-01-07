@@ -8,11 +8,12 @@ import UniversalRouter from 'universal-router';
 import { FirebaseAppProvider } from './app/adapters/firebase/FirebaseAppContext';
 import { HistoryProvider } from './app/HistoryContext';
 import {
+  Page,
   PageLoadingContainer,
   resolveRoute,
+  RoutingContext,
   routingEffects,
 } from './app/routing';
-import { Page, RoutingContext } from './app/routing/routing-type';
 import { ThemeProvider } from './app/styled-components';
 import { defaultTheme } from './app/theme/DefaultTheme';
 import { ResetStyle } from './components/ResetStyle';

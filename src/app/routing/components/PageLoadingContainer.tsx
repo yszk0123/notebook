@@ -4,7 +4,8 @@ import { Icon } from '../../../components/Icon';
 import { CenterLayout } from '../../components/layouts/CenterLayout';
 import { FullLayout } from '../../components/layouts/FullLayout';
 import { styled } from '../../styled-components';
-import { Page, RoutingGlobalState } from '../routing-type';
+import { RoutingGlobalState } from '../RoutingState';
+import { Page } from '../RoutingType';
 
 interface Props {
   page: Page;

@@ -7,7 +7,8 @@ import { Text } from '../../../components/Text';
 import { routingPaths } from '../../../config/RoutingConfig';
 import { HistoryContext } from '../../HistoryContext';
 import { css, styled } from '../../styled-components';
-import { RoutingGlobalState, RoutingUser } from '../routing-type';
+import { RoutingGlobalState } from '../RoutingState';
+import { RoutingUser } from '../RoutingType';
 import { NavLink } from './NavLink';
 
 const HeaderLayout = styled.header`

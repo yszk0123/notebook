@@ -1,6 +1,6 @@
 import React from 'react';
 import { NotFoundPage } from './app/components/NotFoundPage';
-import { Route } from './app/routing/routing-type';
+import { Route } from './app/routing';
 import { counterRoutes } from './pages/counter';
 import { helloRoutes } from './pages/hello';
 import { loginRoutes } from './pages/login';

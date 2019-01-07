@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
-import { RoutingAction, RoutingActionType, RoutingState } from './routing-type';
+import { RoutingAction, RoutingActionType } from './RoutingActions';
+import { RoutingState } from './RoutingState';
 
 const initialState: RoutingState = { loading: true, user: null };
 

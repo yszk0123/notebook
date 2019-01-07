@@ -2,11 +2,8 @@ import * as firebase from 'firebase/app';
 import { isNotNull, Nullable } from 'option-t/lib/Nullable';
 import { unwrapDocumentSnapshot } from '../../utils/unwrapDocumentSnapshot';
 import { Effect } from '../redux';
-import {
-  RoutingAction,
-  routingActions,
-  RoutingGlobalState,
-} from './routing-type';
+import { RoutingAction, routingActions } from './RoutingActions';
+import { RoutingGlobalState } from './RoutingState';
 
 type RoutingEffectCreator<Args> = Effect<
   RoutingGlobalState,
