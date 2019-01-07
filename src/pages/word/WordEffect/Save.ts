@@ -1,8 +1,8 @@
 import * as firebase from 'firebase/app';
 import { sleep } from '../../../utils/sleep';
 import { Word } from '../entities/Word';
-import { wordActions } from '../word-type';
-import { WordEffectCreator } from './WordEffectType';
+import { wordActions } from '../WordActions';
+import { WordEffect } from './WordEffectType';
 
 const SAVE_DELAY = 500;
 
@@ -17,7 +17,7 @@ async function doSave(input: SaveInput, db: firebase.firestore.Firestore) {
   await wordRef.set(input.word);
 }
 
-export const save: WordEffectCreator<[SaveInput]> = input => async dispatch => {
+export const save: WordEffect<[SaveInput]> = input => async dispatch => {
   dispatch(wordActions.save(input));
 
   const db = firebase.firestore();

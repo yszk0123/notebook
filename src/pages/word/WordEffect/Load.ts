@@ -2,8 +2,8 @@ import * as firebase from 'firebase/app';
 import { isNotNull } from 'option-t/lib/Nullable';
 import { unwrapDocumentSnapshot } from '../../../utils/unwrapDocumentSnapshot';
 import { createWord, Word } from '../entities/Word';
-import { wordActions } from '../word-type';
-import { WordEffectCreator } from './WordEffectType';
+import { wordActions } from '../WordActions';
+import { WordEffect } from './WordEffectType';
 
 const WORD_LIMIT = 15;
 
@@ -28,7 +28,7 @@ async function doLoad(
   return words;
 }
 
-export const load: WordEffectCreator<[LoadInput]> = input => async dispatch => {
+export const load: WordEffect<[LoadInput]> = input => async dispatch => {
   dispatch(wordActions.load());
 
   const db = firebase.firestore();

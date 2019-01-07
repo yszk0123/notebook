@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { WordGlobalState } from './word-type';
+import { WordGlobalState } from './WordState';
 
 interface State extends WordGlobalState {}
 

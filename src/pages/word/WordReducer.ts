@@ -3,7 +3,8 @@ import { Reducer } from 'redux';
 import { createRecord } from '../../utils/createRecord';
 import { updateState } from '../../utils/updateState';
 import { WordId } from './entities/Word';
-import { WordAction, WordActionType, WordLocalState } from './word-type';
+import { WordAction, WordActionType } from './WordActions';
+import { WordLocalState } from './WordState';
 
 const initialState: WordLocalState = {
   loading: true,

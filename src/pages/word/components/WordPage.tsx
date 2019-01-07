@@ -11,9 +11,10 @@ import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
 import { useDebouncedEffect } from '../../../utils/useDebouncedEffect';
 import { Word } from '../entities/Word';
-import { wordActions, WordGlobalState } from '../word-type';
+import { wordActions } from '../WordActions';
 import { wordEffects } from '../WordEffect';
 import { getOutdatedWords, getWords } from '../WordSelectors';
+import { WordGlobalState } from '../WordState';
 import { WordListItem } from './WordListItem';
 
 const CHANGE_DELAY = 1500;
