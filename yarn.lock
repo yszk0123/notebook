@@ -1046,10 +1046,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-redux@6.0.11":
-  version "6.0.11"
-  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-6.0.11.tgz#d872254bbcba42465195a5475f40b22502b0407d"
-  integrity sha512-I3POoeGGwNqZjbK7TfnPJS2C51TFvT0atQPz4M+xpVTrLMjsX37AAfcTF3XUOTnmxHsryEjwJN9r/ScGwSXdtg==
+"@types/react-redux@6.0.12":
+  version "6.0.12"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-6.0.12.tgz#f3e9a400b8d40db43ffd8949ce14db4aa17a53ce"
+  integrity sha512-fvcpm7cfW/JMflRdZgegCVbSGYt/hyEWQKriesaLZDRDjBGKQsAiui08VCQg5lBpocPmulVGKFhICtOAcMUPOQ==
   dependencies:
     "@types/react" "*"
     redux "^4.0.0"
@@ -1067,10 +1067,10 @@
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-5.5.0.tgz#146c2a29ee7d3bae4bf2fcb274636e264c813c45"
   integrity sha512-41qEJgBH/TWgo5NFSvBCJ1qkoi3Q6ONSF2avrHq1LVEZfYpdHmj0y9SuTK+u9ZhG1sYQKBL1AWXKyLWP4RaUoQ==
 
-"@types/styled-components@4.1.4":
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.4.tgz#c6915ccee4413da2e1e81b4df9d7ea5b97eb56aa"
-  integrity sha512-zEj6BptOBBxob0hnNdr/qiXZjlC8EUVl7GDN1z+kp58zLtDBjbrbo+1yjL2Gi64IjhFaF7Qz4MbsDdbBuUa83A==
+"@types/styled-components@4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.5.tgz#6eca4dba53d167bd303d6555f57ebdccf1e061bf"
+  integrity sha512-TPFoJoOUszQ1yDymSDbz8kRry+DujKfjFoyGj/kokkm5pigTdoyH8tp3amclLLAJxuOsILVhjtTiCPbMq0sJMQ==
   dependencies:
     "@types/node" "*"
     "@types/react" "*"
