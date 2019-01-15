@@ -4812,10 +4812,15 @@ path-to-regexp@^1.0.1:
   dependencies:
     isarray "0.0.1"
 
-path-to-regexp@^2.2.0, path-to-regexp@^2.4.0:
+path-to-regexp@^2.2.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.4.0.tgz#35ce7f333d5616f1c1e1bfe266c3aba2e5b2e704"
   integrity sha512-G6zHoVqC6GGTQkZwF4lkuEyMbVOjoBKAEybQUypI1WTkqinCOrq2x6U2+phkJ1XsEMTy4LjtwPI7HW+NVrRR2w==
+
+path-to-regexp@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-3.0.0.tgz#c981a218f3df543fa28696be2f88e0c58d2e012a"
+  integrity sha512-ZOtfhPttCrqp2M1PBBH4X13XlvnfhIwD7yCLx+GoGoXRPQyxGOTdQMpIzPSPKXAJT/JQrdfFrgdJOyAzvgpQ9A==
 
 path-type@^1.0.0:
   version "1.1.0"
@@ -7011,12 +7016,12 @@ unique-string@^1.0.0:
   dependencies:
     crypto-random-string "^1.0.0"
 
-universal-router@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/universal-router/-/universal-router-7.0.0.tgz#a40d9d4bcb09a41eee1da7cc8a430e1f28a39a24"
-  integrity sha512-/CiQioyY4C5RffvS2DCfaI3bOP8BnWJpZ6MU8LepathHPH+nLOcPKiTlDzOuW7M3o9HbKsRwo37xvPK6AO9+xw==
+universal-router@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/universal-router/-/universal-router-8.0.0.tgz#c3562a847026422aa7a4012d29ebc16a83d2ebd4"
+  integrity sha512-WFEAHHjtiYm1Cjqy5IzhifcOZdv/BRzHqxZvruMdEAY4rSmt4kiAkJxR1yIixzv2+d1TafiDEcf8Sjl0BT1Lkg==
   dependencies:
-    path-to-regexp "^2.4.0"
+    path-to-regexp "^3.0.0"
 
 universalify@^0.1.0:
   version "0.1.2"

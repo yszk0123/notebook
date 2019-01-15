@@ -89,7 +89,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^4.1.2",
-    "universal-router": "^7.0.0"
+    "universal-router": "^8.0.0"
   },
   "sw-precache": {
     "maximumFileSizeToCacheInBytes": 10485760
