@@ -40,7 +40,7 @@
     "@types/react-datepicker": "2.2.0",
     "@types/react-dom": "16.8.3",
     "@types/react-redux": "7.0.6",
-    "@types/styled-components": "4.1.13",
+    "@types/styled-components": "4.1.8",
     "@types/universal-router": "8.0.0",
     "cross-env": "5.2.0",
     "gh-pages": "2.0.1",
