@@ -16,6 +16,8 @@ export const useAuthUI: UseAuthUI = ref => {
     }
     const authUi = new firebaseui.auth.AuthUI(app.auth());
     authUi.start(ref.current, firebaseAuthUIConfig);
-    return () => authUi.delete();
+    return () => {
+      authUi.delete();
+    };
   }, []);
 };
