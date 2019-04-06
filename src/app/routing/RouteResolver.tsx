@@ -1,15 +1,15 @@
 import { unwrapOrFromUndefinable } from 'option-t/lib/Undefinable/unwrapOr';
 import {
-  ActionContext,
   Params,
   Route as UniversalRouterRoute,
+  RouteContext,
 } from 'universal-router';
 import { appConfig } from '../../config/AppConfig';
 import { unwrapUnsafeValue } from '../../utils/unwrapUnsafeValue';
 import { Route, RoutingContext } from './RoutingType';
 
 interface Context
-  extends ActionContext<RoutingContext, unknown>,
+  extends RouteContext<RoutingContext, unknown>,
     RoutingContext {}
 
 function onEnterRoute(context: Context) {

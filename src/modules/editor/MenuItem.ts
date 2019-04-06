@@ -64,11 +64,11 @@ export function createMenuItems(schema: Schema) {
       longTitle: 'plain',
       shortTitle: 'Plain',
     }),
-    {
-      longTitle: 'paragraph',
-      run: setBlockType(schema.marks.strong),
-      shortTitle: 'Para',
-    },
+    // {
+    //   longTitle: 'paragraph',
+    //   run: setBlockType(schema.marks.strong),
+    //   shortTitle: 'Para',
+    // },
     {
       longTitle: 'blockquote',
       run: wrapIn(schema.nodes.blockquote),
