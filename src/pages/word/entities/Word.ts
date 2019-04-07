@@ -1,15 +1,20 @@
-export type WordId = string;
+export type WordID = string;
 
 export interface Word {
   content: string;
   createdAt: number;
-  id: WordId;
+  id: WordID;
+}
+
+export interface WordLoadCursor {
+  createdAt: number;
+  id: WordID;
 }
 
 interface WordInput {
   content?: string;
   createdAt?: number;
-  id: WordId;
+  id: WordID;
 }
 
 export function createWord({ id, createdAt = Date.now(), content = '' }: WordInput): Word {

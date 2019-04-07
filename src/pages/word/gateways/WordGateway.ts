@@ -1,22 +1,43 @@
-import { isNotNull } from 'option-t/lib/Nullable';
+import { isNotNull, Nullable } from 'option-t/lib/Nullable';
+import { isNotUndefined } from 'option-t/lib/Undefinable';
 import { Gateway } from '../../../application/ApplicationType';
 import { unwrapDocumentSnapshot } from '../../../application/utils/unwrapDocumentSnapshot';
-import { createWord, Word } from '../entities/Word';
+import { createWord, Word, WordLoadCursor } from '../entities/Word';
 
-const WORD_LIMIT = 15;
+const WORD_LIMIT = 10;
 
-export const getWordsGateway: Gateway<{ userId: string }, Word[]> = async (input, { db }) => {
-  const userRef = db.collection('users').doc(input.userId);
-  const wordsRef = userRef
+export const getWordsGateway: Gateway<{ userId: string; after?: WordLoadCursor }, Word[]> = async (
+  { userId, after },
+  { db },
+) => {
+  const userRef = db.collection('users').doc(userId);
+
+  let wordsRef = userRef
     .collection('words')
     .orderBy('createdAt', 'desc')
+    .orderBy('id')
     .limit(WORD_LIMIT);
+  if (isNotUndefined(after)) {
+    wordsRef = wordsRef.startAt(after.createdAt, after.id);
+  }
+
   const wordsSnapshot = await wordsRef.get();
   const words = wordsSnapshot.docs
     .map(doc => unwrapDocumentSnapshot<Word>(doc))
     .filter(isNotNull)
     .map(createWord);
+
   return words;
+};
+
+export const getWordGateway: Gateway<{ userId: string; wordId: string }, Nullable<Word>> = async (
+  { userId, wordId },
+  { db },
+) => {
+  const userRef = db.collection('users').doc(userId);
+  const wordRef = userRef.collection('words').doc(wordId);
+  const wordSnapshot = await wordRef.get();
+  return unwrapDocumentSnapshot<Word>(wordSnapshot);
 };
 
 export const postWordGateway: Gateway<{ userId: string; content: string }, Word> = async (

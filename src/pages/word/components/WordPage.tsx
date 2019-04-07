@@ -19,6 +19,8 @@ import { saveThunk } from '../thunks/saveThunk';
 import { wordActions } from '../WordActions';
 import { outdatedWordsSelector, wordsSelector } from '../WordSelectors';
 import { WordGlobalState } from '../WordState';
+import { Control, ControlItem } from './Control';
+import { List, ListItem } from './List';
 import { WordListItem } from './WordListItem';
 
 const CHANGE_DELAY = 1500;
@@ -29,42 +31,25 @@ const WordPageWrapper = styled.div`
   font-size: ${({ theme }) => theme.fontSize.default};
   height: 100%;
   width: 100%;
+  overflow-y: auto;
   padding: ${({ theme }) => theme.space};
 `;
 
-const ListLayout = styled.ul`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const ListItemLayout = styled.li`
-  display: flex;
-  width: 100%;
+const LoadMore = styled.div`
   align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: ${({ theme }) => theme.space};
+  width: 100%;
 
-  & + & {
-    margin-top: ${({ theme }) => theme.space};
+  &:hover {
+    cursor: pointer;
   }
 `;
 
 const LoadingLayout = styled(CenterLayout)`
   font-size: 96px;
   color: ${({ theme }) => theme.loadingColorFg};
-`;
-
-const ControlLayout = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ControlItemLayout = styled.div`
-  & + & {
-    margin-left: ${({ theme }) => theme.space};
-  }
 `;
 
 interface Props {
@@ -82,9 +67,16 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   outdatedWords,
   dispatch,
 }) => {
-  useEffect(() => {
-    dispatch(loadAllThunk({ userId }));
-  }, [userId]);
+  // FIXME: Move logic into WordSideEffects
+  useDebouncedEffect(
+    () => {
+      if (outdatedWords.length !== 0) {
+        dispatch(saveAllThunk({ userId, words: outdatedWords }));
+      }
+    },
+    CHANGE_DELAY,
+    [dispatch, userId, outdatedWords],
+  );
 
   const onReload = useCallback(() => {
     dispatch(loadAllThunk({ userId }));
@@ -97,17 +89,6 @@ const WordPageInner: React.FunctionComponent<Props> = ({
       }
     },
     [userId, dispatch],
-  );
-
-  // FIXME: Move logic into WordSideEffects
-  useDebouncedEffect(
-    () => {
-      if (outdatedWords.length !== 0) {
-        dispatch(saveAllThunk({ userId, words: outdatedWords }));
-      }
-    },
-    CHANGE_DELAY,
-    [dispatch, userId, outdatedWords],
   );
 
   const onChangeContent = useCallback(
@@ -130,47 +111,52 @@ const WordPageInner: React.FunctionComponent<Props> = ({
 
   const onRemoveWord = useCallback(
     (word: Word) => {
-      dispatch(removeThunk({ userId, word }));
+      if (confirm('This action can not be undone')) {
+        dispatch(removeThunk({ userId, word }));
+      }
     },
     [dispatch, userId],
   );
 
+  const onLoadMore = useCallback(() => {
+    if (words.length) {
+      const lastWord = words[words.length - 1];
+      const after = { createdAt: lastWord.createdAt, id: lastWord.id };
+      dispatch(loadAllThunk({ userId, after }));
+    }
+  }, [dispatch, userId, words]);
+
   return (
     <WordPageWrapper>
-      <ListLayout>
+      <List>
         {words.map(word => {
-          const handleChangeContent = (content: string) => {
-            return onChangeContent(word, content);
-          };
-          const handleChangeDate = (date: number) => {
-            return onChangeDate(word, date);
-          };
-
           return (
-            <ListItemLayout key={word.id}>
-              <WordListItem
-                word={word}
-                onChangeContent={handleChangeContent}
-                onChangeDate={handleChangeDate}
-                onRemove={onRemoveWord}
-              />
-            </ListItemLayout>
+            <WordListItem
+              key={word.id}
+              word={word}
+              onChangeContent={onChangeContent}
+              onChangeDate={onChangeDate}
+              onClickRemove={onRemoveWord}
+            />
           );
         })}
-        <ListItemLayout>
-          <ControlLayout>
-            <ControlItemLayout>
+        <ListItem onClick={onLoadMore}>
+          <LoadMore>Load More</LoadMore>
+        </ListItem>
+        <ListItem>
+          <Control>
+            <ControlItem>
               <Button onClick={onAddWord}>Add</Button>
-            </ControlItemLayout>
-            <ControlItemLayout>
+            </ControlItem>
+            <ControlItem>
               <Button onClick={onReload}>Reload</Button>
-            </ControlItemLayout>
-            <ControlItemLayout>
+            </ControlItem>
+            <ControlItem>
               <Text>{saving ? 'saving' : 'saved'}</Text>
-            </ControlItemLayout>
-          </ControlLayout>
-        </ListItemLayout>
-      </ListLayout>
+            </ControlItem>
+          </Control>
+        </ListItem>
+      </List>
     </WordPageWrapper>
   );
 };
@@ -183,7 +169,18 @@ interface PropsOuter {
   words: Word[];
   dispatch: Dispatch<any>;
 }
-const WordPageOuter: React.FunctionComponent<PropsOuter> = ({ loading, userId, ...props }) => {
+const WordPageOuter: React.FunctionComponent<PropsOuter> = ({
+  loading,
+  userId,
+  dispatch,
+  ...props
+}) => {
+  useEffect(() => {
+    if (isNotNull(userId)) {
+      dispatch(loadAllThunk({ userId }));
+    }
+  }, [dispatch, userId]);
+
   if (loading || isNull(userId)) {
     return (
       <LoadingLayout>
@@ -192,7 +189,7 @@ const WordPageOuter: React.FunctionComponent<PropsOuter> = ({ loading, userId, .
     );
   }
 
-  return <WordPageInner {...props} userId={userId} />;
+  return <WordPageInner {...props} userId={userId} dispatch={dispatch} />;
 };
 
 interface State extends WordGlobalState, RoutingGlobalState {}
