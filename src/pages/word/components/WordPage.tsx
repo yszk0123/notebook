@@ -60,6 +60,7 @@ const LoadingLayout = styled(CenterLayout)`
 const ControlLayout = styled.div`
   display: flex;
   align-items: center;
+  padding: ${({ theme }) => theme.space};
 `;
 
 const ControlItemLayout = styled.div`
