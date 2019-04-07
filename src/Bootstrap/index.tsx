@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
-import { Location } from 'history';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory, Location } from 'history';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -43,7 +42,7 @@ export async function bootstrap(): Promise<void> {
     baseUrl: process.env.APP_BASE_URL,
     resolveRoute,
   });
-  const history = createHistory();
+  const history = createBrowserHistory();
   const store = createStore({ db: firestore });
   const dispatch = store.dispatch as Dispatch;
 
