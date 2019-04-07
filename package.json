@@ -7,7 +7,7 @@
   "author": "Yuji Suzuki <y0suzuki0123@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=development parcel ./src/index.pug -p 3000",
+    "start": "cross-env NODE_ENV=development parcel ./src/index.pug --no-hmr -p 3000",
     "start:editor-example": "cross-env NODE_ENV=development parcel editor-example.html -p 3000",
     "prebuild": "rm -rf dist",
     "build": "run-p build:*",
