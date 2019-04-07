@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import { Thunk } from '../redux';
+import { Thunk } from '../DucksType';
 import { loginGateway } from './gateways/UserGateway';
 import { RoutingAction, routingActions } from './RoutingActions';
 import { RoutingGlobalState } from './RoutingState';

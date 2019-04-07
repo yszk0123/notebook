@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/app';
 import { Nullable } from 'option-t/lib/Nullable';
-import { UseCase } from '../../../app/type';
+import { UseCase } from '../../../app/ApplicationType';
 import { unwrapDocumentSnapshot } from '../../../app/utils/unwrapDocumentSnapshot';
 import { Note } from '../entities/Note';
 

@@ -1,4 +1,4 @@
-import { action, GetAction } from '../../app/redux';
+import { action, GetAction } from '../../app/DucksType';
 import { Word, WordId } from './entities/Word';
 
 export const enum WordActionType {

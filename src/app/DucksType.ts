@@ -3,7 +3,7 @@
  */
 import { Undefinable } from 'option-t/lib/Undefinable';
 import { Action as ReduxAction, AnyAction } from 'redux';
-import { AppInjections } from './type';
+import { AppInjections } from './ApplicationType';
 
 export * from 'redux';
 

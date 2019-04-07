@@ -1,5 +1,5 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { SideEffect } from '../../../app/redux';
+import { SideEffect } from '../../../app/DucksType';
 import { NoteAction, noteActions } from '../NoteActions';
 import { NoteGlobalState } from '../NoteState';
 import { LoadNote } from '../useCases/LoadNote';

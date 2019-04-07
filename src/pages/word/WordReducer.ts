@@ -1,5 +1,5 @@
 import { difference, pull, uniq } from 'lodash';
-import { createReducer } from '../../app/redux';
+import { createReducer } from '../../app/DucksType';
 import { createRecord } from '../../app/utils/createRecord';
 import { identity } from '../../app/utils/identity';
 import { updateState } from '../../app/utils/updateState';

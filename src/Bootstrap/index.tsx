@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import UniversalRouter from 'universal-router';
 import { FirebaseAppProvider } from '../app/adapters/firebase/FirebaseAppContext';
+import { Dispatch } from '../app/DucksType';
 import { HistoryProvider } from '../app/HistoryContext';
-import { Dispatch } from '../app/redux';
 import {
   Page,
   PageLoadingContainer,

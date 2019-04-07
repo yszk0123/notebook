@@ -1,4 +1,4 @@
-import { SideEffect } from '../../app/redux';
+import { SideEffect } from '../../app/DucksType';
 import { CounterAction, counterActions } from './CounterActions';
 import { CounterGlobalState } from './CounterState';
 

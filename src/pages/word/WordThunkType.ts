@@ -1,4 +1,4 @@
-import { Thunk } from '../../app/redux';
+import { Thunk } from '../../app/DucksType';
 import { WordAction } from './WordActions';
 import { WordGlobalState } from './WordState';
 

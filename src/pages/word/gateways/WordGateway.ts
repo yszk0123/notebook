@@ -1,5 +1,5 @@
 import { isNotNull } from 'option-t/lib/Nullable';
-import { Gateway } from '../../../app/type';
+import { Gateway } from '../../../app/ApplicationType';
 import { unwrapDocumentSnapshot } from '../../../app/utils/unwrapDocumentSnapshot';
 import { createWord, Word } from '../entities/Word';
 

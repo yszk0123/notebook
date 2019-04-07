@@ -1,4 +1,4 @@
-import { UseCase } from '../../../app/type';
+import { UseCase } from '../../../app/ApplicationType';
 import { Note } from '../entities/Note';
 
 interface SaveNoteInput {

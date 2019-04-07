@@ -1,4 +1,4 @@
-import { action } from '../redux';
+import { action } from '../DucksType';
 import { RoutingUser } from './RoutingType';
 
 export const enum RoutingActionType {

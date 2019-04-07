@@ -1,4 +1,4 @@
-import { createReducer } from '../../app/redux';
+import { createReducer } from '../../app/DucksType';
 import { identity } from '../../app/utils/identity';
 import { NoteAction, NoteActionType } from './NoteActions';
 import { NoteLocalState } from './NoteState';

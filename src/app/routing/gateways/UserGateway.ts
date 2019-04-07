@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import { isNotNull, Nullable } from 'option-t/lib/Nullable';
-import { Gateway } from '../../type';
+import { Gateway } from '../../ApplicationType';
 import { unwrapDocumentSnapshot } from '../../utils/unwrapDocumentSnapshot';
 
 interface UserParam {

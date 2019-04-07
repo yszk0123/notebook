@@ -1,5 +1,5 @@
 import { Nullable } from 'option-t/lib/Nullable';
-import { action, GetAction } from '../../app/redux';
+import { action, GetAction } from '../../app/DucksType';
 import { Note } from './entities/Note';
 
 export const enum NoteActionType {

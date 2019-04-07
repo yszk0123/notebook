@@ -1,4 +1,4 @@
-import { createReducer } from '../../app/redux';
+import { createReducer } from '../../app/DucksType';
 import { CounterAction, CounterActionType } from './CounterActions';
 import { CounterLocalState } from './CounterState';
 

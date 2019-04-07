@@ -1,5 +1,5 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { SideEffect } from '../../../app/redux';
+import { SideEffect } from '../../../app/DucksType';
 import { sleep } from '../../../app/utils/sleep';
 import { EditorContent } from '../../../modules/editor';
 import { NoteAction, noteActions } from '../NoteActions';
