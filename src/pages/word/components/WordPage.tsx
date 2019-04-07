@@ -33,6 +33,7 @@ const WordPageWrapper = styled.div`
   width: 100%;
   overflow-y: auto;
   padding: ${({ theme }) => theme.space};
+  -webkit-overflow-scrolling: touch;
 `;
 
 const LoadMore = styled.div`
