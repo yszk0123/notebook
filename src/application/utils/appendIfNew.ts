@@ -1,3 +1,3 @@
-export function identity<T>(value: T): T {
-  return value;
+export function appendIfNew<T>(values: T[], value: T): T[] {
+  return values.includes(value) ? values : [...values, value];
 }
