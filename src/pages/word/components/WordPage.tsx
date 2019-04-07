@@ -131,7 +131,9 @@ const WordPageInner: React.FunctionComponent<Props> = ({
 
   const onRemoveWord = useCallback(
     (word: Word) => {
-      dispatch(removeThunk({ userId, word }));
+      if (confirm('This action can not be undone')) {
+        dispatch(removeThunk({ userId, word }));
+      }
     },
     [dispatch, userId],
   );
