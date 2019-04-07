@@ -1,4 +1,5 @@
-import { action, GetAction } from '../../application/DucksType';
+import { GetAction } from '../../application/DucksType';
+import { action } from '../../application/ExperimentalDucksType';
 import { Word, WordId } from './entities/Word';
 
 export const enum WordActionType {
@@ -17,34 +18,26 @@ export const enum WordActionType {
 }
 
 export const wordActions = {
-  add: action<WordActionType.ADD, { userId: string; content: string }>(WordActionType.ADD),
-  addSuccess: action<WordActionType.ADD_SUCCESS, { userId: string; word: Word }>(
-    WordActionType.ADD_SUCCESS,
-  ),
-  load: action(WordActionType.LOAD),
-  loadSuccess: action<WordActionType.LOAD_SUCCESS, { words: Word[] }>(WordActionType.LOAD_SUCCESS),
-  remove: action<WordActionType.REMOVE, { userId: string; word: Word }>(WordActionType.REMOVE),
-  removeSuccess: action<WordActionType.REMOVE_SUCCESS, { userId: string; removedWordId: WordId }>(
-    WordActionType.REMOVE_SUCCESS,
-  ),
-  save: action<WordActionType.SAVE, { userId: string; word: Word }>(WordActionType.SAVE),
-  saveAll: action<WordActionType.SAVE_ALL, { userId: string; words: Word[] }>(
-    WordActionType.SAVE_ALL,
-  ),
-  saveAllSuccess: action<WordActionType.SAVE_ALL_SUCCESS, { userId: string; words: Word[] }>(
-    WordActionType.SAVE_ALL_SUCCESS,
-  ),
-  saveSuccess: action<WordActionType.SAVE_SUCCESS, { userId: string; word: Word }>(
-    WordActionType.SAVE_SUCCESS,
-  ),
-  updateContent: action<
-    WordActionType.UPDATE_CONTENT,
-    { userId: string; word: Word; content: string }
-  >(WordActionType.UPDATE_CONTENT),
-  updateCreatedAt: action<
-    WordActionType.UPDATE_CREATED_AT,
-    { userId: string; word: Word; createdAt: number }
-  >(WordActionType.UPDATE_CREATED_AT),
+  add: action(WordActionType.ADD)<{ userId: string; content: string }>(),
+  addSuccess: action(WordActionType.ADD_SUCCESS)<{ userId: string; word: Word }>(),
+  load: action(WordActionType.LOAD)(),
+  loadSuccess: action(WordActionType.LOAD_SUCCESS)<{ words: Word[] }>(),
+  remove: action(WordActionType.REMOVE)<{ userId: string; word: Word }>(),
+  removeSuccess: action(WordActionType.REMOVE_SUCCESS)<{ userId: string; removedWordId: WordId }>(),
+  save: action(WordActionType.SAVE)<{ userId: string; word: Word }>(),
+  saveAll: action(WordActionType.SAVE_ALL)<{ userId: string; words: Word[] }>(),
+  saveAllSuccess: action(WordActionType.SAVE_ALL_SUCCESS)<{ userId: string; words: Word[] }>(),
+  saveSuccess: action(WordActionType.SAVE_SUCCESS)<{ userId: string; word: Word }>(),
+  updateContent: action(WordActionType.UPDATE_CONTENT)<{
+    userId: string;
+    word: Word;
+    content: string;
+  }>(),
+  updateCreatedAt: action(WordActionType.UPDATE_CREATED_AT)<{
+    userId: string;
+    word: Word;
+    createdAt: number;
+  }>(),
 };
 
 export type WordAction = GetAction<typeof wordActions>;
