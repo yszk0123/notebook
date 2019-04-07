@@ -15,7 +15,7 @@ const TextArea = styled.textarea`
   outline: none;
   flex-grow: 1;
   resize: none;
-  overflow-y: hidden;
+  overflow-y: auto;
   min-height: 1em;
 
   &:focus {
