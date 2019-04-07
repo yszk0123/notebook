@@ -1,4 +1,4 @@
-import { isNotNull, Nullable } from 'option-t/lib/Nullable';
+import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
 import React, { useCallback, useEffect } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
@@ -68,10 +68,9 @@ const ControlItemLayout = styled.div`
 `;
 
 interface Props {
-  loading: boolean;
   outdatedWords: Word[];
   saving: boolean;
-  userId: Nullable<string>;
+  userId: string;
   words: Word[];
   dispatch: Dispatch<any>;
 }
@@ -79,26 +78,21 @@ interface Props {
 const WordPageInner: React.FunctionComponent<Props> = ({
   userId,
   saving,
-  loading,
   words,
   outdatedWords,
   dispatch,
 }) => {
   useEffect(() => {
-    if (isNotNull(userId)) {
-      dispatch(loadAllThunk({ userId }));
-    }
+    dispatch(loadAllThunk({ userId }));
   }, [userId]);
 
   const onReload = useCallback(() => {
-    if (isNotNull(userId)) {
-      dispatch(loadAllThunk({ userId }));
-    }
+    dispatch(loadAllThunk({ userId }));
   }, [userId]);
 
   const onSave = useCallback(
     (word: Word) => {
-      if (isNotNull(userId) && isNotNull(word)) {
+      if (isNotNull(word)) {
         dispatch(saveThunk({ userId, word }));
       }
     },
@@ -108,7 +102,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   // FIXME: Move logic into WordSideEffects
   useDebouncedEffect(
     () => {
-      if (isNotNull(userId) && outdatedWords.length !== 0) {
+      if (outdatedWords.length !== 0) {
         dispatch(saveAllThunk({ userId, words: outdatedWords }));
       }
     },
@@ -118,44 +112,28 @@ const WordPageInner: React.FunctionComponent<Props> = ({
 
   const onChangeContent = useCallback(
     (word: Word, content: string) => {
-      if (isNotNull(userId)) {
-        dispatch(wordActions.updateContent({ content, userId, word }));
-      }
+      dispatch(wordActions.updateContent({ content, userId, word }));
     },
     [dispatch, userId],
   );
 
   const onChangeDate = useCallback(
     (word: Word, createdAt: number) => {
-      if (isNotNull(userId)) {
-        dispatch(wordActions.updateCreatedAt({ createdAt, userId, word }));
-      }
+      dispatch(wordActions.updateCreatedAt({ createdAt, userId, word }));
     },
     [dispatch, userId],
   );
 
   const onAddWord = useCallback(() => {
-    if (isNotNull(userId)) {
-      dispatch(addThunk({ userId, content: '' }));
-    }
+    dispatch(addThunk({ userId, content: '' }));
   }, [dispatch, userId]);
 
   const onRemoveWord = useCallback(
     (word: Word) => {
-      if (isNotNull(userId)) {
-        dispatch(removeThunk({ userId, word }));
-      }
+      dispatch(removeThunk({ userId, word }));
     },
     [dispatch, userId],
   );
-
-  if (loading) {
-    return (
-      <LoadingLayout>
-        <Icon icon="spinner" spin={true} pulse={true} />
-      </LoadingLayout>
-    );
-  }
 
   return (
     <WordPageWrapper>
@@ -197,6 +175,26 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   );
 };
 
+interface PropsOuter {
+  loading: boolean;
+  outdatedWords: Word[];
+  saving: boolean;
+  userId: Nullable<string>;
+  words: Word[];
+  dispatch: Dispatch<any>;
+}
+const WordPageOuter: React.FunctionComponent<PropsOuter> = ({ loading, userId, ...props }) => {
+  if (loading || isNull(userId)) {
+    return (
+      <LoadingLayout>
+        <Icon icon="spinner" spin={true} pulse={true} />
+      </LoadingLayout>
+    );
+  }
+
+  return <WordPageInner {...props} userId={userId} />;
+};
+
 interface State extends WordGlobalState, RoutingGlobalState {}
 
 function mapState(state: State) {
@@ -214,4 +212,4 @@ function mapState(state: State) {
   };
 }
 
-export const WordPage = connect(mapState)(WordPageInner);
+export const WordPage = connect(mapState)(WordPageOuter);
