@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app';
 import { createWord } from '../entities/Word';
+import { WordSideEffect } from '../sideEffects/WordSideEffectType';
 import { wordActions } from '../WordActions';
-import { WordSideEffect } from './WordSideEffectType';
 
 interface AddInput {
   userId: string;

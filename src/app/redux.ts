@@ -15,43 +15,17 @@ export type GetAction<
 export type Action<T extends string, Extra extends {} = {}> = ReduxAction<T> &
   { [K in keyof Extra]: Extra[K] };
 
-type ExtraFunction<Args extends AnyForExtend[], R> = (...args: Args) => R;
+export type ActionCreator<
+  Type extends string,
+  TPayload = void
+> = TPayload extends void
+  ? () => { type: Type; payload?: TPayload }
+  : (payload: TPayload) => Action<Type, { payload: TPayload }>;
 
-type ActionCreator<Args, TAction> = Args extends AnyForExtend[]
-  ? (...args: Args) => TAction
-  : () => TAction;
-
-export function createAction<A extends string>(
-  type: A,
-): ActionCreator<void, Action<A>>;
-
-export function createAction<A extends string, Args extends AnyForExtend[], R>(
-  type: A,
-  fn: ExtraFunction<Args, R>,
-): ActionCreator<Args, Action<A, R>>;
-
-// @ts-ignore
-export function createAction(type, extraFunction?) {
-  // @ts-ignore
-  return (...args) => {
-    if (extraFunction) {
-      const extra = extraFunction(...args);
-      return { type, ...extra };
-    }
-    return { type };
-  };
-}
-
-export function createActionWithPayload<Payload, Type extends string>(
+export function action<Type extends string, Payload = void>(
   type: Type,
-): ActionCreator<[Payload], Action<Type, { payload: Payload }>> {
-  function actionCreator(payload: Payload): Action<Type, { payload: Payload }> {
-    return {
-      payload,
-      type,
-    };
-  }
-  return actionCreator;
+): ActionCreator<Type, Payload> {
+  return (payload => ({ payload, type })) as ActionCreator<Type, Payload>;
 }
 
 export type Dispatch<TAction> = (

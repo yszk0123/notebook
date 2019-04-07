@@ -1,4 +1,4 @@
-import { createAction } from '../redux';
+import { action } from '../redux';
 import { RoutingUser } from './RoutingType';
 
 export const enum RoutingActionType {
@@ -23,7 +23,7 @@ function login(user: RoutingUser): Login {
 interface LoginFailure {
   type: RoutingActionType.LOGIN_FAILURE;
 }
-const loginFailure = createAction(RoutingActionType.LOGIN_FAILURE);
+const loginFailure = action(RoutingActionType.LOGIN_FAILURE);
 
 export const routingActions = {
   login,
