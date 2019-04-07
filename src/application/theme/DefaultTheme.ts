@@ -3,7 +3,7 @@ import { ColorPalette, FontSize, ThemeInterface } from './Theme';
 export const defaultTheme: ThemeInterface = {
   activeOpacity: 1,
   borderActiveColorBg: ColorPalette.SECONDARY,
-  borderColorBg: ColorPalette.GRAY,
+  borderColorBg: ColorPalette.LIGHT_GRAY,
   buttonColorBg: ColorPalette.SECONDARY,
   buttonColorFg: ColorPalette.WHITE,
   dropDownMenuColorBg: ColorPalette.WHITE,
@@ -31,6 +31,8 @@ export const defaultTheme: ThemeInterface = {
   roundButtonRadius: '24px',
   roundButtonSize: '48px',
   space: '8px',
+  subtitleColorFg: ColorPalette.GRAY,
   thinSpace: '4px',
+  titleColorFg: ColorPalette.BLACK,
   transition: '0.25s ease-in-out',
 };

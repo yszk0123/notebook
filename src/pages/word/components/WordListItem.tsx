@@ -4,6 +4,7 @@ import { styled } from '../../../application/styled-components';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Word } from '../entities/Word';
+import { DateColumn } from './DateColumn';
 import { ListItem } from './List';
 import { Picker } from './Picker';
 
@@ -38,6 +39,7 @@ export const WordListItem: React.FunctionComponent<Props> = ({
 }) => {
   const [content, setContent] = useState(word.content);
   const [height, setHeight] = useState(DEFAULT_TEXTAREA_HEIGHT);
+  const [isOpen, setIsOpen] = useState(false);
   const textareaRef = useRef<Nullable<HTMLTextAreaElement>>(null);
 
   useEffect(() => {
@@ -74,23 +76,34 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     }
   }, [onChangeContent, word, content]);
 
-  const onClickButton = useCallback(() => {
+  const handleClickButton = useCallback(() => {
     onClickRemove(word);
   }, [onClickRemove, word]);
 
+  const handleOpen = useCallback(() => {
+    setIsOpen(true);
+  }, [setIsOpen]);
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
+
   return (
     <ListItem>
+      <Button onClick={handleClickButton}>
+        <Icon icon="trash" />
+      </Button>
+      <DateColumn value={word.createdAt} onClick={handleOpen} />
       <TextArea
+        onBlur={handleBlurContent}
+        onChange={handleChangeContent}
         ref={textareaRef}
         style={{ height }}
         value={content}
-        onChange={handleChangeContent}
-        onBlur={handleBlurContent}
       />
-      <Picker value={word.createdAt} onChange={handleChangeDate} />
-      <Button onClick={onClickButton}>
-        <Icon icon="trash" />
-      </Button>
+      {isOpen ? (
+        <Picker value={word.createdAt} onChange={handleChangeDate} onClose={handleClose} />
+      ) : null}
     </ListItem>
   );
 };
