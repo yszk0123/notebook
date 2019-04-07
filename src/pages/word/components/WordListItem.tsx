@@ -3,14 +3,8 @@ import { styled } from '../../../application/styled-components';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Word } from '../entities/Word';
+import { ListItem } from './List';
 import { Picker } from './Picker';
-
-const Layout = styled.div`
-  display: flex;
-  width: 100%;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColorBg};
-  padding-bottom: ${({ theme }) => theme.space};
-`;
 
 const Input = styled.input`
   padding: ${({ theme }) => theme.space};
@@ -65,12 +59,12 @@ export const WordListItem: React.FunctionComponent<Props> = ({
   }, [word]);
 
   return (
-    <Layout>
+    <ListItem>
       <Input value={content} onChange={handleChangeContent} onBlur={handleBlurContent} />
       <Picker value={word.createdAt} onChange={handleChangeDate} />
       <Button onClick={onClickButton}>
         <Icon icon="trash" />
       </Button>
-    </Layout>
+    </ListItem>
   );
 };

@@ -19,6 +19,8 @@ import { saveThunk } from '../thunks/saveThunk';
 import { wordActions } from '../WordActions';
 import { outdatedWordsSelector, wordsSelector } from '../WordSelectors';
 import { WordGlobalState } from '../WordState';
+import { Control, ControlItem } from './Control';
+import { List, ListItem } from './List';
 import { WordListItem } from './WordListItem';
 
 const CHANGE_DELAY = 1500;
@@ -33,40 +35,9 @@ const WordPageWrapper = styled.div`
   padding: ${({ theme }) => theme.space};
 `;
 
-const ListLayout = styled.ul`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-`;
-
-const ListItemLayout = styled.li`
-  display: flex;
-  width: 100%;
-  align-items: center;
-
-  & + & {
-    margin-top: ${({ theme }) => theme.space};
-  }
-`;
-
 const LoadingLayout = styled(CenterLayout)`
   font-size: 96px;
   color: ${({ theme }) => theme.loadingColorFg};
-`;
-
-const ControlLayout = styled.div`
-  display: flex;
-  align-items: center;
-  padding: ${({ theme }) => theme.space};
-`;
-
-const ControlItemLayout = styled.div`
-  & + & {
-    margin-left: ${({ theme }) => theme.space};
-  }
 `;
 
 interface Props {
@@ -141,33 +112,32 @@ const WordPageInner: React.FunctionComponent<Props> = ({
 
   return (
     <WordPageWrapper>
-      <ListLayout>
+      <List>
         {words.map(word => {
           return (
-            <ListItemLayout key={word.id}>
-              <WordListItem
-                word={word}
-                onChangeContent={onChangeContent}
-                onChangeDate={onChangeDate}
-                onRemove={onRemoveWord}
-              />
-            </ListItemLayout>
+            <WordListItem
+              key={word.id}
+              word={word}
+              onChangeContent={onChangeContent}
+              onChangeDate={onChangeDate}
+              onRemove={onRemoveWord}
+            />
           );
         })}
-        <ListItemLayout>
-          <ControlLayout>
-            <ControlItemLayout>
+        <ListItem>
+          <Control>
+            <ControlItem>
               <Button onClick={onAddWord}>Add</Button>
-            </ControlItemLayout>
-            <ControlItemLayout>
+            </ControlItem>
+            <ControlItem>
               <Button onClick={onReload}>Reload</Button>
-            </ControlItemLayout>
-            <ControlItemLayout>
+            </ControlItem>
+            <ControlItem>
               <Text>{saving ? 'saving' : 'saved'}</Text>
-            </ControlItemLayout>
-          </ControlLayout>
-        </ListItemLayout>
-      </ListLayout>
+            </ControlItem>
+          </Control>
+        </ListItem>
+      </List>
     </WordPageWrapper>
   );
 };
