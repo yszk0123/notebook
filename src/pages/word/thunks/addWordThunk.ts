@@ -1,28 +1,18 @@
-import * as firebase from 'firebase/app';
-import { createWord } from '../entities/Word';
-import { WordSideEffect } from '../sideEffects/WordSideEffectType';
+import firebase from 'firebase/app';
+import { postWordGateway } from '../gateways/WordGateway';
 import { wordActions } from '../WordActions';
+import { WordThunk } from '../WordThunkType';
 
-interface AddInput {
+export const addSideEffect: WordThunk<{
   userId: string;
   content: string;
-}
-
-async function doAdd(input: AddInput, db: firebase.firestore.Firestore) {
-  const userRef = db.collection('users').doc(input.userId);
-  const wordRef = userRef.collection('words').doc();
-  const word = createWord({ id: wordRef.id, content: input.content });
-  await wordRef.set(word);
-  return word;
-}
-
-export const addSideEffect: WordSideEffect<AddInput> = input => async dispatch => {
+}> = input => async (dispatch, _getState, injections) => {
   dispatch(wordActions.add(input));
 
   const db = firebase.firestore();
   db.settings({ timestampsInSnapshots: true });
 
-  const newWord = await doAdd(input, db);
+  const newWord = await postWordGateway(input, injections);
 
   dispatch(wordActions.addSuccess({ userId: input.userId, word: newWord }));
 };

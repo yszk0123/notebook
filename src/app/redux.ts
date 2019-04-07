@@ -3,6 +3,7 @@
  */
 import { Undefinable } from 'option-t/lib/Undefinable';
 import { Action as ReduxAction, AnyAction } from 'redux';
+import { AppInjections } from './type';
 
 export * from 'redux';
 
@@ -53,10 +54,22 @@ export function createReducer<TState, TType extends string, TAction extends { ty
   return reducer;
 }
 
-export type Dispatch<TAction> = (
-  // tslint:disable-next-line:no-any
-  action: TAction | ((...args: any[]) => unknown),
-) => unknown;
+export type ThunkAction<State, DispatchableAction> = (
+  dispatch: Dispatch<DispatchableAction>,
+  getState: () => State,
+  injections: AppInjections,
+) => Promise<unknown>;
+
+export type Dispatch<DispatchableAction = Action<any, any> | ThunkAction<any, any>> = (
+  arg: Arg<DispatchableAction>,
+) => any;
+type Arg<DispatchableAction> = DispatchableAction extends Thunk<any, any, any>
+  ? ReturnType<DispatchableAction>
+  : DispatchableAction;
+
+export type Thunk<State, Payload, DispatchableAction> = Payload extends void
+  ? () => ThunkAction<State, DispatchableAction>
+  : (payload: Payload) => ThunkAction<State, DispatchableAction>;
 
 /**
  * Alias for async action creator
