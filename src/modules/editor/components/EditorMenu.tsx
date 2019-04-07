@@ -2,7 +2,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import { styled } from '../../../app/styled-components';
-import { preventDefault } from '../../../utils/preventDefault';
+import { preventDefault } from '../../../app/utils/preventDefault';
 import { MenuItem } from '../EditorType';
 
 const Wrapper = styled.div`

@@ -3,7 +3,7 @@ import { Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useRef, useState } from 'react';
 import { styled } from '../../app/styled-components';
-import { useDebouncedCallback } from '../../utils/useDebouncedCallback';
+import { useDebouncedCallback } from '../../app/utils/useDebouncedCallback';
 import { EditorMenu } from './components/EditorMenu';
 import { createStateFromContent, serializeEditorState } from './EditorState';
 import { editorStyle } from './editorStyle';

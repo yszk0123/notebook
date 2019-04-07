@@ -16,11 +16,11 @@ import {
 } from './app/routing';
 import { ThemeProvider } from './app/styled-components';
 import { defaultTheme } from './app/theme/DefaultTheme';
+import { restoreValueFromGlobalForDevelopment } from './app/utils/restoreValueFromGlobalForDevelopment';
 import { ResetStyle } from './components/ResetStyle';
 import { firebaseConfig } from './config/firebaseConfig';
 import { appRoutes } from './RootRoutes';
 import { createStore } from './Store';
-import { restoreValueFromGlobalForDevelopment } from './utils/restoreValueFromGlobalForDevelopment';
 
 function createFirebaseApp(): firebase.app.App {
   if (process.env.NODE_ENV === 'development') {

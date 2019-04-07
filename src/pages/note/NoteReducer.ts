@@ -1,5 +1,5 @@
 import { createReducer } from '../../app/redux';
-import { identity } from '../../utils/identity';
+import { identity } from '../../app/utils/identity';
 import { NoteAction, NoteActionType } from './NoteActions';
 import { NoteLocalState } from './NoteState';
 

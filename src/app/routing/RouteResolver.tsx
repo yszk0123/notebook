@@ -1,7 +1,7 @@
 import { unwrapOrFromUndefinable } from 'option-t/lib/Undefinable/unwrapOr';
 import { Params, Route as UniversalRouterRoute, RouteContext } from 'universal-router';
 import { appConfig } from '../../config/AppConfig';
-import { unwrapUnsafeValue } from '../../utils/unwrapUnsafeValue';
+import { unwrapUnsafeValue } from '../utils/unwrapUnsafeValue';
 import { Route, RoutingContext } from './RoutingType';
 
 interface Context extends RouteContext<RoutingContext, unknown>, RoutingContext {}

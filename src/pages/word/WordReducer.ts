@@ -1,8 +1,8 @@
 import { difference, pull, uniq } from 'lodash';
 import { createReducer } from '../../app/redux';
-import { createRecord } from '../../utils/createRecord';
-import { identity } from '../../utils/identity';
-import { updateState } from '../../utils/updateState';
+import { createRecord } from '../../app/utils/createRecord';
+import { identity } from '../../app/utils/identity';
+import { updateState } from '../../app/utils/updateState';
 import { WordId } from './entities/Word';
 import { WordAction, WordActionType } from './WordActions';
 import { WordLocalState } from './WordState';

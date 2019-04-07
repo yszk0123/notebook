@@ -2,7 +2,7 @@
  * @see https://coliss.com/articles/build-websites/operation/css/viewport-units-on-mobile.html
  * @see https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
  */
-import { debounce } from './utils/debounce';
+import { debounce } from './app/utils/debounce';
 
 const INTERVAL = 1000;
 

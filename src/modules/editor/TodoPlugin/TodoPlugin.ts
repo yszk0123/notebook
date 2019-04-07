@@ -1,7 +1,7 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { Node, Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
+import { unwrapUnsafeValue } from '../../../app/utils/unwrapUnsafeValue';
 import { buildTodoInputRules } from './TodoInputRule';
 import { TodoNodeView } from './TodoNodeView';
 

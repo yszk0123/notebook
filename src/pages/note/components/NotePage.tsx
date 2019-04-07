@@ -8,6 +8,9 @@ import { VerticalStackLayout } from '../../../app/components/layouts/VerticalSta
 import { VirtualKeyboardSpacer } from '../../../app/components/layouts/VirtualKeyboardSpacer';
 import { styled } from '../../../app/styled-components';
 import { FontSize } from '../../../app/theme/Theme';
+import { stickToTop } from '../../../app/utils/stickToTop';
+import { unwrapUnsafeValue } from '../../../app/utils/unwrapUnsafeValue';
+import { useDebouncedCallback } from '../../../app/utils/useDebouncedCallback';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
@@ -21,9 +24,6 @@ import {
   serializeEditorState,
   useEditor,
 } from '../../../modules/editor';
-import { stickToTop } from '../../../utils/stickToTop';
-import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
-import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
 import { Note } from '../entities/Note';
 import { CopyTextSideEffect } from '../sideEffects/CopyTextSideEffect';
 import { LoadNoteEffect } from '../sideEffects/LoadNoteSideEffect';

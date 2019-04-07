@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/app';
 import { isNotNull } from 'option-t/lib/Nullable';
-import { unwrapDocumentSnapshot } from '../../../utils/unwrapDocumentSnapshot';
+import { unwrapDocumentSnapshot } from '../../../app/utils/unwrapDocumentSnapshot';
 import { createWord, Word } from '../entities/Word';
 import { wordActions } from '../WordActions';
 import { WordSideEffect } from './WordSideEffectType';

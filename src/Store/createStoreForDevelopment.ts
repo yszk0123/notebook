@@ -2,8 +2,8 @@ import { applyMiddleware, createStore as createReduxStore } from 'redux';
 // @ts-ignore
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
+import { restoreValueFromGlobalForDevelopment } from '../app/utils/restoreValueFromGlobalForDevelopment';
 import { rootReducer } from '../RootReducer';
-import { restoreValueFromGlobalForDevelopment } from '../utils/restoreValueFromGlobalForDevelopment';
 import { StoreFactory } from './StoreType';
 
 declare global {
