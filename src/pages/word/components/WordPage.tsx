@@ -86,27 +86,21 @@ const WordPageInner: React.FunctionComponent<Props> = ({
 }) => {
   const [isVirtualKeyboardVisible, setFocused] = useState(false);
 
-  useEffect(
-    () => {
-      if (isNull(userId)) {
-        return;
-      }
+  useEffect(() => {
+    if (isNull(userId)) {
+      return;
+    }
 
-      dispatch(loadSideEffect({ userId }));
-    },
-    [userId],
-  );
+    dispatch(loadSideEffect({ userId }));
+  }, [userId]);
 
-  const onReload = useCallback(
-    () => {
-      if (isNull(userId)) {
-        return;
-      }
+  const onReload = useCallback(() => {
+    if (isNull(userId)) {
+      return;
+    }
 
-      dispatch(loadSideEffect({ userId }));
-    },
-    [userId],
-  );
+    dispatch(loadSideEffect({ userId }));
+  }, [userId]);
 
   const onSave = useCallback(
     (word: Word) => {
@@ -172,16 +166,13 @@ const WordPageInner: React.FunctionComponent<Props> = ({
     [dispatch, userId],
   );
 
-  const onAddWord = useCallback(
-    () => {
-      if (isNull(userId)) {
-        return;
-      }
+  const onAddWord = useCallback(() => {
+    if (isNull(userId)) {
+      return;
+    }
 
-      dispatch(addSideEffect({ userId, content: '' }));
-    },
-    [dispatch, userId],
-  );
+    dispatch(addSideEffect({ userId, content: '' }));
+  }, [dispatch, userId]);
 
   const onRemoveWord = useCallback(
     (word: Word) => {

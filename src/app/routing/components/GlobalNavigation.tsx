@@ -103,12 +103,9 @@ const GlobalNavigationInner: React.FunctionComponent<Props> = ({
     setIsMenuOpen(false);
   }, []);
 
-  const onToggleMenu = useCallback(
-    () => {
-      setIsMenuOpen(!isMenuOpen);
-    },
-    [isMenuOpen],
-  );
+  const onToggleMenu = useCallback(() => {
+    setIsMenuOpen(!isMenuOpen);
+  }, [isMenuOpen]);
 
   return (
     <Header>

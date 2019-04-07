@@ -55,10 +55,10 @@ export function createActionWithPayload<Payload, Type extends string>(
   return actionCreator;
 }
 
-export type Dispatch<TAction> = ((
+export type Dispatch<TAction> = (
   // tslint:disable-next-line:no-any
   action: TAction | ((...args: Array<any>) => unknown),
-) => unknown);
+) => unknown;
 
 /**
  * Alias for async action creator
