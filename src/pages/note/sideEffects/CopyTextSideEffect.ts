@@ -1,4 +1,4 @@
-import { SideEffect } from '../../../application/DucksType';
+import { SideEffect } from '../../../application/LegacyDucksType';
 import { copyToClipboard } from '../../../application/utils/copyToClipboard';
 import { NoteAction, noteActions } from '../NoteActions';
 import { NoteGlobalState } from '../NoteState';

@@ -1,5 +1,5 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { SideEffect } from '../../../application/DucksType';
+import { SideEffect } from '../../../application/LegacyDucksType';
 import { sleep } from '../../../application/utils/sleep';
 import { EditorContent } from '../../../modules/editor';
 import { NoteAction, noteActions } from '../NoteActions';

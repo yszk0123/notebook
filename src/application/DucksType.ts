@@ -2,13 +2,13 @@
  * @see https://qiita.com/terrierscript/items/b9687f610a96ab964ab2
  */
 import { Undefinable } from 'option-t/lib/Undefinable';
-import { Action as ReduxAction, AnyAction } from 'redux';
+import { Action as ReduxAction } from 'redux';
 import { AppInjections } from './ApplicationType';
 
 export * from 'redux';
 
 // tslint:disable-next-line:no-any
-type AnyForExtend = any;
+export type AnyForExtend = any;
 
 export type GetAction<
   T extends { [key: string]: (...args: AnyForExtend[]) => AnyForExtend }
@@ -70,17 +70,3 @@ type Arg<DispatchableAction> = DispatchableAction extends Thunk<any, any, any>
 export type Thunk<State, Payload, DispatchableAction> = Payload extends void
   ? () => ThunkAction<State, DispatchableAction>
   : (payload: Payload) => ThunkAction<State, DispatchableAction>;
-
-/**
- * Alias for async action creator
- */
-export type SideEffect<
-  State,
-  TAction extends AnyAction,
-  Args = void,
-  Context = unknown
-> = Args extends AnyForExtend[]
-  ? (...args: Args) => (dispatch: Dispatch<TAction>, getState: () => State, context: Context) => any
-  : Args extends void
-  ? () => (dispatch: Dispatch<TAction>, getState: () => State, context: Context) => any
-  : (arg: Args) => (dispatch: Dispatch<TAction>, getState: () => State, context: Context) => any;
