@@ -15,10 +15,7 @@ export type GetAction<
 export type Action<T extends string, Extra extends {} = {}> = ReduxAction<T> &
   { [K in keyof Extra]: Extra[K] };
 
-export type ActionCreator<
-  Type extends string,
-  TPayload = void
-> = TPayload extends void
+export type ActionCreator<Type extends string, TPayload = void> = TPayload extends void
   ? () => { type: Type; payload?: TPayload }
   : (payload: TPayload) => Action<Type, { payload: TPayload }>;
 
@@ -42,23 +39,7 @@ export type SideEffect<
   Args = void,
   Context = unknown
 > = Args extends AnyForExtend[]
-  ? (
-      ...args: Args
-    ) => (
-      dispatch: Dispatch<TAction>,
-      getState: () => State,
-      context: Context,
-    ) => any
+  ? (...args: Args) => (dispatch: Dispatch<TAction>, getState: () => State, context: Context) => any
   : Args extends void
-  ? () => (
-      dispatch: Dispatch<TAction>,
-      getState: () => State,
-      context: Context,
-    ) => any
-  : (
-      arg: Args,
-    ) => (
-      dispatch: Dispatch<TAction>,
-      getState: () => State,
-      context: Context,
-    ) => any;
+  ? () => (dispatch: Dispatch<TAction>, getState: () => State, context: Context) => any
+  : (arg: Args) => (dispatch: Dispatch<TAction>, getState: () => State, context: Context) => any;

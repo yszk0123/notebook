@@ -8,10 +8,7 @@ const initialState: NoteLocalState = {
   saving: false,
 };
 
-export const noteReducer: Reducer<NoteLocalState, NoteAction> = (
-  state = initialState,
-  action,
-) => {
+export const noteReducer: Reducer<NoteLocalState, NoteAction> = (state = initialState, action) => {
   switch (action.type) {
     case NoteActionType.SAVE:
       return { ...state, saving: true };

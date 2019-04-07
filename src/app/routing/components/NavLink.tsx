@@ -9,11 +9,7 @@ interface Props {
   path: string;
 }
 
-export const NavLink: React.FunctionComponent<Props> = ({
-  className,
-  children,
-  path,
-}) => {
+export const NavLink: React.FunctionComponent<Props> = ({ className, children, path }) => {
   const history = useContext(HistoryContext);
   if (!history) {
     throw new Error('history must be provided');

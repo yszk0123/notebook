@@ -8,8 +8,7 @@ const Menu = styled.ul`
   padding-left: 0;
   background: ${({ theme }) => theme.dropDownMenuColorBg};
   // FIXME: Avoid magic number
-  box-shadow: 0 2px ${({ theme }) => theme.space}
-    ${({ theme }) => theme.dropDownMenuShadow};
+  box-shadow: 0 2px ${({ theme }) => theme.space} ${({ theme }) => theme.dropDownMenuShadow};
   color: ${({ theme }) => theme.dropDownMenuColorFg};
 `;
 

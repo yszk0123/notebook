@@ -16,9 +16,7 @@ interface LoadNoteSideEffectContext {
 export interface LoadNoteEffect
   extends SideEffect<NoteGlobalState, NoteAction, LoadNoteSideEffectInput> {}
 
-export function createLoadNoteEffect({
-  loadNote,
-}: LoadNoteSideEffectContext): LoadNoteEffect {
+export function createLoadNoteEffect({ loadNote }: LoadNoteSideEffectContext): LoadNoteEffect {
   return ({ userId, noteId }) => async dispatch => {
     if (isNull(userId)) {
       return;

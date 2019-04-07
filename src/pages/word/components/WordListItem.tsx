@@ -40,13 +40,10 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     setContent(word.content);
   }, [word.content]);
 
-  const handleChangeContent = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newContent = event.currentTarget.value;
-      setContent(newContent);
-    },
-    [],
-  );
+  const handleChangeContent = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const newContent = event.currentTarget.value;
+    setContent(newContent);
+  }, []);
 
   const onBlurContent = useCallback(() => {
     if (word.content !== content) {
@@ -60,11 +57,7 @@ export const WordListItem: React.FunctionComponent<Props> = ({
 
   return (
     <Layout>
-      <Input
-        value={content}
-        onChange={handleChangeContent}
-        onBlur={onBlurContent}
-      />
+      <Input value={content} onChange={handleChangeContent} onBlur={onBlurContent} />
       <Picker value={word.createdAt} onChange={onChangeDate} />
       <Button onClick={onClickButton}>
         <Icon icon="trash" />

@@ -5,11 +5,7 @@ import { SideEffect } from '../../redux';
 import { RoutingAction, routingActions } from '../RoutingActions';
 import { RoutingGlobalState } from '../RoutingState';
 
-type RoutingSideEffect<Args> = SideEffect<
-  RoutingGlobalState,
-  RoutingAction,
-  Args
->;
+type RoutingSideEffect<Args> = SideEffect<RoutingGlobalState, RoutingAction, Args>;
 
 interface UserParam {
   accessToken: string;
@@ -60,9 +56,7 @@ async function loginUser(user: firebase.User): Promise<Nullable<User>> {
   }
 }
 
-const login: RoutingSideEffect<
-  [firebase.User]
-> = firebaseUser => async dispatch => {
+const login: RoutingSideEffect<[firebase.User]> = firebaseUser => async dispatch => {
   const user = await loginUser(firebaseUser);
   if (!user) {
     dispatch(routingActions.loginFailure());

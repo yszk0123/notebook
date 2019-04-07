@@ -14,9 +14,7 @@ async function doRemove(input: RemoveInput, db: firebase.firestore.Firestore) {
   await wordRef.delete();
 }
 
-export const removeSideEffect: WordSideEffect<
-  [RemoveInput]
-> = input => async dispatch => {
+export const removeSideEffect: WordSideEffect<[RemoveInput]> = input => async dispatch => {
   dispatch(wordActions.remove(input));
 
   const db = firebase.firestore();

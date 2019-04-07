@@ -12,9 +12,7 @@ export const enum NoteActionType {
 }
 
 export const noteActions = {
-  copyText: action<NoteActionType.COPY_TEXT, { text: string }>(
-    NoteActionType.COPY_TEXT,
-  ),
+  copyText: action<NoteActionType.COPY_TEXT, { text: string }>(NoteActionType.COPY_TEXT),
   copyTextSuccess: action(NoteActionType.COPY_TEXT_SUCCESS),
   load: action(NoteActionType.LOAD),
   loadSuccess: action<NoteActionType.LOAD_SUCCESS, { note: Nullable<Note> }>(

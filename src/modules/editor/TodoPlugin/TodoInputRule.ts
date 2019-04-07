@@ -9,8 +9,6 @@ const todoRule: InputRuleFactory = nodeType => {
 };
 
 export function buildTodoInputRules(schema: Schema) {
-  const rules = [mapForUndefinable(schema.nodes.todo, todoRule)].filter(
-    isNotUndefined,
-  );
+  const rules = [mapForUndefinable(schema.nodes.todo, todoRule)].filter(isNotUndefined);
   return inputRules({ rules });
 }

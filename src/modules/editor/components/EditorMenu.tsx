@@ -28,8 +28,7 @@ const MenuItem = styled.div<{ active?: boolean; enable?: boolean }>`
   min-height: ${({ theme }) => theme.roundButtonSize};
   height: ${({ theme }) => theme.roundButtonSize};
   justify-content: center;
-  opacity: ${({ theme, active }) =>
-    active ? theme.activeOpacity : theme.inactiveOpacity};
+  opacity: ${({ theme, active }) => (active ? theme.activeOpacity : theme.inactiveOpacity)};
   padding: ${({ theme }) => theme.space};
   text-align: center;
   transition: ${({ theme }) => theme.transition};
@@ -51,11 +50,7 @@ interface ItemProps {
   item: MenuItem;
 }
 
-const EditorMenuItem: React.FunctionComponent<ItemProps> = ({
-  item,
-  editorState,
-  editorView,
-}) => {
+const EditorMenuItem: React.FunctionComponent<ItemProps> = ({ item, editorState, editorView }) => {
   const onClick: React.MouseEventHandler = event => {
     event.preventDefault();
     item.run(editorState, editorView.dispatch, editorView);

@@ -1,8 +1,6 @@
 import * as firebase from 'firebase/app';
 
-export function unwrapQuerySnapshot<T>(
-  snapshot: firebase.firestore.QuerySnapshot,
-): T[] {
+export function unwrapQuerySnapshot<T>(snapshot: firebase.firestore.QuerySnapshot): T[] {
   if (snapshot.empty) {
     return [];
   }

@@ -40,9 +40,7 @@ export const Picker = React.memo<Props>(({ value, onChange }) => {
 
   return (
     <>
-      <DateText onClick={onOpen}>
-        {value ? format(value, 'YYYY/MM/DD') : null}
-      </DateText>
+      <DateText onClick={onOpen}>{value ? format(value, 'YYYY/MM/DD') : null}</DateText>
       {isOpen ? (
         <DatePicker
           // FIXME: Avoid any

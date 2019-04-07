@@ -11,10 +11,7 @@ interface LoadInput {
   userId: string;
 }
 
-async function doLoad(
-  input: LoadInput,
-  db: firebase.firestore.Firestore,
-): Promise<Word[]> {
+async function doLoad(input: LoadInput, db: firebase.firestore.Firestore): Promise<Word[]> {
   const userRef = db.collection('users').doc(input.userId);
   const wordsRef = userRef
     .collection('words')
@@ -28,9 +25,7 @@ async function doLoad(
   return words;
 }
 
-export const loadSideEffect: WordSideEffect<
-  LoadInput
-> = input => async dispatch => {
+export const loadSideEffect: WordSideEffect<LoadInput> = input => async dispatch => {
   dispatch(wordActions.load());
 
   const db = firebase.firestore();

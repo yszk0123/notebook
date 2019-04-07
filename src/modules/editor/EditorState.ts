@@ -10,15 +10,8 @@ function createEmptyDoc(schema: Schema): Node {
   return schema.node('doc', {}, [schema.node('paragraph', {}, [])]);
 }
 
-export function createStateFromContent(
-  schema: Schema,
-  content: Nullable<EditorContent>,
-) {
-  const doc = mapOrElseForNullable(
-    content,
-    () => createEmptyDoc(schema),
-    schema.nodeFromJSON,
-  );
+export function createStateFromContent(schema: Schema, content: Nullable<EditorContent>) {
+  const doc = mapOrElseForNullable(content, () => createEmptyDoc(schema), schema.nodeFromJSON);
 
   return EditorState.create({
     doc,
@@ -26,8 +19,6 @@ export function createStateFromContent(
   });
 }
 
-export function serializeEditorState(
-  editorState: EditorState,
-): Nullable<EditorContent> {
+export function serializeEditorState(editorState: EditorState): Nullable<EditorContent> {
   return unwrapUnsafeValue<EditorContent>(editorState.doc.toJSON());
 }

@@ -11,10 +11,7 @@ interface SaveAllInput {
   words: Word[];
 }
 
-async function doSaveAll(
-  input: SaveAllInput,
-  db: firebase.firestore.Firestore,
-) {
+async function doSaveAll(input: SaveAllInput, db: firebase.firestore.Firestore) {
   const userRef = db.collection('users').doc(input.userId);
 
   // FIXME: Batch save
@@ -27,9 +24,7 @@ async function doSaveAll(
   );
 }
 
-export const saveAllSideEffect: WordSideEffect<
-  SaveAllInput
-> = input => async dispatch => {
+export const saveAllSideEffect: WordSideEffect<SaveAllInput> = input => async dispatch => {
   dispatch(wordActions.saveAll(input));
 
   const db = firebase.firestore();

@@ -202,20 +202,12 @@ export const NotePage: React.FunctionComponent<Props> = ({
               <Button onClick={onCopy}>Copy</Button>
             </ButtonGroupLayout>
             <StatusLayout>
-              <Text size={FontSize.SMALL}>
-                {saving ? 'saving...' : 'saved'}
-              </Text>
+              <Text size={FontSize.SMALL}>{saving ? 'saving...' : 'saved'}</Text>
             </StatusLayout>
           </MiniControl>
-          <EditorMenu
-            editorState={editorState}
-            menuItems={menuItems}
-            editorView={editorView}
-          />
+          <EditorMenu editorState={editorState} menuItems={menuItems} editorView={editorView} />
         </VerticalStackItemLayout>
-        <VirtualKeyboardSpacer
-          isVirtualKeyboardVisible={isVirtualKeyboardVisible}
-        />
+        <VirtualKeyboardSpacer isVirtualKeyboardVisible={isVirtualKeyboardVisible} />
       </VerticalStackLayout>
     </NotePageWrapper>
   );

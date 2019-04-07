@@ -8,6 +8,5 @@ interface Props {
 
 export const Text = styled.div<Props>`
   font-size: ${({ theme, size = FontSize.DEFAULT }) => theme.fontSize[size]};
-  font-weight: ${({ theme, bold }) =>
-    bold ? theme.fontWeight.bold : theme.fontWeight.normal};
+  font-weight: ${({ theme, bold }) => (bold ? theme.fontWeight.bold : theme.fontWeight.normal)};
 `;

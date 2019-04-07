@@ -1,9 +1,4 @@
-import {
-  selectParentNode,
-  setBlockType,
-  toggleMark,
-  wrapIn,
-} from 'prosemirror-commands';
+import { selectParentNode, setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { NodeType, Schema } from 'prosemirror-model';
 import { wrapInList } from 'prosemirror-schema-list';
 import { EditorState } from 'prosemirror-state';
@@ -14,9 +9,10 @@ function alwaysTrue(): true {
   return true;
 }
 
-export function setBlockTypeMenu<
-  Options extends { longTitle: string; shortTitle: string }
->(nodeType: NodeType, { longTitle, shortTitle, ...attrs }: Options): MenuItem {
+export function setBlockTypeMenu<Options extends { longTitle: string; shortTitle: string }>(
+  nodeType: NodeType,
+  { longTitle, shortTitle, ...attrs }: Options,
+): MenuItem {
   const command = setBlockType(nodeType, attrs);
 
   return {

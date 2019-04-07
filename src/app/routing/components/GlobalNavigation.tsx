@@ -88,10 +88,7 @@ interface Props {
   user: Nullable<RoutingUser>;
 }
 
-const GlobalNavigationInner: React.FunctionComponent<Props> = ({
-  loading,
-  user,
-}) => {
+const GlobalNavigationInner: React.FunctionComponent<Props> = ({ loading, user }) => {
   const history = useContext(HistoryContext);
   if (!history) {
     throw new Error('history must be provided');

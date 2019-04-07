@@ -15,10 +15,7 @@ function isCheckbox(target: Nullable<EventTarget>): boolean {
   }
 
   const element = unwrapUnsafeValue<HTMLElement>(target);
-  return (
-    element.nodeName.toLowerCase() === 'input' &&
-    element.getAttribute('type') === 'checkbox'
-  );
+  return element.nodeName.toLowerCase() === 'input' && element.getAttribute('type') === 'checkbox';
 }
 
 const clickPlugin = new Plugin({

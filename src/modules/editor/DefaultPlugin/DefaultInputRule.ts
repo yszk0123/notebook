@@ -37,11 +37,9 @@ const codeBlockRule: InputRuleFactory = nodeType => {
 };
 
 function headingRule(nodeType: NodeType, maxLevel: number): InputRule {
-  return textblockTypeInputRule(
-    new RegExp('^(#{1,' + maxLevel + '})\\s$'),
-    nodeType,
-    match => ({ level: match[1].length }),
-  );
+  return textblockTypeInputRule(new RegExp('^(#{1,' + maxLevel + '})\\s$'), nodeType, match => ({
+    level: match[1].length,
+  }));
 }
 
 export function buildInputRules(schema: Schema) {

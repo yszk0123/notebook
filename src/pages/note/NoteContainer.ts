@@ -3,18 +3,9 @@ import { bindActionCreators } from 'redux';
 import { RoutingGlobalState } from '../../app/routing';
 import { NotePage } from './components/NotePage';
 import { NoteGlobalState } from './NoteState';
-import {
-  CopyTextSideEffect,
-  createCopyTextSideEffect,
-} from './sideEffects/CopyTextSideEffect';
-import {
-  createLoadNoteEffect,
-  LoadNoteEffect,
-} from './sideEffects/LoadNoteSideEffect';
-import {
-  createSaveNoteSideEffect,
-  SaveNoteSideEffect,
-} from './sideEffects/SaveNoteSideEffect';
+import { CopyTextSideEffect, createCopyTextSideEffect } from './sideEffects/CopyTextSideEffect';
+import { createLoadNoteEffect, LoadNoteEffect } from './sideEffects/LoadNoteSideEffect';
+import { createSaveNoteSideEffect, SaveNoteSideEffect } from './sideEffects/SaveNoteSideEffect';
 import { LoadNote } from './useCases/LoadNote';
 import { SaveNote } from './useCases/SaveNote';
 
@@ -43,10 +34,7 @@ interface DispatchTo {
   saveNote: SaveNoteSideEffect;
 }
 
-function mapDispatch(
-  dispatch: any,
-  { loadNote, saveNote }: OwnProps,
-): DispatchTo {
+function mapDispatch(dispatch: any, { loadNote, saveNote }: OwnProps): DispatchTo {
   return bindActionCreators(
     {
       copyText: createCopyTextSideEffect(),

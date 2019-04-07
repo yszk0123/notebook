@@ -17,9 +17,7 @@ async function doSave(input: SaveInput, db: firebase.firestore.Firestore) {
   await wordRef.set(input.word);
 }
 
-export const saveSideEffect: WordSideEffect<
-  SaveInput
-> = input => async dispatch => {
+export const saveSideEffect: WordSideEffect<SaveInput> = input => async dispatch => {
   dispatch(wordActions.save(input));
 
   const db = firebase.firestore();

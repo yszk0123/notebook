@@ -7,11 +7,7 @@ import { createEditorView } from './EditorView';
 interface Props {
   editorState: EditorState;
   editorRef: React.RefObject<HTMLElement>;
-  onChange: (
-    nextState: EditorState,
-    prevState: EditorState,
-    docChanged: boolean,
-  ) => void;
+  onChange: (nextState: EditorState, prevState: EditorState, docChanged: boolean) => void;
   onFocus?: (event: Event) => void;
   onBlur?: (event: Event) => void;
 }
@@ -23,9 +19,7 @@ export const useEditor = ({
   onFocus = noop,
   onBlur = noop,
 }: Props) => {
-  const [editorView] = useState(() =>
-    createEditorView({ editorState, onChange }),
-  );
+  const [editorView] = useState(() => createEditorView({ editorState, onChange }));
 
   useLayoutEffect(() => {
     editorView.updateState(editorState);

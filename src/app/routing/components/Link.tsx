@@ -16,11 +16,7 @@ interface Props {
   path: string;
 }
 
-export const Link: React.FunctionComponent<Props> = ({
-  className,
-  children,
-  path,
-}) => {
+export const Link: React.FunctionComponent<Props> = ({ className, children, path }) => {
   const history = useContext(HistoryContext);
   if (!history) {
     throw new Error('history must be provided');

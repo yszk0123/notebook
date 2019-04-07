@@ -8,11 +8,8 @@ export const VirtualKeyboardSpacer = styled.div<{
   display: none;
 
   @media screen and (max-width: 480px) {
-    display: ${({ isVirtualKeyboardVisible }) =>
-      isVirtualKeyboardVisible ? 'block' : undefined};
+    display: ${({ isVirtualKeyboardVisible }) => (isVirtualKeyboardVisible ? 'block' : undefined)};
     height: ${({ isVirtualKeyboardVisible }) =>
-      isVirtualKeyboardVisible
-        ? `calc(100% - ${VIRTUAL_KEYBOARD_HEIGHT}px)`
-        : undefined};
+      isVirtualKeyboardVisible ? `calc(100% - ${VIRTUAL_KEYBOARD_HEIGHT}px)` : undefined};
   }
 `;

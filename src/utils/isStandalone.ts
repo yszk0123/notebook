@@ -6,7 +6,6 @@ export function isStandalone() {
     // FIXME: `[ts] Property 'standalone' does not exist on type 'never'. [2339]`
     // @ts-ignore
     ('standalone' in window.navigator && window.navigator.standalone) ||
-    ('matchMedia' in window &&
-      window.matchMedia('(display-mode: standalone)').matches)
+    ('matchMedia' in window && window.matchMedia('(display-mode: standalone)').matches)
   );
 }

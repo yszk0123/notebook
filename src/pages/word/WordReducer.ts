@@ -14,10 +14,7 @@ const initialState: WordLocalState = {
   wordsById: {},
 };
 
-export const wordReducer: Reducer<WordLocalState, WordAction> = (
-  state = initialState,
-  action,
-) => {
+export const wordReducer: Reducer<WordLocalState, WordAction> = (state = initialState, action) => {
   switch (action.type) {
     case WordActionType.REMOVE:
       return { ...state, saving: true };

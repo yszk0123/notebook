@@ -12,19 +12,13 @@ interface Props {
   onClick?: React.EventHandler<React.SyntheticEvent<HTMLElement>>;
 }
 
-export const Icon: React.FunctionComponent<Props> = ({
-  fill,
-  icon,
-  ...props
-}) => {
+export const Icon: React.FunctionComponent<Props> = ({ fill, icon, ...props }) => {
   // tslint:disable-next-line:no-any
   const finalIcon = fill === false ? (['far', icon] as any) : icon;
   return <FontAwesomeIcon {...props} icon={finalIcon} />;
 };
 
-export function createIcon(
-  name: IconProp,
-): React.FunctionComponent<DiffKeys<Props, 'icon'>> {
+export function createIcon(name: IconProp): React.FunctionComponent<DiffKeys<Props, 'icon'>> {
   return props => {
     return <Icon icon={name} {...props} />;
   };
