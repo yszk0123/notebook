@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app';
 import { sleep } from '../../../app/utils/sleep';
 import { Word } from '../entities/Word';
 import { wordActions } from '../WordActions';
-import { WordSideEffect } from './WordSideEffectType';
+import { WordSideEffect } from '../sideEffects/WordSideEffectType';
 
 const SAVE_DELAY = 750;
 

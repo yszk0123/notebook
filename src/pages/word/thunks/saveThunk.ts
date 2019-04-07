@@ -1,8 +1,8 @@
 import * as firebase from 'firebase/app';
 import { sleep } from '../../../app/utils/sleep';
 import { Word } from '../entities/Word';
+import { WordSideEffect } from '../sideEffects/WordSideEffectType';
 import { wordActions } from '../WordActions';
-import { WordSideEffect } from './WordSideEffectType';
 
 const SAVE_DELAY = 500;
 

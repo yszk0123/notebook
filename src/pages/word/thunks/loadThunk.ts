@@ -3,7 +3,7 @@ import { isNotNull } from 'option-t/lib/Nullable';
 import { unwrapDocumentSnapshot } from '../../../app/utils/unwrapDocumentSnapshot';
 import { createWord, Word } from '../entities/Word';
 import { wordActions } from '../WordActions';
-import { WordSideEffect } from './WordSideEffectType';
+import { WordSideEffect } from '../sideEffects/WordSideEffectType';
 
 const WORD_LIMIT = 15;
 
