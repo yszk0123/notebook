@@ -1,4 +1,4 @@
-import { isNotNull } from 'option-t/lib/Nullable';
+import { isNotNull, Nullable } from 'option-t/lib/Nullable';
 import { Gateway } from '../../../application/ApplicationType';
 import { unwrapDocumentSnapshot } from '../../../application/utils/unwrapDocumentSnapshot';
 import { createWord, Word } from '../entities/Word';
@@ -17,6 +17,16 @@ export const getWordsGateway: Gateway<{ userId: string }, Word[]> = async (input
     .filter(isNotNull)
     .map(createWord);
   return words;
+};
+
+export const getWordGateway: Gateway<{ userId: string; wordId: string }, Nullable<Word>> = async (
+  { userId, wordId },
+  { db },
+) => {
+  const userRef = db.collection('users').doc(userId);
+  const wordRef = userRef.collection('words').doc(wordId);
+  const wordSnapshot = await wordRef.get();
+  return unwrapDocumentSnapshot<Word>(wordSnapshot);
 };
 
 export const postWordGateway: Gateway<{ userId: string; content: string }, Word> = async (

@@ -7,9 +7,9 @@ export const loadAllThunk: WordThunk<{ userId: string }> = input => async (
   _getState,
   injections,
 ) => {
-  dispatch(wordActions.load());
+  dispatch(wordActions.loadAll());
 
   const words = await getWordsGateway(input, injections);
 
-  dispatch(wordActions.loadSuccess({ words }));
+  dispatch(wordActions.loadAllSuccess({ words }));
 };

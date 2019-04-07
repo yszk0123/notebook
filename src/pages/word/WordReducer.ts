@@ -1,6 +1,6 @@
 import { difference, pull, uniq } from 'lodash';
 import { createReducer } from '../../application/DucksType';
-import { createRecord } from '../../application/utils/createRecord';
+import { updateRecord } from '../../application/Record';
 import { identity } from '../../application/utils/identity';
 import { updateState } from '../../application/utils/updateState';
 import { WordID } from './entities/Word';
@@ -41,14 +41,22 @@ export const wordReducer = createReducer<WordLocalState, WordActionType, WordAct
       });
     },
     [WordActionType.LOAD]: state => ({ ...state, loading: true }),
-    [WordActionType.LOAD_SUCCESS]: (state, { payload: { words } }) => {
+    [WordActionType.LOAD_FAILURE]: identity,
+    [WordActionType.LOAD_SUCCESS]: (state, { payload: { word } }) => {
+      return updateState(state, {
+        loading: { $set: false },
+        wordIds: wordIds => uniq([...wordIds, word.id]),
+        wordsById: wordsById => updateRecord(wordsById, [word], w => w.id),
+      });
+    },
+    [WordActionType.LOAD_ALL]: state => ({ ...state, loading: true }),
+    [WordActionType.LOAD_ALL_SUCCESS]: (state, { payload: { words } }) => {
       const newWordIds = words.map(word => word.id);
-      const newWordsById = createRecord(words, word => word.id);
 
       return updateState(state, {
         loading: { $set: false },
-        wordIds: { $set: newWordIds },
-        wordsById: { $set: newWordsById },
+        wordIds: wordIds => uniq([...wordIds, ...newWordIds]),
+        wordsById: wordsById => updateRecord(wordsById, words, w => w.id),
       });
     },
     // FIXME: Implement

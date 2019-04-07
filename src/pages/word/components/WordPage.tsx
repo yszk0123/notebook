@@ -55,9 +55,16 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   outdatedWords,
   dispatch,
 }) => {
-  useEffect(() => {
-    dispatch(loadAllThunk({ userId }));
-  }, [userId]);
+  // FIXME: Move logic into WordSideEffects
+  useDebouncedEffect(
+    () => {
+      if (outdatedWords.length !== 0) {
+        dispatch(saveAllThunk({ userId, words: outdatedWords }));
+      }
+    },
+    CHANGE_DELAY,
+    [dispatch, userId, outdatedWords],
+  );
 
   const onReload = useCallback(() => {
     dispatch(loadAllThunk({ userId }));
@@ -70,17 +77,6 @@ const WordPageInner: React.FunctionComponent<Props> = ({
       }
     },
     [userId, dispatch],
-  );
-
-  // FIXME: Move logic into WordSideEffects
-  useDebouncedEffect(
-    () => {
-      if (outdatedWords.length !== 0) {
-        dispatch(saveAllThunk({ userId, words: outdatedWords }));
-      }
-    },
-    CHANGE_DELAY,
-    [dispatch, userId, outdatedWords],
   );
 
   const onChangeContent = useCallback(
@@ -150,7 +146,18 @@ interface PropsOuter {
   words: Word[];
   dispatch: Dispatch<any>;
 }
-const WordPageOuter: React.FunctionComponent<PropsOuter> = ({ loading, userId, ...props }) => {
+const WordPageOuter: React.FunctionComponent<PropsOuter> = ({
+  loading,
+  userId,
+  dispatch,
+  ...props
+}) => {
+  useEffect(() => {
+    if (isNotNull(userId)) {
+      dispatch(loadAllThunk({ userId }));
+    }
+  }, [dispatch, userId]);
+
   if (loading || isNull(userId)) {
     return (
       <LoadingLayout>
@@ -159,7 +166,7 @@ const WordPageOuter: React.FunctionComponent<PropsOuter> = ({ loading, userId, .
     );
   }
 
-  return <WordPageInner {...props} userId={userId} />;
+  return <WordPageInner {...props} userId={userId} dispatch={dispatch} />;
 };
 
 interface State extends WordGlobalState, RoutingGlobalState {}
