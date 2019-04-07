@@ -1,11 +1,11 @@
-import { Word, WordId } from './entities/Word';
+import { Word, WordID } from './entities/Word';
 
 export interface WordLocalState {
   loading: boolean;
   saving: boolean;
-  outdatedWordIds: WordId[];
-  wordIds: WordId[];
-  wordsById: Record<WordId, Word>;
+  outdatedWordIds: WordID[];
+  wordIds: WordID[];
+  wordsById: Record<WordID, Word>;
 }
 
 export interface WordGlobalState {

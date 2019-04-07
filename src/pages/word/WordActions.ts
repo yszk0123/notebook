@@ -1,6 +1,6 @@
 import { GetAction } from '../../application/DucksType';
 import { action } from '../../application/ExperimentalDucksType';
-import { Word, WordId } from './entities/Word';
+import { Word, WordID } from './entities/Word';
 
 export const enum WordActionType {
   ADD = 'word/ADD',
@@ -23,7 +23,7 @@ export const wordActions = {
   load: action(WordActionType.LOAD)(),
   loadSuccess: action(WordActionType.LOAD_SUCCESS)<{ words: Word[] }>(),
   remove: action(WordActionType.REMOVE)<{ userId: string; word: Word }>(),
-  removeSuccess: action(WordActionType.REMOVE_SUCCESS)<{ userId: string; removedWordId: WordId }>(),
+  removeSuccess: action(WordActionType.REMOVE_SUCCESS)<{ userId: string; removedWordId: WordID }>(),
   save: action(WordActionType.SAVE)<{ userId: string; word: Word }>(),
   saveAll: action(WordActionType.SAVE_ALL)<{ userId: string; words: Word[] }>(),
   saveAllSuccess: action(WordActionType.SAVE_ALL_SUCCESS)<{ userId: string; words: Word[] }>(),
