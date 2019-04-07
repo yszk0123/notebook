@@ -1,5 +1,5 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -84,8 +84,6 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   outdatedWords,
   dispatch,
 }) => {
-  const [isVirtualKeyboardVisible, setFocused] = useState(false);
-
   useEffect(() => {
     if (isNull(userId)) {
       return;
@@ -108,11 +106,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      const input = {
-        userId,
-        word,
-      };
-      dispatch(saveThunk(input));
+      dispatch(saveThunk({ userId, word }));
     },
     [userId, dispatch],
   );
@@ -124,11 +118,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      const input = {
-        userId,
-        words: outdatedWords,
-      };
-      dispatch(saveAllThunk(input));
+      dispatch(saveAllThunk({ userId, words: outdatedWords }));
     },
     CHANGE_DELAY,
     [dispatch, userId, outdatedWords],
@@ -140,12 +130,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      const input = {
-        content,
-        userId,
-        word,
-      };
-      dispatch(wordActions.updateContent(input));
+      dispatch(wordActions.updateContent({ content, userId, word }));
     },
     [dispatch, userId],
   );
@@ -156,12 +141,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      const input = {
-        createdAt,
-        userId,
-        word,
-      };
-      dispatch(wordActions.updateCreatedAt(input));
+      dispatch(wordActions.updateCreatedAt({ createdAt, userId, word }));
     },
     [dispatch, userId],
   );
@@ -180,11 +160,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         return;
       }
 
-      const input = {
-        userId,
-        word,
-      };
-      dispatch(removeThunk(input));
+      dispatch(removeThunk({ userId, word }));
     },
     [dispatch, userId],
   );
