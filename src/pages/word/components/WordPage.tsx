@@ -1,4 +1,4 @@
-import { isNull, Nullable } from 'option-t/lib/Nullable';
+import { isNotNull, Nullable } from 'option-t/lib/Nullable';
 import React, { useCallback, useEffect } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
@@ -85,28 +85,22 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   dispatch,
 }) => {
   useEffect(() => {
-    if (isNull(userId)) {
-      return;
+    if (isNotNull(userId)) {
+      dispatch(loadAllThunk({ userId }));
     }
-
-    dispatch(loadAllThunk({ userId }));
   }, [userId]);
 
   const onReload = useCallback(() => {
-    if (isNull(userId)) {
-      return;
+    if (isNotNull(userId)) {
+      dispatch(loadAllThunk({ userId }));
     }
-
-    dispatch(loadAllThunk({ userId }));
   }, [userId]);
 
   const onSave = useCallback(
     (word: Word) => {
-      if (isNull(userId) || isNull(word)) {
-        return;
+      if (isNotNull(userId) && isNotNull(word)) {
+        dispatch(saveThunk({ userId, word }));
       }
-
-      dispatch(saveThunk({ userId, word }));
     },
     [userId, dispatch],
   );
@@ -114,11 +108,9 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   // FIXME: Move logic into WordSideEffects
   useDebouncedEffect(
     () => {
-      if (isNull(userId) || outdatedWords.length === 0) {
-        return;
+      if (isNotNull(userId) && outdatedWords.length !== 0) {
+        dispatch(saveAllThunk({ userId, words: outdatedWords }));
       }
-
-      dispatch(saveAllThunk({ userId, words: outdatedWords }));
     },
     CHANGE_DELAY,
     [dispatch, userId, outdatedWords],
@@ -126,41 +118,33 @@ const WordPageInner: React.FunctionComponent<Props> = ({
 
   const onChangeContent = useCallback(
     (word: Word, content: string) => {
-      if (isNull(userId)) {
-        return;
+      if (isNotNull(userId)) {
+        dispatch(wordActions.updateContent({ content, userId, word }));
       }
-
-      dispatch(wordActions.updateContent({ content, userId, word }));
     },
     [dispatch, userId],
   );
 
   const onChangeDate = useCallback(
     (word: Word, createdAt: number) => {
-      if (isNull(userId)) {
-        return;
+      if (isNotNull(userId)) {
+        dispatch(wordActions.updateCreatedAt({ createdAt, userId, word }));
       }
-
-      dispatch(wordActions.updateCreatedAt({ createdAt, userId, word }));
     },
     [dispatch, userId],
   );
 
   const onAddWord = useCallback(() => {
-    if (isNull(userId)) {
-      return;
+    if (isNotNull(userId)) {
+      dispatch(addThunk({ userId, content: '' }));
     }
-
-    dispatch(addThunk({ userId, content: '' }));
   }, [dispatch, userId]);
 
   const onRemoveWord = useCallback(
     (word: Word) => {
-      if (isNull(userId)) {
-        return;
+      if (isNotNull(userId)) {
+        dispatch(removeThunk({ userId, word }));
       }
-
-      dispatch(removeThunk({ userId, word }));
     },
     [dispatch, userId],
   );
