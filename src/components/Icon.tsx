@@ -17,9 +17,9 @@ export const Icon: React.FunctionComponent<Props> = ({
   icon,
   ...props
 }) => {
-  const finalIcon = fill === false ? ['far', icon] : icon;
   // tslint:disable-next-line:no-any
-  return <FontAwesomeIcon {...props} icon={finalIcon as any} />;
+  const finalIcon = fill === false ? (['far', icon] as any) : icon;
+  return <FontAwesomeIcon {...props} icon={finalIcon} />;
 };
 
 export function createIcon(
