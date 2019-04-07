@@ -17,7 +17,7 @@ import { removeThunk } from '../thunks/removeThunk';
 import { saveAllThunk } from '../thunks/saveAllThunk';
 import { saveThunk } from '../thunks/saveThunk';
 import { wordActions } from '../WordActions';
-import { getOutdatedWords, getWords } from '../WordSelectors';
+import { outdatedWordsSelector, wordsSelector } from '../WordSelectors';
 import { WordGlobalState } from '../WordState';
 import { WordListItem } from './WordListItem';
 
@@ -198,8 +198,8 @@ const WordPageOuter: React.FunctionComponent<PropsOuter> = ({ loading, userId, .
 interface State extends WordGlobalState, RoutingGlobalState {}
 
 function mapState(state: State) {
-  const words = getWords(state);
-  const outdatedWords = getOutdatedWords(state);
+  const words = wordsSelector(state);
+  const outdatedWords = outdatedWordsSelector(state);
   const { saving } = state.word;
   const { loading, user } = state.routing;
 
