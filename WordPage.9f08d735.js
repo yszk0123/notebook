@@ -35,10 +35,11 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   list-style-type: none;
   margin: 0;
   padding: 0;
-`;exports.List=t;const s=e.styled.li`
+`;exports.List=t;const i=e.styled.li`
   display: flex;
   width: 100%;
   align-items: center;
@@ -48,7 +49,7 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
     border-top: 1px solid ${({theme:e})=>e.borderColorBg};
     padding-top: ${({theme:e})=>e.space};
   }
-`;exports.ListItem=s;
+`;exports.ListItem=i;
 },{"../../../application/styled-components":"Y5zh"}],"bjhr":[function(require,module,exports) {
 var e=6e4;module.exports=function(t){var n=new Date(t.getTime()),r=n.getTimezoneOffset();n.setSeconds(0,0);var o=n.getTime()%e;return r*e+o};
 },{}],"CFBi":[function(require,module,exports) {
@@ -426,13 +427,13 @@ var u=arguments[3],_="__global_unique_id__";module.exports=function(){return u[_
   outline: none;
   flex-grow: 1;
   resize: none;
-  overflow-y: hidden;
+  overflow-y: auto;
   min-height: 1em;
 
   &:focus {
     border-color: ${({theme:e})=>e.borderActiveColorBg};
   }
-`,s=({word:r,onChangeContent:u,onChangeDate:a,onClickRemove:s})=>{const[d,f]=(0,t.useState)(r.content),[p,h]=(0,t.useState)(24),g=(0,t.useRef)(null);(0,t.useEffect)(()=>{f(r.content)},[r.content]),(0,t.useEffect)(()=>{if((0,e.isNull)(g.current))return;g.current.style.height="24px";const t=g.current.scrollHeight;g.current.style.height=`${t}px`,h(t)},[d,g]);const m=(0,t.useCallback)(e=>{const t=e.currentTarget.value;f(t)},[]),b=(0,t.useCallback)(e=>{a(r,e)},[a,r]),y=(0,t.useCallback)(()=>{r.content!==d&&u(r,d)},[u,r,d]),v=(0,t.useCallback)(()=>{s(r)},[s,r]);return t.default.createElement(l.ListItem,null,t.default.createElement(i,{ref:g,style:{height:p},value:d,onChange:m,onBlur:y}),t.default.createElement(c.Picker,{value:r.createdAt,onChange:b}),t.default.createElement(n.Button,{onClick:v},t.default.createElement(o.Icon,{icon:"trash"})))};exports.WordListItem=s;
+`,s=({word:r,onChangeContent:u,onChangeDate:a,onClickRemove:s})=>{const[f,d]=(0,t.useState)(r.content),[p,h]=(0,t.useState)(24),g=(0,t.useRef)(null);(0,t.useEffect)(()=>{d(r.content)},[r.content]),(0,t.useEffect)(()=>{if((0,e.isNull)(g.current))return;g.current.style.height="24px";const t=g.current.scrollHeight;g.current.style.height=`${t}px`,h(t)},[f,g]);const m=(0,t.useCallback)(e=>{const t=e.currentTarget.value;d(t)},[]),b=(0,t.useCallback)(e=>{a(r,e)},[a,r]),y=(0,t.useCallback)(()=>{r.content!==f&&u(r,f)},[u,r,f]),v=(0,t.useCallback)(()=>{s(r)},[s,r]);return t.default.createElement(l.ListItem,null,t.default.createElement(i,{ref:g,style:{height:p},value:f,onChange:m,onBlur:y}),t.default.createElement(c.Picker,{value:r.createdAt,onChange:b}),t.default.createElement(n.Button,{onClick:v},t.default.createElement(o.Icon,{icon:"trash"})))};exports.WordListItem=s;
 },{"option-t/lib/Nullable":"Co55","react":"1n8/","../../../application/styled-components":"Y5zh","../../../components/Button":"UI9U","../../../components/Icon":"TMj6","./List":"RaAk","./Picker":"eINX"}],"POMY":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.WordPage=void 0;var e=require("option-t/lib/Nullable"),t=v(require("react"));require("react-datepicker/dist/react-datepicker.css");var r=require("react-redux"),n=require("../../../application/components/layouts/CenterLayout"),l=require("../../../application/styled-components"),o=require("../../../application/utils/useDebouncedEffect"),u=require("../../../components/Button"),a=require("../../../components/Icon"),d=require("../../../components/Text"),s=require("../thunks/addThunk"),i=require("../thunks/loadAllThunk"),c=require("../thunks/removeThunk"),f=require("../thunks/saveAllThunk"),p=require("../thunks/saveThunk"),m=require("../WordActions"),h=require("../WordSelectors"),k=require("./Control"),g=require("./List"),C=require("./WordListItem");function v(e){if(e&&e.__esModule)return e;var t={};if(null!=e)for(var r in e)if(Object.prototype.hasOwnProperty.call(e,r)){var n=Object.defineProperty&&Object.getOwnPropertyDescriptor?Object.getOwnPropertyDescriptor(e,r):{};n.get||n.set?Object.defineProperty(t,r,n):t[r]=e[r]}return t.default=e,t}const I=1500,q=l.styled.div`
   display: flex;
@@ -457,4 +458,4 @@ var u=arguments[3],_="__global_unique_id__";module.exports=function(){return u[_
   color: ${({theme:e})=>e.loadingColorFg};
 `,E=({userId:r,saving:n,words:l,outdatedWords:a,dispatch:h})=>{(0,o.useDebouncedEffect)(()=>{0!==a.length&&h((0,f.saveAllThunk)({userId:r,words:a}))},1500,[h,r,a]);const v=(0,t.useCallback)(()=>{h((0,i.loadAllThunk)({userId:r}))},[r]),I=((0,t.useCallback)(t=>{(0,e.isNotNull)(t)&&h((0,p.saveThunk)({userId:r,word:t}))},[r,h]),(0,t.useCallback)((e,t)=>{h(m.wordActions.updateContent({content:t,userId:r,word:e}))},[h,r])),y=(0,t.useCallback)((e,t)=>{h(m.wordActions.updateCreatedAt({createdAt:t,userId:r,word:e}))},[h,r]),E=(0,t.useCallback)(()=>{h((0,s.addThunk)({userId:r,content:""}))},[h,r]),w=(0,t.useCallback)(e=>{confirm("This action can not be undone")&&h((0,c.removeThunk)({userId:r,word:e}))},[h,r]),T=(0,t.useCallback)(()=>{if(l.length){const e=l[l.length-1],t={createdAt:e.createdAt,id:e.id};h((0,i.loadAllThunk)({userId:r,after:t}))}},[h,r,l]);return t.default.createElement(q,null,t.default.createElement(g.List,null,l.map(e=>t.default.createElement(C.WordListItem,{key:e.id,word:e,onChangeContent:I,onChangeDate:y,onClickRemove:w})),t.default.createElement(g.ListItem,{onClick:T},t.default.createElement(b,null,"Load More")),t.default.createElement(g.ListItem,null,t.default.createElement(k.Control,null,t.default.createElement(k.ControlItem,null,t.default.createElement(u.Button,{onClick:E},"Add")),t.default.createElement(k.ControlItem,null,t.default.createElement(u.Button,{onClick:v},"Reload")),t.default.createElement(k.ControlItem,null,t.default.createElement(d.Text,null,n?"saving":"saved"))))))},w=({loading:r,userId:n,dispatch:l,...o})=>((0,t.useEffect)(()=>{(0,e.isNotNull)(n)&&l((0,i.loadAllThunk)({userId:n}))},[l,n]),r||(0,e.isNull)(n)?t.default.createElement(y,null,t.default.createElement(a.Icon,{icon:"spinner",spin:!0,pulse:!0})):t.default.createElement(E,Object.assign({},o,{userId:n,dispatch:l})));function T(e){const t=(0,h.wordsSelector)(e),r=(0,h.outdatedWordsSelector)(e),{saving:n}=e.word,{loading:l,user:o}=e.routing;return{loading:l,outdatedWords:r,saving:n,userId:o?o.uid:null,words:t}}const A=(0,r.connect)(T)(w);exports.WordPage=A;
 },{"option-t/lib/Nullable":"Co55","react":"1n8/","react-datepicker/dist/react-datepicker.css":"VN42","react-redux":"jYI/","../../../application/components/layouts/CenterLayout":"AzRY","../../../application/styled-components":"Y5zh","../../../application/utils/useDebouncedEffect":"XhRv","../../../components/Button":"UI9U","../../../components/Icon":"TMj6","../../../components/Text":"5Mw3","../thunks/addThunk":"UeP3","../thunks/loadAllThunk":"3s1g","../thunks/removeThunk":"SEOt","../thunks/saveAllThunk":"9Nc3","../thunks/saveThunk":"Ja6p","../WordActions":"18Bq","../WordSelectors":"NV+X","./Control":"3bLc","./List":"RaAk","./WordListItem":"z0CO"}]},{},[], null)
-//# sourceMappingURL=/notebook/WordPage.da8b4e1e.js.map
+//# sourceMappingURL=/notebook/WordPage.9f08d735.js.map
