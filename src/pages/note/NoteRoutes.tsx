@@ -3,7 +3,7 @@ import { Route } from '../../app/routing';
 import { createLoadNote } from './useCases/LoadNote';
 import { createSaveNote } from './useCases/SaveNote';
 
-export const noteRoutes: Array<Route> = [
+export const noteRoutes: Route[] = [
   {
     path: '/note',
     title: 'Note',

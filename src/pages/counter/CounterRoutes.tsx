@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from '../../app/routing';
 
-export const counterRoutes: Array<Route> = [
+export const counterRoutes: Route[] = [
   {
     path: '/counter',
     title: 'Counter',

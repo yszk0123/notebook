@@ -76,7 +76,7 @@ const EditorMenuItem: React.FunctionComponent<ItemProps> = ({
 interface Props {
   editorState: EditorState;
   editorView: EditorView;
-  menuItems: Array<MenuItem>;
+  menuItems: MenuItem[];
 }
 
 export const EditorMenu: React.FunctionComponent<Props> = ({

@@ -69,10 +69,10 @@ const ControlItemLayout = styled.div`
 
 interface Props {
   loading: boolean;
-  outdatedWords: Array<Word>;
+  outdatedWords: Word[];
   saving: boolean;
   userId: Nullable<string>;
-  words: Array<Word>;
+  words: Word[];
   dispatch: Dispatch<any>;
 }
 

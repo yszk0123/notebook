@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-any
-export function debounce<Args extends Array<any>>(
+export function debounce<Args extends any[]>(
   fn: (...args: Args) => unknown,
   delay: number,
 ) {

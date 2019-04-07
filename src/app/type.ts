@@ -1,4 +1,4 @@
-export type UseCase<Input, Output> = Input extends Array<any>
+export type UseCase<Input, Output> = Input extends any[]
   ? (...args: Input) => Promise<Output>
   : Input extends void
   ? () => Promise<Output>

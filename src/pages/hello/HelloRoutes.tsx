@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from '../../app/routing';
 
-export const helloRoutes: Array<Route> = [
+export const helloRoutes: Route[] = [
   {
     path: '/hello',
     title: 'Hello',
