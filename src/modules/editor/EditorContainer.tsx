@@ -25,7 +25,7 @@ const Editor = styled.div`
 
 export interface Props {
   schema: Schema;
-  menuItems: Array<MenuItem>;
+  menuItems: MenuItem[];
 }
 
 export const EditorContainer: React.FunctionComponent<Props> = ({

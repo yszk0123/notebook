@@ -36,12 +36,9 @@ export const WordListItem: React.FunctionComponent<Props> = ({
 }) => {
   const [content, setContent] = useState(word.content);
 
-  useEffect(
-    () => {
-      setContent(word.content);
-    },
-    [word.content],
-  );
+  useEffect(() => {
+    setContent(word.content);
+  }, [word.content]);
 
   const handleChangeContent = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,21 +48,15 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     [],
   );
 
-  const onBlurContent = useCallback(
-    () => {
-      if (word.content !== content) {
-        onChangeContent(content);
-      }
-    },
-    [onChangeContent, word, content],
-  );
+  const onBlurContent = useCallback(() => {
+    if (word.content !== content) {
+      onChangeContent(content);
+    }
+  }, [onChangeContent, word, content]);
 
-  const onClickButton = useCallback(
-    () => {
-      onRemove(word);
-    },
-    [word],
-  );
+  const onClickButton = useCallback(() => {
+    onRemove(word);
+  }, [word]);
 
   return (
     <Layout>

@@ -117,31 +117,22 @@ export const NotePage: React.FunctionComponent<Props> = ({
     createStateFromContent(schema, mapForNullable(note, _ => _.content)),
   );
 
-  useEffect(
-    () => {
-      if (isNull(note)) {
-        return;
-      }
+  useEffect(() => {
+    if (isNull(note)) {
+      return;
+    }
 
-      const state = createStateFromContent(schema, note.content);
-      setEditorState(state);
-    },
-    [note],
-  );
+    const state = createStateFromContent(schema, note.content);
+    setEditorState(state);
+  }, [note]);
 
-  useEffect(
-    () => {
-      loadNote({ userId, noteId });
-    },
-    [userId],
-  );
+  useEffect(() => {
+    loadNote({ userId, noteId });
+  }, [userId]);
 
-  const onSave = useCallback(
-    () => {
-      saveNote({ userId, noteId, content: editorContentRef.current });
-    },
-    [userId, noteId, editorContentRef.current],
-  );
+  const onSave = useCallback(() => {
+    saveNote({ userId, noteId, content: editorContentRef.current });
+  }, [userId, noteId, editorContentRef.current]);
 
   const onChangeContent = useDebouncedCallback(
     (state: EditorState) => {
@@ -164,13 +155,10 @@ export const NotePage: React.FunctionComponent<Props> = ({
     [onChangeContent],
   );
 
-  const onCopy = useCallback(
-    () => {
-      const text = customMarkdownSerializer.serialize(editorState.doc);
-      copyText({ text });
-    },
-    [editorState.doc],
-  );
+  const onCopy = useCallback(() => {
+    const text = customMarkdownSerializer.serialize(editorState.doc);
+    copyText({ text });
+  }, [editorState.doc]);
 
   const onFocus = useCallback(() => {
     setFocused(true);
@@ -189,13 +177,10 @@ export const NotePage: React.FunctionComponent<Props> = ({
     onFocus,
   });
 
-  const onDone = useCallback(
-    () => {
-      const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
-      element.blur();
-    },
-    [editorView],
-  );
+  const onDone = useCallback(() => {
+    const element = unwrapUnsafeValue<HTMLDivElement>(editorView.dom);
+    element.blur();
+  }, [editorView]);
 
   if (loading) {
     return (

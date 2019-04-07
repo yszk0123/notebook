@@ -2,7 +2,7 @@ import { Nullable } from 'option-t/lib/Nullable';
 import { MutableRefObject, useEffect, useRef } from 'react';
 
 // tslint:disable-next-line:no-any
-export function useDebouncedEffect<Args extends Array<any>>(
+export function useDebouncedEffect<Args extends any[]>(
   fn: (...args: Args) => void,
   delay: number,
   // tslint:disable-next-line:no-any

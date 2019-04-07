@@ -7,7 +7,7 @@ import { loginRoutes } from './pages/login';
 import { noteRoutes } from './pages/note';
 import { wordRoutes } from './pages/word';
 
-export const appRoutes: Array<Route> = [
+export const appRoutes: Route[] = [
   ...counterRoutes,
   ...helloRoutes,
   ...loginRoutes,

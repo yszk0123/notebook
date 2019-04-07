@@ -53,7 +53,7 @@ function addSuccess(payload: AddSuccessPayload): AddSuccess {
 const load = createAction(WordActionType.LOAD);
 
 interface LoadSuccessPayload {
-  words: Array<Word>;
+  words: Word[];
 }
 const loadSuccess = createActionWithPayload<
   LoadSuccessPayload,
@@ -96,7 +96,7 @@ const save = createActionWithPayload<SavePayload, WordActionType.SAVE>(
 
 interface SaveAllPayload {
   userId: string;
-  words: Array<Word>;
+  words: Word[];
 }
 const saveAll = createActionWithPayload<
   SaveAllPayload,
@@ -105,7 +105,7 @@ const saveAll = createActionWithPayload<
 
 interface SaveAllSuccessPayload {
   userId: string;
-  words: Array<Word>;
+  words: Word[];
 }
 const saveAllSuccess = createActionWithPayload<
   SaveAllSuccessPayload,

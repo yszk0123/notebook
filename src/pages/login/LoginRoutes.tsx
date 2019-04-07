@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuthUI } from '../../app/adapters/firebase/UseAuthUIWithFirebase';
 import { Route } from '../../app/routing';
 
-export const loginRoutes: Array<Route> = [
+export const loginRoutes: Route[] = [
   {
     path: '/login',
     title: 'Login',

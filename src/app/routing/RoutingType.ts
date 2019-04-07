@@ -13,7 +13,7 @@ export interface RoutingContext {
 }
 
 export interface Route {
-  children?: Array<Route>;
+  children?: Route[];
   path: string;
   title?: string;
   action?(context: RoutingContext): Page | Promise<Page>;

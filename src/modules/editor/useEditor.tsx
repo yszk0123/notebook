@@ -27,12 +27,9 @@ export const useEditor = ({
     createEditorView({ editorState, onChange }),
   );
 
-  useLayoutEffect(
-    () => {
-      editorView.updateState(editorState);
-    },
-    [editorView, editorState],
-  );
+  useLayoutEffect(() => {
+    editorView.updateState(editorState);
+  }, [editorView, editorState]);
 
   useEffect(() => {
     if (isNull(editorRef.current)) {

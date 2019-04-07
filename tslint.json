@@ -6,7 +6,6 @@
     "tslint-plugin-prettier"
   ],
   "rules": {
-    "array-type": [true, "generic"],
     "callable-types": false,
     "interface-name": [true, "never-prefix"],
     "no-empty-interface": false,

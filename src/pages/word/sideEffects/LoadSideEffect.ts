@@ -14,7 +14,7 @@ interface LoadInput {
 async function doLoad(
   input: LoadInput,
   db: firebase.firestore.Firestore,
-): Promise<Array<Word>> {
+): Promise<Word[]> {
   const userRef = db.collection('users').doc(input.userId);
   const wordsRef = userRef
     .collection('words')
