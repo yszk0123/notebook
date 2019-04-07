@@ -1,6 +1,7 @@
 import { difference, pull, uniq } from 'lodash';
 import { createReducer } from '../../application/DucksType';
 import { updateRecord } from '../../application/Record';
+import { appendIfNew } from '../../application/utils/appendIfNew';
 import { identity } from '../../application/utils/identity';
 import { updateState } from '../../application/utils/updateState';
 import { WordID } from './entities/Word';
@@ -79,7 +80,7 @@ export const wordReducer = createReducer<WordLocalState, WordActionType, WordAct
       }),
     [WordActionType.UPDATE_CONTENT]: (state, { payload: { word, content } }) =>
       updateState(state, {
-        outdatedWordIds: (ids: WordID[]) => uniq([...ids, word.id]),
+        outdatedWordIds: (ids: WordID[]) => appendIfNew(ids, word.id),
         wordsById: {
           [word.id]: {
             content: { $set: content },
@@ -88,7 +89,7 @@ export const wordReducer = createReducer<WordLocalState, WordActionType, WordAct
       }),
     [WordActionType.UPDATE_CREATED_AT]: (state, { payload: { word, createdAt } }) =>
       updateState(state, {
-        outdatedWordIds: (ids: WordID[]) => uniq([...ids, word.id]),
+        outdatedWordIds: (ids: WordID[]) => appendIfNew(ids, word.id),
         wordsById: {
           [word.id]: {
             createdAt: { $set: createdAt },
