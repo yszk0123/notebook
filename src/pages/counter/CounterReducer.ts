@@ -1,19 +1,16 @@
-import { Reducer } from 'redux';
+import { createReducer } from '../../application/DucksType';
 import { CounterAction, CounterActionType } from './CounterActions';
 import { CounterLocalState } from './CounterState';
 
 const initialState: CounterLocalState = { count: 0 };
 
-export const counterReducer: Reducer<CounterLocalState, CounterAction> = (
-  state = initialState,
-  action,
-) => {
-  switch (action.type) {
-    case CounterActionType.INCREMENT:
-      return { ...state, count: state.count + 1 };
-    case CounterActionType.INCREMENT_BY:
-      return { ...state, count: state.count + action.payload.n };
-    default:
-      return state;
-  }
-};
+export const counterReducer = createReducer<CounterLocalState, CounterActionType, CounterAction>(
+  {
+    [CounterActionType.INCREMENT]: state => ({ ...state, count: state.count + 1 }),
+    [CounterActionType.INCREMENT_BY]: (state, { payload: { n } }) => ({
+      ...state,
+      count: state.count + n,
+    }),
+  },
+  initialState,
+);

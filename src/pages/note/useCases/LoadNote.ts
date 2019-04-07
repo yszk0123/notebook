@@ -1,7 +1,7 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import { Nullable } from 'option-t/lib/Nullable';
-import { UseCase } from '../../../app/type';
-import { unwrapDocumentSnapshot } from '../../../utils/unwrapDocumentSnapshot';
+import { UseCase } from '../../../application/LegacyApplicationType';
+import { unwrapDocumentSnapshot } from '../../../application/utils/unwrapDocumentSnapshot';
 import { Note } from '../entities/Note';
 
 interface LoadNoteInput {

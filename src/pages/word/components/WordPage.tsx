@@ -1,23 +1,23 @@
-import { isNull, Nullable } from 'option-t/lib/Nullable';
-import React, { useCallback, useEffect, useState } from 'react';
+import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
+import React, { useCallback, useEffect } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
-import { RoutingGlobalState } from '../../../app/routing';
-import { styled } from '../../../app/styled-components';
+import { CenterLayout } from '../../../application/components/layouts/CenterLayout';
+import { RoutingGlobalState } from '../../../application/routing';
+import { styled } from '../../../application/styled-components';
+import { useDebouncedEffect } from '../../../application/utils/useDebouncedEffect';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
-import { useDebouncedEffect } from '../../../utils/useDebouncedEffect';
 import { Word } from '../entities/Word';
-import { addSideEffect } from '../sideEffects/AddSideEffect';
-import { loadSideEffect } from '../sideEffects/LoadSideEffect';
-import { removeSideEffect } from '../sideEffects/RemoveSideEffect';
-import { saveAllSideEffect } from '../sideEffects/SaveAllSideEffect';
-import { saveSideEffect } from '../sideEffects/SaveSideEffect';
+import { addThunk } from '../thunks/addThunk';
+import { loadAllThunk } from '../thunks/loadAllThunk';
+import { removeThunk } from '../thunks/removeThunk';
+import { saveAllThunk } from '../thunks/saveAllThunk';
+import { saveThunk } from '../thunks/saveThunk';
 import { wordActions } from '../WordActions';
-import { getOutdatedWords, getWords } from '../WordSelectors';
+import { outdatedWordsSelector, wordsSelector } from '../WordSelectors';
 import { WordGlobalState } from '../WordState';
 import { WordListItem } from './WordListItem';
 
@@ -68,10 +68,9 @@ const ControlItemLayout = styled.div`
 `;
 
 interface Props {
-  loading: boolean;
   outdatedWords: Word[];
   saving: boolean;
-  userId: Nullable<string>;
+  userId: string;
   words: Word[];
   dispatch: Dispatch<any>;
 }
@@ -79,40 +78,23 @@ interface Props {
 const WordPageInner: React.FunctionComponent<Props> = ({
   userId,
   saving,
-  loading,
   words,
   outdatedWords,
   dispatch,
 }) => {
-  const [isVirtualKeyboardVisible, setFocused] = useState(false);
-
   useEffect(() => {
-    if (isNull(userId)) {
-      return;
-    }
-
-    dispatch(loadSideEffect({ userId }));
+    dispatch(loadAllThunk({ userId }));
   }, [userId]);
 
   const onReload = useCallback(() => {
-    if (isNull(userId)) {
-      return;
-    }
-
-    dispatch(loadSideEffect({ userId }));
+    dispatch(loadAllThunk({ userId }));
   }, [userId]);
 
   const onSave = useCallback(
     (word: Word) => {
-      if (isNull(userId) || isNull(word)) {
-        return;
+      if (isNotNull(word)) {
+        dispatch(saveThunk({ userId, word }));
       }
-
-      const input = {
-        userId,
-        word,
-      };
-      dispatch(saveSideEffect(input));
     },
     [userId, dispatch],
   );
@@ -120,15 +102,9 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   // FIXME: Move logic into WordSideEffects
   useDebouncedEffect(
     () => {
-      if (isNull(userId) || outdatedWords.length === 0) {
-        return;
+      if (outdatedWords.length !== 0) {
+        dispatch(saveAllThunk({ userId, words: outdatedWords }));
       }
-
-      const input = {
-        userId,
-        words: outdatedWords,
-      };
-      dispatch(saveAllSideEffect(input));
     },
     CHANGE_DELAY,
     [dispatch, userId, outdatedWords],
@@ -136,66 +112,28 @@ const WordPageInner: React.FunctionComponent<Props> = ({
 
   const onChangeContent = useCallback(
     (word: Word, content: string) => {
-      if (isNull(userId)) {
-        return;
-      }
-
-      const input = {
-        content,
-        userId,
-        word,
-      };
-      dispatch(wordActions.updateContent(input));
+      dispatch(wordActions.updateContent({ content, userId, word }));
     },
     [dispatch, userId],
   );
 
   const onChangeDate = useCallback(
     (word: Word, createdAt: number) => {
-      if (isNull(userId)) {
-        return;
-      }
-
-      const input = {
-        createdAt,
-        userId,
-        word,
-      };
-      dispatch(wordActions.updateCreatedAt(input));
+      dispatch(wordActions.updateCreatedAt({ createdAt, userId, word }));
     },
     [dispatch, userId],
   );
 
   const onAddWord = useCallback(() => {
-    if (isNull(userId)) {
-      return;
-    }
-
-    dispatch(addSideEffect({ userId, content: '' }));
+    dispatch(addThunk({ userId, content: '' }));
   }, [dispatch, userId]);
 
   const onRemoveWord = useCallback(
     (word: Word) => {
-      if (isNull(userId)) {
-        return;
-      }
-
-      const input = {
-        userId,
-        word,
-      };
-      dispatch(removeSideEffect(input));
+      dispatch(removeThunk({ userId, word }));
     },
     [dispatch, userId],
   );
-
-  if (loading) {
-    return (
-      <LoadingLayout>
-        <Icon icon="spinner" spin={true} pulse={true} />
-      </LoadingLayout>
-    );
-  }
 
   return (
     <WordPageWrapper>
@@ -237,11 +175,31 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   );
 };
 
+interface PropsOuter {
+  loading: boolean;
+  outdatedWords: Word[];
+  saving: boolean;
+  userId: Nullable<string>;
+  words: Word[];
+  dispatch: Dispatch<any>;
+}
+const WordPageOuter: React.FunctionComponent<PropsOuter> = ({ loading, userId, ...props }) => {
+  if (loading || isNull(userId)) {
+    return (
+      <LoadingLayout>
+        <Icon icon="spinner" spin={true} pulse={true} />
+      </LoadingLayout>
+    );
+  }
+
+  return <WordPageInner {...props} userId={userId} />;
+};
+
 interface State extends WordGlobalState, RoutingGlobalState {}
 
 function mapState(state: State) {
-  const words = getWords(state);
-  const outdatedWords = getOutdatedWords(state);
+  const words = wordsSelector(state);
+  const outdatedWords = outdatedWordsSelector(state);
   const { saving } = state.word;
   const { loading, user } = state.routing;
 
@@ -254,4 +212,4 @@ function mapState(state: State) {
   };
 }
 
-export const WordPage = connect(mapState)(WordPageInner);
+export const WordPage = connect(mapState)(WordPageOuter);

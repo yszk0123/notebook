@@ -1,17 +1,13 @@
 import { isNull } from 'option-t/lib/Nullable';
 import { EditorState } from 'prosemirror-state';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { noop } from '../../utils/noop';
+import { noop } from '../../application/utils/noop';
 import { createEditorView } from './EditorView';
 
 interface Props {
   editorState: EditorState;
   editorRef: React.RefObject<HTMLElement>;
-  onChange: (
-    nextState: EditorState,
-    prevState: EditorState,
-    docChanged: boolean,
-  ) => void;
+  onChange: (nextState: EditorState, prevState: EditorState, docChanged: boolean) => void;
   onFocus?: (event: Event) => void;
   onBlur?: (event: Event) => void;
 }
@@ -23,9 +19,7 @@ export const useEditor = ({
   onFocus = noop,
   onBlur = noop,
 }: Props) => {
-  const [editorView] = useState(() =>
-    createEditorView({ editorState, onChange }),
-  );
+  const [editorView] = useState(() => createEditorView({ editorState, onChange }));
 
   useLayoutEffect(() => {
     editorView.updateState(editorState);

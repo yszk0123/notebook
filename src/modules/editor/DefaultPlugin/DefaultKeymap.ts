@@ -19,12 +19,7 @@ import {
 import { redo, undo } from 'prosemirror-history';
 import { undoInputRule } from 'prosemirror-inputrules';
 import { MarkType, NodeType, Schema } from 'prosemirror-model';
-import {
-  liftListItem,
-  sinkListItem,
-  splitListItem,
-  wrapInList,
-} from 'prosemirror-schema-list';
+import { liftListItem, sinkListItem, splitListItem, wrapInList } from 'prosemirror-schema-list';
 import { Command } from '../EditorType';
 
 const mac = isUndefined(navigator) ? /Mac/.test(navigator.platform) : false;

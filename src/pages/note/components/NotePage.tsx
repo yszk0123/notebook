@@ -2,12 +2,15 @@ import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { mapForNullable } from 'option-t/lib/Nullable/map';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
-import { VerticalStackItemLayout } from '../../../app/components/layouts/VerticalStackItemLayout';
-import { VerticalStackLayout } from '../../../app/components/layouts/VerticalStackLayout';
-import { VirtualKeyboardSpacer } from '../../../app/components/layouts/VirtualKeyboardSpacer';
-import { styled } from '../../../app/styled-components';
-import { FontSize } from '../../../app/theme/Theme';
+import { CenterLayout } from '../../../application/components/layouts/CenterLayout';
+import { VerticalStackItemLayout } from '../../../application/components/layouts/VerticalStackItemLayout';
+import { VerticalStackLayout } from '../../../application/components/layouts/VerticalStackLayout';
+import { VirtualKeyboardSpacer } from '../../../application/components/layouts/VirtualKeyboardSpacer';
+import { styled } from '../../../application/styled-components';
+import { FontSize } from '../../../application/theme/Theme';
+import { stickToTop } from '../../../application/utils/stickToTop';
+import { unwrapUnsafeValue } from '../../../application/utils/unwrapUnsafeValue';
+import { useDebouncedCallback } from '../../../application/utils/useDebouncedCallback';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
@@ -21,9 +24,6 @@ import {
   serializeEditorState,
   useEditor,
 } from '../../../modules/editor';
-import { stickToTop } from '../../../utils/stickToTop';
-import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
-import { useDebouncedCallback } from '../../../utils/useDebouncedCallback';
 import { Note } from '../entities/Note';
 import { CopyTextSideEffect } from '../sideEffects/CopyTextSideEffect';
 import { LoadNoteEffect } from '../sideEffects/LoadNoteSideEffect';
@@ -202,20 +202,12 @@ export const NotePage: React.FunctionComponent<Props> = ({
               <Button onClick={onCopy}>Copy</Button>
             </ButtonGroupLayout>
             <StatusLayout>
-              <Text size={FontSize.SMALL}>
-                {saving ? 'saving...' : 'saved'}
-              </Text>
+              <Text size={FontSize.SMALL}>{saving ? 'saving...' : 'saved'}</Text>
             </StatusLayout>
           </MiniControl>
-          <EditorMenu
-            editorState={editorState}
-            menuItems={menuItems}
-            editorView={editorView}
-          />
+          <EditorMenu editorState={editorState} menuItems={menuItems} editorView={editorView} />
         </VerticalStackItemLayout>
-        <VirtualKeyboardSpacer
-          isVirtualKeyboardVisible={isVirtualKeyboardVisible}
-        />
+        <VirtualKeyboardSpacer isVirtualKeyboardVisible={isVirtualKeyboardVisible} />
       </VerticalStackLayout>
     </NotePageWrapper>
   );

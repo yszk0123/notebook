@@ -1,5 +1,5 @@
 import { NodeSpec } from 'prosemirror-model';
-import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
+import { unwrapUnsafeValue } from '../../../application/utils/unwrapUnsafeValue';
 
 const todo: NodeSpec = {
   attrs: { checked: { default: false } },

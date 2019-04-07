@@ -2,8 +2,8 @@ import { Nullable } from 'option-t/lib/Nullable';
 import { Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import React, { useCallback, useRef, useState } from 'react';
-import { styled } from '../../app/styled-components';
-import { useDebouncedCallback } from '../../utils/useDebouncedCallback';
+import { styled } from '../../application/styled-components';
+import { useDebouncedCallback } from '../../application/utils/useDebouncedCallback';
 import { EditorMenu } from './components/EditorMenu';
 import { createStateFromContent, serializeEditorState } from './EditorState';
 import { editorStyle } from './editorStyle';
@@ -28,14 +28,9 @@ export interface Props {
   menuItems: MenuItem[];
 }
 
-export const EditorContainer: React.FunctionComponent<Props> = ({
-  schema,
-  menuItems,
-}) => {
+export const EditorContainer: React.FunctionComponent<Props> = ({ schema, menuItems }) => {
   const initialEditorContent = null;
-  const editorContentRef = useRef<Nullable<EditorContent>>(
-    initialEditorContent,
-  );
+  const editorContentRef = useRef<Nullable<EditorContent>>(initialEditorContent);
   const editorRef = useRef<HTMLDivElement>(null);
   const [markdown, setMarkdown] = useState('');
 
@@ -71,11 +66,7 @@ export const EditorContainer: React.FunctionComponent<Props> = ({
   return (
     <EditorContainerLayout>
       <Editor ref={editorRef} />
-      <EditorMenu
-        menuItems={menuItems}
-        editorState={editorState}
-        editorView={editorView}
-      />
+      <EditorMenu menuItems={menuItems} editorState={editorState} editorView={editorView} />
       <pre>{markdown}</pre>
     </EditorContainerLayout>
   );

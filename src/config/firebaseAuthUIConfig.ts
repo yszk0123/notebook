@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import firebaseui from 'firebaseui';
-import { isStandalone } from '../utils/isStandalone';
+import { isStandalone } from '../application/utils/isStandalone';
 import { appConfig } from './AppConfig';
 
 const standalone = isStandalone();

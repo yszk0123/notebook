@@ -1,7 +1,8 @@
 import { difference, pull, uniq } from 'lodash';
-import { Reducer } from 'redux';
-import { createRecord } from '../../utils/createRecord';
-import { updateState } from '../../utils/updateState';
+import { createReducer } from '../../application/DucksType';
+import { createRecord } from '../../application/utils/createRecord';
+import { identity } from '../../application/utils/identity';
+import { updateState } from '../../application/utils/updateState';
 import { WordId } from './entities/Word';
 import { WordAction, WordActionType } from './WordActions';
 import { WordLocalState } from './WordState';
@@ -14,47 +15,33 @@ const initialState: WordLocalState = {
   wordsById: {},
 };
 
-export const wordReducer: Reducer<WordLocalState, WordAction> = (
-  state = initialState,
-  action,
-) => {
-  switch (action.type) {
-    case WordActionType.REMOVE:
-      return { ...state, saving: true };
-    case WordActionType.REMOVE_SUCCESS: {
-      const { removedWordId } = action.payload;
-
-      return updateState(state, {
+export const wordReducer = createReducer<WordLocalState, WordActionType, WordAction>(
+  {
+    [WordActionType.REMOVE]: state => ({ ...state, saving: true }),
+    [WordActionType.REMOVE_SUCCESS]: (state, { payload: { removedWordId } }) =>
+      updateState(state, {
         outdatedWordIds: (ids: WordId[]) => pull(ids, removedWordId),
         saving: { $set: false },
         wordIds: (ids: WordId[]) => pull(ids, removedWordId),
         wordsById: { $unset: [removedWordId] },
-      });
-    }
-    case WordActionType.SAVE:
-    case WordActionType.SAVE_ALL:
-      return { ...state, saving: true };
-    case WordActionType.SAVE_SUCCESS: {
-      const { word } = action.payload;
-
-      return updateState(state, {
+      }),
+    [WordActionType.SAVE]: state => ({ ...state, saving: true }),
+    [WordActionType.SAVE_ALL]: state => ({ ...state, saving: true }),
+    [WordActionType.SAVE_SUCCESS]: (state, { payload: { word } }) =>
+      updateState(state, {
         outdatedWordIds: (ids: WordId[]) => ids.filter(id => id !== word.id),
         saving: { $set: false },
-      });
-    }
-    case WordActionType.SAVE_ALL_SUCCESS: {
-      const { words } = action.payload;
+      }),
+    [WordActionType.SAVE_ALL_SUCCESS]: (state, { payload: { words } }) => {
       const updatedIds = words.map(word => word.id);
 
       return updateState(state, {
         outdatedWordIds: (ids: WordId[]) => difference(ids, updatedIds),
         saving: { $set: false },
       });
-    }
-    case WordActionType.LOAD:
-      return { ...state, loading: true };
-    case WordActionType.LOAD_SUCCESS: {
-      const { words } = action.payload;
+    },
+    [WordActionType.LOAD]: state => ({ ...state, loading: true }),
+    [WordActionType.LOAD_SUCCESS]: (state, { payload: { words } }) => {
       const newWordIds = words.map(word => word.id);
       const newWordsById = createRecord(words, word => word.id);
 
@@ -63,9 +50,9 @@ export const wordReducer: Reducer<WordLocalState, WordAction> = (
         wordIds: { $set: newWordIds },
         wordsById: { $set: newWordsById },
       });
-    }
+    },
     // FIXME: Implement
-    // case WordActionType.REFETCH_SUCCESS: {
+    // [WordActionType.REFETCH_SUCCESS: {
     //   const { words } = action.payload;
     //   const newWordIds = words.map(word => word.id);
     //   const newWordsById = createRecord(words, word => word.id);
@@ -76,40 +63,31 @@ export const wordReducer: Reducer<WordLocalState, WordAction> = (
     //     wordsById: { $merge: newWordsById },
     //   });
     // }
-    case WordActionType.ADD_SUCCESS: {
-      const { word } = action.payload;
-
-      return updateState(state, {
+    [WordActionType.ADD_SUCCESS]: (state, { payload: { word } }) =>
+      updateState(state, {
         loading: { $set: false },
         wordIds: (ids: WordId[]) => uniq([word.id, ...ids]),
         wordsById: { [word.id]: { $set: word } },
-      });
-    }
-    case WordActionType.UPDATE_CONTENT: {
-      const { word, content } = action.payload;
-
-      return updateState(state, {
+      }),
+    [WordActionType.UPDATE_CONTENT]: (state, { payload: { word, content } }) =>
+      updateState(state, {
         outdatedWordIds: (ids: WordId[]) => uniq([...ids, word.id]),
         wordsById: {
           [word.id]: {
             content: { $set: content },
           },
         },
-      });
-    }
-    case WordActionType.UPDATE_CREATED_AT: {
-      const { word, createdAt } = action.payload;
-
-      return updateState(state, {
+      }),
+    [WordActionType.UPDATE_CREATED_AT]: (state, { payload: { word, createdAt } }) =>
+      updateState(state, {
         outdatedWordIds: (ids: WordId[]) => uniq([...ids, word.id]),
         wordsById: {
           [word.id]: {
             createdAt: { $set: createdAt },
           },
         },
-      });
-    }
-    default:
-      return state;
-  }
-};
+      }),
+    [WordActionType.ADD]: identity,
+  },
+  initialState,
+);

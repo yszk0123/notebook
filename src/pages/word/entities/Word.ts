@@ -12,11 +12,7 @@ interface WordInput {
   id: WordId;
 }
 
-export function createWord({
-  id,
-  createdAt = Date.now(),
-  content = '',
-}: WordInput): Word {
+export function createWord({ id, createdAt = Date.now(), content = '' }: WordInput): Word {
   return {
     content,
     createdAt,

@@ -1,7 +1,7 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
 import { Node, Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
-import { unwrapUnsafeValue } from '../../../utils/unwrapUnsafeValue';
+import { unwrapUnsafeValue } from '../../../application/utils/unwrapUnsafeValue';
 import { buildTodoInputRules } from './TodoInputRule';
 import { TodoNodeView } from './TodoNodeView';
 
@@ -15,10 +15,7 @@ function isCheckbox(target: Nullable<EventTarget>): boolean {
   }
 
   const element = unwrapUnsafeValue<HTMLElement>(target);
-  return (
-    element.nodeName.toLowerCase() === 'input' &&
-    element.getAttribute('type') === 'checkbox'
-  );
+  return element.nodeName.toLowerCase() === 'input' && element.getAttribute('type') === 'checkbox';
 }
 
 const clickPlugin = new Plugin({

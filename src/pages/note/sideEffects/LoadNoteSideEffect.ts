@@ -1,5 +1,5 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { SideEffect } from '../../../app/redux';
+import { SideEffect } from '../../../application/LegacyDucksType';
 import { NoteAction, noteActions } from '../NoteActions';
 import { NoteGlobalState } from '../NoteState';
 import { LoadNote } from '../useCases/LoadNote';
@@ -16,9 +16,7 @@ interface LoadNoteSideEffectContext {
 export interface LoadNoteEffect
   extends SideEffect<NoteGlobalState, NoteAction, LoadNoteSideEffectInput> {}
 
-export function createLoadNoteEffect({
-  loadNote,
-}: LoadNoteSideEffectContext): LoadNoteEffect {
+export function createLoadNoteEffect({ loadNote }: LoadNoteSideEffectContext): LoadNoteEffect {
   return ({ userId, noteId }) => async dispatch => {
     if (isNull(userId)) {
       return;

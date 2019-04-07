@@ -1,5 +1,5 @@
-import { SideEffect } from '../../../app/redux';
-import { copyToClipboard } from '../../../utils/copyToClipboard';
+import { SideEffect } from '../../../application/LegacyDucksType';
+import { copyToClipboard } from '../../../application/utils/copyToClipboard';
 import { NoteAction, noteActions } from '../NoteActions';
 import { NoteGlobalState } from '../NoteState';
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeProvider } from '../../app/styled-components';
-import { defaultTheme } from '../../app/theme/DefaultTheme';
+import { ThemeProvider } from '../../application/styled-components';
+import { defaultTheme } from '../../application/theme/DefaultTheme';
+import { printError } from '../../application/utils/printError';
 import { ResetStyle } from '../../components/ResetStyle';
-import { printError } from '../../utils/printError';
 import { createSchema } from './DefaultPlugin';
 import { EditorContainer } from './EditorContainer';
 import { createMenuItems } from './MenuItem';

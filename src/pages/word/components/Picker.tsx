@@ -1,8 +1,8 @@
 import { format, getTime } from 'date-fns';
 import React, { useCallback, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { styled } from '../../../app/styled-components';
-import { noop } from '../../../utils/noop';
+import { styled } from '../../../application/styled-components';
+import { noop } from '../../../application/utils/noop';
 
 const DateText = styled.div`
   cursor: pointer;
@@ -40,9 +40,7 @@ export const Picker = React.memo<Props>(({ value, onChange }) => {
 
   return (
     <>
-      <DateText onClick={onOpen}>
-        {value ? format(value, 'YYYY/MM/DD') : null}
-      </DateText>
+      <DateText onClick={onOpen}>{value ? format(value, 'YYYY/MM/DD') : null}</DateText>
       {isOpen ? (
         <DatePicker
           // FIXME: Avoid any
