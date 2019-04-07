@@ -139,19 +139,12 @@ const WordPageInner: React.FunctionComponent<Props> = ({
     <WordPageWrapper>
       <ListLayout>
         {words.map(word => {
-          const handleChangeContent = (content: string) => {
-            return onChangeContent(word, content);
-          };
-          const handleChangeDate = (date: number) => {
-            return onChangeDate(word, date);
-          };
-
           return (
             <ListItemLayout key={word.id}>
               <WordListItem
                 word={word}
-                onChangeContent={handleChangeContent}
-                onChangeDate={handleChangeDate}
+                onChangeContent={onChangeContent}
+                onChangeDate={onChangeDate}
                 onRemove={onRemoveWord}
               />
             </ListItemLayout>

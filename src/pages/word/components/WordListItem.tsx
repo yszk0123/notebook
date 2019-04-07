@@ -8,11 +8,14 @@ import { Picker } from './Picker';
 const Layout = styled.div`
   display: flex;
   width: 100%;
+  border-bottom: 1px solid ${({ theme }) => theme.borderColorBg};
+  margin-bottom: ${({ theme }) => theme.space};
+  padding-bottom: ${({ theme }) => theme.space};
 `;
 
 const Input = styled.input`
   padding: ${({ theme }) => theme.space};
-  border: 2px solid ${({ theme }) => theme.borderColorBg};
+  border: none;
   outline: none;
   flex-grow: 1;
 
@@ -23,8 +26,8 @@ const Input = styled.input`
 
 interface Props {
   word: Word;
-  onChangeContent: (content: string) => void;
-  onChangeDate: (date: number) => void;
+  onChangeContent: (word: Word, content: string) => void;
+  onChangeDate: (word: Word, date: number) => void;
   onRemove: (word: Word) => void;
 }
 
@@ -45,9 +48,16 @@ export const WordListItem: React.FunctionComponent<Props> = ({
     setContent(newContent);
   }, []);
 
-  const onBlurContent = useCallback(() => {
+  const handleChangeDate = useCallback(
+    (date: number) => {
+      onChangeDate(word, date);
+    },
+    [onChangeDate, word],
+  );
+
+  const handleBlurContent = useCallback(() => {
     if (word.content !== content) {
-      onChangeContent(content);
+      onChangeContent(word, content);
     }
   }, [onChangeContent, word, content]);
 
@@ -57,8 +67,8 @@ export const WordListItem: React.FunctionComponent<Props> = ({
 
   return (
     <Layout>
-      <Input value={content} onChange={handleChangeContent} onBlur={onBlurContent} />
-      <Picker value={word.createdAt} onChange={onChangeDate} />
+      <Input value={content} onChange={handleChangeContent} onBlur={handleBlurContent} />
+      <Picker value={word.createdAt} onChange={handleChangeDate} />
       <Button onClick={onClickButton}>
         <Icon icon="trash" />
       </Button>
