@@ -35,6 +35,18 @@ const WordPageWrapper = styled.div`
   padding: ${({ theme }) => theme.space};
 `;
 
+const LoadMore = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: ${({ theme }) => theme.space};
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const LoadingLayout = styled(CenterLayout)`
   font-size: 96px;
   color: ${({ theme }) => theme.loadingColorFg};
@@ -106,6 +118,14 @@ const WordPageInner: React.FunctionComponent<Props> = ({
     [dispatch, userId],
   );
 
+  const onLoadMore = useCallback(() => {
+    if (words.length) {
+      const lastWord = words[words.length - 1];
+      const after = { createdAt: lastWord.createdAt, id: lastWord.id };
+      dispatch(loadAllThunk({ userId, after }));
+    }
+  }, [dispatch, userId, words]);
+
   return (
     <WordPageWrapper>
       <List>
@@ -116,10 +136,13 @@ const WordPageInner: React.FunctionComponent<Props> = ({
               word={word}
               onChangeContent={onChangeContent}
               onChangeDate={onChangeDate}
-              onRemove={onRemoveWord}
+              onClickRemove={onRemoveWord}
             />
           );
         })}
+        <ListItem onClick={onLoadMore}>
+          <LoadMore>Load More</LoadMore>
+        </ListItem>
         <ListItem>
           <Control>
             <ControlItem>

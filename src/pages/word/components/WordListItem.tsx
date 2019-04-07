@@ -21,14 +21,14 @@ interface Props {
   word: Word;
   onChangeContent: (word: Word, content: string) => void;
   onChangeDate: (word: Word, date: number) => void;
-  onRemove: (word: Word) => void;
+  onClickRemove: (word: Word) => void;
 }
 
 export const WordListItem: React.FunctionComponent<Props> = ({
   word,
   onChangeContent,
   onChangeDate,
-  onRemove,
+  onClickRemove,
 }) => {
   const [content, setContent] = useState(word.content);
 
@@ -55,8 +55,8 @@ export const WordListItem: React.FunctionComponent<Props> = ({
   }, [onChangeContent, word, content]);
 
   const onClickButton = useCallback(() => {
-    onRemove(word);
-  }, [word]);
+    onClickRemove(word);
+  }, [onClickRemove, word]);
 
   return (
     <ListItem>

@@ -6,6 +6,11 @@ export interface Word {
   id: WordID;
 }
 
+export interface WordLoadCursor {
+  createdAt: number;
+  id: WordID;
+}
+
 interface WordInput {
   content?: string;
   createdAt?: number;
