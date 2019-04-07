@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import { Location } from 'history';
 import createHistory from 'history/createBrowserHistory';
 import React from 'react';
@@ -13,7 +13,7 @@ import {
   PageLoadingContainer,
   resolveRoute,
   RoutingContext,
-  routingSideEffects,
+  routingThunks,
 } from '../app/routing';
 import { ThemeProvider } from '../app/styled-components';
 import { defaultTheme } from '../app/theme/DefaultTheme';
@@ -55,7 +55,7 @@ export async function bootstrap(): Promise<void> {
     if (!user) {
       return;
     }
-    dispatch(routingSideEffects.login(user));
+    dispatch(routingThunks.login(user));
   });
 
   async function onLocationChange(location: Location): Promise<void> {

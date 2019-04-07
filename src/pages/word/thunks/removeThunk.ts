@@ -1,4 +1,3 @@
-import * as firebase from 'firebase/app';
 import { Word } from '../entities/Word';
 import { deleteWordGateway } from '../gateways/WordGateway';
 import { wordActions } from '../WordActions';
@@ -10,9 +9,6 @@ export const removeSideEffect: WordThunk<{ userId: string; word: Word }> = input
   injections,
 ) => {
   dispatch(wordActions.remove(input));
-
-  const db = firebase.firestore();
-  db.settings({ timestampsInSnapshots: true });
 
   await deleteWordGateway(input, injections);
 

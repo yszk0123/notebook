@@ -1,11 +1,7 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import { isNotNull, Nullable } from 'option-t/lib/Nullable';
-import { SideEffect } from '../../redux';
+import { Gateway } from '../../type';
 import { unwrapDocumentSnapshot } from '../../utils/unwrapDocumentSnapshot';
-import { RoutingAction, routingActions } from '../RoutingActions';
-import { RoutingGlobalState } from '../RoutingState';
-
-type RoutingSideEffect<Args> = SideEffect<RoutingGlobalState, RoutingAction, Args>;
 
 interface UserParam {
   accessToken: string;
@@ -25,10 +21,7 @@ class User {
   }
 }
 
-async function loginUser(user: firebase.User): Promise<Nullable<User>> {
-  const db = firebase.firestore();
-  db.settings({ timestampsInSnapshots: true });
-
+export const loginGateway: Gateway<firebase.User, Nullable<User>> = async (user, { db }) => {
   const usersRef = db.collection('users');
   const userRef = user.uid ? usersRef.doc(user.uid) : usersRef.doc();
 
@@ -54,16 +47,4 @@ async function loginUser(user: firebase.User): Promise<Nullable<User>> {
     await userRef.set(userParam);
     return new User(userParam);
   }
-}
-
-const login: RoutingSideEffect<[firebase.User]> = firebaseUser => async dispatch => {
-  const user = await loginUser(firebaseUser);
-  if (!user) {
-    dispatch(routingActions.loginFailure());
-    return;
-  }
-
-  dispatch(routingActions.login(user));
 };
-
-export const routingSideEffects = { login };

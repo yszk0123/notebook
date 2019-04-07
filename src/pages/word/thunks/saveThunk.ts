@@ -1,4 +1,3 @@
-import * as firebase from 'firebase/app';
 import { sleep } from '../../../app/utils/sleep';
 import { Word } from '../entities/Word';
 import { putWordGateway } from '../gateways/WordGateway';
@@ -13,9 +12,6 @@ export const saveSideEffect: WordThunk<{ userId: string; word: Word }> = input =
   injections,
 ) => {
   dispatch(wordActions.save(input));
-
-  const db = firebase.firestore();
-  db.settings({ timestampsInSnapshots: true });
 
   await putWordGateway(input, injections);
 
