@@ -4,7 +4,7 @@ import { Gateway } from '../../../application/ApplicationType';
 import { unwrapDocumentSnapshot } from '../../../application/utils/unwrapDocumentSnapshot';
 import { createWord, Word, WordLoadCursor } from '../entities/Word';
 
-const WORD_LIMIT = 15;
+const WORD_LIMIT = 10;
 
 export const getWordsGateway: Gateway<{ userId: string; after?: WordLoadCursor }, Word[]> = async (
   { userId, after },
