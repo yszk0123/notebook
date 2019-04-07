@@ -5,31 +5,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import UniversalRouter from 'universal-router';
-import { FirebaseAppProvider } from './app/adapters/firebase/FirebaseAppContext';
-import { HistoryProvider } from './app/HistoryContext';
+import { FirebaseAppProvider } from '../app/adapters/firebase/FirebaseAppContext';
+import { HistoryProvider } from '../app/HistoryContext';
+import { Dispatch } from '../app/redux';
 import {
   Page,
   PageLoadingContainer,
   resolveRoute,
   RoutingContext,
   routingSideEffects,
-} from './app/routing';
-import { ThemeProvider } from './app/styled-components';
-import { defaultTheme } from './app/theme/DefaultTheme';
-import { restoreValueFromGlobalForDevelopment } from './app/utils/restoreValueFromGlobalForDevelopment';
-import { ResetStyle } from './components/ResetStyle';
-import { firebaseConfig } from './config/firebaseConfig';
+} from '../app/routing';
+import { ThemeProvider } from '../app/styled-components';
+import { defaultTheme } from '../app/theme/DefaultTheme';
+import { ResetStyle } from '../components/ResetStyle';
+import { firebaseConfig } from '../config/firebaseConfig';
 import { appRoutes } from './RootRoutes';
-import { createStore } from './Store';
-
-function createFirebaseApp(): firebase.app.App {
-  if (process.env.NODE_ENV === 'development') {
-    return restoreValueFromGlobalForDevelopment('app', () => {
-      return firebase.initializeApp(firebaseConfig);
-    });
-  }
-  return firebase.initializeApp(firebaseConfig);
-}
+import { createStore } from './StoreFactory';
 
 function resolveLocation(location: Location): string {
   const qs = location.search
@@ -44,7 +35,7 @@ function resolveLocation(location: Location): string {
 }
 
 export async function bootstrap(): Promise<void> {
-  const app = createFirebaseApp();
+  const app = firebase.initializeApp(firebaseConfig);
   const firestore = firebase.firestore();
   firestore.settings({ timestampsInSnapshots: true });
 
@@ -53,8 +44,8 @@ export async function bootstrap(): Promise<void> {
     resolveRoute,
   });
   const history = createHistory();
-  const store = createStore();
-  const dispatch = store.dispatch;
+  const store = createStore({ db: firestore });
+  const dispatch = store.dispatch as Dispatch;
 
   history.listen(onLocationChange);
   // tslint:disable-next-line:no-floating-promises

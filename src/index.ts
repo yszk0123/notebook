@@ -4,7 +4,7 @@ import 'firebase/firestore';
 import 'firebaseui/dist/firebaseui.css';
 import 'normalize.css';
 import { printError } from './app/utils/printError';
-import { bootstrap } from './bootstrap';
+import { bootstrap } from './Bootstrap';
 import { hackForMobile } from './hackForMobile';
 import { registerFontAwesome } from './registerFontAwesome';
 
