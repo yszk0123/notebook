@@ -8,7 +8,8 @@ export const enum ColorPalette {
   SECONDARY_VARIANT = '#01579B',
   BLACK = '#000000',
   LIGHT_BLACK = '#333333',
-  GRAY = '#BBBBBB',
+  LIGHT_GRAY = '#BBBBBB',
+  GRAY = '#999999',
   WHITE = '#FFFFFF',
   PALE_WHITE = '#DDDDDD',
 }
@@ -46,6 +47,8 @@ export interface ThemeInterface {
   roundButtonRadius: string;
   roundButtonSize: string;
   space: string;
+  subtitleColorFg: ColorPalette;
   thinSpace: string;
+  titleColorFg: ColorPalette;
   transition: string;
 }

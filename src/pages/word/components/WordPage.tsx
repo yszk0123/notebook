@@ -53,6 +53,10 @@ const LoadingLayout = styled(CenterLayout)`
   color: ${({ theme }) => theme.loadingColorFg};
 `;
 
+const ControlListItem = styled(ListItem)`
+  justify-content: flex-end;
+`;
+
 interface Props {
   outdatedWords: Word[];
   saving: boolean;
@@ -130,6 +134,19 @@ const WordPageInner: React.FunctionComponent<Props> = ({
   return (
     <WordPageWrapper>
       <List>
+        <ControlListItem>
+          <Control>
+            <ControlItem>
+              <Text>{saving ? 'saving' : 'saved'}</Text>
+            </ControlItem>
+            <ControlItem>
+              <Button onClick={onReload}>Reload</Button>
+            </ControlItem>
+            <ControlItem>
+              <Button onClick={onAddWord}>Add</Button>
+            </ControlItem>
+          </Control>
+        </ControlListItem>
         {words.map(word => {
           return (
             <WordListItem
@@ -143,19 +160,6 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         })}
         <ListItem onClick={onLoadMore}>
           <LoadMore>Load More</LoadMore>
-        </ListItem>
-        <ListItem>
-          <Control>
-            <ControlItem>
-              <Button onClick={onAddWord}>Add</Button>
-            </ControlItem>
-            <ControlItem>
-              <Button onClick={onReload}>Reload</Button>
-            </ControlItem>
-            <ControlItem>
-              <Text>{saving ? 'saving' : 'saved'}</Text>
-            </ControlItem>
-          </Control>
         </ListItem>
       </List>
     </WordPageWrapper>
