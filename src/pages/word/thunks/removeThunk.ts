@@ -3,7 +3,7 @@ import { deleteWordGateway } from '../gateways/WordGateway';
 import { wordActions } from '../WordActions';
 import { WordThunk } from '../WordThunkType';
 
-export const removeSideEffect: WordThunk<{ userId: string; word: Word }> = input => async (
+export const removeThunk: WordThunk<{ userId: string; word: Word }> = input => async (
   dispatch,
   _getState,
   injections,

@@ -6,7 +6,7 @@ import { WordThunk } from '../WordThunkType';
 
 const SAVE_DELAY = 500;
 
-export const saveSideEffect: WordThunk<{ userId: string; word: Word }> = input => async (
+export const saveThunk: WordThunk<{ userId: string; word: Word }> = input => async (
   dispatch,
   _getState,
   injections,

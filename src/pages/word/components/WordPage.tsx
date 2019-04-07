@@ -11,11 +11,11 @@ import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Text } from '../../../components/Text';
 import { Word } from '../entities/Word';
-import { addSideEffect } from '../thunks/addWordThunk';
-import { loadSideEffect } from '../thunks/loadThunk';
-import { removeSideEffect } from '../thunks/removeThunk';
-import { saveAllSideEffect } from '../thunks/saveAllThunk';
-import { saveSideEffect } from '../thunks/saveThunk';
+import { addThunk } from '../thunks/addThunk';
+import { loadAllThunk } from '../thunks/loadAllThunk';
+import { removeThunk } from '../thunks/removeThunk';
+import { saveAllThunk } from '../thunks/saveAllThunk';
+import { saveThunk } from '../thunks/saveThunk';
 import { wordActions } from '../WordActions';
 import { getOutdatedWords, getWords } from '../WordSelectors';
 import { WordGlobalState } from '../WordState';
@@ -91,7 +91,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
       return;
     }
 
-    dispatch(loadSideEffect({ userId }));
+    dispatch(loadAllThunk({ userId }));
   }, [userId]);
 
   const onReload = useCallback(() => {
@@ -99,7 +99,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
       return;
     }
 
-    dispatch(loadSideEffect({ userId }));
+    dispatch(loadAllThunk({ userId }));
   }, [userId]);
 
   const onSave = useCallback(
@@ -112,7 +112,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         word,
       };
-      dispatch(saveSideEffect(input));
+      dispatch(saveThunk(input));
     },
     [userId, dispatch],
   );
@@ -128,7 +128,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         words: outdatedWords,
       };
-      dispatch(saveAllSideEffect(input));
+      dispatch(saveAllThunk(input));
     },
     CHANGE_DELAY,
     [dispatch, userId, outdatedWords],
@@ -171,7 +171,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
       return;
     }
 
-    dispatch(addSideEffect({ userId, content: '' }));
+    dispatch(addThunk({ userId, content: '' }));
   }, [dispatch, userId]);
 
   const onRemoveWord = useCallback(
@@ -184,7 +184,7 @@ const WordPageInner: React.FunctionComponent<Props> = ({
         userId,
         word,
       };
-      dispatch(removeSideEffect(input));
+      dispatch(removeThunk(input));
     },
     [dispatch, userId],
   );

@@ -2,7 +2,7 @@ import { getWordsGateway } from '../gateways/WordGateway';
 import { wordActions } from '../WordActions';
 import { WordThunk } from '../WordThunkType';
 
-export const loadSideEffect: WordThunk<{ userId: string }> = input => async (
+export const loadAllThunk: WordThunk<{ userId: string }> = input => async (
   dispatch,
   _getState,
   injections,
