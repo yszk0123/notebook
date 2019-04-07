@@ -1,4 +1,4 @@
-import { action, GetAction } from '../../app/DucksType';
+import { action, GetAction } from '../../application/DucksType';
 
 export const enum CounterActionType {
   INCREMENT = 'counter/INCREMENT',

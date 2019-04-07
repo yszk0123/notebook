@@ -1,4 +1,4 @@
-import { css } from '../../app/styled-components';
+import { css } from '../../application/styled-components';
 
 export const editorStyle = css`
   .ProseMirror {

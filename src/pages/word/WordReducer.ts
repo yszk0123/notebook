@@ -1,8 +1,8 @@
 import { difference, pull, uniq } from 'lodash';
-import { createReducer } from '../../app/DucksType';
-import { createRecord } from '../../app/utils/createRecord';
-import { identity } from '../../app/utils/identity';
-import { updateState } from '../../app/utils/updateState';
+import { createReducer } from '../../application/DucksType';
+import { createRecord } from '../../application/utils/createRecord';
+import { identity } from '../../application/utils/identity';
+import { updateState } from '../../application/utils/updateState';
 import { WordId } from './entities/Word';
 import { WordAction, WordActionType } from './WordActions';
 import { WordLocalState } from './WordState';

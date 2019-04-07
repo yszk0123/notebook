@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from '../../app/routing';
+import { Route } from '../../application/routing';
 
 export const counterRoutes: Route[] = [
   {

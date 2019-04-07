@@ -1,7 +1,7 @@
 import { isNull } from 'option-t/lib/Nullable';
 import React, { useCallback, useRef } from 'react';
-import { styled } from '../app/styled-components';
-import { useDocumentEventHandler } from '../app/utils/useDocumentEventHandler';
+import { styled } from '../application/styled-components';
+import { useDocumentEventHandler } from '../application/utils/useDocumentEventHandler';
 
 const Menu = styled.ul`
   list-style-type: none;

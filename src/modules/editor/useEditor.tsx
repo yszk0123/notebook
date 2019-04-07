@@ -1,7 +1,7 @@
 import { isNull } from 'option-t/lib/Nullable';
 import { EditorState } from 'prosemirror-state';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { noop } from '../../app/utils/noop';
+import { noop } from '../../application/utils/noop';
 import { createEditorView } from './EditorView';
 
 interface Props {

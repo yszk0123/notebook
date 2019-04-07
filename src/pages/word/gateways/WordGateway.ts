@@ -1,6 +1,6 @@
 import { isNotNull } from 'option-t/lib/Nullable';
-import { Gateway } from '../../../app/ApplicationType';
-import { unwrapDocumentSnapshot } from '../../../app/utils/unwrapDocumentSnapshot';
+import { Gateway } from '../../../application/ApplicationType';
+import { unwrapDocumentSnapshot } from '../../../application/utils/unwrapDocumentSnapshot';
 import { createWord, Word } from '../entities/Word';
 
 const WORD_LIMIT = 15;

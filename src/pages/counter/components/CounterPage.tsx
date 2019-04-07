@@ -1,7 +1,7 @@
 import React from 'react';
-import { CenterLayout } from '../../../app/components/layouts/CenterLayout';
-import { VerticalStackLayout } from '../../../app/components/layouts/VerticalStackLayout';
-import { styled } from '../../../app/styled-components';
+import { CenterLayout } from '../../../application/components/layouts/CenterLayout';
+import { VerticalStackLayout } from '../../../application/components/layouts/VerticalStackLayout';
+import { styled } from '../../../application/styled-components';
 import { Button } from '../../../components/Button';
 import { Text } from '../../../components/Text';
 

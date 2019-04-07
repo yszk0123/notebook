@@ -1,4 +1,4 @@
-import { action, GetAction } from '../../app/DucksType';
+import { action, GetAction } from '../../application/DucksType';
 import { Word, WordId } from './entities/Word';
 
 export const enum WordActionType {

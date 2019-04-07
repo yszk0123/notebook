@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { styled } from '../../../app/styled-components';
+import { styled } from '../../../application/styled-components';
 import { Button } from '../../../components/Button';
 import { Icon } from '../../../components/Icon';
 import { Word } from '../entities/Word';

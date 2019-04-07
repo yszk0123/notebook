@@ -1,8 +1,8 @@
 import { format, getTime } from 'date-fns';
 import React, { useCallback, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { styled } from '../../../app/styled-components';
-import { noop } from '../../../app/utils/noop';
+import { styled } from '../../../application/styled-components';
+import { noop } from '../../../application/utils/noop';
 
 const DateText = styled.div`
   cursor: pointer;

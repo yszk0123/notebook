@@ -1,6 +1,6 @@
 import { isNull, Nullable } from 'option-t/lib/Nullable';
-import { SideEffect } from '../../../app/DucksType';
-import { sleep } from '../../../app/utils/sleep';
+import { SideEffect } from '../../../application/DucksType';
+import { sleep } from '../../../application/utils/sleep';
 import { EditorContent } from '../../../modules/editor';
 import { NoteAction, noteActions } from '../NoteActions';
 import { NoteGlobalState } from '../NoteState';

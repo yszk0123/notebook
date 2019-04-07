@@ -1,4 +1,4 @@
-import { styled } from '../app/styled-components';
+import { styled } from '../application/styled-components';
 
 export const Button = styled.button`
   background: ${({ theme }) => theme.buttonColorBg};

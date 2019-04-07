@@ -1,5 +1,5 @@
 import { combineReducers, Reducer } from 'redux';
-import { routingReducer } from '../app/routing';
+import { routingReducer } from '../application/routing';
 import { counterReducer } from '../pages/counter';
 import { noteReducer } from '../pages/note';
 import { wordReducer } from '../pages/word';

@@ -1,4 +1,4 @@
-import { sleep } from '../../../app/utils/sleep';
+import { sleep } from '../../../application/utils/sleep';
 import { Word } from '../entities/Word';
 import { putWordsGateway } from '../gateways/WordGateway';
 import { wordActions } from '../WordActions';

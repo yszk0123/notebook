@@ -2,7 +2,7 @@ import { Nullable } from 'option-t/lib/Nullable';
 import { mapOrElseForNullable } from 'option-t/lib/Nullable/mapOrElse';
 import { Node, Schema } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
-import { unwrapUnsafeValue } from '../../app/utils/unwrapUnsafeValue';
+import { unwrapUnsafeValue } from '../../application/utils/unwrapUnsafeValue';
 import { buildPlugins } from './DefaultPlugin';
 import { EditorContent } from './EditorType';
 

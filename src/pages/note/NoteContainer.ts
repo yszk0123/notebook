@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { RoutingGlobalState } from '../../app/routing';
+import { RoutingGlobalState } from '../../application/routing';
 import { NotePage } from './components/NotePage';
 import { NoteGlobalState } from './NoteState';
 import { CopyTextSideEffect, createCopyTextSideEffect } from './sideEffects/CopyTextSideEffect';

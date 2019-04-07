@@ -5,18 +5,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import UniversalRouter from 'universal-router';
-import { FirebaseAppProvider } from '../app/adapters/firebase/FirebaseAppContext';
-import { Dispatch } from '../app/DucksType';
-import { HistoryProvider } from '../app/HistoryContext';
+import { FirebaseAppProvider } from '../application/adapters/firebase/FirebaseAppContext';
+import { Dispatch } from '../application/DucksType';
+import { HistoryProvider } from '../application/HistoryContext';
 import {
   Page,
   PageLoadingContainer,
   resolveRoute,
   RoutingContext,
   routingThunks,
-} from '../app/routing';
-import { ThemeProvider } from '../app/styled-components';
-import { defaultTheme } from '../app/theme/DefaultTheme';
+} from '../application/routing';
+import { ThemeProvider } from '../application/styled-components';
+import { defaultTheme } from '../application/theme/DefaultTheme';
 import { ResetStyle } from '../components/ResetStyle';
 import { firebaseConfig } from '../config/firebaseConfig';
 import { appRoutes } from './RootRoutes';

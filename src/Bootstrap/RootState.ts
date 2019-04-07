@@ -1,4 +1,4 @@
-import { RoutingGlobalState } from '../app/routing';
+import { RoutingGlobalState } from '../application/routing';
 import { CounterGlobalState } from '../pages/counter';
 import { NoteGlobalState } from '../pages/note';
 import { WordGlobalState } from '../pages/word';

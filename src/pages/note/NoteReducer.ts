@@ -1,5 +1,5 @@
-import { createReducer } from '../../app/DucksType';
-import { identity } from '../../app/utils/identity';
+import { createReducer } from '../../application/DucksType';
+import { identity } from '../../application/utils/identity';
 import { NoteAction, NoteActionType } from './NoteActions';
 import { NoteLocalState } from './NoteState';
 
