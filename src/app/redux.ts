@@ -25,11 +25,10 @@ export function createAction<A extends string>(
   type: A,
 ): ActionCreator<void, Action<A>>;
 
-export function createAction<
-  A extends string,
-  Args extends AnyForExtend[],
-  R
->(type: A, fn: ExtraFunction<Args, R>): ActionCreator<Args, Action<A, R>>;
+export function createAction<A extends string, Args extends AnyForExtend[], R>(
+  type: A,
+  fn: ExtraFunction<Args, R>,
+): ActionCreator<Args, Action<A, R>>;
 
 // @ts-ignore
 export function createAction(type, extraFunction?) {

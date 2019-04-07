@@ -38,8 +38,7 @@ export const wordReducer: Reducer<WordLocalState, WordAction> = (
       const { word } = action.payload;
 
       return updateState(state, {
-        outdatedWordIds: (ids: WordId[]) =>
-          ids.filter(id => id !== word.id),
+        outdatedWordIds: (ids: WordId[]) => ids.filter(id => id !== word.id),
         saving: { $set: false },
       });
     }
