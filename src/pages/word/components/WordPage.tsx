@@ -29,6 +29,7 @@ const WordPageWrapper = styled.div`
   font-size: ${({ theme }) => theme.fontSize.default};
   height: 100%;
   width: 100%;
+  overflow-y: auto;
   padding: ${({ theme }) => theme.space};
 `;
 

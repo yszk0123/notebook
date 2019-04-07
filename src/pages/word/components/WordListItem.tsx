@@ -9,7 +9,6 @@ const Layout = styled.div`
   display: flex;
   width: 100%;
   border-bottom: 1px solid ${({ theme }) => theme.borderColorBg};
-  margin-bottom: ${({ theme }) => theme.space};
   padding-bottom: ${({ theme }) => theme.space};
 `;
 
