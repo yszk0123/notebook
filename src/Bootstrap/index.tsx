@@ -36,7 +36,6 @@ function resolveLocation(location: Location): string {
 export async function bootstrap(): Promise<void> {
   const app = firebase.initializeApp(firebaseConfig);
   const firestore = firebase.firestore();
-  firestore.settings({ timestampsInSnapshots: true });
 
   const router = new UniversalRouter(appRoutes, {
     baseUrl: process.env.APP_BASE_URL,
