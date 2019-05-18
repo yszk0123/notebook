@@ -51,7 +51,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.3",
     "date-fns": "^1.29.0",
-    "firebase": "^5.9.3",
+    "firebase": "^6.0.0",
     "firebaseui": "^3.5.1",
     "history": "^4.9.0",
     "immutability-helper": "^3.0.0",
