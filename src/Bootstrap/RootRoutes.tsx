@@ -1,10 +1,10 @@
 import React from 'react';
 import { NotFoundPage } from '../application/components/NotFoundPage';
 import { Route } from '../application/routing';
-import { counterRoutes } from '../pages/counter';
-import { helloRoutes } from '../pages/hello';
-import { loginRoutes } from '../pages/login';
-import { wordRoutes } from '../pages/word';
+import { counterRoutes } from '../OLD_pages/counter';
+import { helloRoutes } from '../OLD_pages/hello';
+import { loginRoutes } from '../OLD_pages/login';
+import { wordRoutes } from '../OLD_pages/word';
 
 export const appRoutes: Route[] = [
   ...counterRoutes,

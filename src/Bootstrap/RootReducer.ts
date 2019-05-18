@@ -1,7 +1,7 @@
 import { combineReducers, Reducer } from 'redux';
 import { routingReducer } from '../application/routing';
-import { counterReducer } from '../pages/counter';
-import { wordReducer } from '../pages/word';
+import { counterReducer } from '../OLD_pages/counter';
+import { wordReducer } from '../OLD_pages/word';
 import { RootState } from './RootState';
 
 export const rootReducer: Reducer<RootState> = combineReducers<RootState>({

@@ -55,7 +55,7 @@ const HomeHeader: React.FunctionComponent<{}> = () => {
   );
 };
 
-const HomeStack = createStackNavigator(
+const HomeNavigator = createStackNavigator(
   {
     Home: {
       navigationOptions: {
@@ -69,7 +69,7 @@ const HomeStack = createStackNavigator(
   },
 );
 
-const FooterTabBar: React.FunctionComponent<{}> = () => {
+const AppFooterTabBar: React.FunctionComponent<{}> = () => {
   return (
     <Footer>
       <FooterTab>
@@ -88,11 +88,11 @@ const FooterTabBar: React.FunctionComponent<{}> = () => {
 
 const AppNavigator = createBottomTabNavigator(
   {
-    Home: HomeStack,
+    Home: HomeNavigator,
   },
   {
     initialRouteName: 'Home',
-    tabBarComponent: FooterTabBar,
+    tabBarComponent: AppFooterTabBar,
     tabBarPosition: 'bottom',
   },
 );
