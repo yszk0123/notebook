@@ -109,7 +109,6 @@ const GlobalNavigationInner: React.FunctionComponent<Props> = ({ loading, user }
       <LeftLayout>
         <Link path={routingPaths.home}>Home</Link>
         <Link path={routingPaths.counter}>Counter</Link>
-        <Link path={routingPaths.note}>Note</Link>
         <Link path={routingPaths.word}>Word</Link>
       </LeftLayout>
       <RightLayout>

@@ -6,7 +6,6 @@ export const routingPaths = {
   home: `${appConfig.baseUrl}`,
   login: `${appConfig.baseUrl}/login`,
   logout: `${appConfig.baseUrl}/logout`,
-  note: `${appConfig.baseUrl}/note`,
   notFound: `${appConfig.baseUrl}/not-found`,
   redirect: `${appConfig.baseUrl}/redirect`,
   word: `${appConfig.baseUrl}/word`,
