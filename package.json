@@ -72,7 +72,9 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "rxjs": "^6.5.2",
     "styled-components": "^4.2.0",
+    "typeless": "^0.1.9-alpha.0",
     "universal-router": "^8.1.0"
   }
 }
