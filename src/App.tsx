@@ -13,6 +13,12 @@ import {
   Title,
 } from 'native-base';
 import React from 'react';
+import {
+  createAppContainer,
+  createBottomTabNavigator,
+  createStackNavigator,
+} from 'react-navigation';
+import { noop } from './application/utils/noop';
 import { appConfig } from './config/AppConfig';
 import { Loader } from './Loader';
 
@@ -25,36 +31,78 @@ import { Loader } from './Loader';
 
 type Props = {};
 
-const Inner: React.FunctionComponent<Props> = () => {
+const HomeScreen: React.FunctionComponent<Props> = () => {
   return (
     <Container>
-      <Header>
-        <Left />
-        <Body>
-          <Title>{appConfig.title}</Title>
-        </Body>
-        <Right>
-          <Icon name="menu" />
-        </Right>
-      </Header>
       <Content>
         <Text>Hello</Text>
       </Content>
-      <Footer>
-        <FooterTab>
-          <Button full={true}>
-            <Text>Footer</Text>
-          </Button>
-        </FooterTab>
-      </Footer>
     </Container>
   );
 };
 
+const HomeHeader: React.FunctionComponent<{}> = () => {
+  return (
+    <Header>
+      <Left />
+      <Body>
+        <Title>{appConfig.title}</Title>
+      </Body>
+      <Right>
+        <Icon name="menu" />
+      </Right>
+    </Header>
+  );
+};
+
+const HomeStack = createStackNavigator(
+  {
+    Home: {
+      navigationOptions: {
+        header: () => <HomeHeader />,
+      },
+      screen: HomeScreen,
+    },
+  },
+  {
+    initialRouteName: 'Home',
+  },
+);
+
+const FooterTabBar: React.FunctionComponent<{}> = () => {
+  return (
+    <Footer>
+      <FooterTab>
+        <Button vertical={true} active={true} onPress={noop}>
+          <Icon name="home" />
+          <Text>Home</Text>
+        </Button>
+        <Button vertical={true} active={false} onPress={noop}>
+          <Icon name="person" />
+          <Text>Profile</Text>
+        </Button>
+      </FooterTab>
+    </Footer>
+  );
+};
+
+const AppNavigator = createBottomTabNavigator(
+  {
+    Home: HomeStack,
+  },
+  {
+    initialRouteName: 'Home',
+    tabBarComponent: FooterTabBar,
+    tabBarPosition: 'bottom',
+  },
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
 export const App: React.FunctionComponent<{}> = () => {
   return (
     <Loader>
-      <Inner />
+      <AppContainer />
     </Loader>
   );
 };
