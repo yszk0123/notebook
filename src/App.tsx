@@ -1,26 +1,16 @@
-import {
-  Body,
-  Button,
-  Container,
-  Content,
-  Footer,
-  FooterTab,
-  Header,
-  Icon,
-  Left,
-  Right,
-  Text,
-  Title,
-} from 'native-base';
+import { Body, Container, Content, Header, Icon, Left, Right, Text, Title } from 'native-base';
 import React from 'react';
 import {
   createAppContainer,
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
-import { noop } from './application/utils/noop';
+import { DefaultTypelessProvider } from 'typeless';
+import { AppFooterTabBar } from './AppFooterTabBar';
 import { appConfig } from './config/AppConfig';
+import { GlobalFooterTabRouteName } from './global/constants/GlobalRoutingConstant';
 import { Loader } from './Loader';
+import { CounterNavigator } from './pages/counter';
 
 // import { bootstrap } from './Bootstrap';
 // import { registerFontAwesome } from './registerFontAwesome';
@@ -29,9 +19,9 @@ import { Loader } from './Loader';
 // hackForMobile();
 // bootstrap().catch(printError);
 
-type Props = {};
+type HomeScreenProps = {};
 
-const HomeScreen: React.FunctionComponent<Props> = () => {
+const HomeScreen: React.FunctionComponent<HomeScreenProps> = () => {
   return (
     <Container>
       <Content>
@@ -65,33 +55,17 @@ const HomeNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: GlobalFooterTabRouteName.HOME,
   },
 );
 
-const AppFooterTabBar: React.FunctionComponent<{}> = () => {
-  return (
-    <Footer>
-      <FooterTab>
-        <Button vertical={true} active={true} onPress={noop}>
-          <Icon name="home" />
-          <Text>Home</Text>
-        </Button>
-        <Button vertical={true} active={false} onPress={noop}>
-          <Icon name="person" />
-          <Text>Profile</Text>
-        </Button>
-      </FooterTab>
-    </Footer>
-  );
-};
-
 const AppNavigator = createBottomTabNavigator(
   {
+    Counter: CounterNavigator,
     Home: HomeNavigator,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: GlobalFooterTabRouteName.HOME,
     tabBarComponent: AppFooterTabBar,
     tabBarPosition: 'bottom',
   },
@@ -99,10 +73,14 @@ const AppNavigator = createBottomTabNavigator(
 
 const AppContainer = createAppContainer(AppNavigator);
 
-export const App: React.FunctionComponent<{}> = () => {
+type Props = {};
+
+export const App: React.FunctionComponent<Props> = () => {
   return (
     <Loader>
-      <AppContainer />
+      <DefaultTypelessProvider>
+        <AppContainer />
+      </DefaultTypelessProvider>
     </Loader>
   );
 };
