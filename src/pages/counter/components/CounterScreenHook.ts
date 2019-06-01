@@ -8,17 +8,21 @@ import {
 interface Props {
   count: number;
   loading: boolean;
+  notes: Notes;
   onIncrement: () => void;
   onDecrement: () => void;
 }
 
-// FIXME: Remove (#101)
+// FIXME: Remove (#54)
 type Counter = NonNullable<CounterScreenQuery['counter']>;
+type Notes = NonNullable<CounterScreenQuery['notes']>;
 const loadingCounter: Counter = [];
+const loadingNotes: Notes = [];
 
 export function useCounterScreen(): Props {
   const { data, loading } = useCounterScreenQuery();
   const counter = (data && data.counter) || loadingCounter;
+  const notes = (data && data.notes) || loadingNotes;
   const count = counter.length ? counter[0].count : -1;
 
   const update = useUpdateCounterMutation();
@@ -34,6 +38,7 @@ export function useCounterScreen(): Props {
   return {
     count,
     loading,
+    notes,
     onDecrement,
     onIncrement,
   };

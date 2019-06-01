@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  timestamptz: any;
 };
 
 export enum ConflictAction {
@@ -20,7 +21,7 @@ export type Counter = {
   __typename?: 'counter';
   count: Scalars['Int'];
   id: Scalars['Int'];
-  user_id: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type CounterAggregate = {
@@ -85,7 +86,7 @@ export type CounterBoolExp = {
   _or?: Maybe<Array<Maybe<CounterBoolExp>>>;
   count?: Maybe<IntegerComparisonExp>;
   id?: Maybe<IntegerComparisonExp>;
-  user_id?: Maybe<TextComparisonExp>;
+  userId?: Maybe<TextComparisonExp>;
 };
 
 export enum CounterConstraint {
@@ -100,33 +101,33 @@ export type CounterIncInput = {
 export type CounterInsertInput = {
   count?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type CounterMaxFields = {
   __typename?: 'counter_max_fields';
   count?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type CounterMaxOrderBy = {
   count?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
-  user_id?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
 };
 
 export type CounterMinFields = {
   __typename?: 'counter_min_fields';
   count?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type CounterMinOrderBy = {
   count?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
-  user_id?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
 };
 
 export type CounterMutationResponse = {
@@ -148,19 +149,19 @@ export type CounterOnConflict = {
 export type CounterOrderBy = {
   count?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
-  user_id?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
 };
 
 export enum CounterSelectColumn {
   COUNT = 'count',
   ID = 'id',
-  USER_ID = 'user_id',
+  USERID = 'userId',
 }
 
 export type CounterSetInput = {
   count?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type CounterStddevFields = {
@@ -210,7 +211,7 @@ export type CounterSumOrderBy = {
 export enum CounterUpdateColumn {
   COUNT = 'count',
   ID = 'id',
-  USER_ID = 'user_id',
+  USERID = 'userId',
 }
 
 export type CounterVarPopFields = {
@@ -261,15 +262,22 @@ export type IntegerComparisonExp = {
 export type MutationRoot = {
   __typename?: 'mutation_root';
   delete_counter?: Maybe<CounterMutationResponse>;
+  delete_notes?: Maybe<NotesMutationResponse>;
   delete_profile?: Maybe<ProfileMutationResponse>;
   insert_counter?: Maybe<CounterMutationResponse>;
+  insert_notes?: Maybe<NotesMutationResponse>;
   insert_profile?: Maybe<ProfileMutationResponse>;
   update_counter?: Maybe<CounterMutationResponse>;
+  update_notes?: Maybe<NotesMutationResponse>;
   update_profile?: Maybe<ProfileMutationResponse>;
 };
 
 export type MutationRootDeleteCounterArgs = {
   where: CounterBoolExp;
+};
+
+export type MutationRootDeleteNotesArgs = {
+  where: NotesBoolExp;
 };
 
 export type MutationRootDeleteProfileArgs = {
@@ -279,6 +287,11 @@ export type MutationRootDeleteProfileArgs = {
 export type MutationRootInsertCounterArgs = {
   objects: Array<CounterInsertInput>;
   on_conflict?: Maybe<CounterOnConflict>;
+};
+
+export type MutationRootInsertNotesArgs = {
+  objects: Array<NotesInsertInput>;
+  on_conflict?: Maybe<NotesOnConflict>;
 };
 
 export type MutationRootInsertProfileArgs = {
@@ -292,10 +305,251 @@ export type MutationRootUpdateCounterArgs = {
   where: CounterBoolExp;
 };
 
+export type MutationRootUpdateNotesArgs = {
+  _inc?: Maybe<NotesIncInput>;
+  _set?: Maybe<NotesSetInput>;
+  where: NotesBoolExp;
+};
+
 export type MutationRootUpdateProfileArgs = {
   _inc?: Maybe<ProfileIncInput>;
   _set?: Maybe<ProfileSetInput>;
   where: ProfileBoolExp;
+};
+
+export type Notes = {
+  __typename?: 'notes';
+  createdAt: Scalars['timestamptz'];
+  id: Scalars['Int'];
+  text: Scalars['String'];
+  updatedAt: Scalars['timestamptz'];
+  userId: Scalars['String'];
+};
+
+export type NotesAggregate = {
+  __typename?: 'notes_aggregate';
+  aggregate?: Maybe<NotesAggregateFields>;
+  nodes: Array<Notes>;
+};
+
+export type NotesAggregateFields = {
+  __typename?: 'notes_aggregate_fields';
+  avg?: Maybe<NotesAvgFields>;
+  count?: Maybe<Scalars['Int']>;
+  max?: Maybe<NotesMaxFields>;
+  min?: Maybe<NotesMinFields>;
+  stddev?: Maybe<NotesStddevFields>;
+  stddev_pop?: Maybe<NotesStddevPopFields>;
+  stddev_samp?: Maybe<NotesStddevSampFields>;
+  sum?: Maybe<NotesSumFields>;
+  var_pop?: Maybe<NotesVarPopFields>;
+  var_samp?: Maybe<NotesVarSampFields>;
+  variance?: Maybe<NotesVarianceFields>;
+};
+
+export type NotesAggregateFieldsCountArgs = {
+  columns?: Maybe<Array<NotesSelectColumn>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+export type NotesAggregateOrderBy = {
+  avg?: Maybe<NotesAvgOrderBy>;
+  count?: Maybe<OrderBy>;
+  max?: Maybe<NotesMaxOrderBy>;
+  min?: Maybe<NotesMinOrderBy>;
+  stddev?: Maybe<NotesStddevOrderBy>;
+  stddev_pop?: Maybe<NotesStddevPopOrderBy>;
+  stddev_samp?: Maybe<NotesStddevSampOrderBy>;
+  sum?: Maybe<NotesSumOrderBy>;
+  var_pop?: Maybe<NotesVarPopOrderBy>;
+  var_samp?: Maybe<NotesVarSampOrderBy>;
+  variance?: Maybe<NotesVarianceOrderBy>;
+};
+
+export type NotesArrRelInsertInput = {
+  data: Array<NotesInsertInput>;
+  on_conflict?: Maybe<NotesOnConflict>;
+};
+
+export type NotesAvgFields = {
+  __typename?: 'notes_avg_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type NotesAvgOrderBy = {
+  id?: Maybe<OrderBy>;
+};
+
+export type NotesBoolExp = {
+  _and?: Maybe<Array<Maybe<NotesBoolExp>>>;
+  _not?: Maybe<NotesBoolExp>;
+  _or?: Maybe<Array<Maybe<NotesBoolExp>>>;
+  createdAt?: Maybe<TimestamptzComparisonExp>;
+  id?: Maybe<IntegerComparisonExp>;
+  text?: Maybe<TextComparisonExp>;
+  updatedAt?: Maybe<TimestamptzComparisonExp>;
+  userId?: Maybe<TextComparisonExp>;
+};
+
+export enum NotesConstraint {
+  NOTE_PKEY1 = 'note_pkey1',
+}
+
+export type NotesIncInput = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type NotesInsertInput = {
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type NotesMaxFields = {
+  __typename?: 'notes_max_fields';
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type NotesMaxOrderBy = {
+  createdAt?: Maybe<OrderBy>;
+  id?: Maybe<OrderBy>;
+  text?: Maybe<OrderBy>;
+  updatedAt?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
+};
+
+export type NotesMinFields = {
+  __typename?: 'notes_min_fields';
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type NotesMinOrderBy = {
+  createdAt?: Maybe<OrderBy>;
+  id?: Maybe<OrderBy>;
+  text?: Maybe<OrderBy>;
+  updatedAt?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
+};
+
+export type NotesMutationResponse = {
+  __typename?: 'notes_mutation_response';
+  affected_rows: Scalars['Int'];
+  returning: Array<Notes>;
+};
+
+export type NotesObjRelInsertInput = {
+  data: NotesInsertInput;
+  on_conflict?: Maybe<NotesOnConflict>;
+};
+
+export type NotesOnConflict = {
+  constraint: NotesConstraint;
+  update_columns: Array<NotesUpdateColumn>;
+};
+
+export type NotesOrderBy = {
+  createdAt?: Maybe<OrderBy>;
+  id?: Maybe<OrderBy>;
+  text?: Maybe<OrderBy>;
+  updatedAt?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
+};
+
+export enum NotesSelectColumn {
+  CREATEDAT = 'createdAt',
+  ID = 'id',
+  TEXT = 'text',
+  UPDATEDAT = 'updatedAt',
+  USERID = 'userId',
+}
+
+export type NotesSetInput = {
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
+  userId?: Maybe<Scalars['String']>;
+};
+
+export type NotesStddevFields = {
+  __typename?: 'notes_stddev_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type NotesStddevOrderBy = {
+  id?: Maybe<OrderBy>;
+};
+
+export type NotesStddevPopFields = {
+  __typename?: 'notes_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type NotesStddevPopOrderBy = {
+  id?: Maybe<OrderBy>;
+};
+
+export type NotesStddevSampFields = {
+  __typename?: 'notes_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type NotesStddevSampOrderBy = {
+  id?: Maybe<OrderBy>;
+};
+
+export type NotesSumFields = {
+  __typename?: 'notes_sum_fields';
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type NotesSumOrderBy = {
+  id?: Maybe<OrderBy>;
+};
+
+export enum NotesUpdateColumn {
+  CREATEDAT = 'createdAt',
+  ID = 'id',
+  TEXT = 'text',
+  UPDATEDAT = 'updatedAt',
+  USERID = 'userId',
+}
+
+export type NotesVarPopFields = {
+  __typename?: 'notes_var_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type NotesVarPopOrderBy = {
+  id?: Maybe<OrderBy>;
+};
+
+export type NotesVarSampFields = {
+  __typename?: 'notes_var_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type NotesVarSampOrderBy = {
+  id?: Maybe<OrderBy>;
+};
+
+export type NotesVarianceFields = {
+  __typename?: 'notes_variance_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type NotesVarianceOrderBy = {
+  id?: Maybe<OrderBy>;
 };
 
 export enum OrderBy {
@@ -312,7 +566,7 @@ export type Profile = {
   description: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
-  user_id: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type ProfileAggregate = {
@@ -376,7 +630,7 @@ export type ProfileBoolExp = {
   description?: Maybe<TextComparisonExp>;
   id?: Maybe<IntegerComparisonExp>;
   name?: Maybe<TextComparisonExp>;
-  user_id?: Maybe<TextComparisonExp>;
+  userId?: Maybe<TextComparisonExp>;
 };
 
 export enum ProfileConstraint {
@@ -392,7 +646,7 @@ export type ProfileInsertInput = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type ProfileMaxFields = {
@@ -400,14 +654,14 @@ export type ProfileMaxFields = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type ProfileMaxOrderBy = {
   description?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
   name?: Maybe<OrderBy>;
-  user_id?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
 };
 
 export type ProfileMinFields = {
@@ -415,14 +669,14 @@ export type ProfileMinFields = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type ProfileMinOrderBy = {
   description?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
   name?: Maybe<OrderBy>;
-  user_id?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
 };
 
 export type ProfileMutationResponse = {
@@ -445,21 +699,21 @@ export type ProfileOrderBy = {
   description?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
   name?: Maybe<OrderBy>;
-  user_id?: Maybe<OrderBy>;
+  userId?: Maybe<OrderBy>;
 };
 
 export enum ProfileSelectColumn {
   DESCRIPTION = 'description',
   ID = 'id',
   NAME = 'name',
-  USER_ID = 'user_id',
+  USERID = 'userId',
 }
 
 export type ProfileSetInput = {
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['String']>;
 };
 
 export type ProfileStddevFields = {
@@ -502,7 +756,7 @@ export enum ProfileUpdateColumn {
   DESCRIPTION = 'description',
   ID = 'id',
   NAME = 'name',
-  USER_ID = 'user_id',
+  USERID = 'userId',
 }
 
 export type ProfileVarPopFields = {
@@ -537,6 +791,9 @@ export type QueryRoot = {
   counter: Array<Counter>;
   counter_aggregate: CounterAggregate;
   counter_by_pk?: Maybe<Counter>;
+  notes: Array<Notes>;
+  notes_aggregate: NotesAggregate;
+  notes_by_pk?: Maybe<Notes>;
   profile: Array<Profile>;
   profile_aggregate: ProfileAggregate;
   profile_by_pk?: Maybe<Profile>;
@@ -559,6 +816,26 @@ export type QueryRootCounterAggregateArgs = {
 };
 
 export type QueryRootCounterByPkArgs = {
+  id: Scalars['Int'];
+};
+
+export type QueryRootNotesArgs = {
+  distinct_on?: Maybe<Array<NotesSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<NotesOrderBy>>;
+  where?: Maybe<NotesBoolExp>;
+};
+
+export type QueryRootNotesAggregateArgs = {
+  distinct_on?: Maybe<Array<NotesSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<NotesOrderBy>>;
+  where?: Maybe<NotesBoolExp>;
+};
+
+export type QueryRootNotesByPkArgs = {
   id: Scalars['Int'];
 };
 
@@ -587,6 +864,9 @@ export type SubscriptionRoot = {
   counter: Array<Counter>;
   counter_aggregate: CounterAggregate;
   counter_by_pk?: Maybe<Counter>;
+  notes: Array<Notes>;
+  notes_aggregate: NotesAggregate;
+  notes_by_pk?: Maybe<Notes>;
   profile: Array<Profile>;
   profile_aggregate: ProfileAggregate;
   profile_by_pk?: Maybe<Profile>;
@@ -609,6 +889,26 @@ export type SubscriptionRootCounterAggregateArgs = {
 };
 
 export type SubscriptionRootCounterByPkArgs = {
+  id: Scalars['Int'];
+};
+
+export type SubscriptionRootNotesArgs = {
+  distinct_on?: Maybe<Array<NotesSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<NotesOrderBy>>;
+  where?: Maybe<NotesBoolExp>;
+};
+
+export type SubscriptionRootNotesAggregateArgs = {
+  distinct_on?: Maybe<Array<NotesSelectColumn>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<NotesOrderBy>>;
+  where?: Maybe<NotesBoolExp>;
+};
+
+export type SubscriptionRootNotesByPkArgs = {
   id: Scalars['Int'];
 };
 
@@ -649,10 +949,23 @@ export type TextComparisonExp = {
   _nsimilar?: Maybe<Scalars['String']>;
   _similar?: Maybe<Scalars['String']>;
 };
+
+export type TimestamptzComparisonExp = {
+  _eq?: Maybe<Scalars['timestamptz']>;
+  _gt?: Maybe<Scalars['timestamptz']>;
+  _gte?: Maybe<Scalars['timestamptz']>;
+  _in?: Maybe<Array<Maybe<Scalars['timestamptz']>>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['timestamptz']>;
+  _lte?: Maybe<Scalars['timestamptz']>;
+  _neq?: Maybe<Scalars['timestamptz']>;
+  _nin?: Maybe<Array<Maybe<Scalars['timestamptz']>>>;
+};
 export type CounterScreenQueryVariables = {};
 
 export type CounterScreenQuery = { __typename?: 'query_root' } & {
-  counter: Array<{ __typename?: 'counter' } & Pick<Counter, 'id' | 'user_id' | 'count'>>;
+  counter: Array<{ __typename?: 'counter' } & Pick<Counter, 'id' | 'count'>>;
+  notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
 };
 
 export type UpdateCounterMutationVariables = {
@@ -662,7 +975,7 @@ export type UpdateCounterMutationVariables = {
 export type UpdateCounterMutation = { __typename?: 'mutation_root' } & {
   update_counter: Maybe<
     { __typename?: 'counter_mutation_response' } & {
-      returning: Array<{ __typename?: 'counter' } & Pick<Counter, 'id' | 'user_id' | 'count'>>;
+      returning: Array<{ __typename?: 'counter' } & Pick<Counter, 'id' | 'count'>>;
     }
   >;
 };
@@ -671,8 +984,11 @@ export const CounterScreenDocument = gql`
   query CounterScreen {
     counter {
       id
-      user_id
       count
+    }
+    notes {
+      id
+      text
     }
   }
 `;
@@ -690,7 +1006,6 @@ export const UpdateCounterDocument = gql`
     update_counter(where: {}, _set: $input) {
       returning {
         id
-        user_id
         count
       }
     }

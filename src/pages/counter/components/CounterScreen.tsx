@@ -1,13 +1,13 @@
-import { Button, Container, Text, View } from 'native-base';
+import { Button, Container, ListItem, Text, View } from 'native-base';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { LoadingPage } from '../../../components/LoadingPage';
 import { useCounterScreen } from './CounterScreenHook';
 
 interface Props {}
 
 export const CounterScreen: React.FunctionComponent<Props> = () => {
-  const { count, loading, onIncrement, onDecrement } = useCounterScreen();
+  const { count, notes, loading, onIncrement, onDecrement } = useCounterScreen();
 
   if (loading) {
     return <LoadingPage />;
@@ -25,6 +25,15 @@ export const CounterScreen: React.FunctionComponent<Props> = () => {
             <Text>Decrement</Text>
           </Button>
         </View>
+        <ScrollView>
+          {notes.map(note => {
+            return (
+              <ListItem key={note.id}>
+                <Text>{note.text}</Text>
+              </ListItem>
+            );
+          })}
+        </ScrollView>
       </View>
     </Container>
   );

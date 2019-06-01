@@ -1,8 +1,11 @@
 query CounterScreen {
   counter {
     id
-    user_id
     count
+  }
+  notes {
+    id
+    text
   }
 }
 
@@ -10,7 +13,6 @@ mutation UpdateCounter($input: counter_set_input) {
   update_counter(where: {}, _set: $input) {
     returning {
       id
-      user_id
       count
     }
   }

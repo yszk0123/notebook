@@ -17,7 +17,7 @@ enum conflict_action {
 type counter {
   count: Int!
   id: Int!
-  user_id: String!
+  userId: String!
 }
 
 # aggregated selection of "counter"
@@ -81,7 +81,7 @@ input counter_bool_exp {
   _or: [counter_bool_exp]
   count: integer_comparison_exp
   id: integer_comparison_exp
-  user_id: text_comparison_exp
+  userId: text_comparison_exp
 }
 
 # unique or primary key constraints on table "counter"
@@ -100,35 +100,35 @@ input counter_inc_input {
 input counter_insert_input {
   count: Int
   id: Int
-  user_id: String
+  userId: String
 }
 
 # aggregate max on columns
 type counter_max_fields {
   count: Int
   id: Int
-  user_id: String
+  userId: String
 }
 
 # order by max() on columns of table "counter"
 input counter_max_order_by {
   count: order_by
   id: order_by
-  user_id: order_by
+  userId: order_by
 }
 
 # aggregate min on columns
 type counter_min_fields {
   count: Int
   id: Int
-  user_id: String
+  userId: String
 }
 
 # order by min() on columns of table "counter"
 input counter_min_order_by {
   count: order_by
   id: order_by
-  user_id: order_by
+  userId: order_by
 }
 
 # response of any mutation on the table "counter"
@@ -156,7 +156,7 @@ input counter_on_conflict {
 input counter_order_by {
   count: order_by
   id: order_by
-  user_id: order_by
+  userId: order_by
 }
 
 # select columns of table "counter"
@@ -168,14 +168,14 @@ enum counter_select_column {
   id
 
   # column name
-  user_id
+  userId
 }
 
 # input type for updating data in table "counter"
 input counter_set_input {
   count: Int
   id: Int
-  user_id: String
+  userId: String
 }
 
 # aggregate stddev on columns
@@ -235,7 +235,7 @@ enum counter_update_column {
   id
 
   # column name
-  user_id
+  userId
 }
 
 # aggregate var_pop on columns
@@ -295,6 +295,12 @@ type mutation_root {
     where: counter_bool_exp!
   ): counter_mutation_response
 
+  # delete data from the table: "notes"
+  delete_notes(
+    # filter the rows which have to be deleted
+    where: notes_bool_exp!
+  ): notes_mutation_response
+
   # delete data from the table: "profile"
   delete_profile(
     # filter the rows which have to be deleted
@@ -309,6 +315,15 @@ type mutation_root {
     # on conflict condition
     on_conflict: counter_on_conflict
   ): counter_mutation_response
+
+  # insert data into the table: "notes"
+  insert_notes(
+    # the rows to be inserted
+    objects: [notes_insert_input!]!
+
+    # on conflict condition
+    on_conflict: notes_on_conflict
+  ): notes_mutation_response
 
   # insert data into the table: "profile"
   insert_profile(
@@ -331,6 +346,18 @@ type mutation_root {
     where: counter_bool_exp!
   ): counter_mutation_response
 
+  # update data of the table: "notes"
+  update_notes(
+    # increments the integer columns with given value of the filtered values
+    _inc: notes_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: notes_set_input
+
+    # filter the rows which have to be updated
+    where: notes_bool_exp!
+  ): notes_mutation_response
+
   # update data of the table: "profile"
   update_profile(
     # increments the integer columns with given value of the filtered values
@@ -342,6 +369,280 @@ type mutation_root {
     # filter the rows which have to be updated
     where: profile_bool_exp!
   ): profile_mutation_response
+}
+
+# columns and relationships of "notes"
+type notes {
+  createdAt: timestamptz!
+  id: Int!
+  text: String!
+  updatedAt: timestamptz!
+  userId: String!
+}
+
+# aggregated selection of "notes"
+type notes_aggregate {
+  aggregate: notes_aggregate_fields
+  nodes: [notes!]!
+}
+
+# aggregate fields of "notes"
+type notes_aggregate_fields {
+  avg: notes_avg_fields
+  count(columns: [notes_select_column!], distinct: Boolean): Int
+  max: notes_max_fields
+  min: notes_min_fields
+  stddev: notes_stddev_fields
+  stddev_pop: notes_stddev_pop_fields
+  stddev_samp: notes_stddev_samp_fields
+  sum: notes_sum_fields
+  var_pop: notes_var_pop_fields
+  var_samp: notes_var_samp_fields
+  variance: notes_variance_fields
+}
+
+# order by aggregate values of table "notes"
+input notes_aggregate_order_by {
+  avg: notes_avg_order_by
+  count: order_by
+  max: notes_max_order_by
+  min: notes_min_order_by
+  stddev: notes_stddev_order_by
+  stddev_pop: notes_stddev_pop_order_by
+  stddev_samp: notes_stddev_samp_order_by
+  sum: notes_sum_order_by
+  var_pop: notes_var_pop_order_by
+  var_samp: notes_var_samp_order_by
+  variance: notes_variance_order_by
+}
+
+# input type for inserting array relation for remote table "notes"
+input notes_arr_rel_insert_input {
+  data: [notes_insert_input!]!
+  on_conflict: notes_on_conflict
+}
+
+# aggregate avg on columns
+type notes_avg_fields {
+  id: Float
+}
+
+# order by avg() on columns of table "notes"
+input notes_avg_order_by {
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "notes". All fields are combined with a logical 'AND'.
+input notes_bool_exp {
+  _and: [notes_bool_exp]
+  _not: notes_bool_exp
+  _or: [notes_bool_exp]
+  createdAt: timestamptz_comparison_exp
+  id: integer_comparison_exp
+  text: text_comparison_exp
+  updatedAt: timestamptz_comparison_exp
+  userId: text_comparison_exp
+}
+
+# unique or primary key constraints on table "notes"
+enum notes_constraint {
+  # unique or primary key constraint
+  note_pkey1
+}
+
+# input type for incrementing integer columne in table "notes"
+input notes_inc_input {
+  id: Int
+}
+
+# input type for inserting data into table "notes"
+input notes_insert_input {
+  createdAt: timestamptz
+  id: Int
+  text: String
+  updatedAt: timestamptz
+  userId: String
+}
+
+# aggregate max on columns
+type notes_max_fields {
+  createdAt: timestamptz
+  id: Int
+  text: String
+  updatedAt: timestamptz
+  userId: String
+}
+
+# order by max() on columns of table "notes"
+input notes_max_order_by {
+  createdAt: order_by
+  id: order_by
+  text: order_by
+  updatedAt: order_by
+  userId: order_by
+}
+
+# aggregate min on columns
+type notes_min_fields {
+  createdAt: timestamptz
+  id: Int
+  text: String
+  updatedAt: timestamptz
+  userId: String
+}
+
+# order by min() on columns of table "notes"
+input notes_min_order_by {
+  createdAt: order_by
+  id: order_by
+  text: order_by
+  updatedAt: order_by
+  userId: order_by
+}
+
+# response of any mutation on the table "notes"
+type notes_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [notes!]!
+}
+
+# input type for inserting object relation for remote table "notes"
+input notes_obj_rel_insert_input {
+  data: notes_insert_input!
+  on_conflict: notes_on_conflict
+}
+
+# on conflict condition type for table "notes"
+input notes_on_conflict {
+  constraint: notes_constraint!
+  update_columns: [notes_update_column!]!
+}
+
+# ordering options when selecting data from "notes"
+input notes_order_by {
+  createdAt: order_by
+  id: order_by
+  text: order_by
+  updatedAt: order_by
+  userId: order_by
+}
+
+# select columns of table "notes"
+enum notes_select_column {
+  # column name
+  createdAt
+
+  # column name
+  id
+
+  # column name
+  text
+
+  # column name
+  updatedAt
+
+  # column name
+  userId
+}
+
+# input type for updating data in table "notes"
+input notes_set_input {
+  createdAt: timestamptz
+  id: Int
+  text: String
+  updatedAt: timestamptz
+  userId: String
+}
+
+# aggregate stddev on columns
+type notes_stddev_fields {
+  id: Float
+}
+
+# order by stddev() on columns of table "notes"
+input notes_stddev_order_by {
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type notes_stddev_pop_fields {
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "notes"
+input notes_stddev_pop_order_by {
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type notes_stddev_samp_fields {
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "notes"
+input notes_stddev_samp_order_by {
+  id: order_by
+}
+
+# aggregate sum on columns
+type notes_sum_fields {
+  id: Int
+}
+
+# order by sum() on columns of table "notes"
+input notes_sum_order_by {
+  id: order_by
+}
+
+# update columns of table "notes"
+enum notes_update_column {
+  # column name
+  createdAt
+
+  # column name
+  id
+
+  # column name
+  text
+
+  # column name
+  updatedAt
+
+  # column name
+  userId
+}
+
+# aggregate var_pop on columns
+type notes_var_pop_fields {
+  id: Float
+}
+
+# order by var_pop() on columns of table "notes"
+input notes_var_pop_order_by {
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type notes_var_samp_fields {
+  id: Float
+}
+
+# order by var_samp() on columns of table "notes"
+input notes_var_samp_order_by {
+  id: order_by
+}
+
+# aggregate variance on columns
+type notes_variance_fields {
+  id: Float
+}
+
+# order by variance() on columns of table "notes"
+input notes_variance_order_by {
+  id: order_by
 }
 
 # column ordering options
@@ -370,7 +671,7 @@ type profile {
   description: String!
   id: Int!
   name: String!
-  user_id: String!
+  userId: String!
 }
 
 # aggregated selection of "profile"
@@ -433,7 +734,7 @@ input profile_bool_exp {
   description: text_comparison_exp
   id: integer_comparison_exp
   name: text_comparison_exp
-  user_id: text_comparison_exp
+  userId: text_comparison_exp
 }
 
 # unique or primary key constraints on table "profile"
@@ -455,7 +756,7 @@ input profile_insert_input {
   description: String
   id: Int
   name: String
-  user_id: String
+  userId: String
 }
 
 # aggregate max on columns
@@ -463,7 +764,7 @@ type profile_max_fields {
   description: String
   id: Int
   name: String
-  user_id: String
+  userId: String
 }
 
 # order by max() on columns of table "profile"
@@ -471,7 +772,7 @@ input profile_max_order_by {
   description: order_by
   id: order_by
   name: order_by
-  user_id: order_by
+  userId: order_by
 }
 
 # aggregate min on columns
@@ -479,7 +780,7 @@ type profile_min_fields {
   description: String
   id: Int
   name: String
-  user_id: String
+  userId: String
 }
 
 # order by min() on columns of table "profile"
@@ -487,7 +788,7 @@ input profile_min_order_by {
   description: order_by
   id: order_by
   name: order_by
-  user_id: order_by
+  userId: order_by
 }
 
 # response of any mutation on the table "profile"
@@ -516,7 +817,7 @@ input profile_order_by {
   description: order_by
   id: order_by
   name: order_by
-  user_id: order_by
+  userId: order_by
 }
 
 # select columns of table "profile"
@@ -531,7 +832,7 @@ enum profile_select_column {
   name
 
   # column name
-  user_id
+  userId
 }
 
 # input type for updating data in table "profile"
@@ -539,7 +840,7 @@ input profile_set_input {
   description: String
   id: Int
   name: String
-  user_id: String
+  userId: String
 }
 
 # aggregate stddev on columns
@@ -594,7 +895,7 @@ enum profile_update_column {
   name
 
   # column name
-  user_id
+  userId
 }
 
 # aggregate var_pop on columns
@@ -667,6 +968,45 @@ type query_root {
 
   # fetch data from the table: "counter" using primary key columns
   counter_by_pk(id: Int!): counter
+
+  # fetch data from the table: "notes"
+  notes(
+    # distinct select on columns
+    distinct_on: [notes_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [notes_order_by!]
+
+    # filter the rows returned
+    where: notes_bool_exp
+  ): [notes!]!
+
+  # fetch aggregated fields from the table: "notes"
+  notes_aggregate(
+    # distinct select on columns
+    distinct_on: [notes_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [notes_order_by!]
+
+    # filter the rows returned
+    where: notes_bool_exp
+  ): notes_aggregate!
+
+  # fetch data from the table: "notes" using primary key columns
+  notes_by_pk(id: Int!): notes
 
   # fetch data from the table: "profile"
   profile(
@@ -749,6 +1089,45 @@ type subscription_root {
   # fetch data from the table: "counter" using primary key columns
   counter_by_pk(id: Int!): counter
 
+  # fetch data from the table: "notes"
+  notes(
+    # distinct select on columns
+    distinct_on: [notes_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [notes_order_by!]
+
+    # filter the rows returned
+    where: notes_bool_exp
+  ): [notes!]!
+
+  # fetch aggregated fields from the table: "notes"
+  notes_aggregate(
+    # distinct select on columns
+    distinct_on: [notes_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [notes_order_by!]
+
+    # filter the rows returned
+    where: notes_bool_exp
+  ): notes_aggregate!
+
+  # fetch data from the table: "notes" using primary key columns
+  notes_by_pk(id: Int!): notes
+
   # fetch data from the table: "profile"
   profile(
     # distinct select on columns
@@ -806,5 +1185,20 @@ input text_comparison_exp {
   _nlike: String
   _nsimilar: String
   _similar: String
+}
+
+scalar timestamptz
+
+# expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz]
 }
 
