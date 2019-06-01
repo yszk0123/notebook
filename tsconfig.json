@@ -1,33 +1,19 @@
 {
   "compilerOptions": {
-    "lib": ["es2015", "es2016", "es2017", "es2018"],
+    "lib": ["es2015", "es2016", "es2017", "es2018", "dom"],
     "outDir": "build",
     // "rootDir": "src",
     "sourceMap": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "strictNullChecks": true,
     "module": "commonjs",
     "target": "es6",
     "jsx": "react",
     "strict": true,
-    "types": [
-      "@types/jest",
-      "@types/react",
-      "@types/react-native",
-      "@types/react-navigation",
-      "@types/react-test-renderer",
-      "history",
-      "lodash",
-      "node",
-      "react",
-      "react-datepicker",
-      "react-dom",
-      "react-redux",
-      "styled-components",
-      "universal-router"
-    ],
-    "typeRoots": ["node_modules/@types", "src/ExternalType"],
     "baseUrl": "src",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
@@ -36,6 +22,6 @@
     // @see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/24573
     "skipLibCheck": true
   },
-  "include": ["./src/**/*"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
