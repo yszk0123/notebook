@@ -1,0 +1,17 @@
+query ProfileScreen {
+  profile {
+    id
+    name
+    description
+  }
+}
+
+mutation UpdateProfile($input: profile_set_input) {
+  update_profile(where: {}, _set: $input) {
+    returning {
+      id
+      name
+      description
+    }
+  }
+}

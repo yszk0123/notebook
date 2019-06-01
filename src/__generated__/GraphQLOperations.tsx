@@ -998,6 +998,24 @@ export type UpdateNoteMutation = { __typename?: 'mutation_root' } & {
   >;
 };
 
+export type ProfileScreenQueryVariables = {};
+
+export type ProfileScreenQuery = { __typename?: 'query_root' } & {
+  profile: Array<{ __typename?: 'profile' } & Pick<Profile, 'id' | 'name' | 'description'>>;
+};
+
+export type UpdateProfileMutationVariables = {
+  input?: Maybe<ProfileSetInput>;
+};
+
+export type UpdateProfileMutation = { __typename?: 'mutation_root' } & {
+  update_profile: Maybe<
+    { __typename?: 'profile_mutation_response' } & {
+      returning: Array<{ __typename?: 'profile' } & Pick<Profile, 'id' | 'name' | 'description'>>;
+    }
+  >;
+};
+
 export const HomeScreenDocument = gql`
   query HomeScreen {
     counter {
@@ -1085,6 +1103,51 @@ export function useUpdateNoteMutation(
 ) {
   return ReactApolloHooks.useMutation<UpdateNoteMutation, UpdateNoteMutationVariables>(
     UpdateNoteDocument,
+    baseOptions,
+  );
+}
+export const ProfileScreenDocument = gql`
+  query ProfileScreen {
+    profile {
+      id
+      name
+      description
+    }
+  }
+`;
+
+export function useProfileScreenQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<ProfileScreenQueryVariables>,
+) {
+  return ReactApolloHooks.useQuery<ProfileScreenQuery, ProfileScreenQueryVariables>(
+    ProfileScreenDocument,
+    baseOptions,
+  );
+}
+export const UpdateProfileDocument = gql`
+  mutation UpdateProfile($input: profile_set_input) {
+    update_profile(where: {}, _set: $input) {
+      returning {
+        id
+        name
+        description
+      }
+    }
+  }
+`;
+export type UpdateProfileMutationFn = ReactApollo.MutationFn<
+  UpdateProfileMutation,
+  UpdateProfileMutationVariables
+>;
+
+export function useUpdateProfileMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    UpdateProfileMutation,
+    UpdateProfileMutationVariables
+  >,
+) {
+  return ReactApolloHooks.useMutation<UpdateProfileMutation, UpdateProfileMutationVariables>(
+    UpdateProfileDocument,
     baseOptions,
   );
 }
