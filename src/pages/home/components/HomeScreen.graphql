@@ -1,4 +1,4 @@
-query CounterScreen {
+query HomeScreen {
   counter {
     id
     count

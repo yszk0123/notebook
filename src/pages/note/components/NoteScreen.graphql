@@ -1,0 +1,15 @@
+query NoteScreen {
+  notes {
+    id
+    text
+  }
+}
+
+mutation UpdateNote($input: notes_set_input) {
+  update_notes(where: {}, _set: $input) {
+    returning {
+      id
+      text
+    }
+  }
+}

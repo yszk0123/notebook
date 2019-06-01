@@ -2,12 +2,12 @@ import { Button, Container, ListItem, Text, View } from 'native-base';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { LoadingPage } from '../../../components/LoadingPage';
-import { useCounterScreen } from './CounterScreenHook';
+import { useHomeScreen } from './HomeScreenHook';
 
 interface Props {}
 
-export const CounterScreen: React.FunctionComponent<Props> = () => {
-  const { count, notes, loading, onIncrement, onDecrement } = useCounterScreen();
+export const HomeScreen: React.FunctionComponent<Props> = () => {
+  const { count, notes, loading, onIncrement, onDecrement } = useHomeScreen();
 
   if (loading) {
     return <LoadingPage />;

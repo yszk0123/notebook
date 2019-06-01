@@ -14,7 +14,7 @@ export const AppFooterTabBar: React.FunctionComponent<Props> = ({ navigation }) 
     navigation.navigate(GlobalFooterTabRouteName.HOME);
   }, [navigation]);
   const onPressCounter = useCallback(() => {
-    navigation.navigate(GlobalFooterTabRouteName.COUNTER);
+    navigation.navigate(GlobalFooterTabRouteName.NOTE);
   }, [navigation]);
   const onPressProfile = useCallback(() => {
     navigation.navigate(GlobalFooterTabRouteName.PROFILE);
@@ -33,7 +33,7 @@ export const AppFooterTabBar: React.FunctionComponent<Props> = ({ navigation }) 
         </Button>
         <Button
           vertical={true}
-          active={routeName === GlobalFooterTabRouteName.COUNTER}
+          active={routeName === GlobalFooterTabRouteName.NOTE}
           onPress={onPressCounter}
         >
           <Icon name="cube" />

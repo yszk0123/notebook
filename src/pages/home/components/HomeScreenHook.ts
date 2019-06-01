@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import {
-  CounterScreenQuery,
-  useCounterScreenQuery,
+  HomeScreenQuery,
+  useHomeScreenQuery,
   useUpdateCounterMutation,
 } from '../../../GraphQLType';
 
@@ -14,13 +14,13 @@ interface Props {
 }
 
 // FIXME: Remove (#54)
-type Counter = NonNullable<CounterScreenQuery['counter']>;
-type Notes = NonNullable<CounterScreenQuery['notes']>;
+type Counter = NonNullable<HomeScreenQuery['counter']>;
+type Notes = NonNullable<HomeScreenQuery['notes']>;
 const loadingCounter: Counter = [];
 const loadingNotes: Notes = [];
 
-export function useCounterScreen(): Props {
-  const { data, loading } = useCounterScreenQuery();
+export function useHomeScreen(): Props {
+  const { data, loading } = useHomeScreenQuery();
   const counter = (data && data.counter) || loadingCounter;
   const notes = (data && data.notes) || loadingNotes;
   const count = counter.length ? counter[0].count : -1;

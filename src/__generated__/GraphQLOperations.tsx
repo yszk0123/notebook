@@ -961,9 +961,9 @@ export type TimestamptzComparisonExp = {
   _neq?: Maybe<Scalars['timestamptz']>;
   _nin?: Maybe<Array<Maybe<Scalars['timestamptz']>>>;
 };
-export type CounterScreenQueryVariables = {};
+export type HomeScreenQueryVariables = {};
 
-export type CounterScreenQuery = { __typename?: 'query_root' } & {
+export type HomeScreenQuery = { __typename?: 'query_root' } & {
   counter: Array<{ __typename?: 'counter' } & Pick<Counter, 'id' | 'count'>>;
   notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
 };
@@ -980,8 +980,26 @@ export type UpdateCounterMutation = { __typename?: 'mutation_root' } & {
   >;
 };
 
-export const CounterScreenDocument = gql`
-  query CounterScreen {
+export type NoteScreenQueryVariables = {};
+
+export type NoteScreenQuery = { __typename?: 'query_root' } & {
+  notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+};
+
+export type UpdateNoteMutationVariables = {
+  input?: Maybe<NotesSetInput>;
+};
+
+export type UpdateNoteMutation = { __typename?: 'mutation_root' } & {
+  update_notes: Maybe<
+    { __typename?: 'notes_mutation_response' } & {
+      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+    }
+  >;
+};
+
+export const HomeScreenDocument = gql`
+  query HomeScreen {
     counter {
       id
       count
@@ -993,11 +1011,11 @@ export const CounterScreenDocument = gql`
   }
 `;
 
-export function useCounterScreenQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<CounterScreenQueryVariables>,
+export function useHomeScreenQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<HomeScreenQueryVariables>,
 ) {
-  return ReactApolloHooks.useQuery<CounterScreenQuery, CounterScreenQueryVariables>(
-    CounterScreenDocument,
+  return ReactApolloHooks.useQuery<HomeScreenQuery, HomeScreenQueryVariables>(
+    HomeScreenDocument,
     baseOptions,
   );
 }
@@ -1024,6 +1042,49 @@ export function useUpdateCounterMutation(
 ) {
   return ReactApolloHooks.useMutation<UpdateCounterMutation, UpdateCounterMutationVariables>(
     UpdateCounterDocument,
+    baseOptions,
+  );
+}
+export const NoteScreenDocument = gql`
+  query NoteScreen {
+    notes {
+      id
+      text
+    }
+  }
+`;
+
+export function useNoteScreenQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<NoteScreenQueryVariables>,
+) {
+  return ReactApolloHooks.useQuery<NoteScreenQuery, NoteScreenQueryVariables>(
+    NoteScreenDocument,
+    baseOptions,
+  );
+}
+export const UpdateNoteDocument = gql`
+  mutation UpdateNote($input: notes_set_input) {
+    update_notes(where: {}, _set: $input) {
+      returning {
+        id
+        text
+      }
+    }
+  }
+`;
+export type UpdateNoteMutationFn = ReactApollo.MutationFn<
+  UpdateNoteMutation,
+  UpdateNoteMutationVariables
+>;
+
+export function useUpdateNoteMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    UpdateNoteMutation,
+    UpdateNoteMutationVariables
+  >,
+) {
+  return ReactApolloHooks.useMutation<UpdateNoteMutation, UpdateNoteMutationVariables>(
+    UpdateNoteDocument,
     baseOptions,
   );
 }
