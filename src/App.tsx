@@ -11,9 +11,6 @@ import { appConfig } from './config/AppConfig';
 import { GlobalFooterTabRouteName } from './global/constants/GlobalRoutingConstant';
 import { CounterNavigator } from './pages/counter';
 
-// TODO
-// hackForMobile();
-
 type HomeScreenProps = {};
 
 const HomeScreen: React.FunctionComponent<HomeScreenProps> = () => {
