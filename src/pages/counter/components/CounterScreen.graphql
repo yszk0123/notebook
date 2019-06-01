@@ -1,0 +1,15 @@
+query CounterScreen {
+  counter {
+    id
+    count
+  }
+}
+
+mutation UpdateCounter {
+  update_counter(where: {}) {
+    returning {
+      id
+      count
+    }
+  }
+}

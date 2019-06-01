@@ -5,19 +5,14 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
-import { DefaultTypelessProvider } from 'typeless';
 import { AppFooterTabBar } from './AppFooterTabBar';
+import { Bootstrap } from './Bootstrap';
 import { appConfig } from './config/AppConfig';
 import { GlobalFooterTabRouteName } from './global/constants/GlobalRoutingConstant';
-import { Loader } from './Loader';
 import { CounterNavigator } from './pages/counter';
 
-// import { bootstrap } from './Bootstrap';
-// import { registerFontAwesome } from './registerFontAwesome';
-
-// registerFontAwesome();
+// TODO
 // hackForMobile();
-// bootstrap().catch(printError);
 
 type HomeScreenProps = {};
 
@@ -30,7 +25,6 @@ const HomeScreen: React.FunctionComponent<HomeScreenProps> = () => {
     </Container>
   );
 };
-
 const HomeHeader: React.FunctionComponent<{}> = () => {
   return (
     <Header>
@@ -44,7 +38,6 @@ const HomeHeader: React.FunctionComponent<{}> = () => {
     </Header>
   );
 };
-
 const HomeNavigator = createStackNavigator(
   {
     Home: {
@@ -55,14 +48,14 @@ const HomeNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: GlobalFooterTabRouteName.HOME,
+    initialRouteName: 'Home',
   },
 );
 
 const AppNavigator = createBottomTabNavigator(
   {
-    Counter: CounterNavigator,
-    Home: HomeNavigator,
+    [GlobalFooterTabRouteName.COUNTER]: CounterNavigator,
+    [GlobalFooterTabRouteName.HOME]: HomeNavigator,
   },
   {
     initialRouteName: GlobalFooterTabRouteName.HOME,
@@ -77,10 +70,8 @@ type Props = {};
 
 export const App: React.FunctionComponent<Props> = () => {
   return (
-    <Loader>
-      <DefaultTypelessProvider>
-        <AppContainer />
-      </DefaultTypelessProvider>
-    </Loader>
+    <Bootstrap>
+      <AppContainer />
+    </Bootstrap>
   );
 };

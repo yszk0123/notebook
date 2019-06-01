@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import { BasicHeader } from './components/BasicHeader';
+import { BasicHeader } from '../../components/BasicHeader';
 import { CounterScreen } from './components/CounterScreen';
 
 export const CounterNavigator = createStackNavigator(

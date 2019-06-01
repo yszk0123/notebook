@@ -1,19 +1,22 @@
 import { Button, Container, Text, View } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { useActions } from 'typeless';
-import { CounterActions, getCounterState, useCounterModule } from '../CounterInterface';
+import { LoadingPage } from '../../../components/LoadingPage';
+import { useCounterScreen } from './CounterScreenHook';
 
 interface Props {}
 
-export const CounterScreen: React.FunctionComponent<Props> = () => {
-  useCounterModule();
+const noop = () => {
+  /* nothing */
+};
 
-  const { count, loading } = getCounterState.useState();
-  const { increment, incrementDelay, decrement } = useActions(CounterActions);
+export const CounterScreen: React.FunctionComponent<Props> = () => {
+  const { count, loading } = useCounterScreen();
+  const increment = noop;
+  const decrement = noop;
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <LoadingPage />;
   }
 
   return (
@@ -26,9 +29,6 @@ export const CounterScreen: React.FunctionComponent<Props> = () => {
           </Button>
           <Button style={styles.button} onPress={decrement}>
             <Text>Decrement</Text>
-          </Button>
-          <Button style={styles.button} onPress={incrementDelay}>
-            <Text>Increment (delay)</Text>
           </Button>
         </View>
       </View>
