@@ -37,7 +37,7 @@ export const AppFooterTabBar: React.FunctionComponent<Props> = ({ navigation }) 
           onPress={onPressCounter}
         >
           <Icon name="cube" />
-          <Text>Counter</Text>
+          <Text>Note</Text>
         </Button>
         <Button
           vertical={true}

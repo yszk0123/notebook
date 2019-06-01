@@ -7,7 +7,7 @@ export const HomeNavigator = createStackNavigator(
   {
     Home: {
       navigationOptions: {
-        header: () => <BasicHeader title="home" />,
+        header: () => <BasicHeader title="Home" />,
       },
       screen: HomeScreen,
     },
