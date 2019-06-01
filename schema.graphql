@@ -17,6 +17,7 @@ enum conflict_action {
 type counter {
   count: Int!
   id: Int!
+  user_id: String!
 }
 
 # aggregated selection of "counter"
@@ -80,6 +81,7 @@ input counter_bool_exp {
   _or: [counter_bool_exp]
   count: integer_comparison_exp
   id: integer_comparison_exp
+  user_id: text_comparison_exp
 }
 
 # unique or primary key constraints on table "counter"
@@ -98,30 +100,35 @@ input counter_inc_input {
 input counter_insert_input {
   count: Int
   id: Int
+  user_id: String
 }
 
 # aggregate max on columns
 type counter_max_fields {
   count: Int
   id: Int
+  user_id: String
 }
 
 # order by max() on columns of table "counter"
 input counter_max_order_by {
   count: order_by
   id: order_by
+  user_id: order_by
 }
 
 # aggregate min on columns
 type counter_min_fields {
   count: Int
   id: Int
+  user_id: String
 }
 
 # order by min() on columns of table "counter"
 input counter_min_order_by {
   count: order_by
   id: order_by
+  user_id: order_by
 }
 
 # response of any mutation on the table "counter"
@@ -149,6 +156,7 @@ input counter_on_conflict {
 input counter_order_by {
   count: order_by
   id: order_by
+  user_id: order_by
 }
 
 # select columns of table "counter"
@@ -158,12 +166,16 @@ enum counter_select_column {
 
   # column name
   id
+
+  # column name
+  user_id
 }
 
 # input type for updating data in table "counter"
 input counter_set_input {
   count: Int
   id: Int
+  user_id: String
 }
 
 # aggregate stddev on columns
@@ -221,6 +233,9 @@ enum counter_update_column {
 
   # column name
   id
+
+  # column name
+  user_id
 }
 
 # aggregate var_pop on columns
@@ -352,8 +367,10 @@ enum order_by {
 
 # columns and relationships of "profile"
 type profile {
+  description: String!
   id: Int!
   name: String!
+  user_id: String!
 }
 
 # aggregated selection of "profile"
@@ -413,14 +430,19 @@ input profile_bool_exp {
   _and: [profile_bool_exp]
   _not: profile_bool_exp
   _or: [profile_bool_exp]
+  description: text_comparison_exp
   id: integer_comparison_exp
   name: text_comparison_exp
+  user_id: text_comparison_exp
 }
 
 # unique or primary key constraints on table "profile"
 enum profile_constraint {
   # unique or primary key constraint
   profile_pkey
+
+  # unique or primary key constraint
+  profile_user_id_key
 }
 
 # input type for incrementing integer columne in table "profile"
@@ -430,32 +452,42 @@ input profile_inc_input {
 
 # input type for inserting data into table "profile"
 input profile_insert_input {
+  description: String
   id: Int
   name: String
+  user_id: String
 }
 
 # aggregate max on columns
 type profile_max_fields {
+  description: String
   id: Int
   name: String
+  user_id: String
 }
 
 # order by max() on columns of table "profile"
 input profile_max_order_by {
+  description: order_by
   id: order_by
   name: order_by
+  user_id: order_by
 }
 
 # aggregate min on columns
 type profile_min_fields {
+  description: String
   id: Int
   name: String
+  user_id: String
 }
 
 # order by min() on columns of table "profile"
 input profile_min_order_by {
+  description: order_by
   id: order_by
   name: order_by
+  user_id: order_by
 }
 
 # response of any mutation on the table "profile"
@@ -481,23 +513,33 @@ input profile_on_conflict {
 
 # ordering options when selecting data from "profile"
 input profile_order_by {
+  description: order_by
   id: order_by
   name: order_by
+  user_id: order_by
 }
 
 # select columns of table "profile"
 enum profile_select_column {
   # column name
+  description
+
+  # column name
   id
 
   # column name
   name
+
+  # column name
+  user_id
 }
 
 # input type for updating data in table "profile"
 input profile_set_input {
+  description: String
   id: Int
   name: String
+  user_id: String
 }
 
 # aggregate stddev on columns
@@ -543,10 +585,16 @@ input profile_sum_order_by {
 # update columns of table "profile"
 enum profile_update_column {
   # column name
+  description
+
+  # column name
   id
 
   # column name
   name
+
+  # column name
+  user_id
 }
 
 # aggregate var_pop on columns
