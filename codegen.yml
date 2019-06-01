@@ -1,0 +1,16 @@
+schema: schema.graphql
+documents: "src/**/*.graphql"
+generates:
+  ./src/__generated__/GraphQLOperations.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      namingConvention:
+        typeNames: change-case#pascalCase
+        enumValues: change-case#upperCase
+        transformUnderscore: true
+      withHOC: false
+      withComponent: false
+      withHooks: true

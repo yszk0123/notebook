@@ -23,5 +23,8 @@
     // TODO: Remove
     // This rule conflicts with organize imports feature of vscode
     "ordered-imports": false
+  },
+  "linterOptions": {
+    "exclude": ["config/**/*.js", "src/__generated__/**/*.{ts,tsx}"]
   }
 }
