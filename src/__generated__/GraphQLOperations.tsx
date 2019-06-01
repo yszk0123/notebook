@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import * as ReactApolloHooks from 'react-apollo-hooks';
+import * as ReactApollo from 'react-apollo';
 export type Maybe<T> = T | null;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -19,6 +20,7 @@ export type Counter = {
   __typename?: 'counter';
   count: Scalars['Int'];
   id: Scalars['Int'];
+  user_id: Scalars['String'];
 };
 
 export type CounterAggregate = {
@@ -83,6 +85,7 @@ export type CounterBoolExp = {
   _or?: Maybe<Array<Maybe<CounterBoolExp>>>;
   count?: Maybe<IntegerComparisonExp>;
   id?: Maybe<IntegerComparisonExp>;
+  user_id?: Maybe<TextComparisonExp>;
 };
 
 export enum CounterConstraint {
@@ -97,28 +100,33 @@ export type CounterIncInput = {
 export type CounterInsertInput = {
   count?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 export type CounterMaxFields = {
   __typename?: 'counter_max_fields';
   count?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 export type CounterMaxOrderBy = {
   count?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
+  user_id?: Maybe<OrderBy>;
 };
 
 export type CounterMinFields = {
   __typename?: 'counter_min_fields';
   count?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 export type CounterMinOrderBy = {
   count?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
+  user_id?: Maybe<OrderBy>;
 };
 
 export type CounterMutationResponse = {
@@ -140,16 +148,19 @@ export type CounterOnConflict = {
 export type CounterOrderBy = {
   count?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
+  user_id?: Maybe<OrderBy>;
 };
 
 export enum CounterSelectColumn {
   COUNT = 'count',
   ID = 'id',
+  USER_ID = 'user_id',
 }
 
 export type CounterSetInput = {
   count?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 export type CounterStddevFields = {
@@ -199,6 +210,7 @@ export type CounterSumOrderBy = {
 export enum CounterUpdateColumn {
   COUNT = 'count',
   ID = 'id',
+  USER_ID = 'user_id',
 }
 
 export type CounterVarPopFields = {
@@ -297,8 +309,10 @@ export enum OrderBy {
 
 export type Profile = {
   __typename?: 'profile';
+  description: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
+  user_id: Scalars['String'];
 };
 
 export type ProfileAggregate = {
@@ -359,12 +373,15 @@ export type ProfileBoolExp = {
   _and?: Maybe<Array<Maybe<ProfileBoolExp>>>;
   _not?: Maybe<ProfileBoolExp>;
   _or?: Maybe<Array<Maybe<ProfileBoolExp>>>;
+  description?: Maybe<TextComparisonExp>;
   id?: Maybe<IntegerComparisonExp>;
   name?: Maybe<TextComparisonExp>;
+  user_id?: Maybe<TextComparisonExp>;
 };
 
 export enum ProfileConstraint {
   PROFILE_PKEY = 'profile_pkey',
+  PROFILE_USER_ID_KEY = 'profile_user_id_key',
 }
 
 export type ProfileIncInput = {
@@ -372,30 +389,40 @@ export type ProfileIncInput = {
 };
 
 export type ProfileInsertInput = {
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 export type ProfileMaxFields = {
   __typename?: 'profile_max_fields';
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 export type ProfileMaxOrderBy = {
+  description?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
   name?: Maybe<OrderBy>;
+  user_id?: Maybe<OrderBy>;
 };
 
 export type ProfileMinFields = {
   __typename?: 'profile_min_fields';
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 export type ProfileMinOrderBy = {
+  description?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
   name?: Maybe<OrderBy>;
+  user_id?: Maybe<OrderBy>;
 };
 
 export type ProfileMutationResponse = {
@@ -415,18 +442,24 @@ export type ProfileOnConflict = {
 };
 
 export type ProfileOrderBy = {
+  description?: Maybe<OrderBy>;
   id?: Maybe<OrderBy>;
   name?: Maybe<OrderBy>;
+  user_id?: Maybe<OrderBy>;
 };
 
 export enum ProfileSelectColumn {
+  DESCRIPTION = 'description',
   ID = 'id',
   NAME = 'name',
+  USER_ID = 'user_id',
 }
 
 export type ProfileSetInput = {
+  description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
 };
 
 export type ProfileStddevFields = {
@@ -466,8 +499,10 @@ export type ProfileSumOrderBy = {
 };
 
 export enum ProfileUpdateColumn {
+  DESCRIPTION = 'description',
   ID = 'id',
   NAME = 'name',
+  USER_ID = 'user_id',
 }
 
 export type ProfileVarPopFields = {
@@ -617,13 +652,26 @@ export type TextComparisonExp = {
 export type CounterScreenQueryVariables = {};
 
 export type CounterScreenQuery = { __typename?: 'query_root' } & {
-  counter: Array<{ __typename?: 'counter' } & Pick<Counter, 'id' | 'count'>>;
+  counter: Array<{ __typename?: 'counter' } & Pick<Counter, 'id' | 'user_id' | 'count'>>;
+};
+
+export type UpdateCounterMutationVariables = {
+  input?: Maybe<CounterSetInput>;
+};
+
+export type UpdateCounterMutation = { __typename?: 'mutation_root' } & {
+  update_counter: Maybe<
+    { __typename?: 'counter_mutation_response' } & {
+      returning: Array<{ __typename?: 'counter' } & Pick<Counter, 'id' | 'user_id' | 'count'>>;
+    }
+  >;
 };
 
 export const CounterScreenDocument = gql`
   query CounterScreen {
     counter {
       id
+      user_id
       count
     }
   }
@@ -634,6 +682,33 @@ export function useCounterScreenQuery(
 ) {
   return ReactApolloHooks.useQuery<CounterScreenQuery, CounterScreenQueryVariables>(
     CounterScreenDocument,
+    baseOptions,
+  );
+}
+export const UpdateCounterDocument = gql`
+  mutation UpdateCounter($input: counter_set_input) {
+    update_counter(where: {}, _set: $input) {
+      returning {
+        id
+        user_id
+        count
+      }
+    }
+  }
+`;
+export type UpdateCounterMutationFn = ReactApollo.MutationFn<
+  UpdateCounterMutation,
+  UpdateCounterMutationVariables
+>;
+
+export function useUpdateCounterMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    UpdateCounterMutation,
+    UpdateCounterMutationVariables
+  >,
+) {
+  return ReactApolloHooks.useMutation<UpdateCounterMutation, UpdateCounterMutationVariables>(
+    UpdateCounterDocument,
     baseOptions,
   );
 }

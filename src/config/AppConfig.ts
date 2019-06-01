@@ -7,4 +7,5 @@ export const appConfig = {
     },
   },
   title: 'Notebook',
+  appTokenStorageKey: 'NOTEBOOK_APP_TOKEN',
 };

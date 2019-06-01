@@ -14,24 +14,19 @@ import { appConfig } from '../config/AppConfig';
 
 type Client = ApolloClient<NormalizedCacheObject>;
 
-type GetToken = () => Nullable<string>;
-
 type Headers = { authorization?: string };
 
-function getHeaders(getToken: GetToken): Headers {
+function getHeaders(token: string): Headers {
   const headers: Headers = {};
-  const token = getToken();
-  if (token) {
-    headers.authorization = `Bearer ${token}`;
-  }
+  headers.authorization = `Bearer ${token}`;
   return headers;
 }
 
-function createApolloClient(getToken: GetToken): Client {
+function createApolloClient(token: string): Client {
   // Create an http link:
   const httpLink = new HttpLink({
     fetch,
-    headers: getHeaders(getToken),
+    headers: getHeaders(token),
     uri: appConfig.hasura.endpoints.graphql,
   });
 
@@ -44,7 +39,7 @@ function createApolloClient(getToken: GetToken): Client {
         }
       },
       connectionParams: () => {
-        return { headers: getHeaders(getToken) };
+        return { headers: getHeaders(token) };
       },
       reconnect: true,
       timeout: 30000,
@@ -55,6 +50,7 @@ function createApolloClient(getToken: GetToken): Client {
   const link = split(
     // split based on operation type
     ({ query }) => {
+      // @ts-ignore
       const { kind, operation } = getMainDefinition(query);
       return kind === 'OperationDefinition' && operation === 'subscription';
     },
@@ -72,11 +68,11 @@ function createApolloClient(getToken: GetToken): Client {
   return client;
 }
 
-export function useApolloClient(getToken: GetToken): Nullable<Client> {
+export function useApolloClient(token: string): Nullable<Client> {
   const [client, setClient] = useState<Nullable<Client>>(null);
 
   useEffect(() => {
-    const newClient = createApolloClient(getToken);
+    const newClient = createApolloClient(token);
     setClient(newClient);
   }, []);
 

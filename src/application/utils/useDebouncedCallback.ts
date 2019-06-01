@@ -8,7 +8,7 @@ export function useDebouncedCallback<Args extends any[]>(
   inputs: ReadonlyArray<any>,
 ) {
   return useMemo(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: number;
 
     return (...args: Args) => {
       if (timeoutId) {

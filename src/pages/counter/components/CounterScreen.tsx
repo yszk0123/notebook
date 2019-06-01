@@ -6,14 +6,8 @@ import { useCounterScreen } from './CounterScreenHook';
 
 interface Props {}
 
-const noop = () => {
-  /* nothing */
-};
-
 export const CounterScreen: React.FunctionComponent<Props> = () => {
-  const { count, loading } = useCounterScreen();
-  const increment = noop;
-  const decrement = noop;
+  const { count, loading, onIncrement, onDecrement } = useCounterScreen();
 
   if (loading) {
     return <LoadingPage />;
@@ -24,10 +18,10 @@ export const CounterScreen: React.FunctionComponent<Props> = () => {
       <View style={styles.wrapper}>
         <Text>Count: {count}</Text>
         <View style={styles.control}>
-          <Button style={styles.button} onPress={increment}>
+          <Button style={styles.button} onPress={onIncrement}>
             <Text>Increment</Text>
           </Button>
-          <Button style={styles.button} onPress={decrement}>
+          <Button style={styles.button} onPress={onDecrement}>
             <Text>Decrement</Text>
           </Button>
         </View>

@@ -1,5 +1,6 @@
 import 'firebase/app';
 import 'firebase/auth';
+import 'firebase/functions';
 import 'firebaseui/dist/firebaseui.css';
 // import 'normalize.css';
 import './src/workaroundForReactNativeWeb';

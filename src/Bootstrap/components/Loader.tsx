@@ -34,8 +34,8 @@ export const Loader: React.FunctionComponent<Props> = ({ children }) => {
 async function loadResourcesAsync() {
   return Promise.all([
     Asset.loadAsync([
-      require('../assets/images/robot-dev.png'),
-      require('../assets/images/robot-prod.png'),
+      require('../../../assets/images/robot-dev.png'),
+      require('../../../assets/images/robot-prod.png'),
     ]),
     Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),

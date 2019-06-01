@@ -8,7 +8,7 @@ export function useDebouncedEffect<Args extends any[]>(
   // tslint:disable-next-line:no-any
   inputs: ReadonlyArray<any>,
 ) {
-  const timerRef: MutableRefObject<Nullable<NodeJS.Timeout>> = useRef(null);
+  const timerRef: MutableRefObject<Nullable<number>> = useRef(null);
 
   useEffect(
     (...args: Args) => {
