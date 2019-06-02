@@ -7,9 +7,9 @@ import { split } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-import { Nullable } from 'option-t/lib/Nullable';
 import { useEffect, useState } from 'react';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { Nullable } from '../application/utils/Maybe';
 import { appConfig } from '../config/AppConfig';
 
 type Client = ApolloClient<NormalizedCacheObject>;

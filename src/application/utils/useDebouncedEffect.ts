@@ -1,5 +1,5 @@
-import { Nullable } from 'option-t/lib/Nullable';
 import { MutableRefObject, useEffect, useRef } from 'react';
+import { Nullable } from './Maybe';
 
 // tslint:disable-next-line:no-any
 export function useDebouncedEffect<Args extends any[]>(

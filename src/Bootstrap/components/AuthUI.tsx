@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import firebaseui from 'firebaseui';
-import { isNull, Nullable } from 'option-t/lib/Nullable';
 import React, { useEffect, useRef } from 'react';
+import { isNull, Nullable } from '../../application/utils/Maybe';
 import { firebaseAuthUIConfig } from '../../config/firebaseAuthUIConfig';
 
 function useAuthUI(

@@ -1,6 +1,6 @@
-import { isNull } from 'option-t/lib/Nullable';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo-hooks';
+import { isNull } from '../../application/utils/Maybe';
 import { useApolloClient } from '../ApolloFactory';
 
 type Props = {

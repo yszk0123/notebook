@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
-import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
 import React, { useEffect, useMemo, useState } from 'react';
+import { isNotNull, isNull, Nullable } from '../../application/utils/Maybe';
 import { LoadingPage } from '../../components/LoadingPage';
 import { appConfig } from '../../config/AppConfig';
 import { firebaseConfig } from '../../config/firebaseConfig';

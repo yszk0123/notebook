@@ -1,5 +1,5 @@
-import { isNotNull, Nullable } from 'option-t/lib/Nullable';
 import { useEffect, useRef } from 'react';
+import { isNotNull, Nullable } from './Maybe';
 
 type Callback = () => void;
 
