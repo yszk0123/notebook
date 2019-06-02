@@ -12,9 +12,9 @@ export const defaultTheme: ThemeInterface = {
   dropDownMenuHoverColorFg: ColorPalette.LIGHT_BLACK,
   dropDownMenuShadow: ColorPalette.BLACK,
   fontSize: {
-    [FontSize.SMALL]: '1.2rem',
-    [FontSize.DEFAULT]: '1.6rem',
-    [FontSize.LARGE]: '2rem',
+    [FontSize.SMALL]: 12,
+    [FontSize.DEFAULT]: 16,
+    [FontSize.LARGE]: 20,
   },
   fontWeight: {
     bold: 'bold',
