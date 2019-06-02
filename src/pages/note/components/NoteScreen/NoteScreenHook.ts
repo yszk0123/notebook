@@ -22,7 +22,7 @@ interface Props {
 }
 
 // FIXME: Remove (#54)
-type Note = GetProp<NoteScreenQuery, 'notes', 0>;
+export type Note = GetProp<NoteScreenQuery, 'notes', 0>;
 const loadingNotes: Note[] = [];
 
 export function useNoteScreen(): Props {

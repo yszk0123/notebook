@@ -1,14 +1,14 @@
-import { Body, Button, Container, Icon, Left, ListItem, Right, Text, Textarea } from 'native-base';
+import { Body, Button, Container, Icon, ListItem, Right, Text } from 'native-base';
 import React from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
 import { LoadingPage } from '../../../../components/LoadingPage';
-import { useNoteScreen } from './NoteScreenHook';
+import { Note, useNoteScreen } from './NoteScreenHook';
 
 const PADDING_BOTTOM = 200;
 
-const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
+export const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
   <Icon fontSize={defaultTheme.fontSize[FontSize.LARGE]} name={name} />
 );
 
@@ -32,10 +32,13 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
 
   return (
     <Container>
-      <ScrollView contentContainerStyle={styles.container}>
-        {notes.map(note => {
+      <FlatList<Note>
+        contentContainerStyle={styles.container}
+        data={notes}
+        keyExtractor={note => String(note.id)}
+        renderItem={({ item: note }) => {
           return (
-            <ListItem key={note.id}>
+            <ListItem>
               <Body>
                 <TouchableOpacity onPress={() => onSelectItem(note.id)}>
                   <Text>{note.text}</Text>
@@ -52,7 +55,9 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
               </Right>
             </ListItem>
           );
-        })}
+        }}
+      />
+      {/* <ScrollView contentContainerStyle={styles.container}>
         <ListItem>
           <Left>
             <LargeIcon name="text" />
@@ -66,7 +71,7 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
             </Button>
           </Right>
         </ListItem>
-      </ScrollView>
+      </ScrollView> */}
     </Container>
   );
 };
