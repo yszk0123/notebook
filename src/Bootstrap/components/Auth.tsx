@@ -99,7 +99,7 @@ export const Auth: React.FunctionComponent<Props> = ({ children }) => {
 
   return (
     <AuthProvider value={authController}>
-      <Apollo token={token}>{children}</Apollo>;
+      <Apollo token={token}>{children}</Apollo>
     </AuthProvider>
   );
 };
