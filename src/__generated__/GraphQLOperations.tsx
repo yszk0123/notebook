@@ -983,7 +983,7 @@ export type UpdateCounterMutation = { __typename?: 'mutation_root' } & {
 export type NoteScreenQueryVariables = {};
 
 export type NoteScreenQuery = { __typename?: 'query_root' } & {
-  notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+  notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text' | 'createdAt'>>;
 };
 
 export type UpdateNoteMutationVariables = {
@@ -994,7 +994,7 @@ export type UpdateNoteMutationVariables = {
 export type UpdateNoteMutation = { __typename?: 'mutation_root' } & {
   update_notes: Maybe<
     { __typename?: 'notes_mutation_response' } & {
-      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text' | 'createdAt'>>;
     }
   >;
 };
@@ -1006,7 +1006,7 @@ export type InsertNoteMutationVariables = {
 export type InsertNoteMutation = { __typename?: 'mutation_root' } & {
   insert_notes: Maybe<
     { __typename?: 'notes_mutation_response' } & {
-      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text' | 'createdAt'>>;
     }
   >;
 };
@@ -1093,6 +1093,7 @@ export const NoteScreenDocument = gql`
     notes {
       id
       text
+      createdAt
     }
   }
 `;
@@ -1111,6 +1112,7 @@ export const UpdateNoteDocument = gql`
       returning {
         id
         text
+        createdAt
       }
     }
   }
@@ -1137,6 +1139,7 @@ export const InsertNoteDocument = gql`
       returning {
         id
         text
+        createdAt
       }
     }
   }

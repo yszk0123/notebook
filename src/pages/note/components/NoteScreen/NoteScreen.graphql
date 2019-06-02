@@ -2,6 +2,7 @@ query NoteScreen {
   notes {
     id
     text
+    createdAt
   }
 }
 
@@ -10,6 +11,7 @@ mutation UpdateNote($id: Int!, $input: notes_set_input!) {
     returning {
       id
       text
+      createdAt
     }
   }
 }
@@ -19,6 +21,7 @@ mutation InsertNote($input: notes_insert_input!) {
     returning {
       id
       text
+      createdAt
     }
   }
 }

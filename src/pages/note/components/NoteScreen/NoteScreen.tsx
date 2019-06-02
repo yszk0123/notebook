@@ -39,6 +39,7 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
               <Body>
                 <TouchableOpacity onPress={() => onSelectItem(note.id)}>
                   <Text>{note.text}</Text>
+                  <Text note>{note.createdAt}</Text>
                 </TouchableOpacity>
               </Body>
               <Right>
