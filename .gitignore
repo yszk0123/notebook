@@ -1,5 +1,11 @@
 .cache/
+.expo/*
 dist/
 node_modules/
+web-build/
 
+*.jks
+*.key
 *.log
+*.mobileprovision
+*.p12

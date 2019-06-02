@@ -17,6 +17,7 @@ export const firebaseAuthUIConfig: firebaseui.auth.Config = {
   signInSuccessUrl: appConfig.baseUrl,
   tosUrl: '/terms',
   privacyPolicyUrl() {
-    window.location.assign('/privacy');
+    // TODO
+    // window.location.assign('/privacy');
   },
 };

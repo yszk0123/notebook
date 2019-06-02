@@ -39,10 +39,11 @@ jobs:
           name: Lint
           command: yarn lint
 
-      - run:
-          name: Build
-          command: yarn build
-
-      - run:
-          name: Deploy master branch to GitHub Pages
-          command: yarn deploy:ci
+      # FIXME: Enable to deploy expo app from CI (#44)
+      # - run:
+      #     name: Build
+      #     command: yarn build
+      #
+      # - run:
+      #     name: Deploy master branch to GitHub Pages
+      #     command: yarn deploy:ci

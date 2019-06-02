@@ -1,4 +1,4 @@
-import { isNull, Nullable } from 'option-t/lib/Nullable';
+import { isNull, Nullable } from './Maybe';
 
 export function copyToClipboard(text: string) {
   const element = document.createElement('pre');

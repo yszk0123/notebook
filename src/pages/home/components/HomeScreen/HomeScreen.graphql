@@ -1,0 +1,19 @@
+query HomeScreen {
+  counter {
+    id
+    count
+  }
+  notes {
+    id
+    text
+  }
+}
+
+mutation UpdateCounter($input: counter_set_input) {
+  update_counter(where: {}, _set: $input) {
+    returning {
+      id
+      count
+    }
+  }
+}

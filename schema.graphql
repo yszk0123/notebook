@@ -1,0 +1,1204 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+# conflict action
+enum conflict_action {
+  # ignore the insert on this row
+  ignore
+
+  # update the row with the given values
+  update
+}
+
+# columns and relationships of "counter"
+type counter {
+  count: Int!
+  id: Int!
+  userId: String!
+}
+
+# aggregated selection of "counter"
+type counter_aggregate {
+  aggregate: counter_aggregate_fields
+  nodes: [counter!]!
+}
+
+# aggregate fields of "counter"
+type counter_aggregate_fields {
+  avg: counter_avg_fields
+  count(columns: [counter_select_column!], distinct: Boolean): Int
+  max: counter_max_fields
+  min: counter_min_fields
+  stddev: counter_stddev_fields
+  stddev_pop: counter_stddev_pop_fields
+  stddev_samp: counter_stddev_samp_fields
+  sum: counter_sum_fields
+  var_pop: counter_var_pop_fields
+  var_samp: counter_var_samp_fields
+  variance: counter_variance_fields
+}
+
+# order by aggregate values of table "counter"
+input counter_aggregate_order_by {
+  avg: counter_avg_order_by
+  count: order_by
+  max: counter_max_order_by
+  min: counter_min_order_by
+  stddev: counter_stddev_order_by
+  stddev_pop: counter_stddev_pop_order_by
+  stddev_samp: counter_stddev_samp_order_by
+  sum: counter_sum_order_by
+  var_pop: counter_var_pop_order_by
+  var_samp: counter_var_samp_order_by
+  variance: counter_variance_order_by
+}
+
+# input type for inserting array relation for remote table "counter"
+input counter_arr_rel_insert_input {
+  data: [counter_insert_input!]!
+  on_conflict: counter_on_conflict
+}
+
+# aggregate avg on columns
+type counter_avg_fields {
+  count: Float
+  id: Float
+}
+
+# order by avg() on columns of table "counter"
+input counter_avg_order_by {
+  count: order_by
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "counter". All fields are combined with a logical 'AND'.
+input counter_bool_exp {
+  _and: [counter_bool_exp]
+  _not: counter_bool_exp
+  _or: [counter_bool_exp]
+  count: integer_comparison_exp
+  id: integer_comparison_exp
+  userId: text_comparison_exp
+}
+
+# unique or primary key constraints on table "counter"
+enum counter_constraint {
+  # unique or primary key constraint
+  counter_pkey
+}
+
+# input type for incrementing integer columne in table "counter"
+input counter_inc_input {
+  count: Int
+  id: Int
+}
+
+# input type for inserting data into table "counter"
+input counter_insert_input {
+  count: Int
+  id: Int
+  userId: String
+}
+
+# aggregate max on columns
+type counter_max_fields {
+  count: Int
+  id: Int
+  userId: String
+}
+
+# order by max() on columns of table "counter"
+input counter_max_order_by {
+  count: order_by
+  id: order_by
+  userId: order_by
+}
+
+# aggregate min on columns
+type counter_min_fields {
+  count: Int
+  id: Int
+  userId: String
+}
+
+# order by min() on columns of table "counter"
+input counter_min_order_by {
+  count: order_by
+  id: order_by
+  userId: order_by
+}
+
+# response of any mutation on the table "counter"
+type counter_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [counter!]!
+}
+
+# input type for inserting object relation for remote table "counter"
+input counter_obj_rel_insert_input {
+  data: counter_insert_input!
+  on_conflict: counter_on_conflict
+}
+
+# on conflict condition type for table "counter"
+input counter_on_conflict {
+  constraint: counter_constraint!
+  update_columns: [counter_update_column!]!
+}
+
+# ordering options when selecting data from "counter"
+input counter_order_by {
+  count: order_by
+  id: order_by
+  userId: order_by
+}
+
+# select columns of table "counter"
+enum counter_select_column {
+  # column name
+  count
+
+  # column name
+  id
+
+  # column name
+  userId
+}
+
+# input type for updating data in table "counter"
+input counter_set_input {
+  count: Int
+  id: Int
+  userId: String
+}
+
+# aggregate stddev on columns
+type counter_stddev_fields {
+  count: Float
+  id: Float
+}
+
+# order by stddev() on columns of table "counter"
+input counter_stddev_order_by {
+  count: order_by
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type counter_stddev_pop_fields {
+  count: Float
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "counter"
+input counter_stddev_pop_order_by {
+  count: order_by
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type counter_stddev_samp_fields {
+  count: Float
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "counter"
+input counter_stddev_samp_order_by {
+  count: order_by
+  id: order_by
+}
+
+# aggregate sum on columns
+type counter_sum_fields {
+  count: Int
+  id: Int
+}
+
+# order by sum() on columns of table "counter"
+input counter_sum_order_by {
+  count: order_by
+  id: order_by
+}
+
+# update columns of table "counter"
+enum counter_update_column {
+  # column name
+  count
+
+  # column name
+  id
+
+  # column name
+  userId
+}
+
+# aggregate var_pop on columns
+type counter_var_pop_fields {
+  count: Float
+  id: Float
+}
+
+# order by var_pop() on columns of table "counter"
+input counter_var_pop_order_by {
+  count: order_by
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type counter_var_samp_fields {
+  count: Float
+  id: Float
+}
+
+# order by var_samp() on columns of table "counter"
+input counter_var_samp_order_by {
+  count: order_by
+  id: order_by
+}
+
+# aggregate variance on columns
+type counter_variance_fields {
+  count: Float
+  id: Float
+}
+
+# order by variance() on columns of table "counter"
+input counter_variance_order_by {
+  count: order_by
+  id: order_by
+}
+
+# expression to compare columns of type integer. All fields are combined with logical 'AND'.
+input integer_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int]
+}
+
+# mutation root
+type mutation_root {
+  # delete data from the table: "counter"
+  delete_counter(
+    # filter the rows which have to be deleted
+    where: counter_bool_exp!
+  ): counter_mutation_response
+
+  # delete data from the table: "notes"
+  delete_notes(
+    # filter the rows which have to be deleted
+    where: notes_bool_exp!
+  ): notes_mutation_response
+
+  # delete data from the table: "profile"
+  delete_profile(
+    # filter the rows which have to be deleted
+    where: profile_bool_exp!
+  ): profile_mutation_response
+
+  # insert data into the table: "counter"
+  insert_counter(
+    # the rows to be inserted
+    objects: [counter_insert_input!]!
+
+    # on conflict condition
+    on_conflict: counter_on_conflict
+  ): counter_mutation_response
+
+  # insert data into the table: "notes"
+  insert_notes(
+    # the rows to be inserted
+    objects: [notes_insert_input!]!
+
+    # on conflict condition
+    on_conflict: notes_on_conflict
+  ): notes_mutation_response
+
+  # insert data into the table: "profile"
+  insert_profile(
+    # the rows to be inserted
+    objects: [profile_insert_input!]!
+
+    # on conflict condition
+    on_conflict: profile_on_conflict
+  ): profile_mutation_response
+
+  # update data of the table: "counter"
+  update_counter(
+    # increments the integer columns with given value of the filtered values
+    _inc: counter_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: counter_set_input
+
+    # filter the rows which have to be updated
+    where: counter_bool_exp!
+  ): counter_mutation_response
+
+  # update data of the table: "notes"
+  update_notes(
+    # increments the integer columns with given value of the filtered values
+    _inc: notes_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: notes_set_input
+
+    # filter the rows which have to be updated
+    where: notes_bool_exp!
+  ): notes_mutation_response
+
+  # update data of the table: "profile"
+  update_profile(
+    # increments the integer columns with given value of the filtered values
+    _inc: profile_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: profile_set_input
+
+    # filter the rows which have to be updated
+    where: profile_bool_exp!
+  ): profile_mutation_response
+}
+
+# columns and relationships of "notes"
+type notes {
+  createdAt: timestamptz!
+  id: Int!
+  text: String!
+  updatedAt: timestamptz!
+  userId: String!
+}
+
+# aggregated selection of "notes"
+type notes_aggregate {
+  aggregate: notes_aggregate_fields
+  nodes: [notes!]!
+}
+
+# aggregate fields of "notes"
+type notes_aggregate_fields {
+  avg: notes_avg_fields
+  count(columns: [notes_select_column!], distinct: Boolean): Int
+  max: notes_max_fields
+  min: notes_min_fields
+  stddev: notes_stddev_fields
+  stddev_pop: notes_stddev_pop_fields
+  stddev_samp: notes_stddev_samp_fields
+  sum: notes_sum_fields
+  var_pop: notes_var_pop_fields
+  var_samp: notes_var_samp_fields
+  variance: notes_variance_fields
+}
+
+# order by aggregate values of table "notes"
+input notes_aggregate_order_by {
+  avg: notes_avg_order_by
+  count: order_by
+  max: notes_max_order_by
+  min: notes_min_order_by
+  stddev: notes_stddev_order_by
+  stddev_pop: notes_stddev_pop_order_by
+  stddev_samp: notes_stddev_samp_order_by
+  sum: notes_sum_order_by
+  var_pop: notes_var_pop_order_by
+  var_samp: notes_var_samp_order_by
+  variance: notes_variance_order_by
+}
+
+# input type for inserting array relation for remote table "notes"
+input notes_arr_rel_insert_input {
+  data: [notes_insert_input!]!
+  on_conflict: notes_on_conflict
+}
+
+# aggregate avg on columns
+type notes_avg_fields {
+  id: Float
+}
+
+# order by avg() on columns of table "notes"
+input notes_avg_order_by {
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "notes". All fields are combined with a logical 'AND'.
+input notes_bool_exp {
+  _and: [notes_bool_exp]
+  _not: notes_bool_exp
+  _or: [notes_bool_exp]
+  createdAt: timestamptz_comparison_exp
+  id: integer_comparison_exp
+  text: text_comparison_exp
+  updatedAt: timestamptz_comparison_exp
+  userId: text_comparison_exp
+}
+
+# unique or primary key constraints on table "notes"
+enum notes_constraint {
+  # unique or primary key constraint
+  note_pkey1
+}
+
+# input type for incrementing integer columne in table "notes"
+input notes_inc_input {
+  id: Int
+}
+
+# input type for inserting data into table "notes"
+input notes_insert_input {
+  createdAt: timestamptz
+  id: Int
+  text: String
+  updatedAt: timestamptz
+  userId: String
+}
+
+# aggregate max on columns
+type notes_max_fields {
+  createdAt: timestamptz
+  id: Int
+  text: String
+  updatedAt: timestamptz
+  userId: String
+}
+
+# order by max() on columns of table "notes"
+input notes_max_order_by {
+  createdAt: order_by
+  id: order_by
+  text: order_by
+  updatedAt: order_by
+  userId: order_by
+}
+
+# aggregate min on columns
+type notes_min_fields {
+  createdAt: timestamptz
+  id: Int
+  text: String
+  updatedAt: timestamptz
+  userId: String
+}
+
+# order by min() on columns of table "notes"
+input notes_min_order_by {
+  createdAt: order_by
+  id: order_by
+  text: order_by
+  updatedAt: order_by
+  userId: order_by
+}
+
+# response of any mutation on the table "notes"
+type notes_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [notes!]!
+}
+
+# input type for inserting object relation for remote table "notes"
+input notes_obj_rel_insert_input {
+  data: notes_insert_input!
+  on_conflict: notes_on_conflict
+}
+
+# on conflict condition type for table "notes"
+input notes_on_conflict {
+  constraint: notes_constraint!
+  update_columns: [notes_update_column!]!
+}
+
+# ordering options when selecting data from "notes"
+input notes_order_by {
+  createdAt: order_by
+  id: order_by
+  text: order_by
+  updatedAt: order_by
+  userId: order_by
+}
+
+# select columns of table "notes"
+enum notes_select_column {
+  # column name
+  createdAt
+
+  # column name
+  id
+
+  # column name
+  text
+
+  # column name
+  updatedAt
+
+  # column name
+  userId
+}
+
+# input type for updating data in table "notes"
+input notes_set_input {
+  createdAt: timestamptz
+  id: Int
+  text: String
+  updatedAt: timestamptz
+  userId: String
+}
+
+# aggregate stddev on columns
+type notes_stddev_fields {
+  id: Float
+}
+
+# order by stddev() on columns of table "notes"
+input notes_stddev_order_by {
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type notes_stddev_pop_fields {
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "notes"
+input notes_stddev_pop_order_by {
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type notes_stddev_samp_fields {
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "notes"
+input notes_stddev_samp_order_by {
+  id: order_by
+}
+
+# aggregate sum on columns
+type notes_sum_fields {
+  id: Int
+}
+
+# order by sum() on columns of table "notes"
+input notes_sum_order_by {
+  id: order_by
+}
+
+# update columns of table "notes"
+enum notes_update_column {
+  # column name
+  createdAt
+
+  # column name
+  id
+
+  # column name
+  text
+
+  # column name
+  updatedAt
+
+  # column name
+  userId
+}
+
+# aggregate var_pop on columns
+type notes_var_pop_fields {
+  id: Float
+}
+
+# order by var_pop() on columns of table "notes"
+input notes_var_pop_order_by {
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type notes_var_samp_fields {
+  id: Float
+}
+
+# order by var_samp() on columns of table "notes"
+input notes_var_samp_order_by {
+  id: order_by
+}
+
+# aggregate variance on columns
+type notes_variance_fields {
+  id: Float
+}
+
+# order by variance() on columns of table "notes"
+input notes_variance_order_by {
+  id: order_by
+}
+
+# column ordering options
+enum order_by {
+  # in the ascending order, nulls last
+  asc
+
+  # in the ascending order, nulls first
+  asc_nulls_first
+
+  # in the ascending order, nulls last
+  asc_nulls_last
+
+  # in the descending order, nulls first
+  desc
+
+  # in the descending order, nulls first
+  desc_nulls_first
+
+  # in the descending order, nulls last
+  desc_nulls_last
+}
+
+# columns and relationships of "profile"
+type profile {
+  description: String!
+  id: Int!
+  name: String!
+  userId: String!
+}
+
+# aggregated selection of "profile"
+type profile_aggregate {
+  aggregate: profile_aggregate_fields
+  nodes: [profile!]!
+}
+
+# aggregate fields of "profile"
+type profile_aggregate_fields {
+  avg: profile_avg_fields
+  count(columns: [profile_select_column!], distinct: Boolean): Int
+  max: profile_max_fields
+  min: profile_min_fields
+  stddev: profile_stddev_fields
+  stddev_pop: profile_stddev_pop_fields
+  stddev_samp: profile_stddev_samp_fields
+  sum: profile_sum_fields
+  var_pop: profile_var_pop_fields
+  var_samp: profile_var_samp_fields
+  variance: profile_variance_fields
+}
+
+# order by aggregate values of table "profile"
+input profile_aggregate_order_by {
+  avg: profile_avg_order_by
+  count: order_by
+  max: profile_max_order_by
+  min: profile_min_order_by
+  stddev: profile_stddev_order_by
+  stddev_pop: profile_stddev_pop_order_by
+  stddev_samp: profile_stddev_samp_order_by
+  sum: profile_sum_order_by
+  var_pop: profile_var_pop_order_by
+  var_samp: profile_var_samp_order_by
+  variance: profile_variance_order_by
+}
+
+# input type for inserting array relation for remote table "profile"
+input profile_arr_rel_insert_input {
+  data: [profile_insert_input!]!
+  on_conflict: profile_on_conflict
+}
+
+# aggregate avg on columns
+type profile_avg_fields {
+  id: Float
+}
+
+# order by avg() on columns of table "profile"
+input profile_avg_order_by {
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "profile". All fields are combined with a logical 'AND'.
+input profile_bool_exp {
+  _and: [profile_bool_exp]
+  _not: profile_bool_exp
+  _or: [profile_bool_exp]
+  description: text_comparison_exp
+  id: integer_comparison_exp
+  name: text_comparison_exp
+  userId: text_comparison_exp
+}
+
+# unique or primary key constraints on table "profile"
+enum profile_constraint {
+  # unique or primary key constraint
+  profile_pkey
+
+  # unique or primary key constraint
+  profile_user_id_key
+}
+
+# input type for incrementing integer columne in table "profile"
+input profile_inc_input {
+  id: Int
+}
+
+# input type for inserting data into table "profile"
+input profile_insert_input {
+  description: String
+  id: Int
+  name: String
+  userId: String
+}
+
+# aggregate max on columns
+type profile_max_fields {
+  description: String
+  id: Int
+  name: String
+  userId: String
+}
+
+# order by max() on columns of table "profile"
+input profile_max_order_by {
+  description: order_by
+  id: order_by
+  name: order_by
+  userId: order_by
+}
+
+# aggregate min on columns
+type profile_min_fields {
+  description: String
+  id: Int
+  name: String
+  userId: String
+}
+
+# order by min() on columns of table "profile"
+input profile_min_order_by {
+  description: order_by
+  id: order_by
+  name: order_by
+  userId: order_by
+}
+
+# response of any mutation on the table "profile"
+type profile_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [profile!]!
+}
+
+# input type for inserting object relation for remote table "profile"
+input profile_obj_rel_insert_input {
+  data: profile_insert_input!
+  on_conflict: profile_on_conflict
+}
+
+# on conflict condition type for table "profile"
+input profile_on_conflict {
+  constraint: profile_constraint!
+  update_columns: [profile_update_column!]!
+}
+
+# ordering options when selecting data from "profile"
+input profile_order_by {
+  description: order_by
+  id: order_by
+  name: order_by
+  userId: order_by
+}
+
+# select columns of table "profile"
+enum profile_select_column {
+  # column name
+  description
+
+  # column name
+  id
+
+  # column name
+  name
+
+  # column name
+  userId
+}
+
+# input type for updating data in table "profile"
+input profile_set_input {
+  description: String
+  id: Int
+  name: String
+  userId: String
+}
+
+# aggregate stddev on columns
+type profile_stddev_fields {
+  id: Float
+}
+
+# order by stddev() on columns of table "profile"
+input profile_stddev_order_by {
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type profile_stddev_pop_fields {
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "profile"
+input profile_stddev_pop_order_by {
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type profile_stddev_samp_fields {
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "profile"
+input profile_stddev_samp_order_by {
+  id: order_by
+}
+
+# aggregate sum on columns
+type profile_sum_fields {
+  id: Int
+}
+
+# order by sum() on columns of table "profile"
+input profile_sum_order_by {
+  id: order_by
+}
+
+# update columns of table "profile"
+enum profile_update_column {
+  # column name
+  description
+
+  # column name
+  id
+
+  # column name
+  name
+
+  # column name
+  userId
+}
+
+# aggregate var_pop on columns
+type profile_var_pop_fields {
+  id: Float
+}
+
+# order by var_pop() on columns of table "profile"
+input profile_var_pop_order_by {
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type profile_var_samp_fields {
+  id: Float
+}
+
+# order by var_samp() on columns of table "profile"
+input profile_var_samp_order_by {
+  id: order_by
+}
+
+# aggregate variance on columns
+type profile_variance_fields {
+  id: Float
+}
+
+# order by variance() on columns of table "profile"
+input profile_variance_order_by {
+  id: order_by
+}
+
+# query root
+type query_root {
+  # fetch data from the table: "counter"
+  counter(
+    # distinct select on columns
+    distinct_on: [counter_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [counter_order_by!]
+
+    # filter the rows returned
+    where: counter_bool_exp
+  ): [counter!]!
+
+  # fetch aggregated fields from the table: "counter"
+  counter_aggregate(
+    # distinct select on columns
+    distinct_on: [counter_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [counter_order_by!]
+
+    # filter the rows returned
+    where: counter_bool_exp
+  ): counter_aggregate!
+
+  # fetch data from the table: "counter" using primary key columns
+  counter_by_pk(id: Int!): counter
+
+  # fetch data from the table: "notes"
+  notes(
+    # distinct select on columns
+    distinct_on: [notes_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [notes_order_by!]
+
+    # filter the rows returned
+    where: notes_bool_exp
+  ): [notes!]!
+
+  # fetch aggregated fields from the table: "notes"
+  notes_aggregate(
+    # distinct select on columns
+    distinct_on: [notes_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [notes_order_by!]
+
+    # filter the rows returned
+    where: notes_bool_exp
+  ): notes_aggregate!
+
+  # fetch data from the table: "notes" using primary key columns
+  notes_by_pk(id: Int!): notes
+
+  # fetch data from the table: "profile"
+  profile(
+    # distinct select on columns
+    distinct_on: [profile_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [profile_order_by!]
+
+    # filter the rows returned
+    where: profile_bool_exp
+  ): [profile!]!
+
+  # fetch aggregated fields from the table: "profile"
+  profile_aggregate(
+    # distinct select on columns
+    distinct_on: [profile_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [profile_order_by!]
+
+    # filter the rows returned
+    where: profile_bool_exp
+  ): profile_aggregate!
+
+  # fetch data from the table: "profile" using primary key columns
+  profile_by_pk(id: Int!): profile
+}
+
+# subscription root
+type subscription_root {
+  # fetch data from the table: "counter"
+  counter(
+    # distinct select on columns
+    distinct_on: [counter_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [counter_order_by!]
+
+    # filter the rows returned
+    where: counter_bool_exp
+  ): [counter!]!
+
+  # fetch aggregated fields from the table: "counter"
+  counter_aggregate(
+    # distinct select on columns
+    distinct_on: [counter_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [counter_order_by!]
+
+    # filter the rows returned
+    where: counter_bool_exp
+  ): counter_aggregate!
+
+  # fetch data from the table: "counter" using primary key columns
+  counter_by_pk(id: Int!): counter
+
+  # fetch data from the table: "notes"
+  notes(
+    # distinct select on columns
+    distinct_on: [notes_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [notes_order_by!]
+
+    # filter the rows returned
+    where: notes_bool_exp
+  ): [notes!]!
+
+  # fetch aggregated fields from the table: "notes"
+  notes_aggregate(
+    # distinct select on columns
+    distinct_on: [notes_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [notes_order_by!]
+
+    # filter the rows returned
+    where: notes_bool_exp
+  ): notes_aggregate!
+
+  # fetch data from the table: "notes" using primary key columns
+  notes_by_pk(id: Int!): notes
+
+  # fetch data from the table: "profile"
+  profile(
+    # distinct select on columns
+    distinct_on: [profile_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [profile_order_by!]
+
+    # filter the rows returned
+    where: profile_bool_exp
+  ): [profile!]!
+
+  # fetch aggregated fields from the table: "profile"
+  profile_aggregate(
+    # distinct select on columns
+    distinct_on: [profile_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [profile_order_by!]
+
+    # filter the rows returned
+    where: profile_bool_exp
+  ): profile_aggregate!
+
+  # fetch data from the table: "profile" using primary key columns
+  profile_by_pk(id: Int!): profile
+}
+
+# expression to compare columns of type text. All fields are combined with logical 'AND'.
+input text_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+scalar timestamptz
+
+# expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz]
+}
+

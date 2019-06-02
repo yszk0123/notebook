@@ -1,4 +1,11 @@
 export const appConfig = {
   baseUrl: process.env.APP_BASE_URL || '',
-  title: process.env.APP_TITLE || '',
+  hasura: {
+    endpoints: {
+      graphql: process.env.HASURA_GRAPHQL_ENDPOINT || '',
+      graphqlSubscription: process.env.HASURA_GRAPHQL_SUBSCRIPTION_ENDPOINT || '',
+    },
+  },
+  title: 'Notebook',
+  appTokenStorageKey: 'NOTEBOOK_APP_TOKEN',
 };
