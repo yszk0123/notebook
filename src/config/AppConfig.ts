@@ -1,4 +1,5 @@
 export const appConfig = {
+  appTokenStorageKey: 'NOTEBOOK_APP_TOKEN',
   baseUrl: process.env.APP_BASE_URL || '',
   hasura: {
     endpoints: {
@@ -7,5 +8,4 @@ export const appConfig = {
     },
   },
   title: 'Notebook',
-  appTokenStorageKey: 'NOTEBOOK_APP_TOKEN',
 };
