@@ -14,6 +14,24 @@ export const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) =
   <Icon fontSize={defaultTheme.fontSize[FontSize.LARGE]} name={name} />
 );
 
+type NoteItemProps = {
+  onEdit: (noteId: number) => void;
+  note: Note;
+};
+
+const NoteItem: React.FunctionComponent<NoteItemProps> = ({ onEdit, note }) => {
+  return (
+    <ListItem onPress={() => onEdit(note.id)}>
+      <Body>
+        <Text>{note.text}</Text>
+      </Body>
+      <Right>
+        <Text note>{note.createdAt}</Text>
+      </Right>
+    </ListItem>
+  );
+};
+
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
 }
@@ -33,18 +51,7 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
           contentContainerStyle={styles.container}
           data={notes}
           keyExtractor={note => String(note.id)}
-          renderItem={({ item: note }) => {
-            return (
-              <ListItem onPress={() => onEdit(note.id)}>
-                <Body>
-                  <Text>{note.text}</Text>
-                </Body>
-                <Right>
-                  <Text note>{note.createdAt}</Text>
-                </Right>
-              </ListItem>
-            );
-          }}
+          renderItem={({ item: note }) => <NoteItem note={note} onEdit={onEdit} />}
         />
       </Content>
     </Container>
