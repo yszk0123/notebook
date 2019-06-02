@@ -2,6 +2,7 @@
 .expo/*
 dist/
 node_modules/
+web-build/
 
 *.jks
 *.key
