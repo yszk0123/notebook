@@ -1,13 +1,19 @@
-import { Body, Button, Container, Input, ListItem, Right, Text } from 'native-base';
+import { Body, Button, Container, Icon, Left, ListItem, Right, Text, Textarea } from 'native-base';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
+import { defaultTheme } from '../../../../application/theme/DefaultTheme';
+import { FontSize } from '../../../../application/theme/Theme';
 import { LoadingPage } from '../../../../components/LoadingPage';
 import { useNoteScreen } from './NoteScreenHook';
+
+const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
+  <Icon fontSize={defaultTheme.fontSize[FontSize.LARGE]} name="text" />
+);
 
 interface Props {}
 
 export const NoteScreen: React.FunctionComponent<Props> = () => {
-  const { notes, loading, onChangeText, onInsert, onUpdate, text } = useNoteScreen();
+  const { notes, loading, onSelectItem, onChangeText, onInsert, onUpdate, text } = useNoteScreen();
 
   if (loading) {
     return <LoadingPage />;
@@ -20,10 +26,12 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
           return (
             <ListItem key={note.id}>
               <Body>
-                <Text>{note.text}</Text>
+                <TouchableOpacity onPress={() => onSelectItem(note.id)}>
+                  <Text>{note.text}</Text>
+                </TouchableOpacity>
               </Body>
               <Right>
-                <Button onPress={() => onUpdate(note.id)}>
+                <Button light onPress={() => onUpdate(note.id)}>
                   <Text>Update</Text>
                 </Button>
               </Right>
@@ -31,8 +39,11 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
           );
         })}
         <ListItem>
+          <Left>
+            <LargeIcon name="text" />
+          </Left>
           <Body>
-            <Input value={text} onChangeText={onChangeText} />
+            <Textarea rowSpan={4} placeholder="New Item" value={text} onChangeText={onChangeText} />
           </Body>
           <Right>
             <Button onPress={onInsert}>

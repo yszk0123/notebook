@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { isNotUndefined } from '../../../../application/utils/Maybe';
 import { GetProp, NoteScreenQuery, useNoteScreenQuery } from '../../../../GraphQLType';
 import {
   NoteScreenDocument,
@@ -13,6 +14,7 @@ interface Props {
   onChangeText: (text: string) => void;
   onInsert: () => void;
   onUpdate: (id: number) => void;
+  onSelectItem: (id: number) => void;
 }
 
 // FIXME: Remove (#54)
@@ -43,6 +45,16 @@ export function useNoteScreen(): Props {
     setText(newText);
   }, []);
 
+  const onSelectItem = useCallback(
+    (id: number) => {
+      const foundNote = notes.find(note => note.id === id);
+      if (isNotUndefined(foundNote)) {
+        setText(foundNote.text);
+      }
+    },
+    [notes],
+  );
+
   const onInsert = useCallback(() => {
     insertNote({ variables: { input: { text } } });
   }, [insertNote, text]);
@@ -59,6 +71,7 @@ export function useNoteScreen(): Props {
     notes,
     onChangeText,
     onInsert,
+    onSelectItem,
     onUpdate,
     text,
   };
