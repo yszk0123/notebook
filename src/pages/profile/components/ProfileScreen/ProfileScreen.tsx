@@ -1,7 +1,7 @@
 import { Container, ListItem, Text } from 'native-base';
 import { isNull } from 'option-t/lib/Nullable';
 import React from 'react';
-import { LoadingPage } from '../../../components/LoadingPage';
+import { LoadingPage } from '../../../../components/LoadingPage';
 import { useProfileScreen } from './ProfileScreenHook';
 
 interface Props {}

@@ -1,13 +1,13 @@
-import { NoteScreenQuery, useNoteScreenQuery } from '../../../GraphQLType';
+import { GetProp, NoteScreenQuery, useNoteScreenQuery } from '../../../../GraphQLType';
 
 interface Props {
   loading: boolean;
-  notes: Notes;
+  notes: Note[];
 }
 
 // FIXME: Remove (#54)
-type Notes = NonNullable<NoteScreenQuery['notes']>;
-const loadingNotes: Notes = [];
+type Note = GetProp<NoteScreenQuery, 'notes', 0>;
+const loadingNotes: Note[] = [];
 
 export function useNoteScreen(): Props {
   const { data, loading } = useNoteScreenQuery();

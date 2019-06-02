@@ -1,23 +1,24 @@
 import { useCallback } from 'react';
 import {
+  GetProp,
   HomeScreenQuery,
   useHomeScreenQuery,
   useUpdateCounterMutation,
-} from '../../../GraphQLType';
+} from '../../../../GraphQLType';
 
 interface Props {
   count: number;
   loading: boolean;
-  notes: Notes;
+  notes: Note[];
   onIncrement: () => void;
   onDecrement: () => void;
 }
 
 // FIXME: Remove (#54)
-type Counter = NonNullable<HomeScreenQuery['counter']>;
-type Notes = NonNullable<HomeScreenQuery['notes']>;
-const loadingCounter: Counter = [];
-const loadingNotes: Notes = [];
+type Counter = GetProp<HomeScreenQuery, 'counter', 0>;
+type Note = GetProp<HomeScreenQuery, 'notes', 0>;
+const loadingCounter: Counter[] = [];
+const loadingNotes: Note[] = [];
 
 export function useHomeScreen(): Props {
   const { data, loading } = useHomeScreenQuery();

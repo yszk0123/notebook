@@ -1,7 +1,7 @@
 import { Button, Container, ListItem, Text, View } from 'native-base';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { LoadingPage } from '../../../components/LoadingPage';
+import { LoadingPage } from '../../../../components/LoadingPage';
 import { useHomeScreen } from './HomeScreenHook';
 
 interface Props {}

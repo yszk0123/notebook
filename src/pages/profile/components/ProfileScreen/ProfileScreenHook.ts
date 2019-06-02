@@ -1,5 +1,5 @@
 import { Nullable } from 'option-t/lib/Nullable';
-import { GetProp, ProfileScreenQuery, useProfileScreenQuery } from '../../../GraphQLType';
+import { GetProp, ProfileScreenQuery, useProfileScreenQuery } from '../../../../GraphQLType';
 
 interface Props {
   loading: boolean;

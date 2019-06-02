@@ -7,7 +7,7 @@ export const ProfileNavigator = createStackNavigator(
   {
     Profile: {
       navigationOptions: {
-        header: () => <BasicHeader title="Profile" />,
+        header: <BasicHeader title="Profile" />,
       },
       screen: ProfileScreen,
     },

@@ -1,0 +1,1 @@
+export { NoteScreen } from './NoteScreen';
