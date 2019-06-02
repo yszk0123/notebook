@@ -87,9 +87,7 @@ function useNoteContainer(): Props {
 
   const onDelete = useCallback(
     (id: number) => {
-      if (confirm('This operation cannot be undone')) {
-        deleteNote({ variables: { id } });
-      }
+      deleteNote({ variables: { id } });
     },
     [deleteNote],
   );

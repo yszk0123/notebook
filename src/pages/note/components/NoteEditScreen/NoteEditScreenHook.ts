@@ -1,91 +1,59 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { isNotNull, Nullable } from '../../../../application/utils/Maybe';
-import {
-  GetProp,
-  NoteEditScreenQuery,
-  useDeleteNoteMutation,
-  useInsertNoteMutation,
-  useNoteEditScreenQuery,
-  useUpdateNoteMutation,
-} from '../../../../GraphQLType';
-import { NoteScreenDocument, NoteScreenQuery } from '../../../../__generated__/GraphQLOperations';
+import { GetProp, NoteEditScreenQuery, useNoteEditScreenQuery } from '../../../../GraphQLType';
+import { NoteRoute } from '../../NoteConstant';
+import { NoteContainer } from '../../NoteContainer';
 
 interface Props {
   loading: boolean;
   note: Nullable<Note>;
   text: string;
   onChangeText: (text: string) => void;
-  onDelete: (id: number) => void;
-  onInsert: () => void;
-  onUpdate: (id: number) => void;
+  onPressCancel: () => void;
+  onPressDelete: (id: number) => void;
+  onPressUpdate: (id: number) => void;
 }
 
 // FIXME: Remove (#54)
 export type Note = GetProp<NoteEditScreenQuery, 'notes', 0>;
 const loadingNotes: Note[] = [];
 
-export function useNoteEditScreen(noteId: number): Props {
+export function useNoteEditScreen(
+  noteId: number,
+  navigation: NavigationScreenProp<NavigationState>,
+): Props {
   const { data, loading } = useNoteEditScreenQuery({ variables: { id: noteId } });
-  const [text, setText] = useState('');
+  const { text, onChangeText, onDelete, onUpdate } = NoteContainer.useContainer();
+
   const notes = (data && data.notes) || loadingNotes;
   const note = notes.length ? notes[0] : null;
-  const insertNote = useInsertNoteMutation({
-    update(cache, { data: newData }) {
-      const oldData = cache.readQuery<NoteScreenQuery>({ query: NoteScreenDocument })!;
-      const newNotes = newData!.insert_notes!.returning!;
 
-      cache.writeQuery<NoteScreenQuery>({
-        data: {
-          ...oldData,
-          notes: [...oldData.notes, ...newNotes],
-        },
-        query: NoteScreenDocument,
-      });
-    },
-  });
-  const updateNote = useUpdateNoteMutation();
-  const deleteNote = useDeleteNoteMutation({
-    update(cache, { data: newData }) {
-      const oldData = cache.readQuery<NoteScreenQuery>({ query: NoteScreenDocument })!;
-      const deletingIds = newData!.delete_notes!.returning!.map(e => e.id);
+  const onPressCancel = useCallback(() => {
+    navigation.navigate(NoteRoute.NOTE);
+  }, [navigation]);
 
-      cache.writeQuery<NoteScreenQuery>({
-        data: {
-          ...oldData,
-          notes: oldData.notes.filter(e => !deletingIds.includes(e.id)),
-        },
-        query: NoteScreenDocument,
-      });
-    },
-  });
-
-  const onChangeText = useCallback((newText: string) => {
-    setText(newText);
-  }, []);
-
-  const onInsert = useCallback(() => {
-    insertNote({ variables: { input: { text } } });
-  }, [insertNote, text]);
-
-  const onUpdate = useCallback(
+  const onPressUpdate = useCallback(
     (id: number) => {
-      updateNote({ variables: { id, input: { text } } });
+      onUpdate(id);
+      navigation.navigate(NoteRoute.NOTE);
     },
-    [updateNote, text],
+    [onUpdate, navigation],
   );
 
-  const onDelete = useCallback(
+  const onPressDelete = useCallback(
     (id: number) => {
       if (confirm('This operation cannot be undone')) {
-        deleteNote({ variables: { id } });
+        onDelete(id);
+        navigation.navigate(NoteRoute.NOTE);
       }
     },
-    [deleteNote],
+    [onDelete],
   );
 
   useEffect(() => {
     if (isNotNull(note)) {
-      setText(note.text);
+      onChangeText(note.text);
     }
   }, [note]);
 
@@ -93,9 +61,9 @@ export function useNoteEditScreen(noteId: number): Props {
     loading,
     note,
     onChangeText,
-    onDelete,
-    onInsert,
-    onUpdate,
+    onPressCancel,
+    onPressDelete,
+    onPressUpdate,
     text,
   };
 }
