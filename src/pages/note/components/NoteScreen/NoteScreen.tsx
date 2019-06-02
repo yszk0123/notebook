@@ -7,7 +7,7 @@ import { LoadingPage } from '../../../../components/LoadingPage';
 import { useNoteScreen } from './NoteScreenHook';
 
 const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
-  <Icon fontSize={defaultTheme.fontSize[FontSize.LARGE]} name="text" />
+  <Icon fontSize={defaultTheme.fontSize[FontSize.LARGE]} name={name} />
 );
 
 interface Props {}
