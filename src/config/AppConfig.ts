@@ -1,10 +1,12 @@
+const HASURA_GRAPHQL_HOST = process.env.HASURA_GRAPHQL_HOST || '';
+
 export const appConfig = {
   appTokenStorageKey: 'NOTEBOOK_APP_TOKEN',
   baseUrl: process.env.APP_BASE_URL || '',
   hasura: {
     endpoints: {
-      graphql: process.env.HASURA_GRAPHQL_ENDPOINT || '',
-      graphqlSubscription: process.env.HASURA_GRAPHQL_SUBSCRIPTION_ENDPOINT || '',
+      graphql: `https://${HASURA_GRAPHQL_HOST}/v1/graphql`,
+      graphqlSubscription: `wss://${HASURA_GRAPHQL_HOST}/v1/graphql`,
     },
   },
   title: 'Notebook',
