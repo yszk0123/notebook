@@ -11,6 +11,10 @@ interface ContainerProviderProps<State = void> {
 interface Container<Value, State = void> {
   Provider: React.ComponentType<ContainerProviderProps<State>>;
   useContainer: () => Value;
+  withContainer: <Props>(
+    Component: React.ComponentType<Props>,
+    initialState?: State,
+  ) => React.FunctionComponent<Props>;
 }
 
 export function createContainer<Value, State = void>(
@@ -31,5 +35,16 @@ export function createContainer<Value, State = void>(
     return value;
   }
 
-  return { Provider, useContainer };
+  function withContainer<Props>(
+    Component: React.ComponentType<Props>,
+    initialState?: State,
+  ): React.FunctionComponent<Props> {
+    return (props: Props) => (
+      <Provider initialState={initialState}>
+        <Component {...props} />
+      </Provider>
+    );
+  }
+
+  return { Provider, useContainer, withContainer };
 }
