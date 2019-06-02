@@ -7,13 +7,9 @@
 | --- | --- | --- |
 | APP_BASE_URL |  | /notebook |
 | HASURA_ADMIN_SECRET | secret key for hasura graphql server | xxx |
-| HASURA_GRAPHQL_ENDPOINT |  | https://xxx.herokuapp.com/v1/graphql |
-| HASURA_GRAPHQL_SUBSCRIPTION_ENDPOINT |  | wss://xxx.herokuapp.com/v1/graphql |
+| HASURA_GRAPHQL_HOST |  | xxx.herokuapp.com |
 | FIREBASE_API_KEY |  | xxx |
-| FIREBASE_AUTH_DOMAIN |  | xxx.firebaseapp.com |
-| FIREBASE_DATABASE_URL |  | https://xxx.firebaseio.com |
 | FIREBASE_PROJECT_ID |  | xxx |
-| FIREBASE_STORAGE_BUCKET |  | xxx.appspot.com |
 | FIREBASE_MESSAGING_SENDER_ID |  | 123 |
 | FIREBASE_APP_ID |  | xxx:xxx:xxx:xxx |
 

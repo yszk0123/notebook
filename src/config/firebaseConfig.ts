@@ -1,9 +1,11 @@
+const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID || '';
+
 export const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   appId: process.env.FIREBASE_APP_ID,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  authDomain: `${FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  databaseURL: `https://${FIREBASE_PROJECT_ID}.firebaseio.com`,
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: `${FIREBASE_PROJECT_ID}.appspot.com`,
 };
