@@ -1,6 +1,6 @@
-import { Container, Icon, ListItem, Text } from 'native-base';
+import { Body, Container, Icon, ListItem, Right, Text } from 'native-base';
 import React from 'react';
-import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
@@ -32,11 +32,13 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
         keyExtractor={note => String(note.id)}
         renderItem={({ item: note }) => {
           return (
-            <ListItem>
-              <TouchableOpacity onPress={() => onEdit(note.id)}>
+            <ListItem onPress={() => onEdit(note.id)}>
+              <Body>
                 <Text>{note.text}</Text>
+              </Body>
+              <Right>
                 <Text note>{note.createdAt}</Text>
-              </TouchableOpacity>
+              </Right>
             </ListItem>
           );
         }}
