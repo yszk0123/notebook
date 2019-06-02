@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { Body, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
+import { Body, Button, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
 import React, { useMemo } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
@@ -19,7 +19,6 @@ type NoteItemProps = {
   onEdit: (noteId: number) => void;
   note: Note;
 };
-
 const NoteItem: React.FunctionComponent<NoteItemProps> = ({ onEdit, note }) => {
   const createdAt = useMemo(() => format(note.createdAt, 'YYYY/MM/DD hh:mm'), [note]);
 
@@ -35,10 +34,21 @@ const NoteItem: React.FunctionComponent<NoteItemProps> = ({ onEdit, note }) => {
   );
 };
 
+type FabProps = {
+  name: string;
+  onPress: () => void;
+};
+const Fab: React.FunctionComponent<FabProps> = ({ name, onPress }) => {
+  return (
+    <Button rounded icon onPress={onPress} style={styles.fab}>
+      <Icon name={name} />
+    </Button>
+  );
+};
+
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
 }
-
 export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
   const { loading, notes, onEdit, onInsert } = useNoteScreen(navigation);
 
@@ -57,6 +67,7 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
           renderItem={({ item: note }) => <NoteItem note={note} onEdit={onEdit} />}
         />
       </Content>
+      <Fab name="add" onPress={onInsert} />
     </Container>
   );
 };
@@ -64,5 +75,10 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     paddingBottom: PADDING_BOTTOM,
+  },
+  fab: {
+    bottom: 16,
+    position: 'absolute',
+    right: 16,
   },
 });
