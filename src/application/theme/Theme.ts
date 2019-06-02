@@ -1,7 +1,7 @@
 /**
  * @see https://material.io/design/color/the-color-system.html#tools-for-picking-colors
  */
-export const enum ColorPalette {
+export enum ColorPalette {
   PRIMARY = '#388E3C',
   PRIMARY_VARIANT = '#1B5E20',
   SECONDARY = '#039BE5',
@@ -14,7 +14,7 @@ export const enum ColorPalette {
   PALE_WHITE = '#DDDDDD',
 }
 
-export const enum FontSize {
+export enum FontSize {
   SMALL = 'small',
   DEFAULT = 'default',
   LARGE = 'large',
@@ -31,7 +31,7 @@ export interface ThemeInterface {
   dropDownMenuHoverColorBg: ColorPalette;
   dropDownMenuHoverColorFg: ColorPalette;
   dropDownMenuShadow: ColorPalette;
-  fontSize: Record<FontSize, string>;
+  fontSize: Record<FontSize, number>;
   fontWeight: {
     normal: string;
     bold: string;
