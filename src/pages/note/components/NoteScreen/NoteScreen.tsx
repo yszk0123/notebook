@@ -1,5 +1,6 @@
+import { format } from 'date-fns';
 import { Body, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
@@ -20,13 +21,15 @@ type NoteItemProps = {
 };
 
 const NoteItem: React.FunctionComponent<NoteItemProps> = ({ onEdit, note }) => {
+  const createdAt = useMemo(() => format(note.createdAt, 'YYYY/MM/DD hh:mm'), [note]);
+
   return (
     <ListItem onPress={() => onEdit(note.id)}>
       <Body>
         <Text>{note.text}</Text>
       </Body>
       <Right>
-        <Text note>{note.createdAt}</Text>
+        <Text note>{createdAt}</Text>
       </Right>
     </ListItem>
   );
