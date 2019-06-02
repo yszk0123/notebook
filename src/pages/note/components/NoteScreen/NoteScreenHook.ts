@@ -1,20 +1,24 @@
 import { useCallback, useState } from 'react';
 import { isNotUndefined } from '../../../../application/utils/Maybe';
-import { GetProp, NoteScreenQuery, useNoteScreenQuery } from '../../../../GraphQLType';
 import {
+  GetProp,
   NoteScreenDocument,
+  NoteScreenQuery,
+  useDeleteNoteMutation,
   useInsertNoteMutation,
+  useNoteScreenQuery,
   useUpdateNoteMutation,
-} from '../../../../__generated__/GraphQLOperations';
+} from '../../../../GraphQLType';
 
 interface Props {
   loading: boolean;
   notes: Note[];
   text: string;
   onChangeText: (text: string) => void;
+  onDelete: (id: number) => void;
   onInsert: () => void;
-  onUpdate: (id: number) => void;
   onSelectItem: (id: number) => void;
+  onUpdate: (id: number) => void;
 }
 
 // FIXME: Remove (#54)
@@ -40,6 +44,20 @@ export function useNoteScreen(): Props {
     },
   });
   const updateNote = useUpdateNoteMutation();
+  const deleteNote = useDeleteNoteMutation({
+    update(cache, { data: newData }) {
+      const oldData = cache.readQuery<NoteScreenQuery>({ query: NoteScreenDocument })!;
+      const deletingIds = newData!.delete_notes!.returning!.map(note => note.id);
+
+      cache.writeQuery<NoteScreenQuery>({
+        data: {
+          ...oldData,
+          notes: oldData.notes.filter(note => !deletingIds.includes(note.id)),
+        },
+        query: NoteScreenDocument,
+      });
+    },
+  });
 
   const onChangeText = useCallback((newText: string) => {
     setText(newText);
@@ -66,10 +84,18 @@ export function useNoteScreen(): Props {
     [updateNote, text],
   );
 
+  const onDelete = useCallback(
+    (id: number) => {
+      deleteNote({ variables: { id } });
+    },
+    [deleteNote],
+  );
+
   return {
     loading,
     notes,
     onChangeText,
+    onDelete,
     onInsert,
     onSelectItem,
     onUpdate,

@@ -1011,6 +1011,18 @@ export type InsertNoteMutation = { __typename?: 'mutation_root' } & {
   >;
 };
 
+export type DeleteNoteMutationVariables = {
+  id: Scalars['Int'];
+};
+
+export type DeleteNoteMutation = { __typename?: 'mutation_root' } & {
+  delete_notes: Maybe<
+    { __typename?: 'notes_mutation_response' } & {
+      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id'>>;
+    }
+  >;
+};
+
 export type ProfileScreenQueryVariables = {};
 
 export type ProfileScreenQuery = { __typename?: 'query_root' } & {
@@ -1142,6 +1154,31 @@ export function useInsertNoteMutation(
 ) {
   return ReactApolloHooks.useMutation<InsertNoteMutation, InsertNoteMutationVariables>(
     InsertNoteDocument,
+    baseOptions,
+  );
+}
+export const DeleteNoteDocument = gql`
+  mutation DeleteNote($id: Int!) {
+    delete_notes(where: { id: { _eq: $id } }) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+export type DeleteNoteMutationFn = ReactApollo.MutationFn<
+  DeleteNoteMutation,
+  DeleteNoteMutationVariables
+>;
+
+export function useDeleteNoteMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    DeleteNoteMutation,
+    DeleteNoteMutationVariables
+  >,
+) {
+  return ReactApolloHooks.useMutation<DeleteNoteMutation, DeleteNoteMutationVariables>(
+    DeleteNoteDocument,
     baseOptions,
   );
 }

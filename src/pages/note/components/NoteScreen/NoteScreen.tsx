@@ -13,7 +13,16 @@ const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
 interface Props {}
 
 export const NoteScreen: React.FunctionComponent<Props> = () => {
-  const { notes, loading, onSelectItem, onChangeText, onInsert, onUpdate, text } = useNoteScreen();
+  const {
+    loading,
+    notes,
+    onChangeText,
+    onDelete,
+    onInsert,
+    onSelectItem,
+    onUpdate,
+    text,
+  } = useNoteScreen();
 
   if (loading) {
     return <LoadingPage />;
@@ -33,6 +42,9 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
               <Right>
                 <Button light onPress={() => onUpdate(note.id)}>
                   <Text>Update</Text>
+                </Button>
+                <Button danger onPress={() => onDelete(note.id)}>
+                  <Text>Delete</Text>
                 </Button>
               </Right>
             </ListItem>
