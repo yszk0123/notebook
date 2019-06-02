@@ -1,6 +1,7 @@
 /**
  * @see https://github.com/jamiebuilds/unstated-next
  */
+import hoist from 'hoist-non-react-statics';
 import React from 'react';
 
 interface ContainerProviderProps<State = void> {
@@ -14,7 +15,7 @@ interface Container<Value, State = void> {
   withContainer: <Props>(
     Component: React.ComponentType<Props>,
     initialState?: State,
-  ) => React.FunctionComponent<Props>;
+  ) => React.ComponentType<Props>;
 }
 
 export function createContainer<Value, State = void>(
@@ -38,12 +39,13 @@ export function createContainer<Value, State = void>(
   function withContainer<Props>(
     Component: React.ComponentType<Props>,
     initialState?: State,
-  ): React.FunctionComponent<Props> {
-    return (props: Props) => (
+  ): React.ComponentType<Props> {
+    const WrappingComponent = (props: Props) => (
       <Provider initialState={initialState}>
         <Component {...props} />
       </Provider>
     );
+    return hoist(WrappingComponent, Component);
   }
 
   return { Provider, useContainer, withContainer };
