@@ -3,8 +3,8 @@ import React from 'react';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
+import { DefaultHeader } from '../../../../components/DefaultHeader';
 import { LoadingPage } from '../../../../components/LoadingPage';
-import { NoteHeader } from '../NoteHeader';
 import { useNoteEditScreen } from './NoteEditScreenHook';
 
 export const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
@@ -32,7 +32,7 @@ export const NoteEditScreen: React.FunctionComponent<Props> = ({ navigation }) =
 
   return (
     <Container>
-      <NoteHeader
+      <DefaultHeader
         title="NoteEdit"
         leftButtonText="Cancel"
         onPressLeftButton={onPressCancel}

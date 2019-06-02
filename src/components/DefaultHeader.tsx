@@ -1,7 +1,7 @@
 import { Body, Button, Header, Left, Right, Text, Title } from 'native-base';
 import React from 'react';
 
-export const NoteHeader: React.FunctionComponent<{
+export const DefaultHeader: React.FunctionComponent<{
   leftButtonText?: string;
   onPressLeftButton?: () => void;
   onPressRightButton?: () => void;

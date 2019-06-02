@@ -3,7 +3,7 @@ import React from 'react';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
-import { NoteHeader } from '../NoteHeader';
+import { DefaultHeader } from '../../../../components/DefaultHeader';
 import { useNoteInsertScreen } from './NoteInsertScreenHook';
 
 export const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
@@ -19,7 +19,7 @@ export const NoteInsertScreen: React.FunctionComponent<Props> = ({ navigation })
 
   return (
     <Container>
-      <NoteHeader
+      <DefaultHeader
         title="NoteInsert"
         leftButtonText="Cancel"
         onPressLeftButton={onPressCancel}

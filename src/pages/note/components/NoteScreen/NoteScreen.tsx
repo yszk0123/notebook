@@ -5,8 +5,8 @@ import { FlatList, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
+import { DefaultHeader } from '../../../../components/DefaultHeader';
 import { LoadingPage } from '../../../../components/LoadingPage';
-import { NoteHeader } from '../NoteHeader';
 import { Note, useNoteScreen } from './NoteScreenHook';
 
 const PADDING_BOTTOM = 200;
@@ -58,7 +58,7 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
 
   return (
     <Container>
-      <NoteHeader title="Note" rightButtonText="Insert" onPressRightButton={onInsert} />
+      <DefaultHeader title="Note" rightButtonText="Insert" onPressRightButton={onInsert} />
       <Content>
         <FlatList<Note>
           contentContainerStyle={styles.container}
