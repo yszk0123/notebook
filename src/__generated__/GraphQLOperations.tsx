@@ -987,11 +987,24 @@ export type NoteScreenQuery = { __typename?: 'query_root' } & {
 };
 
 export type UpdateNoteMutationVariables = {
-  input?: Maybe<NotesSetInput>;
+  id: Scalars['Int'];
+  input: NotesSetInput;
 };
 
 export type UpdateNoteMutation = { __typename?: 'mutation_root' } & {
   update_notes: Maybe<
+    { __typename?: 'notes_mutation_response' } & {
+      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+    }
+  >;
+};
+
+export type InsertNoteMutationVariables = {
+  input: NotesInsertInput;
+};
+
+export type InsertNoteMutation = { __typename?: 'mutation_root' } & {
+  insert_notes: Maybe<
     { __typename?: 'notes_mutation_response' } & {
       returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
     }
@@ -1081,8 +1094,8 @@ export function useNoteScreenQuery(
   );
 }
 export const UpdateNoteDocument = gql`
-  mutation UpdateNote($input: notes_set_input) {
-    update_notes(where: {}, _set: $input) {
+  mutation UpdateNote($id: Int!, $input: notes_set_input!) {
+    update_notes(where: { id: { _eq: $id } }, _set: $input) {
       returning {
         id
         text
@@ -1103,6 +1116,32 @@ export function useUpdateNoteMutation(
 ) {
   return ReactApolloHooks.useMutation<UpdateNoteMutation, UpdateNoteMutationVariables>(
     UpdateNoteDocument,
+    baseOptions,
+  );
+}
+export const InsertNoteDocument = gql`
+  mutation InsertNote($input: notes_insert_input!) {
+    insert_notes(objects: [$input]) {
+      returning {
+        id
+        text
+      }
+    }
+  }
+`;
+export type InsertNoteMutationFn = ReactApollo.MutationFn<
+  InsertNoteMutation,
+  InsertNoteMutationVariables
+>;
+
+export function useInsertNoteMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    InsertNoteMutation,
+    InsertNoteMutationVariables
+  >,
+) {
+  return ReactApolloHooks.useMutation<InsertNoteMutation, InsertNoteMutationVariables>(
+    InsertNoteDocument,
     baseOptions,
   );
 }
