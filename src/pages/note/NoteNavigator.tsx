@@ -1,18 +1,25 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation';
-import { BasicHeader } from '../../components/BasicHeader';
+import { createSwitchNavigator } from 'react-navigation';
+import { NoteEditScreen } from './components/NoteEditScreen';
+import { NoteInsertScreen } from './components/NoteInsertScreen';
 import { NoteScreen } from './components/NoteScreen';
+import { NoteRoute } from './NoteConstant';
+import { NoteContainer } from './NoteContainer';
 
-export const NoteNavigator = createStackNavigator(
-  {
-    Note: {
-      navigationOptions: {
-        header: <BasicHeader title="Note" />,
+export const NoteNavigator = NoteContainer.withContainer(
+  createSwitchNavigator(
+    {
+      [NoteRoute.NOTE]: {
+        screen: NoteScreen,
       },
-      screen: NoteScreen,
+      [NoteRoute.NOTE_EDIT]: {
+        screen: NoteEditScreen,
+      },
+      [NoteRoute.NOTE_INSERT]: {
+        screen: NoteInsertScreen,
+      },
     },
-  },
-  {
-    initialRouteName: 'Note',
-  },
+    {
+      initialRouteName: NoteRoute.NOTE,
+    },
+  ),
 );

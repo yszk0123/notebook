@@ -1,28 +1,56 @@
-import { Body, Button, Container, Icon, Left, ListItem, Right, Text, Textarea } from 'native-base';
-import React from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native';
+import { format } from 'date-fns';
+import { Body, Button, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
+import React, { useMemo } from 'react';
+import { FlatList, StyleSheet } from 'react-native';
+import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
+import { DefaultHeader } from '../../../../components/DefaultHeader';
 import { LoadingPage } from '../../../../components/LoadingPage';
-import { useNoteScreen } from './NoteScreenHook';
+import { Note, useNoteScreen } from './NoteScreenHook';
 
-const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
+const PADDING_BOTTOM = 200;
+
+export const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
   <Icon fontSize={defaultTheme.fontSize[FontSize.LARGE]} name={name} />
 );
 
-interface Props {}
+type NoteItemProps = {
+  onEdit: (noteId: number) => void;
+  note: Note;
+};
+const NoteItem: React.FunctionComponent<NoteItemProps> = ({ onEdit, note }) => {
+  const createdAt = useMemo(() => format(note.createdAt, 'YYYY/MM/DD hh:mm'), [note]);
 
-export const NoteScreen: React.FunctionComponent<Props> = () => {
-  const {
-    loading,
-    notes,
-    onChangeText,
-    onDelete,
-    onInsert,
-    onSelectItem,
-    onUpdate,
-    text,
-  } = useNoteScreen();
+  return (
+    <ListItem onPress={() => onEdit(note.id)}>
+      <Body>
+        <Text>{note.text}</Text>
+      </Body>
+      <Right>
+        <Text note>{createdAt}</Text>
+      </Right>
+    </ListItem>
+  );
+};
+
+type FabProps = {
+  name: string;
+  onPress: () => void;
+};
+const Fab: React.FunctionComponent<FabProps> = ({ name, onPress }) => {
+  return (
+    <Button rounded icon onPress={onPress} style={styles.fab}>
+      <Icon name={name} />
+    </Button>
+  );
+};
+
+interface Props {
+  navigation: NavigationScreenProp<NavigationState>;
+}
+export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
+  const { loading, notes, onEdit, onInsert } = useNoteScreen(navigation);
 
   if (loading) {
     return <LoadingPage />;
@@ -30,40 +58,27 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
 
   return (
     <Container>
-      <ScrollView>
-        {notes.map(note => {
-          return (
-            <ListItem key={note.id}>
-              <Body>
-                <TouchableOpacity onPress={() => onSelectItem(note.id)}>
-                  <Text>{note.text}</Text>
-                </TouchableOpacity>
-              </Body>
-              <Right>
-                <Button light onPress={() => onUpdate(note.id)}>
-                  <Text>Update</Text>
-                </Button>
-                <Button danger onPress={() => onDelete(note.id)}>
-                  <Text>Delete</Text>
-                </Button>
-              </Right>
-            </ListItem>
-          );
-        })}
-        <ListItem>
-          <Left>
-            <LargeIcon name="text" />
-          </Left>
-          <Body>
-            <Textarea rowSpan={4} placeholder="New Item" value={text} onChangeText={onChangeText} />
-          </Body>
-          <Right>
-            <Button onPress={onInsert}>
-              <Text>Insert</Text>
-            </Button>
-          </Right>
-        </ListItem>
-      </ScrollView>
+      <DefaultHeader title="Note" rightButtonText="Insert" onPressRightButton={onInsert} />
+      <Content>
+        <FlatList<Note>
+          contentContainerStyle={styles.container}
+          data={notes}
+          keyExtractor={note => String(note.id)}
+          renderItem={({ item: note }) => <NoteItem note={note} onEdit={onEdit} />}
+        />
+      </Content>
+      <Fab name="add" onPress={onInsert} />
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingBottom: PADDING_BOTTOM,
+  },
+  fab: {
+    bottom: 16,
+    position: 'absolute',
+    right: 16,
+  },
+});

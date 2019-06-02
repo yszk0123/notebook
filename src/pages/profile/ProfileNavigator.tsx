@@ -1,14 +1,9 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation';
-import { BasicHeader } from '../../components/BasicHeader';
+import { createSwitchNavigator } from 'react-navigation';
 import { ProfileScreen } from './components/ProfileScreen';
 
-export const ProfileNavigator = createStackNavigator(
+export const ProfileNavigator = createSwitchNavigator(
   {
     Profile: {
-      navigationOptions: {
-        header: <BasicHeader title="Profile" />,
-      },
       screen: ProfileScreen,
     },
   },

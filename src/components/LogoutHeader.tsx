@@ -6,7 +6,7 @@ type Props = {
   title: string;
 };
 
-export const BasicHeader: React.FunctionComponent<Props> = ({ title }) => {
+export const LogoutHeader: React.FunctionComponent<Props> = ({ title }) => {
   const { logout } = useAuth();
 
   return (

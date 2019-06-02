@@ -1,0 +1,7 @@
+query NoteEditScreen($id: Int!) {
+  notes(where: { id: { _eq: $id } }) {
+    id
+    text
+    createdAt
+  }
+}

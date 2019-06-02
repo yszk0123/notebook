@@ -1,14 +1,9 @@
-import React from 'react';
-import { createStackNavigator } from 'react-navigation';
-import { BasicHeader } from '../../components/BasicHeader';
+import { createSwitchNavigator } from 'react-navigation';
 import { HomeScreen } from './components/HomeScreen';
 
-export const HomeNavigator = createStackNavigator(
+export const HomeNavigator = createSwitchNavigator(
   {
     Home: {
-      navigationOptions: {
-        header: <BasicHeader title="Home" />,
-      },
       screen: HomeScreen,
     },
   },

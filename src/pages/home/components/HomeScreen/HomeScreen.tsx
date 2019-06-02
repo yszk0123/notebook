@@ -1,7 +1,8 @@
-import { Button, Container, ListItem, Text, View } from 'native-base';
+import { Button, Container, Content, ListItem, Text, View } from 'native-base';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { LoadingPage } from '../../../../components/LoadingPage';
+import { LogoutHeader } from '../../../../components/LogoutHeader';
 import { useHomeScreen } from './HomeScreenHook';
 
 interface Props {}
@@ -15,7 +16,8 @@ export const HomeScreen: React.FunctionComponent<Props> = () => {
 
   return (
     <Container>
-      <View style={styles.wrapper}>
+      <LogoutHeader title="Home" />
+      <Content contentContainerStyle={styles.wrapper}>
         <Text>Count: {count}</Text>
         <View style={styles.control}>
           <Button style={styles.button} onPress={onIncrement}>
@@ -34,7 +36,7 @@ export const HomeScreen: React.FunctionComponent<Props> = () => {
             );
           })}
         </ScrollView>
-      </View>
+      </Content>
     </Container>
   );
 };

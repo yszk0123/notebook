@@ -1,0 +1,7 @@
+query NoteScreen {
+  notes {
+    id
+    text
+    createdAt
+  }
+}

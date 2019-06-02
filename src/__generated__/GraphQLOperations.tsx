@@ -980,10 +980,18 @@ export type UpdateCounterMutation = { __typename?: 'mutation_root' } & {
   >;
 };
 
+export type NoteEditScreenQueryVariables = {
+  id: Scalars['Int'];
+};
+
+export type NoteEditScreenQuery = { __typename?: 'query_root' } & {
+  notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text' | 'createdAt'>>;
+};
+
 export type NoteScreenQueryVariables = {};
 
 export type NoteScreenQuery = { __typename?: 'query_root' } & {
-  notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+  notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text' | 'createdAt'>>;
 };
 
 export type UpdateNoteMutationVariables = {
@@ -994,7 +1002,7 @@ export type UpdateNoteMutationVariables = {
 export type UpdateNoteMutation = { __typename?: 'mutation_root' } & {
   update_notes: Maybe<
     { __typename?: 'notes_mutation_response' } & {
-      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text' | 'createdAt'>>;
     }
   >;
 };
@@ -1006,7 +1014,7 @@ export type InsertNoteMutationVariables = {
 export type InsertNoteMutation = { __typename?: 'mutation_root' } & {
   insert_notes: Maybe<
     { __typename?: 'notes_mutation_response' } & {
-      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text'>>;
+      returning: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text' | 'createdAt'>>;
     }
   >;
 };
@@ -1088,11 +1096,30 @@ export function useUpdateCounterMutation(
     baseOptions,
   );
 }
+export const NoteEditScreenDocument = gql`
+  query NoteEditScreen($id: Int!) {
+    notes(where: { id: { _eq: $id } }) {
+      id
+      text
+      createdAt
+    }
+  }
+`;
+
+export function useNoteEditScreenQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<NoteEditScreenQueryVariables>,
+) {
+  return ReactApolloHooks.useQuery<NoteEditScreenQuery, NoteEditScreenQueryVariables>(
+    NoteEditScreenDocument,
+    baseOptions,
+  );
+}
 export const NoteScreenDocument = gql`
   query NoteScreen {
     notes {
       id
       text
+      createdAt
     }
   }
 `;
@@ -1111,6 +1138,7 @@ export const UpdateNoteDocument = gql`
       returning {
         id
         text
+        createdAt
       }
     }
   }
@@ -1137,6 +1165,7 @@ export const InsertNoteDocument = gql`
       returning {
         id
         text
+        createdAt
       }
     }
   }
