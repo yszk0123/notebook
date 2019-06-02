@@ -67,7 +67,6 @@
     "immutability-helper": "^3.0.0",
     "lodash": "^4.17.11",
     "native-base": "^2.12.1",
-    "option-t": "^18.0.1",
     "react": "^16.8.6",
     "react-apollo": "^2.5.6",
     "react-apollo-hooks": "^0.4.5",

@@ -8765,11 +8765,6 @@ optimize-css-assets-webpack-plugin@^5.0.1:
     cssnano "^4.1.0"
     last-call-webpack-plugin "^3.0.0"
 
-option-t@^18.0.1:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/option-t/-/option-t-18.2.0.tgz#f360b193aa08dc310b8a70d091428ef8d6c751e3"
-  integrity sha512-TuolN/yEecL2mxlbJCQtebmXdm3+BhVkSJEHVmJC2TcQIB8GhmB5B0Ib17hCHPHDidxmB4ga7VtfBK2ZV6GTrA==
-
 options@>=0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/options/-/options-0.0.6.tgz#ec22d312806bb53e731773e7cdaefcf1c643128f"
