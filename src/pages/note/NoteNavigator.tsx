@@ -11,6 +11,7 @@ export const NoteNavigator = createStackNavigator(
       },
       screen: NoteScreen,
     },
+    NoteEdit: {},
   },
   {
     initialRouteName: 'Note',
