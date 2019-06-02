@@ -1,8 +1,8 @@
 import { Button, Container, Content, ListItem, Text, View } from 'native-base';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { BasicHeader } from '../../../../components/BasicHeader';
 import { LoadingPage } from '../../../../components/LoadingPage';
+import { LogoutHeader } from '../../../../components/LogoutHeader';
 import { useHomeScreen } from './HomeScreenHook';
 
 interface Props {}
@@ -16,7 +16,7 @@ export const HomeScreen: React.FunctionComponent<Props> = () => {
 
   return (
     <Container>
-      <BasicHeader title="Home" />
+      <LogoutHeader title="Home" />
       <Content contentContainerStyle={styles.wrapper}>
         <Text>Count: {count}</Text>
         <View style={styles.control}>

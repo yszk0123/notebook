@@ -1,8 +1,8 @@
 import { Container, Content, ListItem, Text } from 'native-base';
 import React from 'react';
 import { isNull } from '../../../../application/utils/Maybe';
-import { BasicHeader } from '../../../../components/BasicHeader';
 import { LoadingPage } from '../../../../components/LoadingPage';
+import { LogoutHeader } from '../../../../components/LogoutHeader';
 import { useProfileScreen } from './ProfileScreenHook';
 
 interface Props {}
@@ -20,7 +20,7 @@ export const ProfileScreen: React.FunctionComponent<Props> = () => {
 
   return (
     <Container>
-      <BasicHeader title="Profile" />
+      <LogoutHeader title="Profile" />
       <Content>
         <ListItem>
           <Text>ID: </Text>
