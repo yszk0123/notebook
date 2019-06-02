@@ -980,6 +980,14 @@ export type UpdateCounterMutation = { __typename?: 'mutation_root' } & {
   >;
 };
 
+export type NoteEditScreenQueryVariables = {
+  id: Scalars['Int'];
+};
+
+export type NoteEditScreenQuery = { __typename?: 'query_root' } & {
+  notes: Array<{ __typename?: 'notes' } & Pick<Notes, 'id' | 'text' | 'createdAt'>>;
+};
+
 export type NoteScreenQueryVariables = {};
 
 export type NoteScreenQuery = { __typename?: 'query_root' } & {
@@ -1085,6 +1093,24 @@ export function useUpdateCounterMutation(
 ) {
   return ReactApolloHooks.useMutation<UpdateCounterMutation, UpdateCounterMutationVariables>(
     UpdateCounterDocument,
+    baseOptions,
+  );
+}
+export const NoteEditScreenDocument = gql`
+  query NoteEditScreen($id: Int!) {
+    notes(where: { id: { _eq: $id } }) {
+      id
+      text
+      createdAt
+    }
+  }
+`;
+
+export function useNoteEditScreenQuery(
+  baseOptions?: ReactApolloHooks.QueryHookOptions<NoteEditScreenQueryVariables>,
+) {
+  return ReactApolloHooks.useQuery<NoteEditScreenQuery, NoteEditScreenQueryVariables>(
+    NoteEditScreenDocument,
     baseOptions,
   );
 }

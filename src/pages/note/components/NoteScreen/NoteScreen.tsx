@@ -1,6 +1,7 @@
-import { Body, Button, Container, Icon, ListItem, Right, Text } from 'native-base';
+import { Container, Icon, ListItem, Text } from 'native-base';
 import React from 'react';
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
 import { LoadingPage } from '../../../../components/LoadingPage';
@@ -12,19 +13,12 @@ export const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) =
   <Icon fontSize={defaultTheme.fontSize[FontSize.LARGE]} name={name} />
 );
 
-interface Props {}
+interface Props {
+  navigation: NavigationScreenProp<NavigationState>;
+}
 
-export const NoteScreen: React.FunctionComponent<Props> = () => {
-  const {
-    loading,
-    notes,
-    onChangeText,
-    onDelete,
-    onInsert,
-    onSelectItem,
-    onUpdate,
-    text,
-  } = useNoteScreen();
+export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
+  const { loading, notes, onEdit } = useNoteScreen(navigation);
 
   if (loading) {
     return <LoadingPage />;
@@ -39,39 +33,14 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
         renderItem={({ item: note }) => {
           return (
             <ListItem>
-              <Body>
-                <TouchableOpacity onPress={() => onSelectItem(note.id)}>
-                  <Text>{note.text}</Text>
-                  <Text note>{note.createdAt}</Text>
-                </TouchableOpacity>
-              </Body>
-              <Right>
-                <Button light onPress={() => onUpdate(note.id)}>
-                  <Text>Update</Text>
-                </Button>
-                <Button danger onPress={() => onDelete(note.id)}>
-                  <Text>Delete</Text>
-                </Button>
-              </Right>
+              <TouchableOpacity onPress={() => onEdit(note.id)}>
+                <Text>{note.text}</Text>
+                <Text note>{note.createdAt}</Text>
+              </TouchableOpacity>
             </ListItem>
           );
         }}
       />
-      {/* <ScrollView contentContainerStyle={styles.container}>
-        <ListItem>
-          <Left>
-            <LargeIcon name="text" />
-          </Left>
-          <Body>
-            <Textarea rowSpan={4} placeholder="New Item" value={text} onChangeText={onChangeText} />
-          </Body>
-          <Right>
-            <Button onPress={onInsert}>
-              <Text>Insert</Text>
-            </Button>
-          </Right>
-        </ListItem>
-      </ScrollView> */}
     </Container>
   );
 };
