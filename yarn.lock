@@ -918,7 +918,7 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@expo/config@^1.0.5":
+"@expo/config@1.0.5", "@expo/config@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@expo/config/-/config-1.0.5.tgz#3e1ce45a81f2e279d48b2934b320aab774191b9f"
   integrity sha512-2fY83PjSXc4oszh+mcD5iFgNVuVYEWyXczGvrrxLsfLbzKudfEm/eSbD/GVQZJ3rEbjY+o4KTiw3PIRNq5dlFw==
@@ -948,7 +948,7 @@
     lodash "^4.17.4"
     react-native-vector-icons "6.0.0"
 
-"@expo/webpack-config@^0.5.7":
+"@expo/webpack-config@0.5.7":
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/@expo/webpack-config/-/webpack-config-0.5.7.tgz#13c6c3ac75079511d7916fca3f38d9006feadb00"
   integrity sha512-twAxMHlO4dROgY7GQFZFloYmKVTAilK7G9/hLv6Qoc8qk6x5pJhO11x71SqbMzPAXIwCwoQJRG7gQKRnoxGrxw==
@@ -1169,7 +1169,7 @@
   resolved "https://registry.yarnpkg.com/@firebase/webchannel-wrapper/-/webchannel-wrapper-0.2.20.tgz#d8b25b23e532c67bd56c614025b24cb2a65e25db"
   integrity sha512-TpqR1qCn117fY4mrxSGqv/CT/iAM58sHdlS8ujj0Roa7DoleAHJzqOhNNoHCNncwvNDWcvygLsEiTBuDQZsv3A==
 
-"@graphql-codegen/cli@^1.2.0":
+"@graphql-codegen/cli@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-1.2.0.tgz#5a67c817559783c0d2e68199ab98f9003188f911"
   integrity sha512-X/CkvcEDBSmwflFg7ctFJYu/GLw6Q4XfMj3Xgqlj+tT0OV9eLZM+jW//e9T0Kan3JxcZDFBQpA0gULyIcLlWdg==
@@ -1231,7 +1231,7 @@
     import-from "3.0.0"
     tslib "1.9.3"
 
-"@graphql-codegen/typescript-operations@^1.2.0":
+"@graphql-codegen/typescript-operations@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-operations/-/typescript-operations-1.2.0.tgz#44ce7808edeab066e119358012b93ed3737f7ed3"
   integrity sha512-9HGQt/qaWkrBLPrHtAsRjLqLpFwVPJqgozP1h39l3iLXhFYlHtxcXGc6zKGqXSLHdlXFREWu6cfCeaSdYDZV8g==
@@ -1241,7 +1241,7 @@
     "@graphql-codegen/visitor-plugin-common" "1.2.0"
     tslib "1.9.3"
 
-"@graphql-codegen/typescript-react-apollo@^1.2.0":
+"@graphql-codegen/typescript-react-apollo@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-react-apollo/-/typescript-react-apollo-1.2.0.tgz#dd6bb04b9f2e66819e8bed12b4e0131228a42c83"
   integrity sha512-iFp0jm3q6onapgfzLhoM1Mswj6ltNq4r/UXGhmcefwiTs/mH/fP5D7bOQuCY3At3EWEKXUzpsXjzLeYvLwB99A==
@@ -1250,7 +1250,7 @@
     "@graphql-codegen/visitor-plugin-common" "1.2.0"
     tslib "1.9.3"
 
-"@graphql-codegen/typescript-resolvers@^1.2.0":
+"@graphql-codegen/typescript-resolvers@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-resolvers/-/typescript-resolvers-1.2.0.tgz#1beaff08c91cc5f3639e9be70fcebd77d391f7df"
   integrity sha512-VMFZWU3IopqJ62gmQ/c8POlkTxoYn8DvMTe9wl7Hrj0kHvsvNimyPukNoHmyq3wkcl2arYd6Mjpaw8Z3xEcXTQ==
@@ -1260,7 +1260,7 @@
     "@graphql-codegen/visitor-plugin-common" "1.2.0"
     tslib "1.9.3"
 
-"@graphql-codegen/typescript@1.2.0", "@graphql-codegen/typescript@^1.2.0":
+"@graphql-codegen/typescript@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript/-/typescript-1.2.0.tgz#c336394c175aebbde47dc8b9709e0a4d2adb8153"
   integrity sha512-jX4SRMc+n0Spg9NwcoxHkBc9NxGzGVxh0qlQ5EENKWUWebIG2sYEEXyMe2he8J6hd7yO+Np1raLQ/u7oK+Oykg==
@@ -1654,7 +1654,7 @@
   resolved "https://registry.yarnpkg.com/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
   integrity sha1-jtIE2g9U6cjq7DGx7skeJRMtCCw=
 
-"@types/graphql@^14.2.0":
+"@types/graphql@14.2.0":
   version "14.2.0"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.2.0.tgz#74e1da5f2a4a744ac6eb3ed57b48242ea9367202"
   integrity sha512-lELg5m6eBOmATWyCZl8qULEOvnPIUG6B443yXKj930glXIgwQirIBPp5rthP2amJW0YSzUg2s5sfgba4mRRCNw==
@@ -1756,7 +1756,7 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
-"@types/react-native@^0.57.60":
+"@types/react-native@0.57.60":
   version "0.57.60"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.60.tgz#61e97a84e2f64ed971e7d238bb30cec188898235"
   integrity sha512-zObrnRsCbpM7qDm97d8+5qiSIMMYRaWgpqu6orjbjzLUAcJaKnpBMXgW6bRXWkFBjHgm3hjDAdVVGMWlrYJBdw==
@@ -1764,7 +1764,7 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
-"@types/react-navigation@^3.0.7":
+"@types/react-navigation@3.0.7":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@types/react-navigation/-/react-navigation-3.0.7.tgz#5d327b00de2bb58203977002c3ea21302da72034"
   integrity sha512-JFsNeCAQEQGTpObiD1QczDyCyQkFBaQA/F85Fo2W8QML1b6UNYHlUDtEYJA6jcfXqPoL15dVPBVj9NBJlHToqA==
@@ -1772,7 +1772,7 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
-"@types/react-test-renderer@^16.8.1":
+"@types/react-test-renderer@16.8.1":
   version "16.8.1"
   resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.8.1.tgz#96f3ce45a3a41c94eca532a99103dd3042c9d055"
   integrity sha512-8gU69ELfJGxzVWVYj4MTtuHxz9nO+d175XeQ1XrXXxesUBsB4KK6OCfzVhEX6leZWWBDVtMJXp/rUjhClzL7gw==
@@ -1787,7 +1787,7 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@^16.8.19":
+"@types/react@16.8.19":
   version "16.8.19"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.19.tgz#629154ef05e2e1985cdde94477deefd823ad9be3"
   integrity sha512-QzEzjrd1zFzY9cDlbIiFvdr+YUmefuuRYrPxmkwG0UQv5XF35gFIi7a95m1bNVcFU0VimxSZ5QVGSiBmlggQXQ==
@@ -2850,7 +2850,7 @@ babel-plugin-transform-flow-strip-types@^6.8.0:
     babel-plugin-syntax-flow "^6.18.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-inline-environment-variables@^0.4.3:
+babel-plugin-transform-inline-environment-variables@0.4.3:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-inline-environment-variables/-/babel-plugin-transform-inline-environment-variables-0.4.3.tgz#a3b09883353be8b5e2336e3ff1ef8a5d93f9c489"
   integrity sha1-o7CYgzU76LXiM24/8e+KXZP5xIk=
@@ -2887,7 +2887,7 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-preset-expo@^5.0.0, babel-preset-expo@^5.1.1:
+babel-preset-expo@5.1.1, babel-preset-expo@^5.0.0, babel-preset-expo@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/babel-preset-expo/-/babel-preset-expo-5.1.1.tgz#2fb9e14013ee872b1716d857e3c583981a47e3b9"
   integrity sha512-aboINGtepZW4s5IKu9dpNY7RUzTlM4S55xw2cuQ39DiEWY1fr8TsbLyK4lMC5LXrGhoTGypnn85/Y4yPEdnK5g==
