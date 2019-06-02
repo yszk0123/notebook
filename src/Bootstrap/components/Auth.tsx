@@ -1,9 +1,10 @@
 import firebase from 'firebase/app';
 import { isNotNull, isNull, Nullable } from 'option-t/lib/Nullable';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { LoadingPage } from '../../components/LoadingPage';
 import { appConfig } from '../../config/AppConfig';
 import { firebaseConfig } from '../../config/firebaseConfig';
+import { AuthController, AuthProvider } from '../AuthContext';
 import { Apollo } from './Apollo';
 import { AuthUI } from './AuthUI';
 
@@ -22,10 +23,15 @@ async function storeToken(token: string) {
   return window.localStorage.setItem(appConfig.appTokenStorageKey, token);
 }
 
+async function clearToken() {
+  return window.localStorage.removeItem(appConfig.appTokenStorageKey);
+}
+
 function useAuth(): {
   firebaseApp: Nullable<firebase.app.App>;
   token: Nullable<string>;
   loginStatus: LoginStatus;
+  authController: AuthController;
 } {
   const [token, setToken] = useState<Nullable<string>>(null);
   const [loginStatus, setLoginStatus] = useState(LoginStatus.START);
@@ -65,13 +71,23 @@ function useAuth(): {
     doLogin();
   }, []);
 
-  return { firebaseApp, token, loginStatus };
+  const authController: AuthController = useMemo(() => {
+    return {
+      logout() {
+        clearToken();
+        setToken(null);
+        setLoginStatus(LoginStatus.PROGRESS);
+      },
+    };
+  }, []);
+
+  return { firebaseApp, token, loginStatus, authController };
 }
 
 type Props = {};
 
 export const Auth: React.FunctionComponent<Props> = ({ children }) => {
-  const { firebaseApp, token, loginStatus } = useAuth();
+  const { firebaseApp, token, loginStatus, authController } = useAuth();
 
   if (loginStatus === LoginStatus.START) {
     return <LoadingPage />;
@@ -81,5 +97,9 @@ export const Auth: React.FunctionComponent<Props> = ({ children }) => {
     return <AuthUI firebaseApp={firebaseApp} />;
   }
 
-  return <Apollo token={token}>{children}</Apollo>;
+  return (
+    <AuthProvider value={authController}>
+      <Apollo token={token}>{children}</Apollo>;
+    </AuthProvider>
+  );
 };

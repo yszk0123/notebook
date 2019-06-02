@@ -7,7 +7,7 @@ export const NoteNavigator = createStackNavigator(
   {
     Note: {
       navigationOptions: {
-        header: () => <BasicHeader title="Note" />,
+        header: <BasicHeader title="Note" />,
       },
       screen: NoteScreen,
     },

@@ -1,5 +1,5 @@
 import { Nullable } from 'option-t/lib/Nullable';
-import { ProfileScreenQuery, useProfileScreenQuery } from '../../../GraphQLType';
+import { GetProp, ProfileScreenQuery, useProfileScreenQuery } from '../../../GraphQLType';
 
 interface Props {
   loading: boolean;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 // FIXME: Remove (#54)
-type Profile = NonNullable<ProfileScreenQuery['profile']>[0];
+type Profile = GetProp<ProfileScreenQuery, 'profile', 0>;
 const loadingProfiles: Profile[] = [];
 
 export function useProfileScreen(): Props {
