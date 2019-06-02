@@ -1,10 +1,12 @@
 import { Body, Button, Container, Icon, Left, ListItem, Right, Text, Textarea } from 'native-base';
 import React from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
 import { LoadingPage } from '../../../../components/LoadingPage';
 import { useNoteScreen } from './NoteScreenHook';
+
+const PADDING_BOTTOM = 200;
 
 const LargeIcon: React.FunctionComponent<{ name: string }> = ({ name }) => (
   <Icon fontSize={defaultTheme.fontSize[FontSize.LARGE]} name={name} />
@@ -30,7 +32,7 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
 
   return (
     <Container>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.container}>
         {notes.map(note => {
           return (
             <ListItem key={note.id}>
@@ -67,3 +69,9 @@ export const NoteScreen: React.FunctionComponent<Props> = () => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingBottom: PADDING_BOTTOM,
+  },
+});
