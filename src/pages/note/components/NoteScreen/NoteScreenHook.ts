@@ -86,7 +86,9 @@ export function useNoteScreen(): Props {
 
   const onDelete = useCallback(
     (id: number) => {
-      deleteNote({ variables: { id } });
+      if (confirm('This operation cannot be undone')) {
+        deleteNote({ variables: { id } });
+      }
     },
     [deleteNote],
   );
