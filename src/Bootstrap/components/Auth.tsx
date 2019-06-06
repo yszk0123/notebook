@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Storage } from '../../application/Storage/StorageForWeb';
+import { Storage } from '../../application/Storage';
 import { isNotNull, isNull, Nullable } from '../../application/utils/Maybe';
 import { LoadingPage } from '../../components/LoadingPage';
 import { appConfig } from '../../config/AppConfig';

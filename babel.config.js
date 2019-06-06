@@ -15,6 +15,7 @@ module.exports = function(api) {
             'FIREBASE_MESSAGING_SENDER_ID',
             'FIREBASE_PROJECT_ID',
             'HASURA_GRAPHQL_HOST',
+            'FACEBOOK_APP_ID',
           ],
         },
       ],

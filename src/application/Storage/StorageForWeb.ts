@@ -1,7 +1,6 @@
 import { Nullable } from '../utils/Maybe';
-import { StorageInterface } from './StorageInterface';
 
-export class Storage implements StorageInterface {
+export class Storage {
   public async getItem(key: string): Promise<Nullable<string>> {
     return window.localStorage.getItem(key);
   }

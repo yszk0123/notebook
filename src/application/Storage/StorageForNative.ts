@@ -1,8 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { Nullable } from '../utils/Maybe';
-import { StorageInterface } from './StorageInterface';
 
-export class Storage implements StorageInterface {
+export class Storage {
   public async getItem(key: string): Promise<Nullable<string>> {
     return AsyncStorage.getItem(key);
   }
