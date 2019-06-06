@@ -22,7 +22,7 @@
     "generate": "graphql-codegen"
   },
   "devDependencies": {
-    "@expo/config": "^1.0.5",
+    "@expo/config": "^2.0.0",
     "@expo/webpack-config": "^0.5.7",
     "@graphql-codegen/cli": "^1.2.0",
     "@graphql-codegen/typescript": "^1.2.0",
