@@ -1,5 +1,26 @@
 version: 2
 
+aliases:
+  - &step_restore_cache
+    restore_cache:
+      name: Restore Yarn package cache
+      keys:
+        - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+  - &step_install_dependencies
+    run:
+      name: Install Node dependencies
+      command: yarn install --frozen-lockfile
+  - &step_save_cache
+    save_cache:
+      name: Save Yarn package cache
+      key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      paths:
+        - ~/.cache/yarn
+  - &step_lint
+    run:
+      name: Lint
+      command: yarn lint
+
 jobs:
   build:
     working_directory: ~/notebook
@@ -18,25 +39,10 @@ jobs:
 
     steps:
       - checkout
-
-      - restore_cache:
-          name: Restore Yarn package cache
-          keys:
-            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-
-      - run:
-          name: Install Node dependencies
-          command: yarn install --frozen-lockfile
-
-      - save_cache:
-          name: Save Yarn package cache
-          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
-      - run:
-          name: Lint
-          command: yarn lint
+      - *step_restore_cache
+      - *step_install_dependencies
+      - *step_save_cache
+      - *step_lint
 
   deploy:
     working_directory: ~/notebook
@@ -55,25 +61,10 @@ jobs:
 
     steps:
       - checkout
-
-      - restore_cache:
-          name: Restore Yarn package cache
-          keys:
-            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-
-      - run:
-          name: Install Node dependencies
-          command: yarn install --frozen-lockfile
-
-      - save_cache:
-          name: Save Yarn package cache
-          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
-      - run:
-          name: Lint
-          command: yarn lint
+      - *step_restore_cache
+      - *step_install_dependencies
+      - *step_save_cache
+      - *step_lint
 
       - run:
           name: Build
