@@ -4,9 +4,13 @@ import 'firebase/functions';
 import './src/workaroundForReactNativeWeb';
 import './src/workaroundForNativeBase';
 import './src/workaroundForExpo';
-import { AppRegistry } from 'react-native';
+import { AppRegistry, Platform } from 'react-native';
 import { App } from './src/App';
 
 AppRegistry.registerComponent('main', () => App);
+
+if (Platform.OS === 'web') {
+  AppRegistry.runApplication('main', { rootTag: document.getElementById('root') });
+}
 
 export default App;
