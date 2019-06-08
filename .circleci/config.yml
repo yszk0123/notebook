@@ -1,24 +1,5 @@
 version: 2
 
-aliases:
-  - &setup
-    - checkout
-
-    - restore_cache:
-        name: Restore Yarn package cache
-        keys:
-          - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-
-    - run:
-        name: Install Node dependencies
-        command: yarn install --frozen-lockfile
-
-    - save_cache:
-        name: Save Yarn package cache
-        key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-        paths:
-          - ~/.cache/yarn
-
 jobs:
   build:
     working_directory: ~/notebook
@@ -36,7 +17,23 @@ jobs:
         - master
 
     steps:
-      - *setup
+      - checkout
+
+      - restore_cache:
+          name: Restore Yarn package cache
+          keys:
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: Install Node dependencies
+          command: yarn install --frozen-lockfile
+
+      - save_cache:
+          name: Save Yarn package cache
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
       - run:
           name: Lint
           command: yarn lint
@@ -57,7 +54,23 @@ jobs:
         - release
 
     steps:
-      - *setup
+      - checkout
+
+      - restore_cache:
+          name: Restore Yarn package cache
+          keys:
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: Install Node dependencies
+          command: yarn install --frozen-lockfile
+
+      - save_cache:
+          name: Save Yarn package cache
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
       - run:
           name: Lint
           command: yarn lint
