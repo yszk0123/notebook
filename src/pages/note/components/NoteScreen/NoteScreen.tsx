@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Body, Button, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
 import React, { useMemo } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
@@ -50,7 +50,7 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState>;
 }
 export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
-  const { loading, notes, onEdit, onInsert } = useNoteScreen(navigation);
+  const { loading, refreshing, notes, onRefresh, onEdit, onInsert } = useNoteScreen(navigation);
 
   if (loading) {
     return <LoadingPage />;
@@ -62,6 +62,7 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
       <Content>
         <FlatList<Note>
           contentContainerStyle={styles.container}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           data={notes}
           keyExtractor={note => String(note.id)}
           renderItem={({ item: note }) => <NoteItem note={note} onEdit={onEdit} />}
