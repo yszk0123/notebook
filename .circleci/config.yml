@@ -7,33 +7,32 @@ jobs:
     docker:
       - image: node:10.15.3
         environment:
-          TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+          TZ: '/usr/share/zoneinfo/Asia/Tokyo'
           LANG: ja_JP.UTF-8
           LC_ALL: C.UTF-8
           LANGUAGE: ja_JP.UTF-8
 
     branches:
       only:
-        - master
+        - release
 
     steps:
       - checkout
 
       - restore_cache:
+          name: Restore Yarn package cache
           keys:
             - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-packages-{{ .Branch }}
-            - yarn-packages-master
-            - yarn-packages-
 
       - run:
           name: Install Node dependencies
-          command: yarn install
+          command: yarn install --frozen-lockfile
 
       - save_cache:
-          paths:
-            - node_moduels
+          name: Save Yarn package cache
           key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
       - run:
           name: Lint
