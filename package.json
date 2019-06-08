@@ -12,6 +12,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build:web": "expo build:web",
+    "app:publish": "expo publish",
     "predeploy": "rm -rf web-build && yarn build",
     "deploy": "gh-pages -m 'auto commit [ci skip]' -d web-build",
     "deploy:ci": "gh-pages -m 'auto commit [ci skip]' -d web-build --repo https://$GH_TOKEN@github.com/yszk0123/notebook.git",
