@@ -1,11 +1,12 @@
 import { format } from 'date-fns';
-import { Body, Button, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
+import { Body, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
 import React, { useMemo } from 'react';
 import { FlatList, RefreshControl, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
 import { DefaultHeader } from '../../../../components/DefaultHeader';
+import { Fab } from '../../../../components/Fab';
 import { LoadingPage } from '../../../../components/LoadingPage';
 import { RefreshButton } from '../../../../components/RefreshButton';
 import { Note, useNoteScreen } from './NoteScreenHook';
@@ -32,18 +33,6 @@ const NoteItem: React.FunctionComponent<NoteItemProps> = ({ onEdit, note }) => {
         <Text note>{createdAt}</Text>
       </Right>
     </ListItem>
-  );
-};
-
-type FabProps = {
-  name: string;
-  onPress: () => void;
-};
-const Fab: React.FunctionComponent<FabProps> = ({ name, onPress }) => {
-  return (
-    <Button rounded icon onPress={onPress} style={styles.fab}>
-      <Icon name={name} />
-    </Button>
   );
 };
 
@@ -78,10 +67,5 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     paddingBottom: PADDING_BOTTOM,
-  },
-  fab: {
-    bottom: 16,
-    position: 'absolute',
-    right: 16,
   },
 });
