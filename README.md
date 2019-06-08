@@ -13,6 +13,8 @@
 | FIREBASE_MESSAGING_SENDER_ID |  | 123 |
 | FIREBASE_APP_ID |  | xxx:xxx:xxx:xxx |
 | FACEBOOK_APP_ID |  | xxx |
+| EXPO_USERNAME | for CI | xxx |
+| EXPO_CLI_PASSWORD | for CI | xxx |
 
 ## Setup
 

@@ -1,7 +1,47 @@
 version: 2
 
+aliases:
+  - &setup
+    - checkout
+
+    - restore_cache:
+        name: Restore Yarn package cache
+        keys:
+          - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+
+    - run:
+        name: Install Node dependencies
+        command: yarn install --frozen-lockfile
+
+    - save_cache:
+        name: Save Yarn package cache
+        key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        paths:
+          - ~/.cache/yarn
+
 jobs:
   build:
+    working_directory: ~/notebook
+
+    docker:
+      - image: node:10.15.3
+        environment:
+          TZ: '/usr/share/zoneinfo/Asia/Tokyo'
+          LANG: ja_JP.UTF-8
+          LC_ALL: C.UTF-8
+          LANGUAGE: ja_JP.UTF-8
+
+    branches:
+      only:
+        - master
+
+    steps:
+      - *setup
+      - run:
+          name: Lint
+          command: yarn lint
+
+  deploy:
     working_directory: ~/notebook
 
     docker:
@@ -17,23 +57,7 @@ jobs:
         - release
 
     steps:
-      - checkout
-
-      - restore_cache:
-          name: Restore Yarn package cache
-          keys:
-            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-
-      - run:
-          name: Install Node dependencies
-          command: yarn install --frozen-lockfile
-
-      - save_cache:
-          name: Save Yarn package cache
-          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
+      - *setup
       - run:
           name: Lint
           command: yarn lint
@@ -45,3 +69,11 @@ jobs:
       - run:
           name: Deploy master branch to GitHub Pages
           command: yarn deploy:ci
+
+      - run:
+          name: Login into Expo
+          command: yarn expo login --non-interactive -u $EXPO_USERNAME
+
+      - run:
+          name: Publish to Expo
+          command: yarn expo publish --non-interactive --max-workers 1
