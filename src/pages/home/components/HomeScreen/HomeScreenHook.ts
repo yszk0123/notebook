@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import {
   GetProp,
   HomeScreenQuery,
@@ -10,8 +10,10 @@ interface Props {
   count: number;
   loading: boolean;
   notes: Note[];
-  onIncrement: () => void;
   onDecrement: () => void;
+  onIncrement: () => void;
+  onRefresh: () => void;
+  refreshing: boolean;
 }
 
 // FIXME: Remove (#54)
@@ -21,7 +23,8 @@ const loadingCounter: Counter[] = [];
 const loadingNotes: Note[] = [];
 
 export function useHomeScreen(): Props {
-  const { data, loading } = useHomeScreenQuery();
+  const { data, refetch, loading } = useHomeScreenQuery();
+  const [refreshing, setRefreshing] = useState(false);
   const counter = (data && data.counter) || loadingCounter;
   const notes = (data && data.notes) || loadingNotes;
   const count = counter.length ? counter[0].count : -1;
@@ -36,11 +39,22 @@ export function useHomeScreen(): Props {
     update({ variables: { input: { count: Math.max(count - 1, 0) } } });
   }, [update, count]);
 
+  const onRefresh = useCallback(async () => {
+    try {
+      setRefreshing(true);
+      await refetch();
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refetch]);
+
   return {
     count,
     loading,
     notes,
     onDecrement,
     onIncrement,
+    onRefresh,
+    refreshing,
   };
 }
