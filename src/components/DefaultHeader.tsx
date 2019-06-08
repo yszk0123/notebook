@@ -12,7 +12,7 @@ export const DefaultHeader: React.FunctionComponent<{
     <Header>
       <Left>
         {onPressLeftButton && leftButtonText ? (
-          <Button onPress={onPressLeftButton}>
+          <Button transparent onPress={onPressLeftButton}>
             <Text>{leftButtonText}</Text>
           </Button>
         ) : null}
@@ -22,7 +22,7 @@ export const DefaultHeader: React.FunctionComponent<{
       </Body>
       <Right>
         {onPressRightButton && rightButtonText ? (
-          <Button onPress={onPressRightButton}>
+          <Button transparent onPress={onPressRightButton}>
             <Text>{rightButtonText}</Text>
           </Button>
         ) : null}

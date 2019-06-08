@@ -1,12 +1,14 @@
 import { format } from 'date-fns';
-import { Body, Button, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
+import { Body, Container, Content, Icon, ListItem, Right, Text } from 'native-base';
 import React, { useMemo } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
 import { DefaultHeader } from '../../../../components/DefaultHeader';
+import { Fab } from '../../../../components/Fab';
 import { LoadingPage } from '../../../../components/LoadingPage';
+import { RefreshButton } from '../../../../components/RefreshButton';
 import { Note, useNoteScreen } from './NoteScreenHook';
 
 const PADDING_BOTTOM = 200;
@@ -34,23 +36,11 @@ const NoteItem: React.FunctionComponent<NoteItemProps> = ({ onEdit, note }) => {
   );
 };
 
-type FabProps = {
-  name: string;
-  onPress: () => void;
-};
-const Fab: React.FunctionComponent<FabProps> = ({ name, onPress }) => {
-  return (
-    <Button rounded icon onPress={onPress} style={styles.fab}>
-      <Icon name={name} />
-    </Button>
-  );
-};
-
 interface Props {
   navigation: NavigationScreenProp<NavigationState>;
 }
 export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
-  const { loading, notes, onEdit, onInsert } = useNoteScreen(navigation);
+  const { loading, refreshing, notes, onRefresh, onEdit, onInsert } = useNoteScreen(navigation);
 
   if (loading) {
     return <LoadingPage />;
@@ -62,11 +52,13 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
       <Content>
         <FlatList<Note>
           contentContainerStyle={styles.container}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           data={notes}
           keyExtractor={note => String(note.id)}
           renderItem={({ item: note }) => <NoteItem note={note} onEdit={onEdit} />}
         />
       </Content>
+      <RefreshButton refreshing={refreshing} onPress={onRefresh} />
       <Fab name="add" onPress={onInsert} />
     </Container>
   );
@@ -75,10 +67,5 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     paddingBottom: PADDING_BOTTOM,
-  },
-  fab: {
-    bottom: 16,
-    position: 'absolute',
-    right: 16,
   },
 });

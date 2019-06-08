@@ -3,12 +3,21 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { LoadingPage } from '../../../../components/LoadingPage';
 import { LogoutHeader } from '../../../../components/LogoutHeader';
+import { RefreshButton } from '../../../../components/RefreshButton';
 import { useHomeScreen } from './HomeScreenHook';
 
 interface Props {}
 
 export const HomeScreen: React.FunctionComponent<Props> = () => {
-  const { count, notes, loading, onIncrement, onDecrement } = useHomeScreen();
+  const {
+    count,
+    loading,
+    notes,
+    onDecrement,
+    onIncrement,
+    onRefresh,
+    refreshing,
+  } = useHomeScreen();
 
   if (loading) {
     return <LoadingPage />;
@@ -37,6 +46,7 @@ export const HomeScreen: React.FunctionComponent<Props> = () => {
           })}
         </ScrollView>
       </Content>
+      <RefreshButton refreshing={refreshing} onPress={onRefresh} />
     </Container>
   );
 };
