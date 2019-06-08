@@ -2,6 +2,10 @@
  * @see https://github.com/firebase/firebaseui-web/issues/522#issuecomment-441259412
  */
 export function isStandalone() {
+  // @ts-ignore
+  if (global.window == null) {
+    return false;
+  }
   return (
     // FIXME: `[ts] Property 'standalone' does not exist on type 'never'. [2339]`
     // @ts-ignore

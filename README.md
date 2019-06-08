@@ -12,6 +12,7 @@
 | FIREBASE_PROJECT_ID |  | xxx |
 | FIREBASE_MESSAGING_SENDER_ID |  | 123 |
 | FIREBASE_APP_ID |  | xxx:xxx:xxx:xxx |
+| FACEBOOK_APP_ID |  | xxx |
 
 ## Setup
 

@@ -1,5 +1,7 @@
 const HASURA_GRAPHQL_HOST = process.env.HASURA_GRAPHQL_HOST || '';
 
+export const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID || '';
+
 export const appConfig = {
   appTokenStorageKey: 'NOTEBOOK_APP_TOKEN',
   baseUrl: process.env.APP_BASE_URL || '',

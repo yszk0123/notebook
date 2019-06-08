@@ -1,14 +1,12 @@
 import 'firebase/app';
 import 'firebase/auth';
 import 'firebase/functions';
-import 'firebaseui/dist/firebaseui.css';
-// import 'normalize.css';
 import './src/workaroundForReactNativeWeb';
 import './src/workaroundForNativeBase';
+import './src/workaroundForExpo';
 import { AppRegistry } from 'react-native';
 import { App } from './src/App';
 
-AppRegistry.registerComponent('App', () => App);
-AppRegistry.runApplication('App', { rootTag: document.getElementById('root') });
+AppRegistry.registerComponent('main', () => App);
 
 export default App;

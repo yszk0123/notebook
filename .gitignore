@@ -1,4 +1,5 @@
 .cache/
+.expo-shared/
 .expo/*
 dist/
 node_modules/

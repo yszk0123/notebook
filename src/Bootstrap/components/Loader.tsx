@@ -1,6 +1,8 @@
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading } from 'expo';
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+// @ts-ignore
+import { loadResourcesAsync } from '../../../ResourceLoader';
 
 type Props = {};
 
@@ -30,21 +32,6 @@ export const Loader: React.FunctionComponent<Props> = ({ children }) => {
     return <View style={styles.container}>{children}</View>;
   }
 };
-
-async function loadResourcesAsync() {
-  return Promise.all([
-    Asset.loadAsync([
-      require('../../../assets/images/robot-dev.png'),
-      require('../../../assets/images/robot-prod.png'),
-    ]),
-    Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-      // This is the font that we are using for our tab bar
-      ...Icon.Ionicons.font,
-    }),
-  ]);
-}
 
 const styles = StyleSheet.create({
   container: {

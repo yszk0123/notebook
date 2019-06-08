@@ -1,34 +1,31 @@
+import { Facebook } from 'expo';
 import firebase from 'firebase/app';
-import firebaseui from 'firebaseui';
-import React, { useEffect, useRef } from 'react';
+import { Button, Container, Content, Footer, Header, Text } from 'native-base';
+import React, { useCallback } from 'react';
 import { isNull, Nullable } from '../../application/utils/Maybe';
-import { firebaseAuthUIConfig } from '../../config/firebaseAuthUIConfig';
+import { FACEBOOK_APP_ID } from '../../config/AppConfig';
 
 function useAuthUI(
   firebaseApp: Nullable<firebase.app.App>,
 ): {
-  authUIRef: React.RefObject<HTMLDivElement>;
+  onPressLogin: () => void;
 } {
-  const authUIRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
+  const onPressLogin = useCallback(async () => {
     if (isNull(firebaseApp)) {
       return;
     }
 
-    if (!authUIRef.current) {
-      return;
+    const { type, token } = await Facebook.logInWithReadPermissionsAsync(FACEBOOK_APP_ID, {
+      permissions: ['public_profile'],
+    });
+
+    if (type === 'success') {
+      const credential = firebase.auth.FacebookAuthProvider.credential(token);
+      firebase.auth().signInWithCredential(credential);
     }
-
-    const authUI = new firebaseui.auth.AuthUI(firebaseApp.auth());
-    authUI.start(authUIRef.current, firebaseAuthUIConfig);
-
-    return () => {
-      authUI.delete();
-    };
   }, [firebaseApp]);
 
-  return { authUIRef };
+  return { onPressLogin };
 }
 
 type Props = {
@@ -36,7 +33,17 @@ type Props = {
 };
 
 export const AuthUI: React.FunctionComponent<Props> = ({ firebaseApp }) => {
-  const { authUIRef } = useAuthUI(firebaseApp);
+  const { onPressLogin } = useAuthUI(firebaseApp);
 
-  return <div ref={authUIRef} />;
+  return (
+    <Container>
+      <Header />
+      <Content>
+        <Button onPress={onPressLogin}>
+          <Text>Login</Text>
+        </Button>
+      </Content>
+      <Footer />
+    </Container>
+  );
 };

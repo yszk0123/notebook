@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import React, { useEffect, useMemo, useState } from 'react';
+import { Storage } from '../../application/Storage';
 import { isNotNull, isNull, Nullable } from '../../application/utils/Maybe';
 import { LoadingPage } from '../../components/LoadingPage';
 import { appConfig } from '../../config/AppConfig';
@@ -15,16 +16,18 @@ enum LoginStatus {
   FAILURE = 'FAILURE',
 }
 
+const storage = new Storage();
+
 async function restoreToken(): Promise<Nullable<string>> {
-  return window.localStorage.getItem(appConfig.appTokenStorageKey);
+  return storage.getItem(appConfig.appTokenStorageKey);
 }
 
 async function storeToken(token: string) {
-  return window.localStorage.setItem(appConfig.appTokenStorageKey, token);
+  return storage.setItem(appConfig.appTokenStorageKey, token);
 }
 
 async function clearToken() {
-  return window.localStorage.removeItem(appConfig.appTokenStorageKey);
+  return storage.removeItem(appConfig.appTokenStorageKey);
 }
 
 function useAuth(): {
