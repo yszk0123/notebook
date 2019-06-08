@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
-import { Platform } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
+import { alert } from '../../../../application/Alert';
 import { isNotNull, Nullable } from '../../../../application/utils/Maybe';
 import { GetProp, NoteEditScreenQuery, useNoteEditScreenQuery } from '../../../../GraphQLType';
 import { NoteRoute } from '../../NoteConstant';
@@ -43,8 +43,8 @@ export function useNoteEditScreen(
   );
 
   const onPressDelete = useCallback(
-    (id: number) => {
-      if (confirmWeb('This operation cannot be undone')) {
+    async (id: number) => {
+      if (await alert('This operation cannot be undone')) {
         onDelete(id);
         navigation.navigate(NoteRoute.NOTE);
       }
@@ -67,11 +67,4 @@ export function useNoteEditScreen(
     onPressUpdate,
     text,
   };
-}
-
-function confirmWeb(message: string): boolean {
-  if (Platform.OS !== 'web') {
-    return true;
-  }
-  return confirm(message);
 }
