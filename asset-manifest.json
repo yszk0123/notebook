@@ -1,7 +1,7 @@
 {
-  "app.js": "/static/js/app.4a72cc92.chunk.js",
+  "app.js": "/static/js/app.115baae9.chunk.js",
   "runtime~app.js": "/static/js/runtime~app.a8a9905a.js",
-  "static/js/2.3162269b.chunk.js": "/static/js/2.3162269b.chunk.js",
+  "static/js/2.b2a3c0c7.chunk.js": "/static/js/2.b2a3c0c7.chunk.js",
   "fonts/AntDesign.ttf": "/./fonts/AntDesign.ttf",
   "fonts/Entypo.ttf": "/./fonts/Entypo.ttf",
   "fonts/Feather.ttf": "/./fonts/Feather.ttf",
@@ -41,15 +41,15 @@
   "favicon.ico": "/favicon.ico",
   "index.html": "/index.html",
   "manifest.json": "/manifest.json",
-  "precache-manifest.cadfeb81ac37d23abf77e6ffe64d339c.js": "/precache-manifest.cadfeb81ac37d23abf77e6ffe64d339c.js",
-  "precache-manifest.cadfeb81ac37d23abf77e6ffe64d339c.js.gz": "/precache-manifest.cadfeb81ac37d23abf77e6ffe64d339c.js.gz",
+  "precache-manifest.f6c90e570b804bcb981fed2b36a79bac.js": "/precache-manifest.f6c90e570b804bcb981fed2b36a79bac.js",
+  "precache-manifest.f6c90e570b804bcb981fed2b36a79bac.js.gz": "/precache-manifest.f6c90e570b804bcb981fed2b36a79bac.js.gz",
   "serve.json": "/serve.json",
   "service-worker.js": "/service-worker.js",
   "service-worker.js.gz": "/service-worker.js.gz",
-  "static/js/2.3162269b.chunk.js.gz": "/static/js/2.3162269b.chunk.js.gz",
-  "static/js/app.4a72cc92.chunk.js.gz": "/static/js/app.4a72cc92.chunk.js.gz",
+  "static/js/2.b2a3c0c7.chunk.js.gz": "/static/js/2.b2a3c0c7.chunk.js.gz",
+  "static/js/app.115baae9.chunk.js.gz": "/static/js/app.115baae9.chunk.js.gz",
   "static/js/runtime~app.a8a9905a.js.gz": "/static/js/runtime~app.a8a9905a.js.gz",
   "static/media/back-icon-mask.png": "/static/media/back-icon-mask.6165c9d7.png",
-  "static/media/robot-dev.png": "/static/media/robot-dev.a30cd76f.png",
-  "static/media/robot-prod.png": "/static/media/robot-prod.45a8ce76.png"
+  "static/media/robot-dev.png": "/static/media/robot-dev.f0ba441c.png",
+  "static/media/robot-prod.png": "/static/media/robot-prod.4d1c7f12.png"
 }
