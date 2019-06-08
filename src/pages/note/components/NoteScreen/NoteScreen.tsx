@@ -7,6 +7,7 @@ import { defaultTheme } from '../../../../application/theme/DefaultTheme';
 import { FontSize } from '../../../../application/theme/Theme';
 import { DefaultHeader } from '../../../../components/DefaultHeader';
 import { LoadingPage } from '../../../../components/LoadingPage';
+import { RefreshButton } from '../../../../components/RefreshButton';
 import { Note, useNoteScreen } from './NoteScreenHook';
 
 const PADDING_BOTTOM = 200;
@@ -68,6 +69,7 @@ export const NoteScreen: React.FunctionComponent<Props> = ({ navigation }) => {
           renderItem={({ item: note }) => <NoteItem note={note} onEdit={onEdit} />}
         />
       </Content>
+      <RefreshButton refreshing={refreshing} onPress={onRefresh} />
       <Fab name="add" onPress={onInsert} />
     </Container>
   );
