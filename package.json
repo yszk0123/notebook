@@ -1,0 +1,12 @@
+{
+  "name": "notebook",
+  "private": true,
+  "workspaces": [
+    "packages/client",
+    "packages/server"
+  ],
+  "scripts": {
+    "lint": "yarn workspace @notebook/client lint",
+    "test": "yarn workspace @notebook/client test"
+  }
+}
