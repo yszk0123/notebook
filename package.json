@@ -65,7 +65,7 @@
     "expo": "^33.0.3",
     "expo-asset": "^5.0.1",
     "expo-font": "^5.0.1",
-    "firebase": "^6.1.0",
+    "firebase": "^6.2.4",
     "firebaseui": "^4.0.0",
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.1",
