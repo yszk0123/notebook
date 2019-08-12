@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.2",
-    "apollo-cache-inmemory": "^1.6.1",
+    "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.2",
     "apollo-link": "^1.2.11",
     "apollo-link-http": "^1.5.14",
