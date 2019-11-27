@@ -28,7 +28,7 @@
     "@graphql-codegen/cli": "^1.2.0",
     "@graphql-codegen/typescript": "^1.2.0",
     "@graphql-codegen/typescript-operations": "^1.2.0",
-    "@graphql-codegen/typescript-react-apollo": "^1.2.0",
+    "@graphql-codegen/typescript-react-apollo": "^1.9.0",
     "@graphql-codegen/typescript-resolvers": "^1.2.0",
     "@types/graphql": "^14.2.0",
     "@types/history": "4.7.2",
