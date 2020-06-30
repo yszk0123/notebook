@@ -27,7 +27,7 @@
     "@expo/webpack-config": "^0.5.8",
     "@graphql-codegen/cli": "^1.2.0",
     "@graphql-codegen/typescript": "^1.2.0",
-    "@graphql-codegen/typescript-operations": "^1.2.0",
+    "@graphql-codegen/typescript-operations": "^1.16.0",
     "@graphql-codegen/typescript-react-apollo": "^1.2.0",
     "@graphql-codegen/typescript-resolvers": "^1.2.0",
     "@types/graphql": "^14.2.0",
